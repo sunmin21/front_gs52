@@ -4,7 +4,7 @@ import React from "react";
 const Users = React.lazy(() => import("../views/users/Users"));
 const User = React.lazy(() => import("../views/users/User"));
 
-const Conf = React.lazy(() => import("../../components/confRoom/ConfRoom"));
+const Conf = React.lazy(() => import("../../containers/ConfLayout"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },

@@ -60,7 +60,8 @@ const Widgets = React.lazy(() => import("../views/widgets/Widgets"));
 const Users = React.lazy(() => import("../views/users/Users"));
 const User = React.lazy(() => import("../views/users/User"));
 
-const Conf = React.lazy(() => import("../components/confRoom/ConfRoom"));
+//const Conf = React.lazy(() => import("../components/confRoom/ConfRoom"));
+const Conf = React.lazy(() => import("../containers/ConfLayout"));
 const test = React.lazy(() => import("../components/Test"));
 
 const routes = [
@@ -123,7 +124,7 @@ const routes = [
   { path: "/users/:id", exact: true, name: "User Details", component: User },
   
   
-  { path: "/confRoom", name: "Conf", component: Conf },
+  { path: "/conf", name: "Conf", component: Conf },
   { path: "/test", name: "test", component: test },
 ];
 
