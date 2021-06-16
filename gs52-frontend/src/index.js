@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+
 import reportWebVitals from "./reportWebVitals";
 import rootReducer from "./modules";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -10,15 +10,22 @@ import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { BrowserRouter } from "react-router-dom";
 
+// import "core-js";
+// import "./polyfill";
+// import "react-app-polyfill/ie11"; // For IE 11 support
+// import "react-app-polyfill/stable";
+
+import { icons } from "./assets/icons";
+
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
+const stores = createStore(
   rootReducer,
 
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
-
+React.icons = icons;
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={stores}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
