@@ -60,6 +60,9 @@ const Widgets = React.lazy(() => import("../views/widgets/Widgets"));
 const Users = React.lazy(() => import("../views/users/Users"));
 const User = React.lazy(() => import("../views/users/User"));
 
+const Conf = React.lazy(() => import("../components/confRoom/ConfRoom"));
+const test = React.lazy(() => import("../components/Test"));
+
 const routes = [
   { path: "/", exact: true, name: "Home" },
   { path: "/dashboard", name: "Dashboard", component: Dashboard },
@@ -118,6 +121,10 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
+  
+  
+  { path: "/confRoom", name: "Conf", component: Conf },
+  { path: "/test", name: "test", component: test },
 ];
 
 export default routes;
