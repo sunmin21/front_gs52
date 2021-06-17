@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { Component } from 'react';
+import FullCalendar from '@fullcalendar/react';
+import daygridPlugin from '@fullcalendar/daygrid';
 
 import {
     CCard,
@@ -6,21 +8,34 @@ import {
     CCardHeader,
 } from '@coreui/react'
 
-const ShowCalendar = () => {
-    const [info, setInfo] = useState(false)
-    const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
+class ShowCalendar extends Component {
     
-    return (
-        <CCard>
-            <CCardHeader>
-                공휴일 설정하기
-            </CCardHeader>
-            <CCardBody>
-                달력자리
-            </CCardBody>
-        </CCard>
-    )
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <CCard>
+                <CCardHeader>
+                    휴일 설정
+                </CCardHeader>
+                <CCardBody>
+                    <div className="mypage-body">
+                        <div className="body-wrapper box">
+                            <div className="body-info-container">
+                                <div className="calendar-wrapper">
+                                    <FullCalendar defaultView="dayGridMonth" plugins={[daygridPlugin]}
+                                        weekends={false} events={[
+                                            {title : 'test', date: '2021-05-24'}]}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </CCardBody>
+            </CCard>
+        )
+    }    
 }
 
 export default ShowCalendar

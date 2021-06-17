@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 import navigation2 from "../attendance/sidebar_nav";
-
+import Test from "../Test"
 
 const TheLayout = (props) => {
   const { location } = props;
@@ -26,6 +26,7 @@ const TheLayout = (props) => {
         <div className="c-wrapper">
           <TheHeader />
           <div className="c-body">
+            <Test></Test>
             <TheContent />
           </div>
           <TheFooter />
