@@ -3,7 +3,6 @@ import DatePicker from 'react-datepicker'
 import './SetHoliday.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
-
 import {
     CButton,
     CCard,
