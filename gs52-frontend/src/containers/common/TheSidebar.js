@@ -15,9 +15,7 @@ import {
 import CIcon from "@coreui/icons-react";
 
 // sidebar nav config
-
-import navigation from "../../pages/attendance/sidebar_nav";
-
+import navigation from "../attendance/sidebar_nav";
 const TheSidebar = ({ nav }) => {
   const dispatch = useDispatch();
 
