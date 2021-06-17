@@ -15,11 +15,12 @@ import {
 import CIcon from "@coreui/icons-react";
 
 // sidebar nav config
-import navigation from "./_nav";
+import navigation from "../../pages/attendance/sidebar_nav";
 
-const TheSidebar = () => {
+const TheSidebar = ({ nav }) => {
   const dispatch = useDispatch();
-  const show = useSelector((state) => state.sidebarShow);
+
+  const show = useSelector((state) => state.changeState.sidebarShow);
 
   return (
     <CSidebar
@@ -29,8 +30,10 @@ const TheSidebar = () => {
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
-          name="logo-negative"
-          height={35}
+          src="logo/logo3.png"
+          // name="logo-negative"
+          width={200}
+          height={50}
         />
         <CIcon
           className="c-sidebar-brand-minimized"
@@ -40,7 +43,7 @@ const TheSidebar = () => {
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement
-          items={navigation}
+          items={nav}
           components={{
             CSidebarNavDivider,
             CSidebarNavDropdown,

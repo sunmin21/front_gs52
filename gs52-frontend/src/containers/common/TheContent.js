@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { CContainer, CFade } from "@coreui/react";
 
 // routes config
-import routes from "../../routes";
+import routes from "../../route/routes";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -34,7 +34,8 @@ const TheContent = () => {
                 )
               );
             })}
-            <Redirect from="/" to="/dashboard" />
+            {/* <Redirect from="/" to="/dashboard" /> */}
+            {/* 이부분이 다시 거기로돌아가게해주는.. 그런역할.. 확인.  */}
           </Switch>
         </Suspense>
       </CContainer>
