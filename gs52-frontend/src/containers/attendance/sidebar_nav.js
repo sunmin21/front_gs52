@@ -25,7 +25,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "연차관리",
-    to: "/attendance/annualManage",
+    to: "/attendance/AnnualManagement",
     icon: "cil-happy",
   },
   {
