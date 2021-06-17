@@ -25,7 +25,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "회의실",
-    to: "/schedule/manage",
+    to: "/schedule/confRoom",
     icon: "cil-puzzle",
   },
   {

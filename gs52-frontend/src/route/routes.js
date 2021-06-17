@@ -65,7 +65,7 @@ const Users = React.lazy(() => import("../views/users/Users"));
 const User = React.lazy(() => import("../views/users/User"));
 
 //const Conf = React.lazy(() => import("../components/confRoom/ConfRoom"));
-const Conf = React.lazy(() => import("../containers/ConfLayout"));
+const Conf = React.lazy(() => import("../containers/schedule/ConfLayout"));
 const test = React.lazy(() => import("../components/Test"));
 
 const routes = [
