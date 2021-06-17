@@ -1,8 +1,8 @@
 import React from "react";
-const SetHoliday = React.lazy(() => import("../../containers/manager/holiday/SetHoliday"));
+const HolidayManagement = React.lazy(() => import("../../containers/manager/holiday/HolidayManagement"));
 
-const ScheduleRoute = [
-    { path: "/manager/setholiday", name: "휴일관리", component: SetHoliday}
+const ManagerRoute = [
+    { path: "/manager/HolidayManagement", name: "휴일관리", component: HolidayManagement },
 ];
 
-export default ScheduleRoute;
+export default ManagerRoute;
