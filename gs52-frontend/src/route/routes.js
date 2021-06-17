@@ -1,64 +1,70 @@
 import React from "react";
-
+import AttendanceRoute from "./attendance/AttendanceRoute";
+import ScheduleRoute from "./schedule/ScheduleRoute";
+import TaskRoute from "./task/TaskRoute";
 const Toaster = React.lazy(() =>
-  import("./views/notifications/toaster/Toaster")
+  import("../views/notifications/toaster/Toaster")
 );
-const Tables = React.lazy(() => import("./views/base/tables/Tables"));
+const Tables = React.lazy(() => import("../views/base/tables/Tables"));
 
 const Breadcrumbs = React.lazy(() =>
-  import("./views/base/breadcrumbs/Breadcrumbs")
+  import("../views/base/breadcrumbs/Breadcrumbs")
 );
-const Cards = React.lazy(() => import("./views/base/cards/Cards"));
-const Carousels = React.lazy(() => import("./views/base/carousels/Carousels"));
-const Collapses = React.lazy(() => import("./views/base/collapses/Collapses"));
-const BasicForms = React.lazy(() => import("./views/base/forms/BasicForms"));
+const Cards = React.lazy(() => import("../views/base/cards/Cards"));
+const Carousels = React.lazy(() => import("../views/base/carousels/Carousels"));
+const Collapses = React.lazy(() => import("../views/base/collapses/Collapses"));
+const BasicForms = React.lazy(() => import("../views/base/forms/BasicForms"));
 
 const Jumbotrons = React.lazy(() =>
-  import("./views/base/jumbotrons/Jumbotrons")
+  import("../views/base/jumbotrons/Jumbotrons")
 );
 const ListGroups = React.lazy(() =>
-  import("./views/base/list-groups/ListGroups")
+  import("../views/base/list-groups/ListGroups")
 );
-const Navbars = React.lazy(() => import("./views/base/navbars/Navbars"));
-const Navs = React.lazy(() => import("./views/base/navs/Navs"));
+const Navbars = React.lazy(() => import("../views/base/navbars/Navbars"));
+const Navs = React.lazy(() => import("../views/base/navs/Navs"));
 const Paginations = React.lazy(() =>
-  import("./views/base/paginations/Pagnations")
+  import("../views/base/paginations/Pagnations")
 );
-const Popovers = React.lazy(() => import("./views/base/popovers/Popovers"));
+const Popovers = React.lazy(() => import("../views/base/popovers/Popovers"));
 const ProgressBar = React.lazy(() =>
-  import("./views/base/progress-bar/ProgressBar")
+  import("../views/base/progress-bar/ProgressBar")
 );
-const Switches = React.lazy(() => import("./views/base/switches/Switches"));
+const Switches = React.lazy(() => import("../views/base/switches/Switches"));
 
-const Tabs = React.lazy(() => import("./views/base/tabs/Tabs"));
-const Tooltips = React.lazy(() => import("./views/base/tooltips/Tooltips"));
+const Tabs = React.lazy(() => import("../views/base/tabs/Tabs"));
+const Tooltips = React.lazy(() => import("../views/base/tooltips/Tooltips"));
 const BrandButtons = React.lazy(() =>
-  import("./views/buttons/brand-buttons/BrandButtons")
+  import("../views/buttons/brand-buttons/BrandButtons")
 );
 const ButtonDropdowns = React.lazy(() =>
-  import("./views/buttons/button-dropdowns/ButtonDropdowns")
+  import("../views/buttons/button-dropdowns/ButtonDropdowns")
 );
 const ButtonGroups = React.lazy(() =>
-  import("./views/buttons/button-groups/ButtonGroups")
+  import("../views/buttons/button-groups/ButtonGroups")
 );
-const Buttons = React.lazy(() => import("./views/buttons/buttons/Buttons"));
-const Charts = React.lazy(() => import("./views/charts/Charts"));
-const Dashboard = React.lazy(() => import("./views/dashboard/Dashboard"));
+const Buttons = React.lazy(() => import("../views/buttons/buttons/Buttons"));
+const Charts = React.lazy(() => import("../views/charts/Charts"));
+const Dashboard = React.lazy(() => import("../views/dashboard/Dashboard"));
 const CoreUIIcons = React.lazy(() =>
-  import("./views/icons/coreui-icons/CoreUIIcons")
+  import("../views/icons/coreui-icons/CoreUIIcons")
 );
-const Flags = React.lazy(() => import("./views/icons/flags/Flags"));
-const Brands = React.lazy(() => import("./views/icons/brands/Brands"));
-const Alerts = React.lazy(() => import("./views/notifications/alerts/Alerts"));
-const Badges = React.lazy(() => import("./views/notifications/badges/Badges"));
-const Modals = React.lazy(() => import("./views/notifications/modals/Modals"));
-const Colors = React.lazy(() => import("./views/theme/colors/Colors"));
+const Flags = React.lazy(() => import("../views/icons/flags/Flags"));
+const Brands = React.lazy(() => import("../views/icons/brands/Brands"));
+const Alerts = React.lazy(() => import("../views/notifications/alerts/Alerts"));
+const Badges = React.lazy(() => import("../views/notifications/badges/Badges"));
+const Modals = React.lazy(() => import("../views/notifications/modals/Modals"));
+const Colors = React.lazy(() => import("../views/theme/colors/Colors"));
 const Typography = React.lazy(() =>
-  import("./views/theme/typography/Typography")
+  import("../views/theme/typography/Typography")
 );
-const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
-const Users = React.lazy(() => import("./views/users/Users"));
-const User = React.lazy(() => import("./views/users/User"));
+const Widgets = React.lazy(() => import("../views/widgets/Widgets"));
+const Users = React.lazy(() => import("../views/users/Users"));
+const User = React.lazy(() => import("../views/users/User"));
+
+//const Conf = React.lazy(() => import("../components/confRoom/ConfRoom"));
+const Conf = React.lazy(() => import("../containers/ConfLayout"));
+const test = React.lazy(() => import("../components/Test"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -78,7 +84,11 @@ const routes = [
   { path: "/base/navs", name: "Navs", component: Navs },
   { path: "/base/paginations", name: "Paginations", component: Paginations },
   { path: "/base/popovers", name: "Popovers", component: Popovers },
-  { path: "/base/progress-bar", name: "Progress Bar", component: ProgressBar },
+  {
+    path: "/base/progress-bar",
+    name: "Progress Bar",
+    component: ProgressBar,
+  },
   { path: "/base/switches", name: "Switches", component: Switches },
   { path: "/base/tables", name: "Tables", component: Tables },
   { path: "/base/tabs", name: "Tabs", component: Tabs },
@@ -102,7 +112,11 @@ const routes = [
   },
   { path: "/charts", name: "Charts", component: Charts },
   { path: "/icons", exact: true, name: "Icons", component: CoreUIIcons },
-  { path: "/icons/coreui-icons", name: "CoreUI Icons", component: CoreUIIcons },
+  {
+    path: "/icons/coreui-icons",
+    name: "CoreUI Icons",
+    component: CoreUIIcons,
+  },
   { path: "/icons/flags", name: "Flags", component: Flags },
   { path: "/icons/brands", name: "Brands", component: Brands },
   {
@@ -118,6 +132,7 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
-];
-
+  { path: "/conf", name: "Conf", component: Conf },
+].concat(AttendanceRoute, ScheduleRoute, TaskRoute);
+console.log(routes);
 export default routes;
