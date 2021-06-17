@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import AnnualTable from "src/components/AnnualManage/AnnualTable";
-import AnnualModal from "src/components/AnnualManage/AnnualModal";
+import AnnualTable from "src/components/attendance/AnnualManagement/AnnualTable";
+import AnnualModal from "src/components/attendance/AnnualManagement/AnnualModal";
 import ComponentsTest from "../../components/Test";
 import { Home } from "../../lib/api/test";
 import { change } from "../../modules/test";
-const CotainersTest = () => {
+const AnnualManageMent = () => {
   const board = useSelector((state) => state.test.board);
   const dispatch = useDispatch();
 
@@ -24,4 +24,4 @@ const CotainersTest = () => {
   );
 };
 
-export default CotainersTest;
+export default AnnualManageMent;
