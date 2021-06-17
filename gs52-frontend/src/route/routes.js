@@ -65,7 +65,7 @@ const Users = React.lazy(() => import("../views/users/Users"));
 const User = React.lazy(() => import("../views/users/User"));
 
 
-const test = React.lazy(() => import("../components/Test"));
+const test = React.lazy(() => import("../containers/Test"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
