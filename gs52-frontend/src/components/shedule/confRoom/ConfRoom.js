@@ -16,7 +16,7 @@ export function ConfRoom() {
         events={myEventsList}
         startAccessor="start"
         endAccessor="end"
-        style={{ width: 500 }}
+        style={{ height: 500, width:1000 }}
       />
 
     </div>
