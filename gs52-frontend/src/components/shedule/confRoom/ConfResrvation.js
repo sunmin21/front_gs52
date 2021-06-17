@@ -12,7 +12,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export function ConfModal() {
   const [primary, setPrimary] = useState(false);
-  
 
   return (
     <div>
