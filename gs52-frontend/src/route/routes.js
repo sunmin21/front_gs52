@@ -134,7 +134,6 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
-  { path: "/conf", name: "Conf", component: Conf },
 ].concat(AttendanceRoute, ScheduleRoute, TaskRoute, ManageRoute);
 console.log(routes);
 export default routes;
