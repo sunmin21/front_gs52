@@ -1,6 +1,6 @@
 import React from "react";
-import {ConfRoom} from "../components/confRoom/ConfRoom.js";
-import {ConfModal} from "../components/confRoom/ConfResrvation";
+import {ConfRoom} from "../../components/shedule/confRoom/ConfRoom";
+import {ConfModal} from "../../components/shedule/confRoom/ConfResrvation";
 
 const ConfLayout = () => {
     return (
