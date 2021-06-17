@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 import navigation2 from "../attendance/sidebar_nav";
-
+import Test from "../Test";
 
 const TheLayout = (props) => {
   const { location } = props;

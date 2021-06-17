@@ -37,7 +37,6 @@ const AnnualModal = () => {
               <option value="annual">연차</option>
               <option value="halfAnnual">반차</option>
             </select>
-
             <hr />
             <h2>사유</h2>
             <textarea
@@ -46,16 +45,20 @@ const AnnualModal = () => {
               className="sapmleArea"
               placeholder="연차 신청 사유를 적어주세요."
             ></textarea>
+            <br></br>
+            <div class="container mt-4 mr-5">
+              <div class="row float-right">
+                <CButton color="secondary" onClick={() => setInfo(!info)}>
+                  취소
+                </CButton>
+                <CButton color="info" onClick={() => setInfo(!info)}>
+                  확인
+                </CButton>{" "}
+              </div>
+            </div>
           </form>
         </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setInfo(!info)}>
-            취소
-          </CButton>
-          <CButton color="info" onClick={() => setInfo(!info)}>
-            확인
-          </CButton>{" "}
-        </CModalFooter>
+        <CModalFooter></CModalFooter>
       </CModal>
     </div>
   );
