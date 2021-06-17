@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 import navigation2 from "../../pages/attendance/sidebar_nav";
-
+import ReactDynamicImport from "react-dynamic-import";
 const TheLayout = (props) => {
   const { location } = props;
   const [nav, setNav] = useState([]);
