@@ -42,7 +42,7 @@ const Modals = () => {
                                 <CModalTitle>공휴일 추가하기</CModalTitle>
                             </CModalHeader>
                             <table className="calTable">
-                                <tr><td>제목</td>
+                                <tr><td style={{textAlign:"right"}}>제목</td>
                                     <td><input type="text"></input></td>
                                 </tr>
                                 <tr><td>날짜 설정</td>
