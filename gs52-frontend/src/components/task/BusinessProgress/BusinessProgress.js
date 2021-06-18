@@ -20,8 +20,8 @@ import {
   send,
   success,
 } from "src/lib/api/task/BusinessProgress";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
+import { useCallback, useEffect, useRef, useState } from "react";
+import moment from "moment";
 const BusinessProgress = () => {
   //임의로 userid 정해줌
   const todo_EMP_ID_RECEIVCE = useRef(0); //유저아이디
@@ -92,13 +92,28 @@ const BusinessProgress = () => {
       setSuccessCount(data.length / 10 + 1);
     });
   }, []);
-  console.log(sendContents);
-  const remove = useCallback(
-    (e) => {
-      //   console.log("@@");
 
+  const todoRemove = useCallback(
+    (e) => {
       setTodoContents((contents) =>
         contents.filter((content) => {
+          if (content.id == e.target.value) {
+            console.log("안타냐?");
+
+            setSuccessContents((con) => {
+              const dat = {
+                id: content["id"],
+                보낸사람: content["보낸사람"],
+                내용: content["내용"],
+                요청날짜: content["요청날짜"],
+                완료한날짜: moment().format("YYYY-MM-DD HH:mm:ss"),
+                상태: Done[e.target.name],
+              };
+
+              return con.concat(dat);
+            });
+          }
+
           return content.id != e.target.value;
         })
       );
@@ -110,13 +125,14 @@ const BusinessProgress = () => {
     (e) => {
       doneInsert([todo_EMP_ID_RECEIVCE.current, parseInt(e.target.value), 2]);
     },
-    [todoContents, doneInsert, remove]
+    [todoContents, doneInsert, todoRemove]
   );
+
   const todoReject = useCallback(
     (e) => {
       doneInsert([todo_EMP_ID_RECEIVCE.current, parseInt(e.target.value), 1]);
     },
-    [todoContents, doneInsert, remove]
+    [todoContents, doneInsert, todoRemove]
   );
 
   if (todoContents !== null) {
@@ -148,7 +164,7 @@ const BusinessProgress = () => {
                       pageCount={Math.floor(todoCount)}
                       success={todoSucess}
                       reject={todoReject}
-                      remove={remove}
+                      remove={todoRemove}
                     ></Todo>
                   </CTabPane>
                   <CTabPane>

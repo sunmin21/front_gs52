@@ -47,8 +47,21 @@ const Send = ({ content, pageCount }) => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            Send!!
-            <small className="text-muted"> </small>
+            <div>
+              send!!
+              <CButton
+                active
+                block
+                color="dark"
+                aria-pressed="true"
+                style={{ textAlign: "center", width: "10%", float: "right" }}
+                onClick={() => {
+                  history.push("/task/schedule/create");
+                }}
+              >
+                요청하기
+              </CButton>
+            </div>
           </CCardHeader>
           <CCardBody>
             <CDataTable
@@ -70,12 +83,19 @@ const Send = ({ content, pageCount }) => {
               itemsPerPage={10}
               activePage={page}
               clickableRows
-              onRowClick={(item) =>
-                history.push(`/task/schedule/SendContent/${item.id}`)
-              }
+              // onRowClick={(item) =>
+              //   history.push(`/task/schedule/SendContent/${item.id}`)
+              // }
               scopedSlots={{
                 내용: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.내용}</td>
+                  <td
+                    style={{ textAlign: "center" }}
+                    onClick={() =>
+                      history.push(`/task/schedule/SendContent/${item.id}`)
+                    }
+                  >
+                    {item.내용}
+                  </td>
                 ),
                 보낸날짜: (item) => (
                   <td style={{ textAlign: "center" }}>{item.보낸날짜}</td>

@@ -25,7 +25,7 @@ export const success = async (user) => {
 
 export const doneInsert = async (user) => {
   const date = moment().format("YYYY-MM-DD HH:mm:ss");
-  console.log(date);
+
   const res = await client.post("/task/todo/Done", {
     todo_DONE: user[2],
     todo_INDEX: user[1],

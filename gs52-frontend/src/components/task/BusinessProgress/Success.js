@@ -74,12 +74,19 @@ const Success = ({ content, pageCount }) => {
               itemsPerPage={10}
               activePage={page}
               clickableRows
-              onRowClick={(item) =>
-                history.push(`/task/schedule/SendContent/${item.id}`)
-              }
+              // onRowClick={(item) =>
+              //   history.push(`/task/schedule/SendContent/${item.id}`)
+              // }
               scopedSlots={{
                 내용: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.내용}</td>
+                  <td
+                    style={{ textAlign: "center" }}
+                    onClick={() =>
+                      history.push(`/task/schedule/SendContent/${item.id}`)
+                    }
+                  >
+                    {item.내용}
+                  </td>
                 ),
                 요청날짜: (item) => (
                   <td style={{ textAlign: "center" }}>{item.요청날짜}</td>

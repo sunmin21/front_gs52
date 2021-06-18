@@ -114,6 +114,7 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
                       }}
                       aria-pressed="true"
                       value={item.id}
+                      name={2}
                     >
                       완료
                     </CButton>
@@ -131,6 +132,7 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
                       }}
                       aria-pressed="true"
                       value={item.id}
+                      name={1}
                     >
                       거절
                     </CButton>
