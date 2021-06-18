@@ -12,11 +12,6 @@ const AnnualManageMent = () => {
   return (
     <div class="container">
       <div class="row">
-        <div class="col">
-          <AnnualModal></AnnualModal>
-        </div>
-      </div>
-      <div class="row">
         <div class="col w-100">
           <AnnualTable></AnnualTable>
         </div>
