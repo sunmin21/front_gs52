@@ -61,7 +61,7 @@ const AddHoliday = () => {
                 </table>
                 <CModalFooter>
                     <CButton color="secondary" onClick={() => setInfo(!info)}>취소</CButton>
-                    <CButton color="info" onClick={() => console.log("dz")}>확인</CButton>
+                    <CButton color="info" onClick={() => { console.log("확인눌림"); setInfo(!info) }}>확인</CButton>
                 </CModalFooter>
             </CModal>
         </CModalBody>
