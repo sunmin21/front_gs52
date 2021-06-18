@@ -7,10 +7,13 @@ const localizer = momentLocalizer(moment);
 const myEventsList = [
   { start: new Date(), end: new Date(), title: "special event" }
 ];
-export function ConfRoom() {
+export function ConfRoom(props) {
 
   return (
     <div>
+      {/* layout(부모)에서 데이터 가져옴.  */}
+      {/* {console.log(props)} */}
+
       <Calendar
         localizer={localizer}
         events={myEventsList}
@@ -19,6 +22,8 @@ export function ConfRoom() {
         style={{ height: 500, width:1000 }}
       />
 
+      {/* 부모 컴포넌트 데이터 전달 */}
+      {/* {props.setData("sdf")} */}
     </div>
   );
 }
