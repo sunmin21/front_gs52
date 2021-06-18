@@ -2,11 +2,9 @@ import React, { useState } from "react";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 import navigation2 from "../attendance/sidebar_nav";
 
-
 const TheLayout = (props) => {
   const { location } = props;
   const [nav, setNav] = useState([]);
-  console.log("@@?");
 
   if (location.pathname === "/manager") {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));

@@ -2,7 +2,7 @@ import React from "react";
 import AttendanceRoute from "./attendance/AttendanceRoute";
 import ScheduleRoute from "./schedule/ScheduleRoute";
 import TaskRoute from "./task/TaskRoute";
-import ManageRoute from "./manager/ManageRoute"
+import ManageRoute from "./manager/ManageRoute";
 
 const Toaster = React.lazy(() =>
   import("../views/notifications/toaster/Toaster")
@@ -136,5 +136,5 @@ const routes = [
   { path: "/users/:id", exact: true, name: "User Details", component: User },
   { path: "/conf", name: "Conf", component: Conf },
 ].concat(AttendanceRoute, ScheduleRoute, TaskRoute, ManageRoute);
-console.log(routes);
+
 export default routes;

@@ -20,7 +20,7 @@ const TheSidebar = ({ nav }) => {
   const dispatch = useDispatch();
 
   const show = useSelector((state) => state.changeState.sidebarShow);
-
+  console.log("sidebar");
   return (
     <CSidebar
       show={show}

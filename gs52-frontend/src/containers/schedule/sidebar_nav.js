@@ -25,13 +25,13 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "회의실",
-    to: "/schedule/manage",
+    to: "/schedule/meetingRoom",
     icon: "cil-puzzle",
   },
   {
     _tag: "CSidebarNavItem",
     name: "팀별 인사이트",
-    to: "/schedule/manage",
+    to: "/schedule/insite",
     icon: "cil-chart-pie",
   },
 ];
