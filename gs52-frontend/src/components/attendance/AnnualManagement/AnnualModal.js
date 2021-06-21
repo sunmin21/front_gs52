@@ -7,10 +7,48 @@ import {
   CModalHeader,
   CModalTitle,
 } from "@coreui/react";
-import { DocsLink } from "src/reusable";
+import axios from "axios";
 
-const AnnualModal = () => {
+function AnnualModal({
+  dateHandle,
+  infoIndexHandle,
+  contentsHandle,
+  date,
+  infoIndex,
+  contents,
+  setInputData,
+}) {
   const [info, setInfo] = useState(false);
+  const onSubmit = () => {
+    if (
+      date == null ||
+      infoIndex == null ||
+      contents == null ||
+      infoIndex == "0"
+    ) {
+      alert("모두 입력해주세요");
+    } else {
+      axios.post("/annual/insert", {
+        vacation_EMP_ID: 54321, // 사원번호
+        vacation_ATTEND_INFO_INDEX: infoIndex,
+        vacation_DATE: date,
+        vacation_CONTENTS: contents,
+      });
+
+      setInputData((content) => {
+        console.log(content);
+        var moment = require("moment");
+        return content.concat({
+          vacation_EMP_ID: 54321, // 사원번호
+
+          연차유형: infoIndex,
+          날짜: moment(date).format("YYYY년 MM월 DD일"),
+          사유: contents,
+        });
+      });
+      setInfo(!info);
+    }
+  };
 
   return (
     <div className="modalHandler">
@@ -28,37 +66,40 @@ const AnnualModal = () => {
           <CModalTitle>연차 신청</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <form>
-            <h1>날짜</h1>
-            <input type="date"></input>
-            <hr />
-            <h2>종류</h2>
-            <select name="annual">
-              <option value="annual">연차</option>
-              <option value="halfAnnual">반차</option>
-            </select>
-
-            <hr />
-            <h2>사유</h2>
-            <textarea
-              cols="50"
-              rows="2"
-              className="sapmleArea"
-              placeholder="연차 신청 사유를 적어주세요."
-            ></textarea>
-          </form>
+          <h1>날짜</h1>
+          <input type="date" onChange={dateHandle}></input>
+          <hr />
+          <h2>종류</h2>
+          <select onChange={infoIndexHandle}>
+            <option value="0">선택</option>
+            <option value="1">연차</option>
+            <option value="2">반차</option>
+          </select>
+          <hr />
+          <h2>사유</h2>
+          <textarea
+            cols="50"
+            rows="2"
+            className="sapmleArea"
+            placeholder="연차 신청 사유를 적어주세요."
+            onChange={contentsHandle}
+          ></textarea>
+          <br></br>
+          <div class="container mt-4 mr-5">
+            <div class="row float-right">
+              <CButton color="secondary" onClick={() => setInfo(!info)}>
+                취소
+              </CButton>
+              <CButton type="submit" color="info" onClick={onSubmit}>
+                확인
+              </CButton>{" "}
+            </div>
+          </div>
         </CModalBody>
-        <CModalFooter>
-          <CButton color="secondary" onClick={() => setInfo(!info)}>
-            취소
-          </CButton>
-          <CButton color="info" onClick={() => setInfo(!info)}>
-            확인
-          </CButton>{" "}
-        </CModalFooter>
+        <CModalFooter></CModalFooter>
       </CModal>
     </div>
   );
-};
+}
 
 export default AnnualModal;

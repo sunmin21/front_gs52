@@ -12,7 +12,7 @@ import {
   CInput,
 } from "@coreui/react";
 import "react-datepicker/dist/react-datepicker.css";
-import { InsertConf } from "../../../lib/api/ConfAPI";
+import { InsertConf } from "../../../lib/api/conf/ConfAPI";
 
 export function ConfModal() {
 

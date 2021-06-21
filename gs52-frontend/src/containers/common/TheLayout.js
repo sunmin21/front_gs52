@@ -6,12 +6,10 @@ import navigation2 from "../attendance/sidebar_nav";
 const TheLayout = (props) => {
   const { location } = props;
   const [nav, setNav] = useState([]);
-  console.log("@@?");
 
   if (location.pathname === "/manager") {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/schedule") {
-    console.log("여기탓냐");
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/task") {
     import("../task/sidebar_nav").then((nav) => setNav(nav.default));
