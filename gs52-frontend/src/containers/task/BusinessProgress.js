@@ -11,9 +11,9 @@ import {
   CTabs,
 } from "@coreui/react";
 import { DocsLink } from "src/reusable";
-import Todo from "./Todo";
-import Send from "./Send";
-import Success from "./Success";
+import Todo from "../../components/task/BusinessProgress/Todo";
+import Send from "../../components/task/BusinessProgress/Send";
+import Success from "../../components/task/BusinessProgress/Success";
 import {
   todo,
   doneInsert,
@@ -24,7 +24,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import moment from "moment";
 const BusinessProgress = () => {
   //임의로 userid 정해줌
-  const todo_EMP_ID_RECEIVCE = useRef(0); //유저아이디
+  const todo_EMP_ID_RECEIVCE = useRef(2); //유저아이디
 
   //////////////////////////////////////////////
   const [todoCount, setTodoCount] = useState(0);
@@ -81,10 +81,10 @@ const BusinessProgress = () => {
           return {
             //이름내용요청날짜상태수락거절
             id: item.todo_INDEX,
-            보낸사람: item.todo_EMP_ID_RECEIVCE,
+            보낸사람: item.todo_EMP_ID_SEND,
             내용: item.todo_CONTENTS,
             요청날짜: item.todo_START_DATE,
-            완료한날짜: item.todo_END_DATE,
+            완료날짜: item.todo_END_DATE,
             상태: Done[item.todo_DONE],
           };
         })
@@ -92,21 +92,20 @@ const BusinessProgress = () => {
       setSuccessCount(data.length / 10 + 1);
     });
   }, []);
-
+  console.log(todoContents);
   const todoRemove = useCallback(
     (e) => {
       setTodoContents((contents) =>
         contents.filter((content) => {
           if (content.id == e.target.value) {
-            console.log("안타냐?");
-
+            //같으면 완료목룍에 넣어라
             setSuccessContents((con) => {
               const dat = {
                 id: content["id"],
                 보낸사람: content["보낸사람"],
                 내용: content["내용"],
                 요청날짜: content["요청날짜"],
-                완료한날짜: moment().format("YYYY-MM-DD HH:mm:ss"),
+                완료날짜: moment().format("YYYY-MM-DD HH:mm:ss"),
                 상태: Done[e.target.name],
               };
 
@@ -114,7 +113,7 @@ const BusinessProgress = () => {
             });
           }
 
-          return content.id != e.target.value;
+          return content.id != e.target.value; //todo 목록에서빼는거고
         })
       );
     },

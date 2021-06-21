@@ -61,7 +61,7 @@ const Success = ({ content, pageCount }) => {
                   _style: { width: "10%", textAlign: "center" },
                 },
                 {
-                  key: "완료한날짜",
+                  key: "완료날짜",
                   _style: { width: "10%", textAlign: "center" },
                 },
                 {
@@ -98,8 +98,8 @@ const Success = ({ content, pageCount }) => {
                     </h4>
                   </td>
                 ),
-                완료한날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.완료한날짜}</td>
+                완료날짜: (item) => (
+                  <td style={{ textAlign: "center" }}>{item.완료날짜}</td>
                 ),
               }}
             />

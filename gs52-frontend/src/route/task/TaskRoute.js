@@ -4,7 +4,7 @@ const CreateTodo = React.lazy(() =>
   import("src/components/task/BusinessProgress/CreateTodo")
 );
 const BusinessProgress = React.lazy(() =>
-  import("src/components/task/BusinessProgress/BusinessProgress")
+  import("src/containers/task/BusinessProgress")
 );
 
 const TaskRoute = [

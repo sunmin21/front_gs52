@@ -1,236 +1,40 @@
-import {
-  CBadge,
-  CButton,
-  CCardBody,
-  CCollapse,
-  CDataTable,
-} from "@coreui/react";
-import { useState } from "react";
+import { CDataTable } from "@coreui/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { userList } from "src/lib/api/auth/Emp";
+import { changeSEARCH } from "src/modules/emp";
 const Search = () => {
-  const usersData = [
-    {
-      id: 0,
-      이름: "John Doe",
-      부서: "2018/01/01",
-      팀: "Guest",
-      직급: "Pending",
-    },
-    {
-      id: 1,
-      name: "Samppa Nori",
-      registered: "2018/01/01",
-      role: "Member",
-      status: "Active",
-    },
-    {
-      id: 2,
-      name: "Estavan Lykos",
-      registered: "2018/02/01",
-      role: "Staff",
-      status: "Banned",
-    },
-    {
-      id: 3,
-      name: "Chetan Mohamed",
-      registered: "2018/02/01",
-      role: "Admin",
-      status: "Inactive",
-    },
-    {
-      id: 4,
-      name: "Derick Maximinus",
-      registered: "2018/03/01",
-      role: "Member",
-      status: "Pending",
-    },
-    {
-      id: 5,
-      name: "Friderik Dávid",
-      registered: "2018/01/21",
-      role: "Staff",
-      status: "Active",
-    },
-    {
-      id: 6,
-      name: "Yiorgos Avraamu",
-      registered: "2018/01/01",
-      role: "Member",
-      status: "Active",
-    },
-    {
-      id: 7,
-      name: "Avram Tarasios",
-      registered: "2018/02/01",
-      role: "Staff",
-      status: "Banned",
-    },
-    {
-      id: 8,
-      name: "Quintin Ed",
-      registered: "2018/02/01",
-      role: "Admin",
-      status: "Inactive",
-    },
-    {
-      id: 9,
-      name: "Enéas Kwadwo",
-      registered: "2018/03/01",
-      role: "Member",
-      status: "Pending",
-    },
-    {
-      id: 10,
-      name: "Agapetus Tadeáš",
-      registered: "2018/01/21",
-      role: "Staff",
-      status: "Active",
-    },
-    {
-      id: 11,
-      name: "Carwyn Fachtna",
-      registered: "2018/01/01",
-      role: "Member",
-      status: "Active",
-    },
-    {
-      id: 12,
-      name: "Nehemiah Tatius",
-      registered: "2018/02/01",
-      role: "Staff",
-      status: "Banned",
-    },
-    {
-      id: 13,
-      name: "Ebbe Gemariah",
-      registered: "2018/02/01",
-      role: "Admin",
-      status: "Inactive",
-    },
-    {
-      id: 14,
-      name: "Eustorgios Amulius",
-      registered: "2018/03/01",
-      role: "Member",
-      status: "Pending",
-    },
-    {
-      id: 15,
-      name: "Leopold Gáspár",
-      registered: "2018/01/21",
-      role: "Staff",
-      status: "Active",
-    },
-    {
-      id: 16,
-      name: "Pompeius René",
-      registered: "2018/01/01",
-      role: "Member",
-      status: "Active",
-    },
-    {
-      id: 17,
-      name: "Paĉjo Jadon",
-      registered: "2018/02/01",
-      role: "Staff",
-      status: "Banned",
-    },
-    {
-      id: 18,
-      name: "Micheal Mercurius",
-      registered: "2018/02/01",
-      role: "Admin",
-      status: "Inactive",
-    },
-    {
-      id: 19,
-      name: "Ganesha Dubhghall",
-      registered: "2018/03/01",
-      role: "Member",
-      status: "Pending",
-    },
-    {
-      id: 20,
-      name: "Hiroto Šimun",
-      registered: "2018/01/21",
-      role: "Staff",
-      status: "Active",
-    },
-    {
-      id: 21,
-      name: "Vishnu Serghei",
-      registered: "2018/01/01",
-      role: "Member",
-      status: "Active",
-    },
-    {
-      id: 22,
-      name: "Zbyněk Phoibos",
-      registered: "2018/02/01",
-      role: "Staff",
-      status: "Banned",
-    },
-    {
-      id: 23,
-      name: "Aulus Agmundr",
-      registered: "2018/01/01",
-      role: "Member",
-      status: "Pending",
-    },
-    {
-      id: 42,
-      name: "Ford Prefect",
-      registered: "2001/05/25",
-      role: "Alien",
-      status: "Don't panic!",
-    },
-  ];
+  //   const [userCount, setUserCount] = useState(0);
+  const [userContents, setUserContents] = useState(null);
+  const dispatch = useDispatch();
 
-  const [details, setDetails] = useState([]);
-  // const [items, setItems] = useState(usersData)
-
-  const toggleDetails = (index) => {
-    const position = details.indexOf(index);
-    let newDetails = details.slice();
-    if (position !== -1) {
-      newDetails.splice(position, 1);
-    } else {
-      newDetails = [...details, index];
-    }
-    setDetails(newDetails);
-  };
+  useEffect(() => {
+    userList().then((data) => {
+      setUserContents(
+        data.map((item) => {
+          return {
+            사원번호: item.emp_ID,
+            이름: item.emp_NAME,
+            부서: item.dept_NAME,
+            팀: item.team_NAME,
+            직책: item.position_NAME,
+          };
+        })
+      );
+    });
+  }, []);
 
   const fields = [
     { key: "이름", _style: { width: "40%", textAlign: "center" } },
     { key: "부서", _style: { width: "20%", textAlign: "center" } },
     { key: "팀", _style: { width: "20%", textAlign: "center" } },
-    { key: "직급", _style: { width: "20%", textAlign: "center" } },
-    {
-      key: "show_details",
-      label: "",
-      _style: { width: "1%" },
-      sorter: false,
-      filter: false,
-    },
-  ];
 
-  const getBadge = (status) => {
-    switch (status) {
-      case "Active":
-        return "success";
-      case "Inactive":
-        return "secondary";
-      case "Pending":
-        return "warning";
-      case "Banned":
-        return "danger";
-      default:
-        return "primary";
-    }
-  };
+    { key: "직책", _style: { width: "20%", textAlign: "center" } },
+  ];
 
   return (
     <CDataTable
-      items={usersData}
+      items={userContents}
       fields={fields}
       columnFilter
       tableFilter
@@ -240,45 +44,27 @@ const Search = () => {
       hover
       sorter
       pagination
+      border
+      clickableRows
+      onRowClick={(item) => {
+        return dispatch(
+          changeSEARCH({
+            form: "search",
+
+            사원번호: item.사원번호,
+            이름: item.이름,
+            부서: item.부서,
+            팀: item.팀,
+            직책: item.직책,
+          })
+        );
+      }}
       scopedSlots={{
-        status: (item) => (
-          <td>
-            <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
-          </td>
-        ),
-        show_details: (item, index) => {
-          return (
-            <td className="py-2">
-              <CButton
-                color="primary"
-                variant="outline"
-                shape="square"
-                size="sm"
-                onClick={() => {
-                  toggleDetails(index);
-                }}
-              >
-                {details.includes(index) ? "Hide" : "Show"}
-              </CButton>
-            </td>
-          );
-        },
-        details: (item, index) => {
-          return (
-            <CCollapse show={details.includes(index)}>
-              <CCardBody>
-                <h4>{item.username}</h4>
-                <p className="text-muted">User since: {item.registered}</p>
-                <CButton size="sm" color="info">
-                  User Settings
-                </CButton>
-                <CButton size="sm" color="danger" className="ml-1">
-                  Delete
-                </CButton>
-              </CCardBody>
-            </CCollapse>
-          );
-        },
+        이름: (item) => <td style={{ textAlign: "center" }}>{item.이름}</td>,
+        부서: (item) => <td style={{ textAlign: "center" }}>{item.부서}</td>,
+        팀: (item) => <td style={{ textAlign: "center" }}>{item.팀}</td>,
+
+        직책: (item) => <td style={{ textAlign: "center" }}>{item.직책}</td>,
       }}
     />
   );

@@ -9,7 +9,6 @@ const TheLayout = (props) => {
   if (location.pathname === "/manager") {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/schedule") {
-    console.log("여기탓냐");
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/task") {
     import("../task/sidebar_nav").then((nav) => setNav(nav.default));

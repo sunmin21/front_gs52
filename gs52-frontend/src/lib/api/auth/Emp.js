@@ -1,7 +1,6 @@
 import client from "../client";
-import moment from "moment";
 export const userList = async () => {
-  const res = await client.get("/task/todo");
+  const res = await client.get("/emp/listAll");
 
   return res.data;
 };

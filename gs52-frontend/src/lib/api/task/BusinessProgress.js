@@ -17,7 +17,7 @@ export const send = async (user) => {
 };
 export const success = async (user) => {
   const res = await client.post("/task/success", {
-    todo_EMP_ID_SEND: user,
+    todo_EMP_ID_RECEIVCE: user,
   });
 
   return res.data;
