@@ -12,7 +12,7 @@ export function InformField() {
         <div>
             <CCard>
                 <CCardHeader>
-                    회원정보입력
+                    회원정보입력rsdfsdfsdfsdfsdf
                 </CCardHeader>
                 <CCardBody>
                 <CFormGroup row>
