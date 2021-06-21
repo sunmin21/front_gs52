@@ -23,7 +23,6 @@ const TheLayout = (props) => {
         <div className="c-wrapper">
           <TheHeader />
           <div className="c-body">
-            <Test></Test>
             <TheContent />
           </div>
           <TheFooter />
