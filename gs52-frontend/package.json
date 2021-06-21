@@ -10,6 +10,9 @@
     "@coreui/react": "^3.4.6",
     "@coreui/react-chartjs": "^1.1.0",
     "@coreui/utils": "^1.3.1",
+    "@fullcalendar/core": "^5.8.0",
+    "@fullcalendar/daygrid": "^5.8.0",
+    "@fullcalendar/react": "^5.8.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -18,8 +21,13 @@
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "classnames": "^2.2.6",
     "core-js": "^3.9.1",
+    "css-loader": "^5.2.6",
     "enzyme": "^3.11.0",
+    "holiday-kr": "^0.1.5",
+    "holidayapi": "^5.0.0",
+    "holidays-kr": "^1.0.3",
     "immer": "^9.0.3",
+    "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-app-polyfill": "^2.0.0",
@@ -28,6 +36,7 @@
     "react-datepicker": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-dynamic-import": "^1.1.5",
+    "react-hook-form": "^6.8.8",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
@@ -36,6 +45,8 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.1.3",
     "sass": "^1.32.8",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -62,5 +73,10 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8081/"
+  "proxy": "http://localhost:8081/",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
 }

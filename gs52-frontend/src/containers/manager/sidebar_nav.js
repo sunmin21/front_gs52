@@ -19,7 +19,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "휴일관리",
-    to: "/manager/setholiday",
+    to: "/manager/HolidayManagement",
     icon: "cil-description",
   },
   {
