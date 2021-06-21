@@ -38,7 +38,7 @@ export function ConfModal(props) {
 	};
 
   const click = () => {
-    InsertConf(floor, room);
+    InsertConf(floor, room, date);
     setPrimary(!primary);
   };
 
@@ -48,6 +48,12 @@ export function ConfModal(props) {
       console.log("clickCheck")
     }
   }
+
+  const changeDate = e => {
+    setDate(e.target.value);
+  };
+
+    const [date,setDate] = useState(0);
 
   return (
     <div>            
@@ -117,7 +123,9 @@ export function ConfModal(props) {
                 id="date-input"
                 name="date-input"
                 placeholder="date"
+                onChange={changeDate}
               />
+              {console.log("date:::"+date)}
             </CCol>
           </CFormGroup>
 

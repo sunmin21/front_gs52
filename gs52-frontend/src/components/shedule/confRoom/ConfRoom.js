@@ -8,7 +8,7 @@ export function ConfRoom(props) {
 	const handleDateClick = (arg) => { // bind with an arrow function
 		props.setDate(arg.dateStr);
 			alert(arg.dateStr);
-		
+      
 	  }
 
   return (
@@ -18,7 +18,7 @@ export function ConfRoom(props) {
 
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin ]}
-		dateClick={handleDateClick}
+	    	dateClick={handleDateClick}
         initialView="dayGridMonth"
         weekends={false}
         events={[
