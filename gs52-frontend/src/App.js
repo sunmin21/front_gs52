@@ -9,7 +9,7 @@ const loading = (
     <div className="sk-spinner sk-spinner-pulse"></div>
   </div>
 );
-const Test = React.lazy(() => import("./pages/test"));
+// const Test = React.lazy(() => import("./pages/test"));
 function App() {
   return (
     <HashRouter>
