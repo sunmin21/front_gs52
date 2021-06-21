@@ -78,7 +78,7 @@ const Tables = () => {
         날짜: moment(rowData.vacation_DATE).format("YYYY년 MM월 DD일"),
         연차유형: rowData.vacation_ATTEND_INFO_INDEX,
         사유: rowData.vacation_CONTENTS,
-        잔여휴가: rowData.emp_VACATION,
+        잔여휴가: rowData.vacation_REMAIN,
       }));
       //inputData.concat(_inputData)
       setInputData(_inputData);
