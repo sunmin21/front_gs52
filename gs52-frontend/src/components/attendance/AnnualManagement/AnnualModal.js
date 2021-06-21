@@ -40,10 +40,10 @@ function AnnualModal({
         var moment = require("moment");
         return content.concat({
           vacation_EMP_ID: 54321, // 사원번호
-
           연차유형: infoIndex,
           날짜: moment(date).format("YYYY년 MM월 DD일"),
           사유: contents,
+          잔여휴가: 20,
         });
       });
       setInfo(!info);
