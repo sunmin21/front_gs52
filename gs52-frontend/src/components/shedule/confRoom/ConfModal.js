@@ -71,7 +71,7 @@ export function ConfModal() {
             <CCol md="3">
               
               <CFormGroup>
-               <CSelect onChange={handleFloor}>
+                <CSelect onChange={handleFloor}>
                   {FLOOR_SELECT.map((floor, idx) => {
                     return (
                       <option key={idx} value={floor} >
