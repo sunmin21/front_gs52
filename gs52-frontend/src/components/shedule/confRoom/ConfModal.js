@@ -20,9 +20,9 @@ import { InsertConf } from "../../../lib/api/conf/ConfAPI";
 
 export function ConfModal() {
 
-	const FLOOR_SELECT = ["5층", "6층"];
-	const ROOM_SELECT = ["1호", "2호"];
-	const _SELECT = ["1호", "2호"];
+	const FLOOR_SELECT = ["5", "6"];
+	const ROOM_SELECT = ["1", "2"];
+	const _SELECT = ["1", "2"];
 
 	const [primary, setPrimary] = useState(false);
   
