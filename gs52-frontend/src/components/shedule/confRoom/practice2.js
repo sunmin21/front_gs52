@@ -7,13 +7,9 @@ import {
   CModalBody,
   CModalFooter,
   CFormGroup,
-  CLabel,
   CSelect,
   CCol,
   CInput,
-  CInputGroupPrepend,
-  CInputGroupText,
-  CInputGroup,
 } from "@coreui/react";
 import "react-datepicker/dist/react-datepicker.css";
 import { InsertConf } from "../../../lib/api/ConfAPI";
@@ -22,14 +18,28 @@ export function ConfModal() {
 
 	const FLOOR_SELECT = ["5층", "6층"];
 	const ROOM_SELECT = ["1호", "2호"];
-	const _SELECT = ["1호", "2호"];
 
 	const [primary, setPrimary] = useState(false);
-  
 	const [floor, setFloor] = useState(FLOOR_SELECT[0]);
 	const [room, setRoom] = useState(ROOM_SELECT[0]);
 
 
+    //data 여러값 하나의 변수로 관리하기.
+    //초기값 세팅
+  const [insertData, setInsertData] = useState({
+    floor: '',
+    room: ''
+  });
+
+  //호출되면 기존 변수값 넣어주기
+  const onReset = () => {
+    setInsertData({
+      floor: floor,
+      room: room,
+    })
+  };
+
+    //이벤트 
 	const handleFloor = e =>{
 		setFloor(e.target.value);
 	};	
@@ -37,9 +47,12 @@ export function ConfModal() {
 		setRoom(e.target.value);
 	};
 
+
+
   const click = () => {
     InsertConf(floor, room);
     setPrimary(!primary);
+    onReset();
   };
 
   return (
@@ -71,7 +84,7 @@ export function ConfModal() {
             <CCol md="3">
               
               <CFormGroup>
-               <CSelect onChange={handleFloor}>
+               <CSelect value={floor} onChange={handleFloor}>
                   {FLOOR_SELECT.map((floor, idx) => {
                     return (
                       <option key={idx} value={floor} >
@@ -86,7 +99,7 @@ export function ConfModal() {
             </CCol>
             <CCol md="3">
               <CFormGroup>
-                <CSelect onChange={handleRoom}>
+                <CSelect value={room} onChange={handleRoom}>
                   {ROOM_SELECT.map((room, idx) => {
                     return (
                       <option key={idx} value={room}>
@@ -97,46 +110,8 @@ export function ConfModal() {
                 </CSelect>
               </CFormGroup>
             </CCol>
-
-            <CCol md="9">
-              <CInput
-                type="date"
-                id="date-input"
-                name="date-input"
-                placeholder="date"
-              />
-            </CCol>
           </CFormGroup>
 
-          <br />
-
-          <h5>상세설정</h5>
-
-          <CFormGroup row>
-            <CCol md="5">사용시간대</CCol>
-            <CCol md="3">
-              <CFormGroup>
-                <CLabel htmlFor="time"></CLabel>
-                <CSelect custom name="time" id="time">
-                  <option value="1">1호</option>
-                  <option value="2">2호</option>
-                </CSelect>
-              </CFormGroup>
-            </CCol>
-
-            <CCol md="5">일정초대</CCol>
-            <CCol md="5">
-              <div className="controls">
-                <CInputGroup className="input-prepend">
-                  <CInputGroupPrepend>
-                    <CInputGroupText>@</CInputGroupText>
-                  </CInputGroupPrepend>
-                  <CInput id="prependedInput" size="16" type="text" />
-                </CInputGroup>
-                <p className="help-block">초대 인원 선택하세요</p>
-              </div>
-            </CCol>
-          </CFormGroup>
         </CModalBody>
         <CModalFooter>
           <CButton color="primary" onClick={click}>

@@ -7,7 +7,7 @@ const localizer = momentLocalizer(moment);
 const myEventsList = [
   { start: new Date(), end: new Date(), title: "special event" }
 ];
-export function ConfRoom(props) {
+export function ConfRoom() {
 
   return (
     <div>

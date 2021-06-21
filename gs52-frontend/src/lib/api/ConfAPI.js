@@ -10,17 +10,12 @@ export const SelectConf = async () => {
   console.log(conf.data);
 };
 
-export const InsertConf = async (data) => {
-  console.log("inserrrrrr");
-  console.log("data floor"+data.floor);
-  console.log("data room"+data.room);
-
-  const floor = data.floor;
-  const room = data.room;
-  console.log("data floor"+floor);
-  console.log("data room"+room);
+export const InsertConf = async (floor, room) => {
+  console.log("Conf API inserrrrrr");
+  console.log("floor"+floor);
+  console.log("room"+room);
   
-  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:data, room_BOOK_INDEX:3})
+  // const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room})
                           // .then(function (response){
                           //   //response
                           // })
