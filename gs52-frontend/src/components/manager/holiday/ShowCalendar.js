@@ -3,27 +3,27 @@ import FullCalendar from '@fullcalendar/react';
 import daygridPlugin from '@fullcalendar/daygrid';
 import HolidayList from './HolidayApi.js';
 import axios from "axios";
-import { CCard, CCardBody, CCardHeader } from '@coreui/react'
-import { render } from '@testing-library/react';
+import { CCard, CCardBody, CCardHeader } from '@coreui/react';
 
 function ShowCalendar() {
-    
-    // const [event, setEvent] = useState({ hits: [] });
-    // useEffect(async () => {
-    //     const getHolidayEvents = await axios.get('/history/h');
-    //     setEvent(getHolidayEvents.event);
-    //     console.log(getHolidayEvents.event);
-    // }, []);
-    // state = {
-    //     data: []
-    // };
 
-    // useEffect(async () => {
-    //     await axios.get("/holiday/h").then((data) => {
-    //         console.log("@@E웅야야!!!")
-    //     })
-    // }
-
+    const [events, setEvents] = useState([]);
+    useEffect(() => {
+        fetch("/holiday/h")
+            .then((response) => response.json())
+            .then((events) => {
+                
+                setEvents(events.map((event) => {
+                    return ({
+                        id: event.holiday_INDEX,
+                        title: event.holiday_TITLE,
+                        start: event.holiday_DATE,
+                    })
+                }))
+                
+            })
+    }, [])
+   console.log("몇번")
     return (
         <CCard>
             <CCardHeader>
@@ -32,15 +32,28 @@ function ShowCalendar() {
             <CCardBody>
                 <div style={{backgroundColor:"coral"}}>
                     here is components
-                    {/* {JSON.stringify(this.state.data)} */}
+                    {
+                    // setContents((content) => {
+                    //     events.map((event) => {
+                    //         return (content.concat({
+                    //             id: event.holiday_INDEX,
+                    //             title: event.holiday_TITLE,
+                    //             start: event.holiday_DATE,
+                    //         }))
+                    //     })
+                    // }
+                    // return(<li key = { event.holiday_TITLE } > { event.holiday_TITLE }</li>)
+                    // console.log(event)
+                    }
                 </div>
                 <div className="mypage-body">
                     <div className="body-wrapper box">
                         <div className="body-info-container">
                             <div className="calendar-wrapper">
-                                <FullCalendar defaultView="dayGridMonth"
+                                <FullCalendar
+                                    defaultView="dayGridMonth"
                                     plugins={[daygridPlugin]}
-                                    events={HolidayList}
+                                    events={events}
                                 />
                             </div>
                         </div>
