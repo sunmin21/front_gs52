@@ -2,7 +2,7 @@ import React from "react";
 import AttendanceRoute from "./attendance/AttendanceRoute";
 import ScheduleRoute from "./schedule/ScheduleRoute";
 import TaskRoute from "./task/TaskRoute";
-import ManageRoute from "./manager/ManageRoute"
+import ManageRoute from "./manager/ManageRoute";
 
 const Toaster = React.lazy(() =>
   import("../views/notifications/toaster/Toaster")
@@ -64,9 +64,8 @@ const Widgets = React.lazy(() => import("../views/widgets/Widgets"));
 const Users = React.lazy(() => import("../views/users/Users"));
 const User = React.lazy(() => import("../views/users/User"));
 
-//const Conf = React.lazy(() => import("../components/confRoom/ConfRoom"));
-const Conf = React.lazy(() => import("../containers/ConfLayout"));
-const test = React.lazy(() => import("../components/Test"));
+
+const test = React.lazy(() => import("../containers/Test"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -134,7 +133,9 @@ const routes = [
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
   { path: "/users/:id", exact: true, name: "User Details", component: User },
-  { path: "/conf", name: "Conf", component: Conf },
+  
+  { path: "/test", exact: true, name: "test", component:test },
+
 ].concat(AttendanceRoute, ScheduleRoute, TaskRoute, ManageRoute);
-console.log(routes);
+
 export default routes;

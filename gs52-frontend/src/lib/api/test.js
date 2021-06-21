@@ -5,9 +5,9 @@ export const Home = async () => {
 
   const res = await client.get("/test/t");
 
-  const resa = await client.get("/annual/a");
+  const res = await client.get("/holiday/h");
   console.log(res.data);
-  console.log(resa.data);
+
 };
 
 // post로 값넘기기

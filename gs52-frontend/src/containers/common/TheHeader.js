@@ -40,7 +40,7 @@ const TheHeader = () => {
       : "responsive";
     dispatch({ type: "set", sidebarShow: val });
   };
-
+  console.log("header");
   return (
     <CHeader withSubheader>
       <CToggler
