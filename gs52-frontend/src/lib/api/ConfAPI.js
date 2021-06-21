@@ -15,17 +15,17 @@ export const InsertConf = async (floor, room) => {
   console.log("floor"+floor);
   console.log("room"+room);
   
-  // const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room})
-                          // .then(function (response){
-                          //   //response
-                          // })
-                          // .catch(function(error){
-                          //   //오류발생 시
-                          //   console.log(error);
-                          // })
-                          // .then(function(){
-                          //   //항상실행
-                          // });
+  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room})
+                          .then(function (response){
+                            //response
+                          })
+                          .catch(function(error){
+                            //오류발생 시
+                            console.log(error);
+                          })
+                          .then(function(){
+                            //항상실행
+                          });
 
 
 };
