@@ -1,8 +1,6 @@
 import React from "react";
-const HolidayManagement = React.lazy(() =>
-  import("../../containers/manager/holiday/HolidayManagement")
-);
-// const test = React.lazy(() => import("../../containers/manager/holiday/test"));
+const HolidayManagement = React.lazy(() => import("../../containers/manager/holiday/HolidayManagement"));
+const InformLayout = React.lazy(() => import("../../containers/informRegist/InformLayout"));
 
 const ManagerRoute = [
   {
@@ -10,7 +8,9 @@ const ManagerRoute = [
     name: "휴일관리",
     component: HolidayManagement,
   },
-  // { path: "/manager/test", name: "test", component:test}
+
+  { path: "/manager/informLayout", name: "informLayout", component: InformLayout}
+    // { path: "/manager/test", name: "test", component:test}
 ];
 
 export default ManagerRoute;

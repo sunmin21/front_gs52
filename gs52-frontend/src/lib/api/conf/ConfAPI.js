@@ -10,22 +10,23 @@ export const SelectConf = async () => {
   console.log(conf.data);
 };
 
-export const InsertConf = async (floor, room) => {
+export const InsertConf = async (floor, room, date) => {
   console.log("Conf API inserrrrrr");
   console.log("floor"+floor);
   console.log("room"+room);
+  console.log("date"+date);
   
-  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room})
-    .then(function (response){
-      //response
-    })
-    .catch(function(error){
-      //오류발생 시
-      console.log(error);
-    })
-    .then(function(){
-      //항상실행
-    });
+  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room, room_BOOK_DATE:date})
+                          .then(function (response){
+                            //response
+                          })
+                          .catch(function(error){
+                            //오류발생 시
+                            console.log(error);
+                          })
+                          .then(function(){
+                            //항상실행
+                          });
 
 
 };
