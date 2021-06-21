@@ -40,7 +40,7 @@ const TheHeader = () => {
       : "responsive";
     dispatch({ type: "set", sidebarShow: val });
   };
-
+  console.log("header");
   return (
     <CHeader withSubheader>
       <CToggler
@@ -68,7 +68,7 @@ const TheHeader = () => {
           <CHeaderNavLink to="/task">업무관리</CHeaderNavLink>
         </CHeaderNavItem>
         <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/users">관리자페이지</CHeaderNavLink>
+          <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const client = axios.create();
+console.log("axios");
 /*
 글로벌 설정 예시
 

@@ -5,6 +5,7 @@ export const Home = async () => {
 
   const res = await client.get("/test/t");
   console.log(res.data);
+
 };
 
 // post로 값넘기기
