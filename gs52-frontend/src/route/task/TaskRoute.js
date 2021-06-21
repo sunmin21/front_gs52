@@ -1,8 +1,6 @@
 import React from "react";
 const Dashboard = React.lazy(() => import("../../views/dashboard/Dashboard"));
-const CreateTodo = React.lazy(() =>
-  import("src/components/task/BusinessProgress/CreateTodo")
-);
+const CreateTodo = React.lazy(() => import("src/containers/task/CreateTodo"));
 const BusinessProgress = React.lazy(() =>
   import("src/containers/task/BusinessProgress")
 );

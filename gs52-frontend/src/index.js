@@ -16,12 +16,18 @@ import { BrowserRouter } from "react-router-dom";
 // import "react-app-polyfill/stable";
 
 import { icons } from "./assets/icons";
+import { createPromise } from "redux-promise-middleware";
 
+const customizedPromiseMiddleware = createPromise({
+  promiseTypeSuffixes: ["LOADING", "SUCCESS", "FAILURE"],
+});
 const sagaMiddleware = createSagaMiddleware();
 const stores = createStore(
   rootReducer,
 
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(
+    applyMiddleware(sagaMiddleware, customizedPromiseMiddleware)
+  )
 );
 React.icons = icons;
 ReactDOM.render(

@@ -9,23 +9,31 @@ import {
   CModalTitle,
 } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSEARCH } from "src/modules/emp";
+import { changeSEARCHADD, searchInit } from "src/modules/emp";
 import { changeBoard } from "src/modules/task";
 
 const AnnualModal = ({ Content, form }) => {
   const [info, setInfo] = useState(false);
+
+  const dispatch = useDispatch();
   const { search } = useSelector(({ emp }) => ({
     search: emp.search,
   }));
   const { board } = useSelector(({ task }) => ({
     board: task.board,
   }));
-
-  const dispatch = useDispatch();
+  const [check, setCheck] = useState(false);
+  useEffect(() => {
+    dispatch(searchInit());
+  }, [check]);
 
   return (
     <div className="modalHandler">
-      <CButton block color="dark" onClick={() => setInfo(!info)}>
+      <CButton
+        block
+        color="dark"
+        onClick={() => (setInfo(!info), setCheck(!check))}
+      >
         직원 검색
       </CButton>
 
@@ -34,7 +42,7 @@ const AnnualModal = ({ Content, form }) => {
           <CModalTitle>직원 검색</CModalTitle>
         </CModalHeader>
         <CModalBody>
-          <Content />
+          <Content check={check} />
         </CModalBody>
         <CModalFooter>
           <CButton
@@ -42,10 +50,10 @@ const AnnualModal = ({ Content, form }) => {
             onClick={() => (
               setInfo(!info),
               dispatch(
-                changeSEARCH({
+                changeSEARCHADD({
                   form: "search",
 
-                  사원번호: "",
+                  사원번호: [],
                   이름: "",
                   부서: "",
                   팀: "",
@@ -65,10 +73,7 @@ const AnnualModal = ({ Content, form }) => {
                   changeBoard({
                     form: form,
 
-                    사원번호: search.사원번호,
-                    이름: search.이름,
-                    요청사항: board.요청사항,
-                    첨부파일: board.첨부파일,
+                    search: search,
                   })
                 )
               );

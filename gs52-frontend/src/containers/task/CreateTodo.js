@@ -1,5 +1,6 @@
 import CIcon from "@coreui/icons-react";
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -15,12 +16,15 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
+import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "src/containers/common/UserModal";
-import { changeBoard } from "src/modules/task";
-import modalcontent from "./Search";
+import { boardSend } from "src/lib/api/task/BusinessProgress";
+import { searchInit } from "src/modules/emp";
+import { boardInit, changeBoard } from "src/modules/task";
+import modalcontent from "../../components/task/BusinessProgress/Search";
 const CreateTodo = () => {
   const { search } = useSelector(({ emp }) => ({
     search: emp.search,
@@ -28,15 +32,15 @@ const CreateTodo = () => {
   const { board } = useSelector(({ task }) => ({
     board: task.board,
   }));
-  console.log(board);
+
   const dispatch = useDispatch();
+  const [searchCheck, setSearchCheck] = useState(false);
+
+  const [boardCheck, setBoardCheck] = useState(false);
   return (
     <>
       <CCard>
-        <CCardHeader>
-          Basic Form
-          <small> Elements</small>
-        </CCardHeader>
+        <CCardHeader>요청사항</CCardHeader>
         <CCardBody>
           <CForm
             action=""
@@ -56,7 +60,14 @@ const CreateTodo = () => {
                       name="input1-group2"
                       //   placeholder="Username"
                       style={{ width: "80%" }}
-                      value={board["이름"]}
+                      value={
+                        search[0]
+                          ? search[0]["이름"] +
+                            "외 " +
+                            (search.length - 1) +
+                            "명"
+                          : ""
+                      }
                       disabled
                     />
                   </div>
@@ -76,16 +87,13 @@ const CreateTodo = () => {
                   id="textarea-input"
                   rows="9"
                   placeholder="Content..."
-                  value={board.요청사항}
+                  value={board}
                   onChange={(e) => {
                     dispatch(
                       changeBoard({
                         form: "board",
 
-                        사원번호: board.사원번호,
-                        이름: board.이름,
                         요청사항: e.target.value,
-                        첨부파일: board.첨부파일,
                       })
                     );
                   }}
@@ -93,7 +101,7 @@ const CreateTodo = () => {
               </CCol>
             </CFormGroup>
 
-            <CFormGroup row>
+            {/* <CFormGroup row>
               <CCol md="3">
                 <CLabel>Multiple File input</CLabel>
               </CCol>
@@ -120,14 +128,64 @@ const CreateTodo = () => {
                   Choose Files...
                 </CLabel>
               </CCol>
-            </CFormGroup>
+            </CFormGroup> */}
           </CForm>
         </CCardBody>
         <CCardFooter>
-          <CButton type="submit" size="sm" color="primary">
+          {searchCheck && (
+            <CAlert
+              color="danger"
+              closeButton
+              onClick={() => {
+                setSearchCheck(false);
+              }}
+            >
+              사용자를 선택해주세요
+            </CAlert>
+          )}
+          {boardCheck && (
+            <CAlert
+              color="danger"
+              closeButton
+              onClick={() => {
+                setBoardCheck(false);
+              }}
+            >
+              내용을 입력해주세요
+            </CAlert>
+          )}
+
+          <CButton
+            type="submit"
+            size="sm"
+            color="primary"
+            onClick={() => {
+              console.log(board);
+              if (search.length === 0) {
+                setSearchCheck(true);
+
+                return;
+              }
+
+              if (board === undefined) {
+                setBoardCheck(true);
+
+                return;
+              }
+              boardSend({ search, board });
+            }}
+          >
             <CIcon name="cil-scrubber" /> Submit
           </CButton>
-          <CButton type="reset" size="sm" color="danger">
+          <CButton
+            type="reset"
+            size="sm"
+            color="danger"
+            onClick={() => {
+              dispatch(searchInit());
+              dispatch(boardInit());
+            }}
+          >
             <CIcon name="cil-ban" /> Reset
           </CButton>
         </CCardFooter>

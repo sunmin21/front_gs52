@@ -22,7 +22,22 @@ export const success = async (user) => {
 
   return res.data;
 };
+export const boardSend = async ({ search, board }) => {
+  console.log(search);
 
+  console.log(board);
+  var params = new URLSearchParams();
+  params.append("board", board);
+  params.append("search", search);
+
+  const res = await client.post("/task/board", {
+    params: {
+      search,
+      board,
+    },
+  });
+  return res.data;
+};
 export const doneInsert = async (user) => {
   const date = moment().format("YYYY-MM-DD HH:mm:ss");
 
