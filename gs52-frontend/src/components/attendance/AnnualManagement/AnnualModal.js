@@ -26,21 +26,21 @@ function AnnualModal({
       contents == null ||
       infoIndex == "0"
     ) {
-      console.log("널");
       alert("모두 입력해주세요");
     } else {
-      axios.post("/annual/b", {
+      axios.post("/annual/insert", {
         vacation_EMP_ID: 54321, // 사원번호
         vacation_ATTEND_INFO_INDEX: infoIndex,
         vacation_DATE: date,
         vacation_CONTENTS: contents,
       });
+
       setInputData((content) => {
-        console.log(infoIndex);
-        console.log(date);
+        console.log(content);
         var moment = require("moment");
         return content.concat({
           vacation_EMP_ID: 54321, // 사원번호
+
           연차유형: infoIndex,
           날짜: moment(date).format("YYYY년 MM월 DD일"),
           사유: contents,
@@ -49,6 +49,7 @@ function AnnualModal({
       setInfo(!info);
     }
   };
+
   return (
     <div className="modalHandler">
       <CButton
