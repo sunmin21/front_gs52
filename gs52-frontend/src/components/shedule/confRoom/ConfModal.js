@@ -18,7 +18,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import { InsertConf } from "../../../lib/api/ConfAPI";
 
-export function ConfModal() {
+export function ConfModal(props) {
 
 	const FLOOR_SELECT = ["5", "6"];
 	const ROOM_SELECT = ["1", "2"];
@@ -42,11 +42,24 @@ export function ConfModal() {
     setPrimary(!primary);
   };
 
+  const clickCheck = () => {
+    if(props.click){
+      setPrimary(!primary)
+      console.log("clickCheck")
+    }
+  }
+
   return (
-    <div>
+    <div>            
+      {clickCheck()}
 
       <h2>회의실 예약</h2>
       <br />
+      <button 
+        onClick={() => setPrimary(!primary)}
+      >
+        추가
+      </button>
       <CButton color="primary"
         onClick={() => setPrimary(!primary)}
       >
