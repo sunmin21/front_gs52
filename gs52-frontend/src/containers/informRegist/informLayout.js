@@ -1,14 +1,14 @@
 import React,{useState} from "react";
-import informField from "../../components/informRegist/informField"
+import InformField from "../../components/informRegist/InformField"
 
-const ConfLayout = () => {
+const InformLayout = () => {
 
     return (
         <div>
-            <informField/>
+            <InformField/>
         </div>
     );
 }
 
 
-export default ConfLayout;
+export default InformLayout;

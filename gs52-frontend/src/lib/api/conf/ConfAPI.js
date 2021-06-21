@@ -16,7 +16,7 @@ export const InsertConf = async (floor, room, date) => {
   console.log("room"+room);
   console.log("date"+date);
   
-  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room})
+  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room, room_BOOK_DATE:date})
                           .then(function (response){
                             //response
                           })

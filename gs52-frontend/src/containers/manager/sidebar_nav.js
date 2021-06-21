@@ -24,8 +24,8 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
-    name: "주간업무보고",
-    to: "/task/report",
+    name: "임시_계정정보등록",
+    to: "/manager/informLayout",
     icon: "cil-Notes",
   },
 ];
