@@ -31,6 +31,12 @@ export const InsertConf = async (floor, room, date) => {
 
 };
 
+export const Select_emp = async () => {
+  console.log("이거오냐");
+  const conf = await client.get("/schedule/confRoom/select_emp");
+  console.log(conf.data);
+};
+
 
 // post로 값넘기기
 
