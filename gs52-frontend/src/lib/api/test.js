@@ -5,6 +5,9 @@ export const Home = async () => {
 
   const res = await client.get("/holiday/h");
   console.log(res.data);
+
+  // const conf = await client.get("/schedule/confRoom/select");
+  // console.log(conf.data);
 };
 
 // post로 값넘기기
