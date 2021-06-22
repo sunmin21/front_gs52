@@ -52,6 +52,7 @@ const BusinessProgress = () => {
   };
 
   useEffect(() => {
+    console.log("타냐");
     dispatch(todoAxios(todo_EMP_ID_RECEIVCE.current));
     // todo(todo_EMP_ID_RECEIVCE.current).then((data) => {
     //   dispatch(todo);
