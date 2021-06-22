@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-
 import {
     CButton,
     CCard,
@@ -9,7 +8,7 @@ import {
     CCardBody,
     CCardHeader,
     CCol,
-    Cinput,
+    CInput,
     CModal,
     CModalBody,
     CModalFooter,
@@ -27,31 +26,26 @@ function AddHoliday() {
         textAlign: "left",
         padding: "20px"
     }
-    const [info, setInfo] = useState(false)
-    const [dateRange, setDateRange] = useState([null, null]);
-    const [startDate, endDate] = dateRange;
 
-    const selectTitle = [];
-    const selectDate = [];
     const selectAnnual = [];
 
-    const [primary, setPrimary] = useState(false);
-    const [title, setTitle] = useState(selectTitle[0]);
-    const [date, setDate] = useState(selectDate[0]);
+    const [info, setInfo] = useState(false);
+    const [title, setTitle] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
     const [annual, setAnnual] = useState(selectAnnual[0]);
 
     const handleTitle = e => {
         setTitle(e.target.value);
     };
     const handleDate = e => {
-        setDate(e.target.value);
+        setStartDate(e.target.value);
     };
     const handleAnnual = e => {
         setAnnual(e.target.value);
     };
     const click = () => {
-        InsertHoliday(title, date, annual);
-        setPrimary(!primary);
+        InsertHoliday(title, startDate, annual);
+        setInfo(!info);
     }
     
     return (
@@ -67,35 +61,35 @@ function AddHoliday() {
                 <table style={{textAlign: "center", margin:"auto"}}>
                     <tr>
                         <td style={tdStyle}>제목</td>
-                        <td style={tdStyle}><input type="text"></input></td>
-                        <td>
-                            <div id="title" name="title" placeholder="제목을 입력하세요.">
-                            
-                        </div>
+                        <td style={tdStyle}>
+                                <CInput
+                                    id="title" name="title" placeholder="휴일"
+                                    onChange={handleTitle}
+                                />
                         </td>
                     </tr>
                     <tr>
                         <td style={tdStyle}>날짜 설정</td>
-                        <td style={tdStyle}><DatePicker
-                            selectsRange={true}
-                            startDate={startDate}
-                            endDate={endDate}
-                            onChange={(update) => {
-                                setDateRange(update);
-                                console.log(update)
-                            }}
-                            inline
-                        /></td>
+                        <td style={tdStyle}>
+                            <DatePicker
+                                selected={startDate}
+                                onChange={(startDate) => setStartDate(startDate)}
+                                inline
+                            />
+                        </td>
                     </tr>
                     <tr>
                         <td style={tdStyle}>매년 반복 여부</td>
-                        <td style={tdStyle}><CSwitch className={'mx-1'} variant={'3d'} color={'info'} default /></td>
+                        <td style={tdStyle}>
+                            <CSwitch 
+                            className={'mx-1'} variant={'3d'} color={'info'} default />
+                        </td>
                     </tr>
                     </table>
                     </CFormGroup>
                 <CModalFooter>
                     <CButton color="secondary" onClick={() => setInfo(!info)}>취소</CButton>
-                    <CButton color="info" onClick={() => { console.log("확인눌림"); setInfo(!info) }}>확인</CButton>
+                    <CButton color="info" onClick={click}>확인</CButton>
                 </CModalFooter>
             </CModal>
         </CModalBody>
