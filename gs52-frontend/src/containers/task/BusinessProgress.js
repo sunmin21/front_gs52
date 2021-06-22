@@ -63,6 +63,7 @@ const BusinessProgress = () => {
     send(todo_EMP_ID_RECEIVCE.current).then((data) => {
       setSendContents(
         data.map((item) => {
+          console.log(item);
           return {
             //이름내용요청날짜상태수락거절
             id: item.todo_INDEX,
@@ -91,12 +92,14 @@ const BusinessProgress = () => {
       );
       setSuccessCount(data.length / 10 + 1);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   console.log(todoContents);
   const todoRemove = useCallback(
     (e) => {
       setTodoContents((contents) =>
         contents.filter((content) => {
+          // eslint-disable-next-line eqeqeq
           if (content.id == e.target.value) {
             //같으면 완료목룍에 넣어라
             setSuccessContents((con) => {
@@ -113,6 +116,7 @@ const BusinessProgress = () => {
             });
           }
 
+          // eslint-disable-next-line eqeqeq
           return content.id != e.target.value; //todo 목록에서빼는거고
         })
       );

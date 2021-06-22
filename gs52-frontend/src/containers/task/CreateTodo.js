@@ -10,18 +10,17 @@ import {
   CForm,
   CFormGroup,
   CInput,
-  CInputFile,
   CInputGroup,
   CInputGroupPrepend,
   CLabel,
   CTextarea,
 } from "@coreui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
 import Modal from "src/containers/common/UserModal";
-import { boardSend } from "src/lib/api/task/BusinessProgress";
+import { BoardSend } from "src/lib/api/task/BusinessProgress";
 import { searchInit } from "src/modules/emp";
 import { boardInit, changeBoard } from "src/modules/task";
 import modalcontent from "../../components/task/BusinessProgress/Search";
@@ -32,6 +31,10 @@ const CreateTodo = () => {
   const { board } = useSelector(({ task }) => ({
     board: task.board,
   }));
+  const no = useRef([]);
+  no.current = search.map((content) => {
+    return content.사원번호;
+  });
 
   const dispatch = useDispatch();
   const [searchCheck, setSearchCheck] = useState(false);
@@ -160,7 +163,6 @@ const CreateTodo = () => {
             size="sm"
             color="primary"
             onClick={() => {
-              console.log(board);
               if (search.length === 0) {
                 setSearchCheck(true);
 
@@ -172,7 +174,7 @@ const CreateTodo = () => {
 
                 return;
               }
-              boardSend({ search, board });
+              BoardSend({ no, board });
             }}
           >
             <CIcon name="cil-scrubber" /> Submit

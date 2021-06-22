@@ -9,19 +9,11 @@ import {
   CHeaderNavLink,
   CSubheader,
   CBreadcrumbRouter,
-  CLink,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
 // routes config
 import routes from "../../route/routes";
-
-import {
-  TheHeaderDropdown,
-  TheHeaderDropdownMssg,
-  TheHeaderDropdownNotif,
-  TheHeaderDropdownTasks,
-} from ".";
 
 const TheHeader = () => {
   const dispatch = useDispatch();

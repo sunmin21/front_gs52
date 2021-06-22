@@ -1,16 +1,13 @@
 import { CDataTable } from "@coreui/react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userList } from "src/lib/api/auth/Emp";
 import { changeSEARCHADD, changeSEARCHSUB, userLists } from "src/modules/emp";
-import { changeBoard } from "src/modules/task";
+
 const Search = ({ check }) => {
   //   const [userCount, setUserCount] = useState(0);
   const [userContents, setUserContents] = useState([]);
   const dispatch = useDispatch();
-  const { user } = useSelector(({ emp }) => ({
-    user: emp.user,
-  }));
 
   useEffect(() => {
     userList().then((data) => {
@@ -85,7 +82,7 @@ const Search = ({ check }) => {
             });
           });
         } else {
-          for (var i = 0; i < select.length; i++) {
+          for (i = 0; i < select.length; i++) {
             select.item(i).style.background = "white"; // 선택된 모든 요소의 텍스트 색상을 변경함.
 
             select.item(i).selected = false;

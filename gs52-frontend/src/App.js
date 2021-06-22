@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
-import React, { Component } from "react";
+import React from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 import { TheLayout } from "./containers/common";
