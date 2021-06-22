@@ -28,19 +28,20 @@ export function Conf_SelectEmp(props) {
 
 	const [primary, setPrimary] = useState(false);
 
+
   const click = () => {
     setPrimary(!primary);
   };
 
   useEffect(() => {
-    console.log('props.click 값이 설정됨');
-    console.log("modal click  "+props.click);
-    console.log("modal time  "+props.time);
+    // console.log('props.click 값이 설정됨');
+    // console.log("modal click  "+props.click);
+    // console.log("modal time  "+props.time);
     
     return () => {
-      console.log('props.click 가 바뀌기 전..');
-      console.log("modal click  "+props.click);
-      console.log("modal time  "+props.time);
+    //   console.log('props.click 가 바뀌기 전..');
+    //   console.log("modal click  "+props.click);
+    //   console.log("modal time  "+props.time);
       setPrimary(!primary)
     };
   }, [props.emp_click]);

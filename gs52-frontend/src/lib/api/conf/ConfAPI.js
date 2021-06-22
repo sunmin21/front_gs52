@@ -7,16 +7,16 @@ export const SelectConf = async () => {
 
 
   const conf = await client.get("/schedule/confRoom/select");
-  console.log(conf.data);
+  return conf.data;
 };
 
-export const InsertConf = async (floor, room, date) => {
+export const InsertConf = async (floor, room, title) => {
   console.log("Conf API inserrrrrr");
-  console.log("floor"+floor);
-  console.log("room"+room);
-  console.log("date"+date);
+  console.log("floor "+floor);
+  console.log("room "+room);
+  console.log("title "+title);
   
-  const conf = await client.post("/schedule/confRoom/insert",{room_BOOK_TITLE:floor, room_BOOK_INDEX:room, room_BOOK_DATE:date})
+  const conf = await client.post("/schedule/confRoom/insert",{room_B_TITLE:title, room_B_INDEX:floor})
                           .then(function (response){
                             //response
                           })
@@ -30,6 +30,11 @@ export const InsertConf = async (floor, room, date) => {
 
 
 };
+
+
+
+
+
 
 export const Select_emp = async () => {
   console.log("이거오냐");
