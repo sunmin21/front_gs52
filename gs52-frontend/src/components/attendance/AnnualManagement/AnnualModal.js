@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CButton,
   CModal,
@@ -6,6 +6,7 @@ import {
   CModalFooter,
   CModalHeader,
   CModalTitle,
+  CAlert,
 } from "@coreui/react";
 import axios from "axios";
 
@@ -21,23 +22,31 @@ function AnnualModal({
   setRestVacation,
 }) {
   const [info, setInfo] = useState(false);
+  const [visible, setVisible] = useState(0);
+  const [alertContents, setAlertContents] = useState();
+  const moment = require("moment");
+  var nDate = new Date();
+  nDate.setDate(nDate.getDate() + 1);
+  var nowDate = moment(nDate).format("YYYY-MM-DD");
 
   const onSubmit = () => {
-    var moment = require("moment");
     var sameCount = 0;
     if (
       date == null ||
       infoIndex == null ||
       contents == null ||
+      contents == "" ||
       infoIndex == "0"
     ) {
-      alert("다시 입력해주세요");
+      setVisible(3);
+      setAlertContents("모두 입력해주세요");
     } else {
       inputData.map((rowData) => {
-        if (rowData.날짜 == moment(date).format("YYYY년 MM월 DD일")) {
+        if (rowData.날짜 == moment(date).format("YYYY-MM-DD")) {
           sameCount++;
         }
       });
+      console.log(sameCount);
       if (sameCount == 0) {
         axios.post("/annual/insert", {
           vacation_EMP_ID: 54321, // 사원번호
@@ -65,18 +74,20 @@ function AnnualModal({
             return content;
           }
         });
+
         setInputData((content) => {
           return content.concat({
             vacation_EMP_ID: 54321, // 사원번호
+            날짜: moment(date).format("YYYY-MM-DD"),
             연차유형: infoIndex == "7" ? "연차" : "반차",
-            날짜: moment(date).format("YYYY년 MM월 DD일"),
             사유: contents,
           });
         });
 
         setInfo(!info);
       } else {
-        alert("휴가를 중복 사용할 수 없습니다.");
+        setVisible(3);
+        setAlertContents("휴가를 중복 사용할 수 없습니다.");
       }
     }
   };
@@ -98,7 +109,7 @@ function AnnualModal({
         </CModalHeader>
         <CModalBody>
           <h1>날짜</h1>
-          <input type="date" onChange={dateHandle}></input>
+          <input type="date" onChange={dateHandle} min={nowDate}></input>
           <hr />
           <h2>종류</h2>
           <select onChange={infoIndexHandle}>
@@ -116,6 +127,10 @@ function AnnualModal({
             onChange={contentsHandle}
           ></textarea>
           <br></br>
+          <br></br>
+          <CAlert color="info" show={visible} fade onShowChange={setVisible}>
+            {alertContents}
+          </CAlert>
           <div class="container mt-4 mr-5">
             <div class="row float-right">
               <CButton color="secondary" onClick={() => setInfo(!info)}>
