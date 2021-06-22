@@ -7,11 +7,13 @@ export const SelectHoliday = async () => {
     console.log(holiday.data);
 };
 
-export const InsertHoliday = async (title, date) => {
-    console.log("Holiday API Insert !!");
-    console.log("title : " + title + " date : " + date);
+export const InsertHoliday = async (title, date, annual) => {
+    console.log("title : " + title + " date : " + date + " annual : " + annual);
 
-    const holiday = await client.post('/holiday/showHoliday/AddHoliday', { holiday_title: title, holiday_date: date })
+    var moment = require('moment');
+    var event = moment(date).format("YYYY-MM-DD");
+
+    const holiday = await client.post('/holiday/addHoliday', { holiday_TITLE: title, holiday_DATE: event, holiday_ANNUAL_REPEAT: annual })
     .then(function (response) {
     
     })
