@@ -1,9 +1,15 @@
-import { formatDate } from '@fullcalendar/react';
+const HolidayList = [
+  {
+    id : 0,
+    start: '2021-06-21',
+    title: "보이나용"
+  },
 
-let str = formatDate(new Date(), {
-  month: 'long',
-  year: 'numeric',
-  day: 'numeric'
-});
+  {
+    id : 1,
+    start: '2021-06-27',
+    title: "보이나용22"
+  }
+]; 
 
-console.log(str);
+export default HolidayList;

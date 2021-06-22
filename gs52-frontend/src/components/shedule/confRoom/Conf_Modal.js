@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CButton,
   CModal,
@@ -13,12 +13,15 @@ import {
   CInput,
   CInputGroupPrepend,
   CInputGroupText,
-  CInputGroup,
+  CInputGroup
 } from "@coreui/react";
-import "react-datepicker/dist/react-datepicker.css";
 import { InsertConf } from "../../../lib/api/conf/ConfAPI";
+import 'antd/dist/antd.css';
+import { TimePicker, DatePicker } from 'antd';
 
-export function ConfModal() {
+
+
+export function ConfModal(props) {
 
 	const FLOOR_SELECT = ["5", "6"];
 	const ROOM_SELECT = ["1", "2"];
@@ -29,6 +32,9 @@ export function ConfModal() {
 	const [floor, setFloor] = useState(FLOOR_SELECT[0]);
 	const [room, setRoom] = useState(ROOM_SELECT[0]);
 
+  const [date,setDate] = useState(0);
+
+  const [value, onChange] = useState('10:00');
 
 	const handleFloor = e =>{
 		setFloor(e.target.value);
@@ -38,15 +44,34 @@ export function ConfModal() {
 	};
 
   const click = () => {
-    InsertConf(floor, room);
+    InsertConf(floor, room, date);
     setPrimary(!primary);
   };
 
-  return (
-    <div>
 
-      <h2>회의실 예약</h2>
-      <br />
+
+  useEffect(() => {
+    console.log('props.click 값이 설정됨');
+    console.log("modal click  "+props.click);
+    console.log("modal time  "+props.time);
+    
+    return () => {
+      console.log('props.click 가 바뀌기 전..');
+      console.log("modal click  "+props.click);
+      console.log("modal time  "+props.time);
+      setPrimary(!primary)
+    };
+  }, [props.click]);
+
+
+  const onClick = e => {
+    
+		props.setEmp_click(true);
+  };
+
+
+  return (
+    <div>            
       <CButton color="primary"
         onClick={() => setPrimary(!primary)}
       >
@@ -61,6 +86,8 @@ export function ConfModal() {
         <CModalHeader closeButton>
           <CModalTitle>회의실 예약</CModalTitle>
         </CModalHeader>
+
+
         <CModalBody>
           <h4>회의실 예약</h4>
           
@@ -71,11 +98,11 @@ export function ConfModal() {
             <CCol md="3">
               
               <CFormGroup>
-               <CSelect onChange={handleFloor}>
+                <CSelect onChange={handleFloor}>
                   {FLOOR_SELECT.map((floor, idx) => {
                     return (
                       <option key={idx} value={floor} >
-                        {floor}
+                        {floor}층
                       </option>
                     );
                   })}
@@ -90,7 +117,7 @@ export function ConfModal() {
                   {ROOM_SELECT.map((room, idx) => {
                     return (
                       <option key={idx} value={room}>
-                        {room}
+                        {room}호
                       </option>
                     );
                   })}
@@ -99,29 +126,8 @@ export function ConfModal() {
             </CCol>
 
             <CCol md="9">
-              <CInput
-                type="date"
-                id="date-input"
-                name="date-input"
-                placeholder="date"
-              />
-            </CCol>
-          </CFormGroup>
-
-          <br />
-
-          <h5>상세설정</h5>
-
-          <CFormGroup row>
-            <CCol md="5">사용시간대</CCol>
-            <CCol md="3">
-              <CFormGroup>
-                <CLabel htmlFor="time"></CLabel>
-                <CSelect custom name="time" id="time">
-                  <option value="1">1호</option>
-                  <option value="2">2호</option>
-                </CSelect>
-              </CFormGroup>
+            <DatePicker onChange={onChange} />
+            <TimePicker.RangePicker />
             </CCol>
 
             <CCol md="5">일정초대</CCol>
@@ -131,18 +137,20 @@ export function ConfModal() {
                   <CInputGroupPrepend>
                     <CInputGroupText>@</CInputGroupText>
                   </CInputGroupPrepend>
-                  <CInput id="prependedInput" size="16" type="text" />
+                  <CInput id="prependedInput" size="16" type="text" onClick={onClick}/>
                 </CInputGroup>
                 <p className="help-block">초대 인원 선택하세요</p>
               </div>
             </CCol>
           </CFormGroup>
         </CModalBody>
+
+
         <CModalFooter>
           <CButton color="primary" onClick={click}>
             등록
           </CButton>{" "}
-          <CButton color="secondary" onClick={() => setPrimary(!primary)}>
+          <CButton color="secondary" onClick={() => {setPrimary(!primary)}}>
             취소
           </CButton>
         </CModalFooter>
