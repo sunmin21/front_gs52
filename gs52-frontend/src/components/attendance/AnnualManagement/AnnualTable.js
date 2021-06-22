@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Home } from "../../../lib/api/test";
 import {
   CCard,
@@ -7,11 +7,11 @@ import {
   CCol,
   CDataTable,
   CRow,
+  CAlert,
 } from "@coreui/react";
 
 import axios from "axios";
 import AnnualModal from "./AnnualModal";
-
 import RowDeleteModal from "./RowDeleteModal";
 
 const annual = ["날짜", "연차유형", "사유"];
@@ -22,6 +22,7 @@ const Tables = () => {
   const [infoIndex, setInfoIndex] = useState();
   const [contents, setContents] = useState();
   const [info, setInfo] = useState(false);
+  const [visible, setVisible] = useState(0);
   const [event, setEvent] = useState({
     vacation_index: "",
     날짜: "",
@@ -30,15 +31,7 @@ const Tables = () => {
   });
 
   const dateHandle = (e) => {
-    var moment = require("moment");
-    var nowDate = moment(new Date()).format("YYYY-MM-DD");
-    var clickDate = e.target.value;
-    if (nowDate >= clickDate) {
-      setDate(null);
-      alert("지난 날짜입니다.");
-    } else {
-      setDate(e.target.value);
-    }
+    setDate(e.target.value);
   };
   const infoIndexHandle = (e) => {
     setInfoIndex(parseInt(e.target.value));
@@ -48,8 +41,15 @@ const Tables = () => {
   };
 
   const eventHandle = (e) => {
-    setEvent(e);
-    setInfo(!info);
+    var moment = require("moment");
+    var nowDate = moment(new Date()).format("YYYY-MM-DD");
+    var clickDate = e.날짜;
+    if (nowDate >= clickDate) {
+      setVisible(3);
+    } else {
+      setEvent(e);
+      setInfo(!info);
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -66,14 +66,13 @@ const Tables = () => {
       });
       const _inputData = await res.data.map((rowData) => ({
         vacation_index: rowData.vacation_INDEX,
-        날짜: moment(rowData.vacation_DATE).format("YYYY년 MM월 DD일"),
+        날짜: moment(rowData.vacation_DATE).format("YYYY-MM-DD"),
         연차유형: rowData.attend_TYPE_NAME,
         사유: rowData.vacation_CONTENTS,
       }));
       //inputData.concat(_inputData)
       setInputData(_inputData); // 연차 정보 테이블
       setRestVacation(re2.data[0].emp_VACATION); // 개인 사원의 잔여 연차 수
-      console.log(res);
     } catch (e) {
       console.error(e.message);
     }
@@ -134,6 +133,14 @@ const Tables = () => {
                 setInputData={setInputData}
                 setRestVacation={setRestVacation}
               ></RowDeleteModal>
+              <CAlert
+                color="info"
+                show={visible}
+                fade
+                onShowChange={setVisible}
+              >
+                삭제할 수 없는 날짜입니다.
+              </CAlert>
             </CCardBody>
           </CCard>
         </CCol>
