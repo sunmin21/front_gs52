@@ -10,24 +10,26 @@ import {
   CRow,
 } from "@coreui/react";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { sendAxios, succssAxios, todoAxios } from "src/modules/task";
 import usersData from "./UsersData";
 
 const getBadge = (status) => {
   switch (status) {
-    case "수락":
+    case "완료":
       return "success";
     case "Inactive":
       return "secondary";
     case "대기중":
       return "warning";
-    case "Banned":
+    case "거절":
       return "danger";
     default:
       return "primary";
   }
 };
-const Todo = ({ content, pageCount, success, remove, reject }) => {
+const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 
@@ -37,10 +39,15 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
   const pageChange = (newPage) => {
     currentPage !== newPage && history.push(`/task/schedule?page=${newPage}`);
   };
-
+  const dispatch = useDispatch();
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
+  const Done = {
+    0: "대기중",
+    1: "거절",
+    2: "완료",
+  };
 
   return (
     <CRow>
@@ -82,23 +89,32 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
               //   history.push(`/task/schedule/SendContent/${item.id}`)
               // }
               scopedSlots={{
-                내용: (item) => (
-                  <td
-                    style={{ textAlign: "center" }}
-                    onClick={() =>
-                      history.push(`/task/schedule/SendContent/${item.id}`)
-                    }
-                  >
-                    {item.내용}
-                  </td>
-                ),
+                보낸사람: (item) => {
+                  return <td>{item.emp_NAME}</td>;
+                },
+                내용: (item) => {
+                  return (
+                    <td
+                      style={{ textAlign: "center" }}
+                      // onClick={() =>
+                      //   history.push(`/task/schedule/SendContent/${item.id}`)
+                      // }
+                    >
+                      {item.todo_CONTENTS}
+                    </td>
+                  );
+                },
                 요청날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.요청날짜}</td>
+                  <td style={{ textAlign: "center" }}>
+                    {item.todo_START_DATE}
+                  </td>
                 ),
                 상태: (item) => (
                   <td>
                     <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(item.상태)}>{item.상태}</CBadge>
+                      <CBadge color={getBadge(Done[item.todo_DONE])}>
+                        {Done[item.todo_DONE]}
+                      </CBadge>
                     </h4>
                   </td>
                 ),
@@ -110,10 +126,13 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
                       color="success"
                       onClick={(e) => {
                         success(e);
-                        remove(e);
+                        dispatch(todoAxios(userid));
+                        dispatch(sendAxios(userid));
+
+                        dispatch(succssAxios(userid));
                       }}
                       aria-pressed="true"
-                      value={item.id}
+                      value={item.todo_INDEX}
                       name={2}
                     >
                       완료
@@ -128,10 +147,12 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
                       color="danger"
                       onClick={(e) => {
                         reject(e);
-                        remove(e);
+                        dispatch(todoAxios(userid));
+                        dispatch(sendAxios(userid));
+                        dispatch(succssAxios(userid));
                       }}
                       aria-pressed="true"
-                      value={item.id}
+                      value={item.todo_INDEX}
                       name={1}
                     >
                       거절
@@ -143,7 +164,7 @@ const Todo = ({ content, pageCount, success, remove, reject }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={pageCount}
+              pages={content.length / 10 + 1}
               doubleArrows={false}
               align="center"
             />

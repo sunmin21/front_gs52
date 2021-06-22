@@ -42,6 +42,11 @@ const Success = ({ content, pageCount }) => {
     currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
 
+  const Done = {
+    0: "대기중",
+    1: "거절",
+    2: "완료",
+  };
   return (
     <CRow>
       <CCol xl={12}>
@@ -78,28 +83,35 @@ const Success = ({ content, pageCount }) => {
               //   history.push(`/task/schedule/SendContent/${item.id}`)
               // }
               scopedSlots={{
+                보낸사람: (item) => {
+                  return <td>{item.emp_NAME}</td>;
+                },
                 내용: (item) => (
                   <td
                     style={{ textAlign: "center" }}
-                    onClick={() =>
-                      history.push(`/task/schedule/SendContent/${item.id}`)
-                    }
+                    // onClick={() =>
+                    //   history.push(`/task/schedule/SendContent/${item.id}`)
+                    // }
                   >
-                    {item.내용}
+                    {item.todo_CONTENTS}
                   </td>
                 ),
                 요청날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.요청날짜}</td>
+                  <td style={{ textAlign: "center" }}>
+                    {item.todo_START_DATE}
+                  </td>
                 ),
                 상태: (item) => (
                   <td>
                     <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(item.상태)}>{item.상태}</CBadge>
+                      <CBadge color={getBadge(Done[item.todo_DONE])}>
+                        {Done[item.todo_DONE]}
+                      </CBadge>
                     </h4>
                   </td>
                 ),
                 완료날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.완료날짜}</td>
+                  <td style={{ textAlign: "center" }}>{item.todo_END_DATE}</td>
                 ),
               }}
             />

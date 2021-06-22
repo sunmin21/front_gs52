@@ -66,16 +66,7 @@ const AnnualModal = ({ Content, form }) => {
           <CButton
             color="info"
             onClick={() => {
-              return (
-                setInfo(!info),
-                dispatch(
-                  changeBoard({
-                    form: form,
-
-                    search: search,
-                  })
-                )
-              );
+              return setInfo(!info);
             }}
           >
             확인

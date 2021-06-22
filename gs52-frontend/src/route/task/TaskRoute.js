@@ -1,16 +1,19 @@
 import React from "react";
 const Dashboard = React.lazy(() => import("../../views/dashboard/Dashboard"));
 const CreateTodo = React.lazy(() => import("src/containers/task/CreateTodo"));
+const TodoBoard = React.lazy(() =>
+  import("src/components/task/BusinessProgress/TodoBoardContent")
+);
 const BusinessProgress = React.lazy(() =>
   import("src/containers/task/BusinessProgress")
 );
 
 const TaskRoute = [
-  {
-    path: "/task/schedule/SendContent/:id",
-    name: "상세보기",
-    component: Dashboard,
-  },
+  // {
+  //   path: "/task/schedule/SendContent/:id",
+  //   name: "상세보기",
+  //   component: TodoBoard,
+  // },
   {
     path: "/task/schedule/create",
     name: "요청보내기",
