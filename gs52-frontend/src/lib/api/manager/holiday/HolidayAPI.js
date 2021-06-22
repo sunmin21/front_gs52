@@ -1,17 +1,17 @@
 import client from '../../client';
 
 export const SelectHoliday = async () => {
-    console.log("first");
+    console.log("test");
 
-    const holiday = await client.get('/holiday/h');
+    const holiday = await client.get('/holiday/showHoliday');
     console.log(holiday.data);
 };
 
 export const InsertHoliday = async (title, date) => {
     console.log("Holiday API Insert !!");
-    console.log("title : " + title + "date" + "date");
+    console.log("title : " + title + " date : " + date);
 
-    const holiday = await client.get('/holiday/h', { holiday_title: title, holiday_date: date })
+    const holiday = await client.post('/holiday/showHoliday/AddHoliday', { holiday_title: title, holiday_date: date })
     .then(function (response) {
     
     })

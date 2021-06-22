@@ -80,8 +80,6 @@ export function ConfModal() {
                     );
                   })}
                 </CSelect>
-
-
               </CFormGroup>
             </CCol>
             <CCol md="3">
