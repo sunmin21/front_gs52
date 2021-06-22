@@ -11,21 +11,15 @@ import {
 
 import axios from "axios";
 import AnnualModal from "./AnnualModal";
-import {
-  CModal,
-  CModalFooter,
-  CModalTitle,
-  CModalHeader,
-  CModalBody,
-  CButton,
-} from "@coreui/react";
-import RowDelete from "./RowDelete";
 
-const annual = ["날짜", "연차유형", "사유", "잔여휴가"];
+import RowDeleteModal from "./RowDeleteModal";
+
+const annual = ["날짜", "연차유형", "사유"];
 const Tables = () => {
   const [inputData, setInputData] = useState(null);
+  const [restVacation, setRestVacation] = useState(0);
   const [date, setDate] = useState();
-  const [infoIndex, setInfoIndex] = useState(0);
+  const [infoIndex, setInfoIndex] = useState();
   const [contents, setContents] = useState();
   const [info, setInfo] = useState(false);
   const [event, setEvent] = useState({
@@ -33,10 +27,18 @@ const Tables = () => {
     날짜: "",
     연차유형: "",
     사유: "",
-    잔여휴가: "",
   });
+
   const dateHandle = (e) => {
-    setDate(e.target.value);
+    var moment = require("moment");
+    var nowDate = moment(new Date()).format("YYYY-MM-DD");
+    var clickDate = e.target.value;
+    if (nowDate >= clickDate) {
+      setDate(null);
+      alert("지난 날짜입니다.");
+    } else {
+      setDate(e.target.value);
+    }
   };
   const infoIndexHandle = (e) => {
     setInfoIndex(parseInt(e.target.value));
@@ -46,64 +48,69 @@ const Tables = () => {
   };
 
   const eventHandle = (e) => {
-    console.log(e);
     setEvent(e);
     setInfo(!info);
   };
 
-  /*const rowDelete = (e) => {
-    console.log("delteModal");
-    console.log(e);
-    if (window.confirm("삭제") != 0) {
-      axios.post("/annual/delete", {
-        vacation_INDEX: e.vacation_index,
-      });
-      window.location.reload();
-
-      //YES Click
-    } else {
-      //No Click
-    }
-  };*/
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     try {
       var moment = require("moment");
       const res = await axios.post("/annual/select", {
+        //사원의 연차정보 전부 가져옴
         vacation_EMP_ID: 54321,
       });
-
+      const re2 = await axios.post("/annual/select2", {
+        //개인 사원의 잔여 연차 수를 가져옴
+        vacation_EMP_ID: 54321,
+      });
       const _inputData = await res.data.map((rowData) => ({
         vacation_index: rowData.vacation_INDEX,
         날짜: moment(rowData.vacation_DATE).format("YYYY년 MM월 DD일"),
-        연차유형: rowData.vacation_ATTEND_INFO_INDEX,
+        연차유형: rowData.attend_TYPE_NAME,
         사유: rowData.vacation_CONTENTS,
-        잔여휴가: rowData.vacation_REMAIN,
       }));
       //inputData.concat(_inputData)
-      setInputData(_inputData);
-      console.log(_inputData);
+      setInputData(_inputData); // 연차 정보 테이블
+      setRestVacation(re2.data[0].emp_VACATION); // 개인 사원의 잔여 연차 수
+      console.log(res);
     } catch (e) {
       console.error(e.message);
     }
   }, []);
-  console.log(info);
   return (
     <>
       <CRow>
         <CCol>
           <CCard>
             <CCardHeader>
-              연차 사용 정보
-              <AnnualModal
-                dateHandle={dateHandle}
-                infoIndexHandle={infoIndexHandle}
-                contentsHandle={contentsHandle}
-                date={date}
-                infoIndex={infoIndex}
-                contents={contents}
-                setInputData={setInputData}
-              ></AnnualModal>
+              <div class="container">
+                <div class="row align-items-center h-100">
+                  <div class="col-sm-8">
+                    <h4>연차 사용 정보</h4>
+                  </div>
+
+                  <div class="col-sm-2">
+                    <h5 class="text-center">잔여 휴가 </h5>
+                  </div>
+                  <div class="col-sm-1 ">
+                    <h5>{restVacation}</h5>
+                  </div>
+                  <div class="col-sm-1">
+                    <AnnualModal
+                      dateHandle={dateHandle}
+                      infoIndexHandle={infoIndexHandle}
+                      contentsHandle={contentsHandle}
+                      date={date}
+                      infoIndex={infoIndex}
+                      contents={contents}
+                      inputData={inputData}
+                      setInputData={setInputData}
+                      setRestVacation={setRestVacation}
+                    ></AnnualModal>
+                  </div>
+                </div>
+              </div>
             </CCardHeader>
             <CCardBody>
               <CDataTable
@@ -111,6 +118,7 @@ const Tables = () => {
                 fields={annual}
                 hover
                 sorter
+                sorterValue={{ column: "날짜", desc: "true" }}
                 striped
                 bordered
                 onRowClick={eventHandle}
@@ -119,12 +127,13 @@ const Tables = () => {
                 itemsPerPage={10}
                 pagination
               />
-              <RowDelete
+              <RowDeleteModal
                 info={info}
                 setInfo={setInfo}
                 event={event}
                 setInputData={setInputData}
-              ></RowDelete>
+                setRestVacation={setRestVacation}
+              ></RowDeleteModal>
             </CCardBody>
           </CCard>
         </CCol>

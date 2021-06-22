@@ -16,37 +16,68 @@ function AnnualModal({
   date,
   infoIndex,
   contents,
+  inputData,
   setInputData,
+  setRestVacation,
 }) {
   const [info, setInfo] = useState(false);
+
   const onSubmit = () => {
+    var moment = require("moment");
+    var sameCount = 0;
     if (
       date == null ||
       infoIndex == null ||
       contents == null ||
       infoIndex == "0"
     ) {
-      alert("모두 입력해주세요");
+      alert("다시 입력해주세요");
     } else {
-      axios.post("/annual/insert", {
-        vacation_EMP_ID: 54321, // 사원번호
-        vacation_ATTEND_INFO_INDEX: infoIndex,
-        vacation_DATE: date,
-        vacation_CONTENTS: contents,
+      inputData.map((rowData) => {
+        if (rowData.날짜 == moment(date).format("YYYY년 MM월 DD일")) {
+          sameCount++;
+        }
       });
-
-      setInputData((content) => {
-        console.log(content);
-        var moment = require("moment");
-        return content.concat({
+      if (sameCount == 0) {
+        axios.post("/annual/insert", {
           vacation_EMP_ID: 54321, // 사원번호
-          연차유형: infoIndex,
-          날짜: moment(date).format("YYYY년 MM월 DD일"),
-          사유: contents,
-          잔여휴가: 20,
+          vacation_ATTEND_INFO_INDEX: infoIndex,
+          vacation_DATE: date,
+          vacation_CONTENTS: contents,
         });
-      });
-      setInfo(!info);
+        if (infoIndex == "7") {
+          axios.post("/annual/update", {
+            count: -1,
+            emp_ID: 54321,
+          });
+        } else if (infoIndex == "8") {
+          axios.post("/annual/update", {
+            count: -0.5,
+            emp_ID: 54321,
+          });
+        }
+        setRestVacation((content) => {
+          if (infoIndex == "7") {
+            content = content - 1;
+            return content;
+          } else if (infoIndex == "8") {
+            content = content - 0.5;
+            return content;
+          }
+        });
+        setInputData((content) => {
+          return content.concat({
+            vacation_EMP_ID: 54321, // 사원번호
+            연차유형: infoIndex == "7" ? "연차" : "반차",
+            날짜: moment(date).format("YYYY년 MM월 DD일"),
+            사유: contents,
+          });
+        });
+
+        setInfo(!info);
+      } else {
+        alert("휴가를 중복 사용할 수 없습니다.");
+      }
     }
   };
 
@@ -72,8 +103,8 @@ function AnnualModal({
           <h2>종류</h2>
           <select onChange={infoIndexHandle}>
             <option value="0">선택</option>
-            <option value="1">연차</option>
-            <option value="2">반차</option>
+            <option value="7">연차</option>
+            <option value="8">반차</option>
           </select>
           <hr />
           <h2>사유</h2>
