@@ -11,8 +11,8 @@ const HolidayManagement = () => {
         <CRow>
             <CCol>
                 <CCardBody>
-                    <ShowCalendar />
                     <AddHoliday />
+                    <ShowCalendar />
                 </CCardBody>
             </CCol>
         </CRow>

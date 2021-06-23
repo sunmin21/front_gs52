@@ -2,16 +2,18 @@ import React, { useEffect, useState }from 'react';
 import FullCalendar from '@fullcalendar/react';
 import daygridPlugin from '@fullcalendar/daygrid';
 import { CCard, CCardBody, CCardHeader } from '@coreui/react';
+import axios from 'axios';
+import { DeleteHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
 
 function ShowCalendar() {
 
     const [events, setEvents] = useState([]);
+
     useEffect(() => {
         fetch("/holiday/showHoliday")
             .then((response) => response.json())
             .then((events) => {     
                 setEvents(events.map((event) => {
-                    // console.log(event)
                     return ({
                         id: event.holiday_INDEX,
                         title: event.holiday_TITLE,
@@ -20,6 +22,20 @@ function ShowCalendar() {
                 }))
             })
     }, [])
+
+    const eventOnclick = (e) => {
+        var msg = ("삭제하시겠습니까?");
+
+        if (window.confirm(msg) != 0)
+        {
+            console.log("ㅇㅇ")
+            console.log(e.event._def["publicId"]) // holiday_index를 가져옴
+            DeleteHoliday(e.event._def["publicId"]);
+        }
+        else {
+            console.log("ㄴㄴ")
+        }
+    }
 
     return (
         <CCard>
@@ -35,7 +51,9 @@ function ShowCalendar() {
                                 <FullCalendar
                                     defaultView="dayGridMonth"
                                     plugins={[daygridPlugin]}
+                                    // events={events}
                                     events={events}
+                                    eventClick={eventOnclick}
                                 />
                             </div>
                         </div>

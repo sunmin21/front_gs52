@@ -13,7 +13,6 @@ import {
     CFormGroup
 } from '@coreui/react'
 import { InsertHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
-import { enableCursor } from '@fullcalendar/common';
 
 function AddHoliday() {
 
@@ -22,7 +21,6 @@ function AddHoliday() {
         padding: "20px"
     }
 
-    const selectAnnual = [];
     let changed = 0;
     const [info, setInfo] = useState(false);
     const [title, setTitle] = useState("");
@@ -60,12 +58,13 @@ function AddHoliday() {
         else {
             if (changed == 1) {
                 console.log(startDate)
-                // startDate = startDate
+                InsertHoliday(title, startDate, annual);
+                startDate.setYear(startDate.getFullYear() + 1)
             }
             console.log(title, startDate, annual)
             InsertHoliday(title, startDate, annual);
             setInfo(!info);
-            // window.location.reload(); // 자동 새로고침
+            window.location.reload(); // 자동 새로고침
         }
     }
     
@@ -102,7 +101,7 @@ function AddHoliday() {
                         </td>
                     </tr>
                     <tr>
-                        <td style={tdStyle}>매년 반복 여부</td>
+                        <td style={tdStyle}>반복 설정</td>
                         <td style={tdStyle}>
                                 <CSwitch
                                     className={'mx-1'} variant={'3d'} color={'info'}
