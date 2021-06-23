@@ -45,6 +45,7 @@ const Send = ({ content, pageCount, setSendContents }) => {
     1: "거절",
     2: "완료",
   };
+
   return (
     <CRow>
       <CCol xl={12}>

@@ -1,6 +1,7 @@
 import client from "../client";
 import moment from "moment";
 export const todo = async (user) => {
+  console.log("TODO호출");
   const res = await client.post("/task/todo", {
     todo_RE_EMP_ID: user["todo_RE_EMP_ID"],
   });
@@ -23,8 +24,6 @@ export const success = async (user) => {
   return res;
 };
 export const BoardSend = async ({ no, board, sendId }) => {
-  // console.log(JSON.parse(search[0]));
-
   const startDate = moment().format("YYYY-MM-DD HH:mm:ss");
 
   var params = new URLSearchParams();
