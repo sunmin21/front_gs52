@@ -22,6 +22,8 @@ import {
 } from "src/lib/api/task/BusinessProgress";
 import { useCallback, useEffect, useRef, useState } from "react";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { sendAxios, succssAxios, todoAxios } from "src/modules/task";
 const BusinessProgress = () => {
   //임의로 userid 정해줌
   const todo_EMP_ID_RECEIVCE = useRef(2); //유저아이디
@@ -36,6 +38,12 @@ const BusinessProgress = () => {
   const [successCount, setSuccessCount] = useState(0);
   const [successContents, setSuccessContents] = useState(null);
   ///////////////////////////////////////
+  const dispatch = useDispatch();
+  const { todo, send, success } = useSelector(({ task }) => ({
+    todo: task.todo,
+    send: task.send,
+    success: task.success,
+  }));
 
   const Done = {
     0: "대기중",
@@ -44,59 +52,66 @@ const BusinessProgress = () => {
   };
 
   useEffect(() => {
-    todo(todo_EMP_ID_RECEIVCE.current).then((data) => {
-      setTodoContents(
-        data.map((item) => {
-          return {
-            //이름내용요청날짜상태수락거절
-            id: item.todo_INDEX,
-            보낸사람: item.todo_EMP_ID_SEND,
-            내용: item.todo_CONTENTS,
-            요청날짜: item.todo_START_DATE,
-            상태: Done[item.todo_DONE],
-          };
-        })
-      );
+    dispatch(todoAxios(todo_EMP_ID_RECEIVCE.current));
+    // todo(todo_EMP_ID_RECEIVCE.current).then((data) => {
+    //   dispatch(todo);
+    //   setTodoContents(
+    //     data.map((item) => {
+    //       return {
+    //         //이름내용요청날짜상태수락거절
+    //         id: item.todo_INDEX,
+    //         보낸사람: item.todo_EMP_ID_SEND,
+    //         내용: item.todo_CONTENTS,
+    //         요청날짜: item.todo_START_DATE,
+    //         상태: Done[item.todo_DONE],
+    //       };
+    //     })
+    //   );
 
-      setTodoCount(data.length / 10 + 1);
-    });
-    send(todo_EMP_ID_RECEIVCE.current).then((data) => {
-      setSendContents(
-        data.map((item) => {
-          return {
-            //이름내용요청날짜상태수락거절
-            id: item.todo_INDEX,
-            받은사람: item.todo_EMP_ID_RECEIVCE,
-            내용: item.todo_CONTENTS,
-            보낸날짜: item.todo_START_DATE,
-            상태: "대기중",
-          };
-        })
-      );
-      setSendCount(data.length / 10 + 1);
-    });
-    success(todo_EMP_ID_RECEIVCE.current).then((data) => {
-      setSuccessContents(
-        data.map((item) => {
-          return {
-            //이름내용요청날짜상태수락거절
-            id: item.todo_INDEX,
-            보낸사람: item.todo_EMP_ID_SEND,
-            내용: item.todo_CONTENTS,
-            요청날짜: item.todo_START_DATE,
-            완료날짜: item.todo_END_DATE,
-            상태: Done[item.todo_DONE],
-          };
-        })
-      );
-      setSuccessCount(data.length / 10 + 1);
-    });
-  }, []);
-  console.log(todoContents);
+    //   setTodoCount(data.length / 10 + 1);
+    // });
+    dispatch(sendAxios(todo_EMP_ID_RECEIVCE.current));
+    // send(todo_EMP_ID_RECEIVCE.current).then((data) => {
+    //   setSendContents(
+    //     data.map((item) => {
+    //       console.log(item);
+    //       return {
+    //         //이름내용요청날짜상태수락거절
+    //         id: item.todo_INDEX,
+    //         받은사람: item.todo_RE_EMP_ID,
+    //         내용: item.todo_CONTENTS,
+    //         보낸날짜: item.todo_START_DATE,
+    //         상태: Done[item.todo_DONE],
+    //       };
+    //     })
+    //   );
+    //   setSendCount(data.length / 10 + 1);
+    // });
+    dispatch(succssAxios(todo_EMP_ID_RECEIVCE.current));
+    // success(todo_EMP_ID_RECEIVCE.current).then((data) => {
+    //   setSuccessContents(
+    //     data.map((item) => {
+    //       return {
+    //         //이름내용요청날짜상태수락거절
+    //         id: item.todo_INDEX,
+    //         보낸사람: item.todo_EMP_ID_SEND,
+    //         내용: item.todo_CONTENTS,
+    //         요청날짜: item.todo_START_DATE,
+    //         완료날짜: item.todo_END_DATE,
+    //         상태: Done[item.todo_DONE],
+    //       };
+    //     })
+    //   );
+    //   setSuccessCount(data.length / 10 + 1);
+    // });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
   const todoRemove = useCallback(
     (e) => {
       setTodoContents((contents) =>
         contents.filter((content) => {
+          // eslint-disable-next-line eqeqeq
           if (content.id == e.target.value) {
             //같으면 완료목룍에 넣어라
             setSuccessContents((con) => {
@@ -113,6 +128,7 @@ const BusinessProgress = () => {
             });
           }
 
+          // eslint-disable-next-line eqeqeq
           return content.id != e.target.value; //todo 목록에서빼는거고
         })
       );
@@ -134,7 +150,7 @@ const BusinessProgress = () => {
     [todoContents, doneInsert, todoRemove]
   );
 
-  if (todoContents !== null) {
+  if (todo !== null) {
     return (
       <>
         <CCol xs="12" md="12" className="mb-4">
@@ -159,22 +175,24 @@ const BusinessProgress = () => {
                 <CTabContent>
                   <CTabPane>
                     <Todo
-                      content={todoContents}
+                      content={todo}
                       pageCount={Math.floor(todoCount)}
                       success={todoSucess}
                       reject={todoReject}
                       remove={todoRemove}
+                      userid={todo_EMP_ID_RECEIVCE.current}
                     ></Todo>
                   </CTabPane>
                   <CTabPane>
                     <Send
-                      content={sendContents}
+                      content={send}
                       pageCount={Math.floor(sendCount)}
+                      setSendContents={setSendContents}
                     ></Send>
                   </CTabPane>
                   <CTabPane>
                     <Success
-                      content={successContents}
+                      content={success}
                       pageCount={Math.floor(successCount)}
                     />
                   </CTabPane>

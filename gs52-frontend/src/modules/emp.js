@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
-import { createRequestActionTypes } from "../lib/createRequestSaga";
+
 import produce from "immer";
-import { useSelector } from "react-redux";
+
 import { userList } from "src/lib/api/auth/Emp";
 const SEARCH_CHANGE_FIELD = "emp/SEARCH_CHANGE_FIELD"; //기능에 대한 이름
 const SEARCH_CHANGE_FIELD2 = "emp/SEARCH_CHANGE_FIELD2";

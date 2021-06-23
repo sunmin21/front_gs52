@@ -107,8 +107,6 @@ export function ConfModal(props) {
                     );
                   })}
                 </CSelect>
-
-
               </CFormGroup>
             </CCol>
             <CCol md="3">

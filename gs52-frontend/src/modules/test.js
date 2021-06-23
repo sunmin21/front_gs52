@@ -1,10 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { createRequestActionTypes } from "../lib/createRequestSaga";
-import produce from "immer";
 
-const CHANGE_FIELD = "auth/CHANGE_FIELD";
-const [TEST, TEST_SUCCESS, TEST_FAILURE] =
-  createRequestActionTypes("auth/TEST");
+const [TEST] = createRequestActionTypes("auth/TEST");
 
 // dispatch할때 필요한 값
 export const change = createAction(TEST);

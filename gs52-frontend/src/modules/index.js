@@ -3,7 +3,7 @@ import { all } from "redux-saga/effects";
 import test from "./test";
 import changeState from "./changeStore";
 import emp from "./emp";
-import task from "./task";
+import task, { taskSaga } from "./task";
 const rootReducer = combineReducers({
   test,
   changeState,
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
   task,
 });
 
-// export function* rootSaga() {
-//   yield all([authSaga(), userSaga()]);
-// }
+export function* rootSaga() {
+  yield all([taskSaga()]);
+}
 export default rootReducer;

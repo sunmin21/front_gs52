@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 import reportWebVitals from "./reportWebVitals";
-import rootReducer from "./modules";
+import rootReducer, { rootSaga } from "./modules";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -16,19 +16,18 @@ import { BrowserRouter } from "react-router-dom";
 // import "react-app-polyfill/stable";
 
 import { icons } from "./assets/icons";
-import { createPromise } from "redux-promise-middleware";
+// import { createPromise } from "redux-promise-middleware";
 
-const customizedPromiseMiddleware = createPromise({
-  promiseTypeSuffixes: ["LOADING", "SUCCESS", "FAILURE"],
-});
+// const customizedPromiseMiddleware = createPromise({
+//   promiseTypeSuffixes: ["LOADING", "SUCCESS", "FAILURE"],
+// });
 const sagaMiddleware = createSagaMiddleware();
 const stores = createStore(
   rootReducer,
 
-  composeWithDevTools(
-    applyMiddleware(sagaMiddleware, customizedPromiseMiddleware)
-  )
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+sagaMiddleware.run(rootSaga);
 React.icons = icons;
 ReactDOM.render(
   <Provider store={stores}>

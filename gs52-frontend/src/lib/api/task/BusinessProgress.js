@@ -1,40 +1,39 @@
 import client from "../client";
 import moment from "moment";
 export const todo = async (user) => {
+  console.log("TODO호출");
   const res = await client.post("/task/todo", {
-    todo_EMP_ID_RECEIVCE: user,
+    todo_RE_EMP_ID: user["todo_RE_EMP_ID"],
   });
 
-  return res.data;
+  return res;
 };
 
 export const send = async (user) => {
   const res = await client.post("/task/send", {
-    todo_EMP_ID_SEND: user,
+    todo_EMP_ID_SEND: user["todo_EMP_ID_SEND"],
   });
 
-  return res.data;
+  return res;
 };
 export const success = async (user) => {
   const res = await client.post("/task/success", {
-    todo_EMP_ID_RECEIVCE: user,
+    todo_RE_EMP_ID: user["todo_RE_EMP_ID"],
   });
 
-  return res.data;
+  return res;
 };
-export const boardSend = async ({ search, board }) => {
-  console.log(search);
+export const BoardSend = async ({ no, board, sendId }) => {
+  const startDate = moment().format("YYYY-MM-DD HH:mm:ss");
 
-  console.log(board);
   var params = new URLSearchParams();
   params.append("board", board);
-  params.append("search", search);
+  params.append("no", no.current);
+  params.append("sendId", sendId);
+  params.append("startDate", startDate);
 
-  const res = await client.post("/task/board", {
-    params: {
-      search,
-      board,
-    },
+  const res = await client.get("/task/board", {
+    params,
   });
   return res.data;
 };
@@ -44,7 +43,7 @@ export const doneInsert = async (user) => {
   const res = await client.post("/task/todo/Done", {
     todo_DONE: user[2],
     todo_INDEX: user[1],
-    todo_EMP_ID_RECEIVCE: user[0],
+    todo_RE_EMP_ID: user[0],
     todo_END_DATE: date,
   });
 

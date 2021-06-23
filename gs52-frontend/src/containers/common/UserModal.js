@@ -19,19 +19,18 @@ const AnnualModal = ({ Content, form }) => {
   const { search } = useSelector(({ emp }) => ({
     search: emp.search,
   }));
-  const { board } = useSelector(({ task }) => ({
-    board: task.board,
-  }));
+
   const [check, setCheck] = useState(false);
   useEffect(() => {
     dispatch(searchInit());
-  }, [check]);
+  }, [check, dispatch]);
 
   return (
     <div className="modalHandler">
       <CButton
         block
         color="dark"
+        // eslint-disable-next-line no-sequences
         onClick={() => (setInfo(!info), setCheck(!check))}
       >
         직원 검색
@@ -67,16 +66,7 @@ const AnnualModal = ({ Content, form }) => {
           <CButton
             color="info"
             onClick={() => {
-              return (
-                setInfo(!info),
-                dispatch(
-                  changeBoard({
-                    form: form,
-
-                    search: search,
-                  })
-                )
-              );
+              return setInfo(!info);
             }}
           >
             확인

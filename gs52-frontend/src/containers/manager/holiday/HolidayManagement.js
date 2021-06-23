@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ShowCalendar from 'src/components/manager/holiday/ShowCalendar';
 // import { HolidayAPI } from 'holidayapi';
-import AddHoliday from 'src/components/manager/holiday/SetHoliday';
+import AddHoliday from 'src/components/manager/holiday/AddHoliday';
 
 import { CCardBody, CCol, CRow } from '@coreui/react'
 

@@ -11,23 +11,22 @@ import {
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import usersData from "./UsersData";
-
+import Modal from "./TodoBoardModal";
 const getBadge = (status) => {
   switch (status) {
-    case "수락":
+    case "완료":
       return "success";
     case "Inactive":
       return "secondary";
-    case "보류":
+    case "대기중":
       return "warning";
-    case "Banned":
+    case "거절":
       return "danger";
     default:
       return "primary";
   }
 };
-const Send = ({ content, pageCount }) => {
+const Send = ({ content, pageCount, setSendContents }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 
@@ -37,10 +36,15 @@ const Send = ({ content, pageCount }) => {
   const pageChange = (newPage) => {
     currentPage !== newPage && history.push(`/task/schedule?page=${newPage}`);
   };
-
+  // const [info, setInfo] = useState(false);
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
+  const Done = {
+    0: "대기중",
+    1: "거절",
+    2: "완료",
+  };
 
   return (
     <CRow>
@@ -64,6 +68,7 @@ const Send = ({ content, pageCount }) => {
             </div>
           </CCardHeader>
           <CCardBody>
+            {/* <Modal info={info} setInfo={setInfo}></Modal> */}
             <CDataTable
               items={content}
               fields={[
@@ -87,23 +92,45 @@ const Send = ({ content, pageCount }) => {
               //   history.push(`/task/schedule/SendContent/${item.id}`)
               // }
               scopedSlots={{
-                내용: (item) => (
-                  <td
-                    style={{ textAlign: "center" }}
-                    onClick={() =>
-                      history.push(`/task/schedule/SendContent/${item.id}`)
-                    }
-                  >
-                    {item.내용}
-                  </td>
-                ),
+                받은사람: (item) => {
+                  return (
+                    <td
+                      style={{ textAlign: "center" }}
+                      // onClick={() =>
+                      //   // history.push(`/task/schedule/SendContent/${item.id}`)
+                      //   // setInfo(!info)
+
+                      // }
+                    >
+                      {item.emp_NAME}
+                    </td>
+                  );
+                },
+                내용: (item) => {
+                  return (
+                    <td
+                      style={{ textAlign: "center" }}
+                      // onClick={() =>
+                      //   // history.push(`/task/schedule/SendContent/${item.id}`)
+                      //   // setInfo(!info)
+
+                      // }
+                    >
+                      {item.todo_CONTENTS}
+                    </td>
+                  );
+                },
                 보낸날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.보낸날짜}</td>
+                  <td style={{ textAlign: "center" }}>
+                    {item.todo_START_DATE}
+                  </td>
                 ),
                 상태: (item) => (
                   <td>
                     <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(item.상태)}>{item.상태}</CBadge>
+                      <CBadge color={getBadge(Done[item.todo_DONE])}>
+                        {Done[item.todo_DONE]}
+                      </CBadge>
                     </h4>
                   </td>
                 ),
@@ -112,7 +139,7 @@ const Send = ({ content, pageCount }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={pageCount}
+              pages={content.length / 10 + 1}
               doubleArrows={false}
               align="center"
             />
