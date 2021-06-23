@@ -13,7 +13,6 @@ import {
     CFormGroup
 } from '@coreui/react'
 import { InsertHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
-import { enableCursor } from '@fullcalendar/common';
 
 function AddHoliday() {
 
@@ -22,12 +21,14 @@ function AddHoliday() {
         padding: "20px"
     }
 
-    const selectAnnual = [];
     let changed = 0;
     const [info, setInfo] = useState(false);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState();
     const [annual, setAnnual] = useState(1);
+
+    var moment = require('moment');
+    var event = moment(startDate).format("YYYY-MM-DD");
 
     const handleTitle = e => {
         setTitle(e.target.value);
@@ -59,12 +60,18 @@ function AddHoliday() {
         }
         else {
             if (changed == 1) {
-                console.log(startDate)
-                // startDate = startDate
+                console.log(event)
+                event = new Date(event)
+                console.log("나!! 111111 " + event)
+                event.setYear(event.getFullYear() + 1)
+                console.log("나!! 222222" + event)
             }
-            console.log(title, startDate, annual)
-            InsertHoliday(title, startDate, annual);
+            console.log(title, event, annual)
+            InsertHoliday(title, event, annual);
             setInfo(!info);
+            // console.log(title, startDate, annual)
+            // InsertHoliday(title, startDate, annual);
+            // setInfo(!info);
             // window.location.reload(); // 자동 새로고침
         }
     }

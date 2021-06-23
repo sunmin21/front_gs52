@@ -1,4 +1,5 @@
 import client from '../../client';
+import event from 'src/components/manager/holiday/AddHoliday';
 
 export const SelectHoliday = async () => {
     console.log("test");
@@ -7,11 +8,11 @@ export const SelectHoliday = async () => {
     console.log(holiday.data);
 };
 
-export const InsertHoliday = async (title, date, annual) => {
-    console.log("title : " + title + " date : " + date + " annual : " + annual);
+export const InsertHoliday = async (title, event, annual) => {
+    console.log("title : " + title + " date : " + event + " annual : " + annual);
 
-    var moment = require('moment');
-    var event = moment(date).format("YYYY-MM-DD");
+    // var moment = require('moment');
+    // var event = moment(date).format("YYYY-MM-DD");
 
     const holiday = await client.post('/holiday/addHoliday', { holiday_TITLE: title, holiday_DATE: event, holiday_ANNUAL_REPEAT: annual })
     .then(function (response) {
