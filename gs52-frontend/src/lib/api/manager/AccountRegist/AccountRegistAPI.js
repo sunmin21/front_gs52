@@ -5,7 +5,6 @@ import React,{useState} from "react";
 export const SelectDept = async () => {
   console.log("SelectDept API inserrrrrr");
   const dept = await client.get("/manager/select_dept");
-  console.log(dept);
   return dept.data;
 
 };

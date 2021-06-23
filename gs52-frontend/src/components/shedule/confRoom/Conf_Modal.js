@@ -19,6 +19,9 @@ import 'antd/dist/antd.css';
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
 
+export function ConfButton(){
+  
+}
 
 export function ConfModal(props) {
 

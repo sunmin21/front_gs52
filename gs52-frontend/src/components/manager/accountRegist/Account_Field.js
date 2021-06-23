@@ -15,6 +15,21 @@ export function AccountField() {
     const POSITION_SELECT = ["3", "4"];
     const RANK_SELECT = ["5", "6"];
 
+    // const [dept, setDept] = useState([{
+    //   index:'',
+    //   name:''
+    // }])
+
+    // const [position, setPosition] = useState([{
+    //   index:'',
+    //   name:''
+    // }])
+
+    // const [rank, setRank] = useState([{
+    //   index:'',
+    //   name:''
+    // }])
+
 	const [inputs, setInputs] = useState({
 		dept:DEPT_SELECT[0],
 		rank:RANK_SELECT[0],
