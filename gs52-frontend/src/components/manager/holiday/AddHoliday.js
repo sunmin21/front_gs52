@@ -27,9 +27,6 @@ function AddHoliday() {
     const [startDate, setStartDate] = useState();
     const [annual, setAnnual] = useState(1);
 
-    var moment = require('moment');
-    var event = moment(startDate).format("YYYY-MM-DD");
-
     const handleTitle = e => {
         setTitle(e.target.value);
         console.log(title)
@@ -60,19 +57,14 @@ function AddHoliday() {
         }
         else {
             if (changed == 1) {
-                console.log(event)
-                event = new Date(event)
-                console.log("나!! 111111 " + event)
-                event.setYear(event.getFullYear() + 1)
-                console.log("나!! 222222" + event)
+                console.log(startDate)
+                InsertHoliday(title, startDate, annual);
+                startDate.setYear(startDate.getFullYear() + 1)
             }
-            console.log(title, event, annual)
-            InsertHoliday(title, event, annual);
+            console.log(title, startDate, annual)
+            InsertHoliday(title, startDate, annual);
             setInfo(!info);
-            // console.log(title, startDate, annual)
-            // InsertHoliday(title, startDate, annual);
-            // setInfo(!info);
-            // window.location.reload(); // 자동 새로고침
+            window.location.reload(); // 자동 새로고침
         }
     }
     
@@ -109,7 +101,7 @@ function AddHoliday() {
                         </td>
                     </tr>
                     <tr>
-                        <td style={tdStyle}>매년 반복 여부</td>
+                        <td style={tdStyle}>반복 설정</td>
                         <td style={tdStyle}>
                                 <CSwitch
                                     className={'mx-1'} variant={'3d'} color={'info'}
