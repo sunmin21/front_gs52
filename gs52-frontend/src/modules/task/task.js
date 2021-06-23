@@ -1,9 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
   createRequestActionTypes,
-} from "../lib/createRequestSaga";
+} from "../../lib/createRequestSaga";
 import produce from "immer";
-import * as taskAPI from "../lib/api/task/BusinessProgress";
+import * as taskAPI from "../../lib/api/task/BusinessProgress";
 import { takeLatest } from "redux-saga/effects";
 const CHANGE_BOARD = "task/CHANGE_BOARD";
 
@@ -41,6 +41,7 @@ const todoSaga = createRequestSaga(TODO, taskAPI.todo);
 
 const sendSaga = createRequestSaga(SEND, taskAPI.send);
 const successSaga = createRequestSaga(SUCCESS, taskAPI.success);
+
 export const boardInit = createAction(BOARD_INIT);
 export function* taskSaga() {
   yield takeLatest(TODO, todoSaga);

@@ -28,6 +28,12 @@ const _nav = [
     to: "/manager/informLayout",
     icon: "cil-Notes",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "항목추가",
+    to: "/manager/addOptions",
+    icon: "cil-Notes",
+  },
 ];
 
 export default _nav;
