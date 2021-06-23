@@ -2,9 +2,10 @@ import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import test from "./test";
 import manager, { managerSaga } from "./manager/manager";
-import emp from "./emp";
-import task, { taskSaga } from "./task";
-import holiday,{holidaySaga2} from './manager/holiday'
+import emp from "./emp/emp";
+import task, { taskSaga } from "./task/task";
+import holiday, { holidaySaga2 } from "./manager/holiday";
+import changeState from "../modules/changeStore";
 
 const rootReducer = combineReducers({
   test,
@@ -12,10 +13,10 @@ const rootReducer = combineReducers({
   changeState,
   holiday,
   emp,
-  task
+  task,
 });
 
 export function* rootSaga() {
-  yield all([taskSaga(),holidaySaga2()]);
+  yield all([taskSaga(), holidaySaga2()]);
 }
 export default rootReducer;
