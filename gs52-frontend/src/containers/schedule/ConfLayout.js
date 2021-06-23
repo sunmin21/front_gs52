@@ -10,6 +10,7 @@ import {
   } from '@coreui/react';
 
 
+  import moment from 'moment';
 import test from '../../components/shedule/confRoom/test.json';
 import users from '../../components/shedule/confRoom/test2.js';
 
@@ -19,13 +20,15 @@ const ConfLayout = () => {
     const [emp_click,setEmp_click]=useState(false);
 
 
+  const dateFormat = 'YYYY/MM/DD';
+
     return (
         <div>
         <CCard>
             <CCardHeader>
                 <big>회의실 예약</big>
-                
-            <ConfModal click={click} time={time} setEmp_click={setEmp_click}></ConfModal>
+                {/* 버튼이랑 모달을 따로 분리해서 만들기/ */}
+            <ConfModal click={click} time={moment(time).format(dateFormat)} setEmp_click={setEmp_click}></ConfModal>
             </CCardHeader>
                 
             <CCardBody>

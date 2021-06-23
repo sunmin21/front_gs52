@@ -7,7 +7,6 @@ import {
   CModalBody,
   CModalFooter,
   CFormGroup,
-  CLabel,
   CSelect,
   CCol,
   CInput,
@@ -15,11 +14,14 @@ import {
   CInputGroupText,
   CInputGroup
 } from "@coreui/react";
-import { InsertConf } from "../../../lib/api/conf/ConfAPI";
+import { InsertConf,SelectConf } from "../../../lib/api/conf/ConfAPI";
 import 'antd/dist/antd.css';
 import { TimePicker, DatePicker } from 'antd';
+import moment from 'moment';
 
-
+export function ConfButton(){
+  
+}
 
 export function ConfModal(props) {
 
@@ -29,12 +31,12 @@ export function ConfModal(props) {
 
 	const [primary, setPrimary] = useState(false);
   
+  const [title, setTitle] = useState();
 	const [floor, setFloor] = useState(FLOOR_SELECT[0]);
 	const [room, setRoom] = useState(ROOM_SELECT[0]);
-
-  const [date,setDate] = useState(0);
-
-  const [value, onChange] = useState('10:00');
+  
+  const dateFormat = 'YYYY/MM/DD';
+  
 
 	const handleFloor = e =>{
 		setFloor(e.target.value);
@@ -44,32 +46,39 @@ export function ConfModal(props) {
 	};
 
   const click = () => {
-    InsertConf(floor, room, date);
+    InsertConf(floor, room, title);
     setPrimary(!primary);
   };
+
+  const onChange = (e) => {
+    // 이벤트가 발생한 DOM의 값 가져오기
+    //console.log(e.target.value);
+   setTitle(e.target.value);
+}
 
 
 
   useEffect(() => {
-    console.log('props.click 값이 설정됨');
-    console.log("modal click  "+props.click);
-    console.log("modal time  "+props.time);
-    
+     console.log('props.click 값이 설정됨');       //2021-06-22T07:00:00+09:00
+    // console.log("modal click  "+props.click);
+    // console.log("modal time  "+props.time);
+    // setDate(moment(props.time).format(dateFormat));
+    // setTime(moment(props.time).format('hh:mm'));
     return () => {
-      console.log('props.click 가 바뀌기 전..');
-      console.log("modal click  "+props.click);
-      console.log("modal time  "+props.time);
+       console.log('props.click 가 바뀌기 전..');
+      // console.log("modal click  "+props.click);
+      // console.log("modal time  "+props.time);
       setPrimary(!primary)
     };
   }, [props.click]);
 
 
   const onClick = e => {
-    
 		props.setEmp_click(true);
   };
-
-
+console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+props.time)
+// console.log("1970/01/01" ===props.time )
+if("1970/01/01" !==props.time){
   return (
     <div>            
       <CButton color="primary"
@@ -91,7 +100,7 @@ export function ConfModal(props) {
         <CModalBody>
           <h4>회의실 예약</h4>
           
-          <CInput id="title" name="title" placeholder="제목을 입력하세요." />
+          <CInput id="title" name="title" placeholder="제목을 입력하세요." onChange={onChange}/>
 
           <CFormGroup row>
             
@@ -124,7 +133,10 @@ export function ConfModal(props) {
             </CCol>
 
             <CCol md="9">
-            <DatePicker onChange={onChange} />
+            
+            
+            <DatePicker defaultValue={moment(props.time, dateFormat)} format={dateFormat} />
+            {console.log("moment(date, dateFormat)   " + props.time)}
             <TimePicker.RangePicker />
             </CCol>
 
@@ -156,5 +168,12 @@ export function ConfModal(props) {
     </div>
   );
 }
+else{
+  return<></>
+}
+
+}
+
+
 
 export default ConfModal;
