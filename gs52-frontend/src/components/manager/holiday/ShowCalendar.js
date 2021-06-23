@@ -4,7 +4,6 @@ import daygridPlugin from '@fullcalendar/daygrid';
 import interaction from '@fullcalendar/daygrid';
 import { CCard, CCardBody, CCardHeader } from '@coreui/react';
 import { DeleteHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
-import HolidayList from './test';
 import { useDispatch, useSelector } from 'react-redux';
 import { holidayAxios } from 'src/modules/manager/holiday';
 
