@@ -5,25 +5,38 @@ import interaction from '@fullcalendar/daygrid';
 import { CCard, CCardBody, CCardHeader } from '@coreui/react';
 import { DeleteHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
 import HolidayList from './test';
+import { useDispatch, useSelector } from 'react-redux';
+import { holidayAxios } from 'src/modules/manager/holiday';
 
 function ShowCalendar() {
 
     const [events, setEvents] = useState([]);
+    const dispatch = useDispatch();
+    const { holiday } = useSelector((state) => {
+        return ({   
+            holiday: state.holiday.holiday,
+        })
+    });
+
+    // useEffect(() => {
+    //     fetch("/holiday/showHoliday")
+    //         .then((response) => response.json())
+    //         .then((events) => {     
+    //             setEvents(events.map((event) => {
+    //                 return ({
+    //                     id: event.holiday_INDEX,
+    //                     title: event.holiday_TITLE,
+    //                     start: event.holiday_DATE,
+    //                 })
+    //             }))
+    //         })
+    // }, [])
 
     useEffect(() => {
-        fetch("/holiday/showHoliday")
-            .then((response) => response.json())
-            .then((events) => {     
-                setEvents(events.map((event) => {
-                    return ({
-                        id: event.holiday_INDEX,
-                        title: event.holiday_TITLE,
-                        start: event.holiday_DATE,
-                    })
-                }))
-            })
-    }, [])
+        dispatch(holidayAxios())
+    }, [dispatch])
 
+    console.log(holiday)
     const eventOnclick = (e) => {
         var msg = ("삭제하시겠습니까?");
 
@@ -35,13 +48,18 @@ function ShowCalendar() {
             // console.log("@@@@@@")
             // setEvents(DeleteHoliday(e.event._def["publicId"]))
             // window.location.reload(); // 자동 새로고침
-
         }
         else {
             console.log("ㄴㄴ")
         }
     }
-
+    const data =holiday.map((item) => {
+        return ({
+            id: item.holiday_INDEX,
+            title: item.holiday_TITLE,
+            start: item.holiday_DATE,
+        })
+    })
     return (
         <CCard>
             <CCardHeader>
@@ -57,7 +75,7 @@ function ShowCalendar() {
                                     defaultView="dayGridMonth"
                                     // plugins={[daygridPlugin]}
                                     plugins={[interaction]}
-                                    events={events}
+                                    events={data}
                                     // events={HolidayList}
                                     // events={[
                                     //     { title: 'event 1', date: '2021-06-01' },
