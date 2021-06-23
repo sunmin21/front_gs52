@@ -144,7 +144,7 @@ const CreateTodo = () => {
             type="submit"
             size="sm"
             color="primary"
-            onClick={() => {
+            onClick={async () => {
               if (search.length === 0) {
                 setSearchCheck(true);
 
@@ -156,12 +156,12 @@ const CreateTodo = () => {
 
                 return;
               }
-              BoardSend({ no, board, sendId: 2 });
+              await BoardSend({ no, board, sendId: 2 });
               dispatch(searchInit());
               dispatch(boardInit());
-              dispatch(todoAxios(2));
-              dispatch(sendAxios(2));
-              dispatch(succssAxios(2));
+              await dispatch(todoAxios(2));
+              await dispatch(sendAxios(2));
+              await dispatch(succssAxios(2));
               history.goBack();
             }}
           >

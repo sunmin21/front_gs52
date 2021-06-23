@@ -124,11 +124,11 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                       active
                       block
                       color="success"
-                      onClick={(e) => {
-                        success(e);
-                        dispatch(todoAxios(userid));
-                        dispatch(sendAxios(userid));
-                        dispatch(succssAxios(userid));
+                      onClick={async (e) => {
+                        await success(e);
+                        await dispatch(todoAxios(userid));
+                        await dispatch(sendAxios(userid));
+                        await dispatch(succssAxios(userid));
                       }}
                       aria-pressed="true"
                       value={item.todo_INDEX}
@@ -144,11 +144,11 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                       active
                       block
                       color="danger"
-                      onClick={(e) => {
-                        reject(e);
-                        dispatch(todoAxios(userid));
-                        dispatch(sendAxios(userid));
-                        dispatch(succssAxios(userid));
+                      onClick={async (e) => {
+                        await reject(e);
+                        await dispatch(todoAxios(userid));
+                        await dispatch(sendAxios(userid));
+                        await dispatch(succssAxios(userid));
                       }}
                       aria-pressed="true"
                       value={item.todo_INDEX}
