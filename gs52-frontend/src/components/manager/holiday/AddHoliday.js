@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import {
@@ -13,6 +13,8 @@ import {
     CFormGroup
 } from '@coreui/react'
 import { InsertHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
+import { holidayAxios } from 'src/modules/manager/holiday';
+import { useDispatch } from 'react-redux';
 
 function AddHoliday() {
 
@@ -20,6 +22,11 @@ function AddHoliday() {
         textAlign: "left",
         padding: "20px"
     }
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(holidayAxios())
+    }, [dispatch])
 
     let changed = 0;
     const [info, setInfo] = useState(false);
@@ -64,7 +71,8 @@ function AddHoliday() {
             console.log(title, startDate, annual)
             InsertHoliday(title, startDate, annual);
             setInfo(!info);
-            window.location.reload(); // 자동 새로고침
+            dispatch(holidayAxios());
+            // 자동 rendering
         }
     }
     
