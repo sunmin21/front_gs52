@@ -9,8 +9,8 @@ import {
   CModalTitle,
 } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSEARCHADD, searchInit } from "src/modules/emp";
-import { changeBoard } from "src/modules/task";
+import { changeSEARCHADD, searchInit } from "src/modules/emp/emp";
+import { changeBoard } from "src/modules/task/task";
 
 const AnnualModal = ({ Content, form }) => {
   const [info, setInfo] = useState(false);
