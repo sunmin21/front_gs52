@@ -1,36 +1,19 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect }from 'react';
 import FullCalendar from '@fullcalendar/react';
 import daygridPlugin from '@fullcalendar/daygrid';
-import interaction from '@fullcalendar/daygrid';
 import { CCard, CCardBody, CCardHeader } from '@coreui/react';
 import { DeleteHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
-import HolidayList from './test';
 import { useDispatch, useSelector } from 'react-redux';
 import { holidayAxios } from 'src/modules/manager/holiday';
 
 function ShowCalendar() {
 
-    const [events, setEvents] = useState([]);
     const dispatch = useDispatch();
     const { holiday } = useSelector((state) => {
         return ({   
-            holiday: state.holiday.holiday,
+            holiday : state.holiday.holiday,
         })
     });
-
-    // useEffect(() => {
-    //     fetch("/holiday/showHoliday")
-    //         .then((response) => response.json())
-    //         .then((events) => {     
-    //             setEvents(events.map((event) => {
-    //                 return ({
-    //                     id: event.holiday_INDEX,
-    //                     title: event.holiday_TITLE,
-    //                     start: event.holiday_DATE,
-    //                 })
-    //             }))
-    //         })
-    // }, [])
 
     useEffect(() => {
         dispatch(holidayAxios())
@@ -43,11 +26,11 @@ function ShowCalendar() {
         if (window.confirm(msg) != 0)
         {
             console.log("ㅇㅇ")
-            console.log("show 창 : " + e.event._def["publicId"]) // holiday_index를 가져옴
+            console.log("show 창 : " + e.event._def["publicId"])
+            // holiday_index를 가져옴
             DeleteHoliday(e.event._def["publicId"]);
-            // console.log("@@@@@@")
-            // setEvents(DeleteHoliday(e.event._def["publicId"]))
-            // window.location.reload(); // 자동 새로고침
+            dispatch(holidayAxios())
+            // 자동 rendering
         }
         else {
             console.log("ㄴㄴ")
@@ -74,7 +57,7 @@ function ShowCalendar() {
                                 <FullCalendar
                                     defaultView="dayGridMonth"
                                     // plugins={[daygridPlugin]}
-                                    plugins={[interaction]}
+                                    plugins={[daygridPlugin]}
                                     events={data}
                                     // events={HolidayList}
                                     // events={[
