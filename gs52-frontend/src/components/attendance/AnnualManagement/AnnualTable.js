@@ -15,7 +15,7 @@ import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
 
 const annual = ["날짜", "연차유형", "사유"];
-const AnnualTables = () => {
+const Tables = () => {
   const [inputData, setInputData] = useState(null);
   const [restVacation, setRestVacation] = useState(0);
   const [date, setDate] = useState();
@@ -56,7 +56,6 @@ const AnnualTables = () => {
   useEffect(async () => {
     try {
       var moment = require("moment");
-
       const res = await axios.post("/annual/select", {
         //사원의 연차정보 전부 가져옴
         vacation_EMP_ID: 54321,
@@ -117,6 +116,7 @@ const AnnualTables = () => {
                 items={inputData}
                 fields={annual}
                 hover
+                sorter
                 sorterValue={{ column: "날짜", desc: "true" }}
                 striped
                 bordered
@@ -149,4 +149,4 @@ const AnnualTables = () => {
   );
 };
 
-export default AnnualTables;
+export default Tables;
