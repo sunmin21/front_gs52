@@ -1,24 +1,21 @@
+import React,{useState} from "react";
 import client from "../../client";
 
-import React,{useState} from "react";
-
 export const InformInsert = async (pwd, tel, address, bank, account) => {
-  console.log("Inform API inserrrrrr");
+  console.log("InformInsert API inserrrrrr");
   console.log("pwd "+pwd);
-  console.log("tel "+tel);
-  console.log("address "+address);
   
-  // const conf = await client.post("/schedule/confRoom/insert",{room_B_TITLE:title, room_B_INDEX:floor})
-  //                         .then(function (response){
-  //                           //response
-  //                         })
-  //                         .catch(function(error){
-  //                           //오류발생 시
-  //                           console.log(error);
-  //                         })
-  //                         .then(function(){
-  //                           //항상실행
-  //                         });
+  const conf = await client.post("/manager/informLayout/regist",{emp_TEAM_INDEX:'1', emp_RANK_INDEX:'2', emp_POSITION_INDEX:'3', emp_ID:'12345678', emp_PWD:pwd})
+                          .then(function (response){
+                            //response
+                          })
+                          .catch(function(error){
+                            //오류발생 시
+                            console.log(error);
+                          })
+                          .then(function(){
+                            //항상실행
+                          });
 
 
 };

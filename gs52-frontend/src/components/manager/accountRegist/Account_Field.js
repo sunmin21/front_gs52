@@ -4,24 +4,25 @@ import {
   CCardBody,
   CCardHeader,
   CInput,
-  CFormGroup, CCol, CLabel, CCardFooter, CButton
+  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect
 } from '@coreui/react';
 
-import { SelectDept } from "../../../lib/api/manager/AccountRegist/AccountRegistAPI";
+import { SelectDept, InsertAccount } from "../../../lib/api/manager/AccountRegist/AccountRegistAPI";
 import { all } from 'redux-saga/effects';
 
 export function AccountField() {
-	const [inputs, setInputs] = useState({
-		dept:null,
-		emp_rank:null,
-		emp_position:null,
-		emp_num:null,
-		emp_date:null,
-	  })
-	
+    const DEPT_SELECT = ["1", "2"];
+    const POSITION_SELECT = ["3", "4"];
+    const RANK_SELECT = ["5", "6"];
 
-	  
-	const {dept, emp_rank, emp_position, emp_num, emp_date} = inputs;
+	const [inputs, setInputs] = useState({
+		dept:DEPT_SELECT[0],
+		rank:RANK_SELECT[0],
+		position:POSITION_SELECT[0],
+		num:123,
+		date:123,
+	  })
+	const {dept, rank, position, num, date} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -36,18 +37,32 @@ export function AccountField() {
 		//만든 변수를 seInput으로 변경해준다.
 			setInputs(nextInputs)       
 
-		
 	}
 
 	const onRegist=()=>{
-			//{InformInsert(first_pwd, second_pwd, tel, address, bank, account)}
+			{InsertAccount(dept, rank, position, num, date)}
 		
+            console.log(inputs)
 
 	}
 
     const onClick=()=>{
-        SelectDept();
+        const res=SelectDept();
+        console.log(res)
     }
+
+    // const handleDept = e =>{
+    //     console.log(e.target)
+	// 	setInputs(e.target.value);
+	// };	    
+    // const handlePosition = e =>{
+	// 	//setFloor(e.target.value);
+	// };	
+
+    // const handleRank = e =>{
+	// 	//setFloor(e.target.value);
+	// };	
+
     return (
         <div>
             <button onClick={onClick}>sdfsdf</button>
@@ -61,47 +76,72 @@ export function AccountField() {
                     <CLabel htmlFor="dept">부서</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                   Select 문
+                    <CSelect onChange={onChange} id="dept" name="dept">
+                    {DEPT_SELECT.map((dept, idx) => {
+                        return (
+                        <option key={idx} value={dept} >
+                            {dept}번
+                        </option>
+                        );
+                    })}
+                    </CSelect>
                   </CCol>
                 </CFormGroup>
+
                
-               <CFormGroup row>
+                <CFormGroup row>
                  <CCol md="3">
                    <CLabel htmlFor="emp_rank">직급</CLabel>
                  </CCol>
                  <CCol xs="12" md="9">
-                   <CInput id="emp_rank" name="emp_rank" placeholder="사원 번호" 
-                   onChange={onChange} value={emp_rank||''}/>
+                 <CSelect onChange={onChange} id="rank" name="rank">
+                    {RANK_SELECT.map((rank, idx) => {
+                        return (
+                        <option key={idx} value={rank} >
+                            {rank}
+                        </option>
+                        );
+                    })}
+                    </CSelect>
                  </CCol>
                </CFormGroup>
                
                <CFormGroup row>
                  <CCol md="3">
-                   <CLabel htmlFor="emp_position">직책</CLabel>
+                   <CLabel htmlFor="position" id="position" name="position">직책</CLabel>
                  </CCol>
                  <CCol xs="12" md="9">
-                   <CInput id="emp_position" name="emp_position" placeholder="사원 번호" 
-                   onChange={onChange} value={emp_position||''}/>
+                 <CSelect onChange={onChange}>
+                    {POSITION_SELECT.map((position, idx) => {
+                        return (
+                        <option key={idx} value={position} >
+                            {position}
+                        </option>
+                        );
+                    })}
+                    </CSelect>
                  </CCol>
                </CFormGroup>
-				
+               
+              
+{/* 				
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="emp_num">사원번호</CLabel>
+                    <CLabel htmlFor="num">사원번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="emp_num" name="emp_num" placeholder="사원 번호" 
-					onChange={onChange} value={emp_num||''}/>
+                    <CInput id="num" name="num" placeholder="사원 번호" 
+					onChange={onChange} value={num||''}/>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="emp_date">입사일</CLabel>
+                    <CLabel htmlFor="date">입사일</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
                         date picker
                   </CCol>
-                </CFormGroup>
+                </CFormGroup> */}
                 </CCardBody>
 
                 <CCardFooter>              
