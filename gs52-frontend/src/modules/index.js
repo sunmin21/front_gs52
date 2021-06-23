@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   test,
   changeState,
   emp,
-  task,
+  task
 });
 
 export function* rootSaga() {

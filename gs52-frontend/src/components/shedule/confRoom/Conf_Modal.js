@@ -31,54 +31,68 @@ export function ConfModal(props) {
 
 	const [primary, setPrimary] = useState(false);
   
-  const [title, setTitle] = useState();
-	const [floor, setFloor] = useState(FLOOR_SELECT[0]);
-	const [room, setRoom] = useState(ROOM_SELECT[0]);
-  
-  const dateFormat = 'YYYY/MM/DD';
-  
+const dateFormat = 'YYYY-MM-DD';
 
-	const handleFloor = e =>{
-		setFloor(e.target.value);
-	};	
-	const handleRoom = e =>{
-		setRoom(e.target.value);
-	};
+const [inputs, setInputs] = useState({
+  title:null,
+  floor:FLOOR_SELECT[0],
+  room:ROOM_SELECT[0],
+  })
+const {title, floor, room} = inputs;
 
-  const click = () => {
-    InsertConf(floor, room, title);
-    setPrimary(!primary);
-  };
+const [date, setDate] = useState(moment().format(dateFormat));
+const [time, setTime] = useState();
 
-  const onChange = (e) => {
-    // 이벤트가 발생한 DOM의 값 가져오기
-    //console.log(e.target.value);
-   setTitle(e.target.value);
+const onChange = (e) => {
+  //input에 name을 가진 요소의 value에 이벤트를 걸었다
+  const { name, value } = e.target   
+
+  // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
+  const nextInputs = {            
+  //스프레드 문법으로 기존의 객체를 복사한다.
+      ...inputs,  
+      [name]: value,
+    }
+  //만든 변수를 seInput으로 변경해준다.
+    setInputs(nextInputs)      
 }
 
+function onDate(date, dateString) {
+  setDate(dateString)
+}
+function onTime(timeString) {
+  setTime(timeString)
+}
 
-
-  useEffect(() => {
-     console.log('props.click 값이 설정됨');       //2021-06-22T07:00:00+09:00
-    // console.log("modal click  "+props.click);
-    // console.log("modal time  "+props.time);
-    // setDate(moment(props.time).format(dateFormat));
-    // setTime(moment(props.time).format('hh:mm'));
-    return () => {
-       console.log('props.click 가 바뀌기 전..');
-      // console.log("modal click  "+props.click);
-      // console.log("modal time  "+props.time);
-      setPrimary(!primary)
-    };
-  }, [props.click]);
+  // useEffect(() => {
+  //   // console.log('props.conf_click 값이 설정됨');       //2021-06-22T07:00:00+09:00
+  //     console.log(primary);
+  //   return () => {
+  //     //console.log('props.conf_click 가 바뀌기 전..');
+  //     setPrimary(!primary)
+  //     console.log(primary);
+  //   };
+  // }, [props.conf_click]);
 
 
   const onClick = e => {
 		props.setEmp_click(true);
   };
-console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+props.time)
+
+  const onRegist = () => {
+    console.log(date)
+    InsertConf(inputs.floor, inputs.room, inputs.title, date, time);
+    //props.setConf_Click(false);
+  };
+  const onCancle = e => {
+    setPrimary(!primary)
+    //props.setConf_Click(false);
+  }
+
+
+console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
 // console.log("1970/01/01" ===props.time )
-if("1970/01/01" !==props.time){
+//if("1970/01/01" !==props.time){
   return (
     <div>            
       <CButton color="primary"
@@ -89,6 +103,7 @@ if("1970/01/01" !==props.time){
 
       <CModal
         show={primary}
+        closeOnBackdrop={false}
         onClose={() => setPrimary(!primary)}
         color="primary"
       >
@@ -107,7 +122,7 @@ if("1970/01/01" !==props.time){
             <CCol md="3">
               
               <CFormGroup>
-                <CSelect onChange={handleFloor}>
+                <CSelect id="floor" name="floor" onChange={onChange}>
                   {FLOOR_SELECT.map((floor, idx) => {
                     return (
                       <option key={idx} value={floor} >
@@ -120,7 +135,7 @@ if("1970/01/01" !==props.time){
             </CCol>
             <CCol md="3">
               <CFormGroup>
-                <CSelect onChange={handleRoom}>
+                <CSelect id="room" name="room" onChange={onChange}>
                   {ROOM_SELECT.map((room, idx) => {
                     return (
                       <option key={idx} value={room}>
@@ -135,9 +150,10 @@ if("1970/01/01" !==props.time){
             <CCol md="9">
             
             
-            <DatePicker defaultValue={moment(props.time, dateFormat)} format={dateFormat} />
-            {console.log("moment(date, dateFormat)   " + props.time)}
-            <TimePicker.RangePicker />
+            <DatePicker onChange={onDate} />
+            {/* <DatePicker defaultValue={moment(props.time, dateFormat)} format={dateFormat} /> */}
+            {/* {console.log("moment(date, dateFormat)   " + props.time)} */}
+            <TimePicker.RangePicker onChange={onTime} />
             </CCol>
 
             <CCol md="5">일정초대</CCol>
@@ -157,20 +173,20 @@ if("1970/01/01" !==props.time){
 
 
         <CModalFooter>
-          <CButton color="primary" onClick={click}>
+          <CButton color="primary" onClick={onRegist}>
             등록
           </CButton>{" "}
-          <CButton color="secondary" onClick={() => {setPrimary(!primary)}}>
+          <CButton color="secondary" onClick={onCancle}>
             취소
           </CButton>
         </CModalFooter>
       </CModal>
     </div>
   );
-}
-else{
-  return<></>
-}
+// }
+// else{
+//   return<></>
+// }
 
 }
 
