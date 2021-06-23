@@ -128,7 +128,6 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                         success(e);
                         dispatch(todoAxios(userid));
                         dispatch(sendAxios(userid));
-
                         dispatch(succssAxios(userid));
                       }}
                       aria-pressed="true"
