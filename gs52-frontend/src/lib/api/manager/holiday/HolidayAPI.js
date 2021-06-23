@@ -4,7 +4,7 @@ export const SelectHoliday = async () => {
     console.log("test");
 
     const holiday = await client.get('/holiday/showHoliday');
-    console.log(holiday.data);
+    return holiday
 };
 
 export const InsertHoliday = async (title, date, annual) => {
