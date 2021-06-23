@@ -27,20 +27,20 @@ export const InsertHoliday = async (title, date, annual) => {
 
 export const DeleteHoliday = async (id) => {
     id = (parseInt(id));
-    console.log("id : " + id);
-    console.log(typeof(id));
+    // console.log("id : " + id);
+    // console.log(typeof (id));
 
     const holiday = await client.post('/holiday/delHoliday', {
-        holiday_INDEX : id
+        holiday_INDEX: id
     })
-        .then(function (response) {
+    .then(function (response) {
         
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-        .then(function () {
-        
-        }
-    );
+        // return response.data;
+    })
+    .catch(function (error) {
+        console.log(error);
+    })
+    .then(function () {
+        // 항상 실행되는 부분
+    });
 }

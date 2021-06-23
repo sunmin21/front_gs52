@@ -78,38 +78,40 @@ function AddHoliday() {
                     <CModalTitle>휴일 추가</CModalTitle>
                 </CModalHeader>
                 <CFormGroup>
-                <table style={{textAlign: "center", margin:"auto"}}>
-                    <tr>
-                        <td style={tdStyle}>제목</td>
-                        <td style={tdStyle}>
-                            <CInput
-                                id="title" name="title" placeholder="휴일"
-                                onChange={handleTitle}
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style={tdStyle}>날짜 설정</td>
-                        <td style={tdStyle}>
-                            <DatePicker
-                                selected={startDate}
-                                onChange={setStartDate}
-                                inline // 달력이 모달창에 뜨도록
-                                // minDate={new Date()} // 이전 날은 선택 못하도록
-                                popperPlacement="auto" // 화면 중앙에 오도록
-                            />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style={tdStyle}>반복 설정</td>
-                        <td style={tdStyle}>
-                                <CSwitch
-                                    className={'mx-1'} variant={'3d'} color={'info'}
-                                    onChange={handleAnnual}
-                                defaultChecked={false}
-                            />
-                        </td>
-                    </tr>
+                    <table style={{ textAlign: "center", margin: "auto" }}>
+                        <tbody>
+                            <tr>
+                                <td style={tdStyle}>제목</td>
+                                <td style={tdStyle}>
+                                    <CInput
+                                        id="title" name="title" placeholder="휴일"
+                                        onChange={handleTitle}
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style={tdStyle}>날짜 설정</td>
+                                <td style={tdStyle}>
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={setStartDate}
+                                        inline // 달력이 모달창에 뜨도록
+                                        // minDate={new Date()} // 이전 날은 선택 못하도록
+                                        popperPlacement="auto" // 화면 중앙에 오도록
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style={tdStyle}>반복 설정</td>
+                                <td style={tdStyle}>
+                                        <CSwitch
+                                            className={'mx-1'} variant={'3d'} color={'info'}
+                                            onChange={handleAnnual}
+                                        defaultChecked={false}
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                     </CFormGroup>
                 <CModalFooter>
