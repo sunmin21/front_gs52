@@ -23,7 +23,7 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { sendAxios, succssAxios, todoAxios } from "src/modules/task";
+import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
 const BusinessProgress = () => {
   //임의로 userid 정해줌
   const todo_EMP_ID_RECEIVCE = useRef(2); //유저아이디

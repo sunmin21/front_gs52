@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { sendAxios, succssAxios, todoAxios } from "src/modules/task";
+import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
 import usersData from "./UsersData";
 
 const getBadge = (status) => {

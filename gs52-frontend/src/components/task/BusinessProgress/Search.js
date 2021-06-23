@@ -1,8 +1,12 @@
 import { CDataTable } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { userList } from "src/lib/api/auth/Emp";
-import { changeSEARCHADD, changeSEARCHSUB, userLists } from "src/modules/emp";
+import { userList } from "src/lib/api/auth/auth";
+import {
+  changeSEARCHADD,
+  changeSEARCHSUB,
+  userLists,
+} from "src/modules/emp/emp";
 
 const Search = ({ check }) => {
   //   const [userCount, setUserCount] = useState(0);
