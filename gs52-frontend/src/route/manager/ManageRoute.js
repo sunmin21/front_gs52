@@ -5,12 +5,15 @@ const HolidayManagement = React.lazy(() =>
 const InformLayout = React.lazy(() =>
   import("../../containers/informRegist/Inform_Layout")
 );
+const addOptions = React.lazy(() =>
+  import("../../containers/manager/addOptions/addOption")
+);
 
 const ManagerRoute = [
   {
     path: "/manager/addOptions",
     name: "항목추가",
-    component: InformLayout,
+    component: addOptions,
   },
   {
     path: "/manager/HolidayManagement",
