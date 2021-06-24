@@ -1,11 +1,23 @@
 import client from "../client";
 
 export const SelectVacation = async () => {
-  const select = await client.post("/annual/select", {
+  const annual = await client.post("/annual/select", {
     //사원의 연차정보 전부 가져옴
-    vacation_EMP_ID: 54321,
+    vacation_EMP_INDEX: 5,
   });
-  return select.data;
+
+  return annual;
+};
+
+export const SelectEmpVacation = async () => {
+  const empvacation = await client.post("/annual/select2", {
+    //개인 사원의 잔여 연차 수를 가져옴
+    vacation_EMP_INDEX: 5,
+  });
+  console.log("@@@@");
+  console.log(empvacation);
+
+  return empvacation;
 };
 
 export const InsertConf = async (floor, room, date) => {

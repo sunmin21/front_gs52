@@ -9,16 +9,12 @@ import {
 import axios from "axios";
 
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
-function RowDeleteModal({
-  info,
-  setInfo,
-  event,
-  setInputData,
-  setRestVacation,
-}) {
+function RowDeleteModal({ info, setInfo, event, setRestVacation }) {
   // const [info, setInfo] = useState(false);
-  var moment = require("moment");
+  const dispatch = useDispatch();
   const rowDelete = () => {
     axios.post("/annual/delete", {
       vacation_DATE: event.날짜,
@@ -42,11 +38,9 @@ function RowDeleteModal({
         return content;
       });
     }
-    setInputData((content) => {
-      console.log(content);
-      console.log(event.vacation_index);
-      return content.filter((user) => user.날짜 !== event.날짜);
-    });
+
+    dispatch(annualAxios());
+    dispatch(empvacationAxios());
 
     setInfo(!info);
   };

@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Home } from "../../../lib/api/test";
 import {
   CCard,
@@ -13,10 +14,12 @@ import {
 import axios from "axios";
 import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
+import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
-const annual = ["날짜", "연차유형", "사유"];
+const annualArr = ["날짜", "연차유형", "사유"];
 const AnnualTables = () => {
-  const [inputData, setInputData] = useState(null);
+  var moment = require("moment");
+  const [inputData, setInputData] = useState([]);
   const [restVacation, setRestVacation] = useState(0);
   const [date, setDate] = useState();
   const [infoIndex, setInfoIndex] = useState();
@@ -29,7 +32,25 @@ const AnnualTables = () => {
     연차유형: "",
     사유: "",
   });
+  const dispatch = useDispatch();
+  const { annual } = useSelector((state) => {
+    return {
+      annual: state.annual.annual,
+    };
+  });
 
+  const { empvacation } = useSelector((state) => {
+    return {
+      empvacation: state.annual.empvacation,
+    };
+  });
+
+  useEffect(() => {
+    dispatch(annualAxios());
+    dispatch(empvacationAxios());
+  }, [dispatch]);
+
+  //setInputData(data);
   const dateHandle = (e) => {
     setDate(e.target.value);
   };
@@ -39,6 +60,17 @@ const AnnualTables = () => {
   const contentsHandle = (e) => {
     setContents(e.target.value);
   };
+
+  const data = annual.map((item) => ({
+    vacation_index: item.vacation_INDEX,
+    날짜: moment(item.vacation_DATE).format("YYYY-MM-DD"),
+    연차유형: item.attend_TYPE_NAME,
+    사유: item.vacation_CONTENTS,
+  }));
+
+  const data2 = empvacation.map((item) => {
+    return item.emp_VACATION;
+  });
 
   const eventHandle = (e) => {
     var moment = require("moment");
@@ -52,32 +84,6 @@ const AnnualTables = () => {
     }
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    try {
-      var moment = require("moment");
-
-      const res = await axios.post("/annual/select", {
-        //사원의 연차정보 전부 가져옴
-        vacation_EMP_ID: 54321,
-      });
-      const re2 = await axios.post("/annual/select2", {
-        //개인 사원의 잔여 연차 수를 가져옴
-        vacation_EMP_ID: 54321,
-      });
-      const _inputData = await res.data.map((rowData) => ({
-        vacation_index: rowData.vacation_INDEX,
-        날짜: moment(rowData.vacation_DATE).format("YYYY-MM-DD"),
-        연차유형: rowData.attend_TYPE_NAME,
-        사유: rowData.vacation_CONTENTS,
-      }));
-      //inputData.concat(_inputData)
-      setInputData(_inputData); // 연차 정보 테이블
-      setRestVacation(re2.data[0].emp_VACATION); // 개인 사원의 잔여 연차 수
-    } catch (e) {
-      console.error(e.message);
-    }
-  }, []);
   return (
     <>
       <CRow>
@@ -94,7 +100,7 @@ const AnnualTables = () => {
                     <h5 class="text-center">잔여 휴가 </h5>
                   </div>
                   <div class="col-sm-1 ">
-                    <h5>{restVacation}</h5>
+                    <h5>{data2}</h5>
                   </div>
                   <div class="col-sm-1">
                     <AnnualModal
@@ -104,7 +110,7 @@ const AnnualTables = () => {
                       date={date}
                       infoIndex={infoIndex}
                       contents={contents}
-                      inputData={inputData}
+                      inputData={data}
                       setInputData={setInputData}
                       setRestVacation={setRestVacation}
                     ></AnnualModal>
@@ -114,8 +120,8 @@ const AnnualTables = () => {
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={inputData}
-                fields={annual}
+                items={data}
+                fields={annualArr}
                 hover
                 sorterValue={{ column: "날짜", desc: "true" }}
                 striped

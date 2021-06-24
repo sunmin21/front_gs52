@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   CButton,
   CModal,
@@ -9,6 +10,7 @@ import {
   CAlert,
 } from "@coreui/react";
 import axios from "axios";
+import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
 function AnnualModal({
   dateHandle,
@@ -24,6 +26,7 @@ function AnnualModal({
   const [info, setInfo] = useState(false);
   const [visible, setVisible] = useState(0);
   const [alertContents, setAlertContents] = useState();
+  const dispatch = useDispatch();
   const moment = require("moment");
   var nDate = new Date();
   nDate.setDate(nDate.getDate() + 1);
@@ -49,7 +52,7 @@ function AnnualModal({
       console.log(sameCount);
       if (sameCount == 0) {
         axios.post("/annual/insert", {
-          vacation_EMP_ID: 54321, // 사원번호
+          vacation_EMP_INDEX: 5, // 사원번호
           vacation_ATTEND_INFO_INDEX: infoIndex,
           vacation_DATE: date,
           vacation_CONTENTS: contents,
@@ -75,14 +78,8 @@ function AnnualModal({
           }
         });
 
-        setInputData((content) => {
-          return content.concat({
-            vacation_EMP_ID: 54321, // 사원번호
-            날짜: moment(date).format("YYYY-MM-DD"),
-            연차유형: infoIndex == "7" ? "연차" : "반차",
-            사유: contents,
-          });
-        });
+        dispatch(annualAxios());
+        dispatch(empvacationAxios());
 
         setInfo(!info);
       } else {
