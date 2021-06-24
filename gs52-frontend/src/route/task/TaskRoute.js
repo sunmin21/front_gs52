@@ -7,6 +7,7 @@ const TodoBoard = React.lazy(() =>
 const BusinessProgress = React.lazy(() =>
   import("src/containers/task/BusinessProgress")
 );
+const ReportManagement = React.lazy(() => import("../../containers/task/report/ReportManagement"))
 
 const TaskRoute = [
   // {
@@ -25,7 +26,7 @@ const TaskRoute = [
     component: BusinessProgress,
     exact: true,
   },
-  { path: "/task/report", name: "주간업무보고", component: Dashboard },
+  { path: "/task/report", name: "주간업무보고", component: ReportManagement },
   { path: "/task", name: "업무관리", component: Dashboard, exact: true },
 ];
 
