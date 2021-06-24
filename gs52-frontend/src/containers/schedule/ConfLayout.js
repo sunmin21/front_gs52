@@ -3,8 +3,6 @@ import {ConfRoom} from "../../components/shedule/confRoom/Conf_Room";
 import {ConfModal} from "../../components/shedule/confRoom/Conf_Modal";
 import {Conf_SelectEmp} from "../../components/shedule/confRoom/Conf_SelectEmp";
 
-import {connect} from 'react-redux';
-
 import {
 	CCard,
 	CCardBody,
@@ -12,9 +10,6 @@ import {
   } from '@coreui/react';
 
 
-  import moment from 'moment';
-import test from '../../components/shedule/confRoom/test.json';
-import users from '../../components/shedule/confRoom/test2.js';
 
 
 

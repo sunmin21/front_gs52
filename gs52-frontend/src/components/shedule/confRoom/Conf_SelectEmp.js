@@ -46,6 +46,7 @@ export function Conf_SelectEmp(props) {
     };
   }, [props.emp_click]);
 
+  console.log("emppppppppppppppp")
   return (
     <div>            
 		<button  onClick={Select_emp}>sdfsdf</button>

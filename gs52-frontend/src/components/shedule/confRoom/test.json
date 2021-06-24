@@ -1,6 +1,0 @@
-{
-  "test" : [
-    { "id" : 1, "title" : "미생", "artist" : "윤태호", "day" : "mon", "thumbnail" : "http://t1.daumcdn.net/webtoon/op/f6df13cba138bce8e5526e71fd46ecb1d8433520" }, { "id" : 2, "title" : "무한도전", "artist" : "김태호", "day" : "mon", "thumbnail" : "http://t1.daumcdn.net/webtoon/op/b6a0a829b579340585887cb44e762d664e055e7d" }
-
-]
-}

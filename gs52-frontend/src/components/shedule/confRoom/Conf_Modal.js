@@ -150,10 +150,10 @@ console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
             <CCol md="9">
             
             
-            <DatePicker onChange={onDate} />
+            <DatePicker onChange={onDate} defaultValue={moment()} />
             {/* <DatePicker defaultValue={moment(props.time, dateFormat)} format={dateFormat} /> */}
             {/* {console.log("moment(date, dateFormat)   " + props.time)} */}
-            <TimePicker.RangePicker onChange={onTime} />
+            <TimePicker.RangePicker onChange={onTime} defaultValue = {[moment('09:00', 'HH:mm'),moment('09:30', 'HH:mm')]} format="HH:mm" minuteStep={10}/>
             </CCol>
 
             <CCol md="5">일정초대</CCol>
