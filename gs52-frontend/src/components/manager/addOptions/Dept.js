@@ -2,6 +2,7 @@ import {
   CAlert,
   CButton,
   CCardBody,
+  CCol,
   CCollapse,
   CDataTable,
 } from "@coreui/react";
@@ -10,14 +11,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { DeleteDept } from "src/lib/api/manager/addOptions/addOptions";
 import { deptAxios } from "src/modules/manager/manager";
 import Modal from "./DeptModal";
+import InsertModal from "./DeptInsertModal";
 
 const Dept = () => {
   const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const dispatch = useDispatch();
   let { dept } = useSelector(({ manager }) => ({
     dept: manager.dept,
   }));
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState({
+    show: false,
+    index: 0,
+  });
   useEffect(() => {
     dispatch(deptAxios());
   }, [dispatch]);
@@ -56,87 +62,115 @@ const Dept = () => {
   ];
 
   return (
-    <CDataTable
-      items={deptData}
-      fields={fields}
-      columnFilter
-      tableFilter
-      footer
-      itemsPerPageSelect
-      itemsPerPage={5}
-      hover
-      sorter
-      pagination
-      scopedSlots={{
-        show_details: (item, index) => {
-          return (
-            <td className="py-2">
-              <CButton
-                color="primary"
-                variant="outline"
-                shape="square"
-                size="sm"
-                onClick={() => {
-                  toggleDetails(index);
-                }}
-              >
-                {details.includes(index) ? "Hide" : "Show"}
-              </CButton>
-            </td>
-          );
-        },
-        details: (item, index) => {
-          return (
-            <CCollapse show={details.includes(index)}>
-              <CCardBody>
-                <Modal
-                  visible={visible}
-                  setVisible={setVisible}
-                  index={item.인덱스}
-                  dispatch={dispatch}
-                  axios={deptAxios}
-                />
-                <CAlert
-                  color="danger"
-                  show={show}
-                  closeButton
-                  onClick={() => {
-                    setShow(false);
-                  }}
-                >
-                  부서 안에 팀이 존재합니다.
-                </CAlert>
+    <>
+      <CDataTable
+        items={deptData}
+        fields={fields}
+        columnFilter
+        tableFilter
+        footer
+        itemsPerPageSelect
+        itemsPerPage={5}
+        hover
+        sorter
+        pagination
+        scopedSlots={{
+          show_details: (item, index) => {
+            return (
+              <td className="py-2">
                 <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="square"
                   size="sm"
-                  color="info"
                   onClick={() => {
-                    setVisible(!visible);
+                    toggleDetails(index);
                   }}
                 >
-                  부서수정
+                  {details.includes(index) ? "Hide" : "Show"}
                 </CButton>
+              </td>
+            );
+          },
+          details: (item, index) => {
+            return (
+              <CCollapse show={details.includes(index)}>
+                <CCardBody>
+                  <Modal
+                    visible={visible}
+                    setVisible={setVisible}
+                    index={item.인덱스}
+                    dispatch={dispatch}
+                    axios={deptAxios}
+                  />
+                  <CAlert
+                    color="danger"
+                    show={show["show"] && show["index"] === item.인덱스}
+                    closeButton
+                    onClick={() => {
+                      setShow((content) => ({
+                        ...content,
+                        show: false,
+                        index: item.인덱스,
+                      }));
+                    }}
+                  >
+                    부서 안에 팀이 존재합니다.
+                  </CAlert>
+                  <CButton
+                    size="sm"
+                    color="info"
+                    onClick={() => {
+                      setVisible(!visible);
+                    }}
+                  >
+                    부서수정
+                  </CButton>
 
-                <CButton
-                  size="sm"
-                  color="danger"
-                  className="ml-1"
-                  onClick={() => {
-                    if (item.팀COUNT === 0) {
-                      DeleteDept(item.인덱스);
-                      dispatch(deptAxios());
-                    } else {
-                      setShow(true);
-                    }
-                  }}
-                >
-                  부서삭제
-                </CButton>
-              </CCardBody>
-            </CCollapse>
-          );
-        },
-      }}
-    />
+                  <CButton
+                    size="sm"
+                    color="danger"
+                    className="ml-1"
+                    onClick={() => {
+                      if (item.팀COUNT === 0) {
+                        DeleteDept(item.인덱스);
+                        dispatch(deptAxios());
+                      } else {
+                        setShow((content) => ({
+                          ...content,
+                          show: true,
+                          index: item.인덱스,
+                        }));
+                      }
+                    }}
+                  >
+                    부서삭제
+                  </CButton>
+                </CCardBody>
+              </CCollapse>
+            );
+          },
+        }}
+      />
+      <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
+        <InsertModal
+          visible={visible2}
+          setVisible={setVisible2}
+          dispatch={dispatch}
+          axios={deptAxios}
+        />
+        <CButton
+          block
+          variant="outline"
+          color="primary"
+          onClick={() => {
+            setVisible2(!visible2);
+          }}
+        >
+          부서추가
+        </CButton>
+      </CCol>
+    </>
   );
 };
 export default Dept;

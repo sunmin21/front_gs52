@@ -2,6 +2,7 @@ import {
   CAlert,
   CButton,
   CCardBody,
+  CCol,
   CCollapse,
   CDataTable,
 } from "@coreui/react";
@@ -13,11 +14,15 @@ import Modal from "./TeamModal";
 
 const Team = () => {
   const [visible, setVisible] = useState(false);
+  const [visible2, setVisible2] = useState(false);
   const dispatch = useDispatch();
   let { team } = useSelector(({ manager }) => ({
     team: manager.team,
   }));
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState({
+    show: false,
+    index: 0,
+  });
   useEffect(() => {
     dispatch(teamAxios());
   }, [dispatch]);
@@ -26,7 +31,6 @@ const Team = () => {
   // const [items, setItems] = useState(usersData)
 
   const deptData = team.map((item) => {
-    console.log(item);
     return {
       인덱스: item.team_INDEX,
       부서이름: item.dept_NAME,
@@ -62,87 +66,116 @@ const Team = () => {
   ];
 
   return (
-    <CDataTable
-      items={deptData}
-      fields={fields}
-      columnFilter
-      tableFilter
-      footer
-      itemsPerPageSelect
-      itemsPerPage={5}
-      hover
-      sorter
-      pagination
-      scopedSlots={{
-        show_details: (item, index) => {
-          return (
-            <td className="py-2">
-              <CButton
-                color="primary"
-                variant="outline"
-                shape="square"
-                size="sm"
-                onClick={() => {
-                  toggleDetails(index);
-                }}
-              >
-                {details.includes(index) ? "Hide" : "Show"}
-              </CButton>
-            </td>
-          );
-        },
-        details: (item, index) => {
-          return (
-            <CCollapse show={details.includes(index)}>
-              <CCardBody>
-                <Modal
-                  visible={visible}
-                  setVisible={setVisible}
-                  index={item.인덱스}
-                  dispatch={dispatch}
-                  axios={teamAxios}
-                />
-                <CAlert
-                  color="danger"
-                  show={show}
-                  closeButton
-                  onClick={() => {
-                    setShow(false);
-                  }}
-                >
-                  팀안에 팀원이 존재 합니다.
-                </CAlert>
+    <>
+      <CDataTable
+        items={deptData}
+        fields={fields}
+        columnFilter
+        tableFilter
+        footer
+        itemsPerPageSelect
+        itemsPerPage={5}
+        hover
+        sorter
+        pagination
+        scopedSlots={{
+          show_details: (item, index) => {
+            return (
+              <td className="py-2">
                 <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="square"
                   size="sm"
-                  color="info"
                   onClick={() => {
-                    setVisible(!visible);
+                    toggleDetails(index);
                   }}
                 >
-                  팀수정
+                  {details.includes(index) ? "Hide" : "Show"}
                 </CButton>
+              </td>
+            );
+          },
+          details: (item, index) => {
+            return (
+              <CCollapse show={details.includes(index)}>
+                <CCardBody>
+                  <Modal
+                    visible={visible}
+                    setVisible={setVisible}
+                    index={item.인덱스}
+                    dispatch={dispatch}
+                    axios={teamAxios}
+                  />
+                  <CAlert
+                    color="danger"
+                    show={show["show"] && show["index"] === item.인덱스}
+                    closeButton
+                    name={item.인덱스}
+                    onClick={() => {
+                      setShow((content) => ({
+                        ...content,
+                        show: false,
+                        index: item.인덱스,
+                      }));
+                    }}
+                  >
+                    팀안에 팀원이 존재 합니다.
+                  </CAlert>
+                  <CButton
+                    size="sm"
+                    color="info"
+                    onClick={() => {
+                      setVisible(!visible);
+                    }}
+                  >
+                    팀수정
+                  </CButton>
 
-                <CButton
-                  size="sm"
-                  color="danger"
-                  className="ml-1"
-                  onClick={() => {
-                    if (item.팀원COUNT === 0) {
-                      DeleteTeam(item.인덱스);
-                      dispatch(teamAxios());
-                    } else {
-                      setShow(true);
-                    }
-                  }}
-                >
-                  팀삭제
-                </CButton>
-              </CCardBody>
-            </CCollapse>
-          );
-        },
-      }}
-    />
+                  <CButton
+                    size="sm"
+                    color="danger"
+                    className="ml-1"
+                    onClick={() => {
+                      if (item.팀원COUNT === 0) {
+                        DeleteTeam(item.인덱스);
+                        dispatch(teamAxios());
+                      } else {
+                        setShow((content) => ({
+                          ...content,
+                          show: true,
+                          index: item.인덱스,
+                        }));
+                      }
+                    }}
+                  >
+                    팀삭제
+                  </CButton>
+                </CCardBody>
+              </CCollapse>
+            );
+          },
+        }}
+      />
+      <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
+        {/* <InsertModal
+          visible={visible2}
+          setVisible={setVisible2}
+          dispatch={dispatch}
+          axios={teamAxios}
+        /> */}
+        <CButton
+          block
+          variant="outline"
+          color="primary"
+          onClick={() => {
+            setVisible2(!visible2);
+          }}
+        >
+          팀추가
+        </CButton>
+      </CCol>
+    </>
   );
 };
 export default Team;

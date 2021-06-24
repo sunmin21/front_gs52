@@ -8,6 +8,7 @@ export const SelectDept = async () => {
 
 export const UpdateDept = async (index, content) => {
   console.log("타냐?");
+
   const Dept = await client.post("/manager/addoptions/deptUpdate", {
     dept_INDEX: index,
     dept_NAME: content,
@@ -15,6 +16,16 @@ export const UpdateDept = async (index, content) => {
 
   return Dept;
 };
+export const InsertDept = async (content) => {
+  console.log("타냐?22");
+  console.log(content);
+  const Dept = await client.post("/manager/addoptions/deptInsert", {
+    dept_NAME: content,
+  });
+
+  return Dept;
+};
+
 export const DeleteDept = async (index) => {
   const Dept = await client.post("/manager/addoptions/deptDelete", {
     dept_INDEX: index,
@@ -38,6 +49,7 @@ export const TeamDept = async (index) => {
 };
 
 export const DeleteTeam = async (index) => {
+  console.log(index);
   const Dept = await client.post("/manager/addoptions/teamDelete", {
     dept_INDEX: index,
   });
