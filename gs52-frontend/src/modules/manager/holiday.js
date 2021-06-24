@@ -11,7 +11,7 @@ export const holidayAxios = createAction(HOLIDAY); //리덕스의 액션함수
 const holidaySaga = createRequestSaga(HOLIDAY, API.SelectHoliday);
 
 export function* holidaySaga2() {
-    yield takeLatest(HOLIDAY, holidaySaga);
+  yield takeLatest(HOLIDAY, holidaySaga);
 }
 const initialState = {
   //초기값을 정의
@@ -20,19 +20,19 @@ const initialState = {
 };
 
 const holiday = handleActions(
-    {
-        [HOLIDAY_SUCCESS]: (state, { payload: holiday }) => ({
-        ...state,
-        holiError: null,
-        holiday,
-        }),
+  {
+    [HOLIDAY_SUCCESS]: (state, { payload: holiday }) => ({
+      ...state,
+      holiError: null,
+      holiday,
+    }),
 
-        [HOLIDAY_FAILURE]: (state, { payload: error }) => ({
-        ...state,
-        holiError: error,
-        }),
-    },
-    initialState
+    [HOLIDAY_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      holiError: error,
+    }),
+  },
+  initialState
 );
 
 export default holiday;

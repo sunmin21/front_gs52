@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import {
@@ -13,6 +13,8 @@ import {
     CFormGroup
 } from '@coreui/react'
 import { InsertHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
+import { holidayAxios } from 'src/modules/manager/holiday';
+import { useDispatch } from 'react-redux';
 
 function AddHoliday() {
 
@@ -20,12 +22,17 @@ function AddHoliday() {
         textAlign: "left",
         padding: "20px"
     }
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(holidayAxios())
+    }, [dispatch])
 
     let changed = 0;
     const [info, setInfo] = useState(false);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState();
-    const [annual, setAnnual] = useState(1);
+    let [annual] = useState(0);
 
     const handleTitle = e => {
         setTitle(e.target.value);
@@ -39,6 +46,8 @@ function AddHoliday() {
             console.log("on");
             alert("이 설정은 내년에도 적용됩니다 !")
             changed = 1;
+            annual = 1;
+            // useState.annual
         }
         else
             console.log("off");
@@ -48,6 +57,8 @@ function AddHoliday() {
         console.log("취소했다!")
         setInfo(!info);
         window.location.reload();
+        // dispatch(holidayAxios());
+        // 자동 rendering
     }
 
     const submit = () => {
@@ -64,7 +75,8 @@ function AddHoliday() {
             console.log(title, startDate, annual)
             InsertHoliday(title, startDate, annual);
             setInfo(!info);
-            window.location.reload(); // 자동 새로고침
+            dispatch(holidayAxios());
+            // 자동 rendering
         }
     }
     
