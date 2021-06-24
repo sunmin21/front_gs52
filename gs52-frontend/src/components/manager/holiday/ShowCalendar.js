@@ -6,20 +6,22 @@ import { DeleteHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import { holidayAxios } from 'src/modules/manager/holiday';
 
+import holidaydata from './HolidayData';
+
 function ShowCalendar() {
 
     const dispatch = useDispatch();
     const { holiday } = useSelector((state) => {
+
         return ({   
-            holiday : state.holiday.holiday,
+            holiday : state.holiday.holiday            
         })
     });
 
     useEffect(() => {
         dispatch(holidayAxios())
     }, [dispatch])
-
-    console.log(holiday)
+    
     const eventOnclick = (e) => {
         var msg = ("삭제하시겠습니까?");
 
@@ -36,7 +38,7 @@ function ShowCalendar() {
             console.log("ㄴㄴ")
         }
     }
-    const data =holiday.map((item) => {
+    const data = holiday.map((item) => {
         return ({
             id: item.holiday_INDEX,
             title: item.holiday_TITLE,
@@ -48,7 +50,6 @@ function ShowCalendar() {
             <CCardHeader>
                 휴일 설정
             </CCardHeader>
-            {/* {console.log(events)} */}
             <CCardBody>
                 <div className="mypage-body">
                     <div className="body-wrapper box">
@@ -56,14 +57,10 @@ function ShowCalendar() {
                             <div className="calendar-wrapper">
                                 <FullCalendar
                                     defaultView="dayGridMonth"
-                                    // plugins={[daygridPlugin]}
                                     plugins={[daygridPlugin]}
-                                    events={data}
-                                    // events={HolidayList}
-                                    // events={[
-                                    //     { title: 'event 1', date: '2021-06-01' },
-                                    //     { title: 'event 2', date: '2021-06-02' }
-                                    // ]}
+                                    eventSources = {[data, holidaydata]}
+                                    // events={data}
+                                    // events={holidaydata}
                                     eventClick={eventOnclick}
                                     eventColor="light"
                                     eventTextColor="white"
