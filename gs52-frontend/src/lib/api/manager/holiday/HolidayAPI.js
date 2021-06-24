@@ -1,7 +1,7 @@
 import client from '../../client';
 
 export const SelectHoliday = async () => {
-    console.log("test");
+    // console.log("test");
 
     const holiday = await client.get('/holiday/showHoliday');
     return holiday
