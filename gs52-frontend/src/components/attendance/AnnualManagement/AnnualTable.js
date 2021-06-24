@@ -17,8 +17,9 @@ import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
 const annualArr = ["날짜", "연차유형", "사유"];
-const AnnualTables = () => {
+const AnnualTables = ({ vacation_EMP_INDEX }) => {
   var moment = require("moment");
+  const [doubleCheck, setDoubleCheck] = useState(true);
   const [inputData, setInputData] = useState([]);
   const [restVacation, setRestVacation] = useState(0);
   const [date, setDate] = useState();
@@ -26,6 +27,7 @@ const AnnualTables = () => {
   const [contents, setContents] = useState();
   const [info, setInfo] = useState(false);
   const [visible, setVisible] = useState(0);
+
   const [event, setEvent] = useState({
     vacation_index: "",
     날짜: "",
@@ -44,10 +46,9 @@ const AnnualTables = () => {
       empvacation: state.annual.empvacation,
     };
   });
-
   useEffect(() => {
-    dispatch(annualAxios());
-    dispatch(empvacationAxios());
+    dispatch(annualAxios(vacation_EMP_INDEX.current));
+    dispatch(empvacationAxios(vacation_EMP_INDEX.current));
   }, [dispatch]);
 
   //setInputData(data);
@@ -79,6 +80,7 @@ const AnnualTables = () => {
     if (nowDate >= clickDate) {
       setVisible(3);
     } else {
+      setDoubleCheck(true);
       setEvent(e);
       setInfo(!info);
     }
@@ -104,6 +106,7 @@ const AnnualTables = () => {
                   </div>
                   <div class="col-sm-1">
                     <AnnualModal
+                      vacation_EMP_INDEX={vacation_EMP_INDEX}
                       dateHandle={dateHandle}
                       infoIndexHandle={infoIndexHandle}
                       contentsHandle={contentsHandle}
@@ -133,9 +136,12 @@ const AnnualTables = () => {
                 pagination
               />
               <RowDeleteModal
+                vacation_EMP_INDEX={vacation_EMP_INDEX}
                 info={info}
                 setInfo={setInfo}
                 event={event}
+                doubleCheck={doubleCheck}
+                setDoubleCheck={setDoubleCheck}
                 setInputData={setInputData}
                 setRestVacation={setRestVacation}
               ></RowDeleteModal>

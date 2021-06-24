@@ -11,6 +11,10 @@ import {
 } from "@coreui/react";
 import axios from "axios";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
+import {
+  InserVacation,
+  UpdateVacation,
+} from "src/lib/api/attendance/AnnualAPI";
 
 function AnnualModal({
   dateHandle,
@@ -22,6 +26,7 @@ function AnnualModal({
   inputData,
   setInputData,
   setRestVacation,
+  vacation_EMP_INDEX,
 }) {
   const [info, setInfo] = useState(false);
   const [visible, setVisible] = useState(0);
@@ -31,8 +36,8 @@ function AnnualModal({
   var nDate = new Date();
   nDate.setDate(nDate.getDate() + 1);
   var nowDate = moment(nDate).format("YYYY-MM-DD");
-
-  const onSubmit = () => {
+  const [doubleCheck, setDoubleCheck] = useState(true);
+  const onSubmit = async () => {
     var sameCount = 0;
     if (
       date == null ||
@@ -51,36 +56,19 @@ function AnnualModal({
       });
       console.log(sameCount);
       if (sameCount == 0) {
-        axios.post("/annual/insert", {
-          vacation_EMP_INDEX: 5, // 사원번호
-          vacation_ATTEND_INFO_INDEX: infoIndex,
-          vacation_DATE: date,
-          vacation_CONTENTS: contents,
-        });
+        await InserVacation(5, infoIndex, date, contents);
+
+        console.log(infoIndex);
         if (infoIndex == "7") {
-          axios.post("/annual/update", {
-            count: -1,
-            emp_ID: 54321,
-          });
+          await UpdateVacation(-1, 54321);
         } else if (infoIndex == "8") {
-          axios.post("/annual/update", {
-            count: -0.5,
-            emp_ID: 54321,
-          });
+          await UpdateVacation(-0.5, 54321);
         }
-        setRestVacation((content) => {
-          if (infoIndex == "7") {
-            content = content - 1;
-            return content;
-          } else if (infoIndex == "8") {
-            content = content - 0.5;
-            return content;
-          }
-        });
 
-        dispatch(annualAxios());
-        dispatch(empvacationAxios());
-
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@됫냐");
+        dispatch(annualAxios(vacation_EMP_INDEX.current));
+        dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@됫냐");
         setInfo(!info);
       } else {
         setVisible(3);
@@ -94,7 +82,10 @@ function AnnualModal({
       <CButton
         style={{ float: "right" }}
         color="info"
-        onClick={() => setInfo(!info)}
+        onClick={() => {
+          setInfo(!info);
+          setDoubleCheck(true);
+        }}
         className="mr-1"
       >
         추가
@@ -133,7 +124,16 @@ function AnnualModal({
               <CButton color="secondary" onClick={() => setInfo(!info)}>
                 취소
               </CButton>
-              <CButton type="submit" color="info" onClick={onSubmit}>
+              <CButton
+                type="submit"
+                color="info"
+                onClick={() => {
+                  if (doubleCheck) {
+                    onSubmit();
+                    setDoubleCheck(false);
+                  }
+                }}
+              >
                 확인
               </CButton>{" "}
             </div>

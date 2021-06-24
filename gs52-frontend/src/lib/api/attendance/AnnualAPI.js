@@ -1,36 +1,51 @@
 import client from "../client";
 
-export const SelectVacation = async () => {
+export const SelectVacation = async (index) => {
   const annual = await client.post("/annual/select", {
     //사원의 연차정보 전부 가져옴
-    vacation_EMP_INDEX: 5,
+    vacation_EMP_INDEX: index,
   });
 
   return annual;
 };
 
-export const SelectEmpVacation = async () => {
+export const SelectEmpVacation = async (index) => {
   const empvacation = await client.post("/annual/select2", {
     //개인 사원의 잔여 연차 수를 가져옴
-    vacation_EMP_INDEX: 5,
+    vacation_EMP_INDEX: index,
   });
-  console.log("@@@@");
-  console.log(empvacation);
 
   return empvacation;
 };
 
-export const InsertConf = async (floor, room, date) => {
-  console.log("Conf API inserrrrrr");
-  console.log("floor" + floor);
-  console.log("room" + room);
-  console.log("date" + date);
+export const DeleteVacation = async (event) => {
+  const empvacation = await client.post("/annual/delete", {
+    vacation_DATE: event,
+  });
 
-  const conf = await client
-    .post("/schedule/confRoom/insert", {
-      room_BOOK_TITLE: floor,
-      room_BOOK_INDEX: room,
-      room_BOOK_DATE: date,
+  return empvacation;
+};
+
+export const UpdateVacation = async (count, emp_ID) => {
+  const upvacation = await client.post("/annual/update", {
+    count: count,
+    emp_ID: emp_ID,
+  });
+  return upvacation;
+};
+
+export const InserVacation = async (
+  vacation_EMP_INDEX,
+  infoindex,
+  date,
+  contents
+) => {
+  const insertvaction = await client
+    .post("/annual/insert", {
+      vacation_EMP_INDEX: vacation_EMP_INDEX,
+      vacation_ATTEND_INFO_INDEX: infoindex,
+      vacation_DATE: date,
+      vacation_CONTENTS: contents,
     })
     .then(function (response) {
       //response
@@ -42,6 +57,7 @@ export const InsertConf = async (floor, room, date) => {
     .then(function () {
       //항상실행
     });
+  return insertvaction;
 };
 
 // post로 값넘기기
