@@ -32,7 +32,7 @@ function AddHoliday() {
     const [info, setInfo] = useState(false);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState();
-    const [annual, setAnnual] = useState(1);
+    let [annual] = useState(0);
 
     const handleTitle = e => {
         setTitle(e.target.value);
@@ -46,6 +46,8 @@ function AddHoliday() {
             console.log("on");
             alert("이 설정은 내년에도 적용됩니다 !")
             changed = 1;
+            annual = 1;
+            // useState.annual
         }
         else
             console.log("off");
@@ -55,6 +57,8 @@ function AddHoliday() {
         console.log("취소했다!")
         setInfo(!info);
         window.location.reload();
+        // dispatch(holidayAxios());
+        // 자동 rendering
     }
 
     const submit = () => {
