@@ -19,17 +19,16 @@ import 'antd/dist/antd.css';
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
 
-export function ConfButton(){
-  
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { modalCheck1,modalDate, modalTime } from 'src/modules/schedule/conf';
 
-export function ConfModal(props) {
-
+export function ConfModal() {
+  const [check, setCheck]  = useState(0);
 	const FLOOR_SELECT = ["5", "6"];
 	const ROOM_SELECT = ["1", "2"];
 	const _SELECT = ["1", "2"];
 
-	const [primary, setPrimary] = useState(false);
+const [primary, setPrimary] = useState(false);
   
 const dateFormat = 'YYYY-MM-DD';
 
@@ -64,47 +63,38 @@ function onTime(timeString) {
   setTime(timeString)
 }
 
-  // useEffect(() => {
-  //   // console.log('props.conf_click 값이 설정됨');       //2021-06-22T07:00:00+09:00
-  //     console.log(primary);
-  //   return () => {
-  //     //console.log('props.conf_click 가 바뀌기 전..');
-  //     setPrimary(!primary)
-  //     console.log(primary);
-  //   };
-  // }, [props.conf_click]);
 
+const onClick = e => {
 
-  const onClick = e => {
-		props.setEmp_click(true);
-  };
+};
+
+const dispatch = useDispatch();
+const { conf_modal1, conf_date, conf_time } = useSelector((state) => {
+  
+  console.log("state.conf_check.conf_modal1      "+state.conf_check.conf_modal1)
+    return ({   
+      conf_modal1: state.conf_check.conf_modal1,
+			conf_date: state.conf_check.conf_date,
+			conf_time: state.conf_check.conf_time
+    })
+});
+
 
   const onRegist = () => {
-    console.log(date)
     InsertConf(inputs.floor, inputs.room, inputs.title, date, time);
-    //props.setConf_Click(false);
+    dispatch(modalCheck1())
   };
   const onCancle = e => {
-    setPrimary(!primary)
-    //props.setConf_Click(false);
+    dispatch(modalCheck1())
   }
 
 
-console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
-// console.log("1970/01/01" ===props.time )
-//if("1970/01/01" !==props.time){
   return (
     <div>            
-      <CButton color="primary"
-        onClick={() => setPrimary(!primary)}
-      >
-        추가
-      </CButton>
-
       <CModal
-        show={primary}
+        show={conf_modal1}
         closeOnBackdrop={false}
-        onClose={() => setPrimary(!primary)}
+        onClose={() => dispatch(modalCheck1())}
         color="primary"
       >
         <CModalHeader closeButton>
@@ -148,12 +138,10 @@ console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
             </CCol>
 
             <CCol md="9">
-            
-            
-            <DatePicker onChange={onDate} defaultValue={moment()} />
-            {/* <DatePicker defaultValue={moment(props.time, dateFormat)} format={dateFormat} /> */}
-            {/* {console.log("moment(date, dateFormat)   " + props.time)} */}
-            <TimePicker.RangePicker onChange={onTime} defaultValue = {[moment('09:00', 'HH:mm'),moment('09:30', 'HH:mm')]} format="HH:mm" minuteStep={10}/>
+		{console.log("123123123123")}
+		{console.log(conf_time)}
+            <DatePicker onChange={onDate} defaultValue={moment(conf_date, dateFormat)}/>
+            <TimePicker.RangePicker onChange={onTime} defaultValue = {[moment(conf_time, 'HH:mm'),moment(conf_time, 'HH:mm')]} format="HH:mm" minuteStep={10}/>
             </CCol>
 
             <CCol md="5">일정초대</CCol>
@@ -183,12 +171,8 @@ console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
       </CModal>
     </div>
   );
-// }
-// else{
-//   return<></>
-// }
-
 }
+
 
 
 

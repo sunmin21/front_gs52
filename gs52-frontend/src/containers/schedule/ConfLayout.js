@@ -1,6 +1,7 @@
-import React,{useState} from "react";
+import React,{useState, useEffect} from "react";
 import {ConfRoom} from "../../components/shedule/confRoom/Conf_Room";
 import {ConfModal} from "../../components/shedule/confRoom/Conf_Modal";
+import {ConfButton} from "../../components/shedule/confRoom/Conf_Button";
 import {Conf_SelectEmp} from "../../components/shedule/confRoom/Conf_SelectEmp";
 
 import {
@@ -9,7 +10,7 @@ import {
 	CCardHeader,
   } from '@coreui/react';
 
-
+  import { useSelector } from 'react-redux';
 
 
 
@@ -19,33 +20,34 @@ const ConfLayout = () => {
     const [emp_click,setEmp_click]=useState(false);
 
 
-  const dateFormat = 'YYYY/MM/DD';
-
-
+  const { conf_modal1 } = useSelector((state) => {
+      return ({   
+        conf_modal1: state.conf_check.conf_modal1,
+      })
+  });
+  
     return (
         <div>
             {console.log("LAYOUTTTTTTTTTTTTT")}
         <CCard>
             <CCardHeader>
                 <big>회의실 예약</big>
-                {/* 버튼이랑 모달을 따로 분리해서 만들기/ */}
-            <ConfModal setEmp_click={setEmp_click}></ConfModal>
-            {/* <ConfModal conf_click={conf_click} setConf_Click={setConf_Click} time={moment(time).format(dateFormat)} setEmp_click={setEmp_click}></ConfModal> */}
+                
+                <ConfButton></ConfButton> 
+      <button>버어어튼</button>
+            
+            {
+                conf_modal1===true ?
+                <ConfModal></ConfModal> 
+                : null
+            }
             </CCardHeader>
                 
             <CCardBody>
                 <Conf_SelectEmp emp_click={emp_click}></Conf_SelectEmp>
-                {/* <ConfRoom setConf_Click={setConf_Click} setTime={setTime}></ConfRoom> */}
                 <ConfRoom ></ConfRoom>
             </CCardBody>
         </CCard>
-
-            {/* <ConfRoom name="hello" color="red" setData={setRoom}></ConfRoom>
-             */}
-            {/* 자식 컴포넌트에서 받은 데이터 출력 */}
-            {/* {console.log("floor : " + floor + "room : "+room)} */}
-            {/* {console.log("room : " + room)} */}
-
             
         </div>
     );
