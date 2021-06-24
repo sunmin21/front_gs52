@@ -7,22 +7,24 @@ import interactionPlugin from "@fullcalendar/interaction"; // needed for dayClic
 
 export function ConfRoom(props) {
 	const handleDateClick = (arg) => { // bind with an arrow function
-		props.setTime(arg.dateStr);
-		props.setClick(true);
+		//props.setTime(arg.dateStr);
+		//props.setConf_Click(true);
       
 	  }
 
   return (
     <div>
+	{console.log("ROOMMMMMMMMMMMM")}
       {/* layout(부모)에서 데이터 가져옴.  */}
       {/* {console.log(props)} */}
 		<FullCalendar
 				plugins={[timegrid, interactionPlugin ]}
-				dateClick={handleDateClick}
+				// dateClick={handleDateClick}
 				weekends={false}
 				width={50}
 				events={[
-					{ title: "event 1", date: "2021-06-22" },
+					{ title: "event 1", date: "2021-06-22"},
+					{ title: "event 1", date:"2021-06-23", start:'2021-06-22T10:30:00'},
 					{ title: "event 2", date: "2019-04-02" },
 				]}
       /> 

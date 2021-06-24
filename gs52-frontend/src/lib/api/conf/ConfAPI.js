@@ -10,11 +10,13 @@ export const SelectConf = async () => {
   return conf.data;
 };
 
-export const InsertConf = async (floor, room, title) => {
+export const InsertConf = async (floor, room, title, date, time) => {
   console.log("Conf API inserrrrrr");
   console.log("floor "+floor);
   console.log("room "+room);
   console.log("title "+title);
+  console.log("date "+date);
+  console.log("time "+time);
   
   const conf = await client.post("/schedule/confRoom/insert",{room_B_TITLE:title, room_B_INDEX:floor})
                           .then(function (response){
