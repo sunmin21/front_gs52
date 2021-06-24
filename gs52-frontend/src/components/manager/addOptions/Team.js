@@ -7,29 +7,34 @@ import {
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteDept } from "src/lib/api/manager/addOptions/addOptions";
-import { deptAxios } from "src/modules/manager/manager";
-import Modal from "./DeptModal";
+import { DeleteTeam } from "src/lib/api/manager/addOptions/addOptions";
+import { teamAxios } from "src/modules/manager/manager";
+import Modal from "./TeamModal";
 
-const Dept = () => {
+const Team = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
-  let { dept } = useSelector(({ manager }) => ({
-    dept: manager.dept,
+  let { team } = useSelector(({ manager }) => ({
+    team: manager.team,
   }));
   const [show, setShow] = useState(false);
   useEffect(() => {
-    dispatch(deptAxios());
+    dispatch(teamAxios());
   }, [dispatch]);
 
   const [details, setDetails] = useState([]);
   // const [items, setItems] = useState(usersData)
 
-  const deptData = dept.map((item) => ({
-    인덱스: item.dept_INDEX,
-    부서이름: item.dept_NAME,
-    팀COUNT: item.team_COUNT,
-  }));
+  const deptData = team.map((item) => {
+    console.log(item);
+    return {
+      인덱스: item.team_INDEX,
+      부서이름: item.dept_NAME,
+      팀이름: item.team_NAME,
+      근무유형: item.work_RULE_NAME,
+      팀원COUNT: item.person_COUNT,
+    };
+  });
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
     let newDetails = details.slice();
@@ -42,9 +47,10 @@ const Dept = () => {
   };
 
   const fields = [
-    { key: "인덱스", _style: { width: "20%" } },
-    { key: "부서이름", _style: { width: "40%" } },
-    { key: "팀COUNT", _style: { width: "40%" } },
+    { key: "부서이름", _style: { width: "20%" } },
+    { key: "팀이름", _style: { width: "40%" } },
+    { key: "근무유형", _style: { width: "40%" } },
+    { key: "팀원COUNT", _style: { width: "40%" } },
 
     {
       key: "show_details",
@@ -94,7 +100,7 @@ const Dept = () => {
                   setVisible={setVisible}
                   index={item.인덱스}
                   dispatch={dispatch}
-                  axios={deptAxios}
+                  axios={teamAxios}
                 />
                 <CAlert
                   color="danger"
@@ -104,7 +110,7 @@ const Dept = () => {
                     setShow(false);
                   }}
                 >
-                  부서 안에 팀이 존재합니다.
+                  팀안에 팀원이 존재 합니다.
                 </CAlert>
                 <CButton
                   size="sm"
@@ -113,7 +119,7 @@ const Dept = () => {
                     setVisible(!visible);
                   }}
                 >
-                  부서수정
+                  팀수정
                 </CButton>
 
                 <CButton
@@ -121,15 +127,15 @@ const Dept = () => {
                   color="danger"
                   className="ml-1"
                   onClick={() => {
-                    if (item.팀COUNT === 0) {
-                      DeleteDept(item.인덱스);
-                      dispatch(deptAxios());
+                    if (item.팀원COUNT === 0) {
+                      DeleteTeam(item.인덱스);
+                      dispatch(teamAxios());
                     } else {
                       setShow(true);
                     }
                   }}
                 >
-                  부서삭제
+                  팀삭제
                 </CButton>
               </CCardBody>
             </CCollapse>
@@ -139,4 +145,4 @@ const Dept = () => {
     />
   );
 };
-export default Dept;
+export default Team;

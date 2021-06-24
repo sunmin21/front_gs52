@@ -13,6 +13,7 @@ import {
 } from "@coreui/react";
 import { DocsLink } from "src/reusable";
 import Dept from "src/components/manager/addOptions/Dept";
+import Team from "src/components/manager/addOptions/Team";
 const addOption = () => {
   return (
     <>
@@ -45,7 +46,9 @@ const addOption = () => {
                 <CTabPane>
                   <Dept />
                 </CTabPane>
-                <CTabPane></CTabPane>
+                <CTabPane>
+                  <Team />
+                </CTabPane>
                 <CTabPane></CTabPane>
                 <CTabPane></CTabPane>
                 <CTabPane></CTabPane>

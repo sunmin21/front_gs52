@@ -8,33 +8,24 @@ import { takeLatest } from "redux-saga/effects";
 
 const [DEPT, DEPT_SUCCESS, DEPT_FAILURE] =
   createRequestActionTypes("addOptions/DEPT"); //타입유형
+const [TEAM, TEAM_SUCCESS, TEAM_FAILURE] =
+  createRequestActionTypes("addOptions/TEAM"); //타입유형
+
 export const deptAxios = createAction(DEPT); //리덕스의 액션함수
+export const teamAxios = createAction(TEAM); //리덕스의 액션함수
 
 const todoSaga = createRequestSaga(DEPT, API.SelectDept);
-// const [SEND, SEND_SUCCESS, SEND_FAILURE] =
-//   createRequestActionTypes("task/SEND");
-// const [SUCCESS, SUCCESS_SUCCESS, SUCCESS_FAILURE] =
-//   createRequestActionTypes("task/SUCCESS");
 
-// export const sendAxios = createAction(SEND, (user) => ({
-//   todo_EMP_ID_SEND: user,
-// }));
-
-// export const succssAxios = createAction(SUCCESS, (user) => ({
-//   todo_RE_EMP_ID: user,
-// }));
-
-// const sendSaga = createRequestSaga(SEND, taskAPI.send);
-// const successSaga = createRequestSaga(SUCCESS, taskAPI.success);
+const teamSaga = createRequestSaga(TEAM, API.SelectTeam);
 
 export function* managerSaga() {
   yield takeLatest(DEPT, todoSaga);
-  //   yield takeLatest(SEND, sendSaga);
-  //   yield takeLatest(SUCCESS, successSaga);
+  yield takeLatest(DEPT, teamSaga);
 }
 const initialState = {
   //초기값을 정의
   dept: [],
+  team: [],
   deptError: null,
 };
 const task = handleActions(
@@ -48,6 +39,16 @@ const task = handleActions(
     [DEPT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       deptError: error,
+    }),
+    [TEAM_SUCCESS]: (state, { payload: team }) => ({
+      ...state,
+      teamError: null,
+      team,
+    }),
+
+    [TEAM_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      teamError: error,
     }),
   },
   initialState
