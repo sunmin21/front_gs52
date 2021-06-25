@@ -19,6 +19,7 @@ const initialState = {
     holiError: null,
 };
 
+// 리듀서 선언부분
 const holiday = handleActions(
   {
     [HOLIDAY_SUCCESS]: (state, { payload: holiday }) => ({
