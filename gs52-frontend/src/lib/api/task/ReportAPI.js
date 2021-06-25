@@ -1,7 +1,9 @@
-import client from '.././client';
+import client from '../client';
 
-export const SelectReport = async () => {
+export const SelectReport = async (emp) => {
 
-    const report = await client.get('/report/showReport');
+    const report = await client.post('/report/showReport', {
+        report_EMP_INDEX : 1
+    });
     return report
 }
