@@ -6,36 +6,48 @@ import {
   CCollapse,
   CDataTable,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteDept } from "src/lib/api/manager/addOptions/addOptions";
-import { deptAxios } from "src/modules/manager/addOptions";
-import Modal from "./DeptModal";
-import InsertModal from "./DeptInsertModal";
+import { DeleteTeam } from "src/lib/api/manager/addOptions/addOptions";
+import { workRuleAxios, workTypeAxios } from "src/modules/manager/addOptions";
+import Modal from "./WorkRuleModal";
 
-const Dept = () => {
+const Team = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const dispatch = useDispatch();
-  let { dept } = useSelector(({ manager }) => ({
-    dept: manager.dept,
+  let { team } = useSelector(({ manager }) => ({
+    team: manager.team,
+  }));
+  let { workrule, worktype } = useSelector(({ manager }) => ({
+    workrule: manager.workrule,
+    worktype: manager.worktype,
   }));
   const [show, setShow] = useState({
     show: false,
     index: 0,
   });
   useEffect(() => {
-    dispatch(deptAxios());
+    dispatch(workRuleAxios());
+    dispatch(workTypeAxios());
   }, [dispatch]);
 
   const [details, setDetails] = useState([]);
   // const [items, setItems] = useState(usersData)
 
-  const deptData = dept.map((item) => ({
-    인덱스: item.dept_INDEX,
-    부서이름: item.dept_NAME,
-    팀COUNT: item.team_COUNT,
-  }));
+  const deptData = workrule.map((item) => {
+    console.log(item);
+    return {
+      인덱스: item.work_RULE_INDEX,
+      종류인덱스: item.work_TYPE_INDEX,
+      종류: item.work_TYPE_NAME,
+      이름: item.work_RULE_NAME,
+      출근시간: item.work_RULE_START,
+      휴식시간: item.work_RULE_BREAK,
+      평균근무시간: item.work_RULE_AVG_HOUR,
+    };
+  });
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
     let newDetails = details.slice();
@@ -48,9 +60,12 @@ const Dept = () => {
   };
 
   const fields = [
-    { key: "인덱스", _style: { width: "20%" } },
-    { key: "부서이름", _style: { width: "40%" } },
-    { key: "팀COUNT", _style: { width: "40%" } },
+    { key: "종류", _style: { width: "20%" } },
+    { key: "이름", _style: { width: "20%" } },
+
+    { key: "출근시간", _style: { width: "20%" } },
+    { key: "휴식시간", _style: { width: "20%" } },
+    { key: "평균근무시간", _style: { width: "20%" } },
 
     {
       key: "show_details",
@@ -60,7 +75,6 @@ const Dept = () => {
       filter: false,
     },
   ];
-
   return (
     <>
       <CDataTable
@@ -96,30 +110,17 @@ const Dept = () => {
             return (
               <CCollapse show={details.includes(index)}>
                 <CCardBody>
-                  {deptData.length !== 0 && (
-                    <Modal
-                      visible={visible}
-                      setVisible={setVisible}
-                      index={item.인덱스}
-                      dispatch={dispatch}
-                      axios={deptAxios}
-                      부서이름={item.부서이름}
-                    />
-                  )}
-                  <CAlert
-                    color="danger"
-                    show={show["show"] && show["index"] === item.인덱스}
-                    closeButton
-                    onClick={() => {
-                      setShow((content) => ({
-                        ...content,
-                        show: false,
-                        index: item.인덱스,
-                      }));
-                    }}
-                  >
-                    부서 안에 팀이 존재합니다.
-                  </CAlert>
+                  <Modal
+                    visible={visible}
+                    setVisible={setVisible}
+                    index={item.인덱스}
+                    dispatch={dispatch}
+                    axios={workRuleAxios}
+                    worktype={worktype}
+                    work_TYPE_INDEX={item.종류인덱스}
+                    work_rule_name={item.이름}
+                  />
+
                   <CButton
                     size="sm"
                     color="info"
@@ -127,7 +128,7 @@ const Dept = () => {
                       setVisible(!visible);
                     }}
                   >
-                    부서수정
+                    유형수정
                   </CButton>
 
                   <CButton
@@ -135,9 +136,9 @@ const Dept = () => {
                     color="danger"
                     className="ml-1"
                     onClick={() => {
-                      if (item.팀COUNT === 0) {
-                        DeleteDept(item.인덱스);
-                        dispatch(deptAxios());
+                      if (item.팀원COUNT === 0) {
+                        DeleteTeam(item.인덱스);
+                        dispatch(workRuleAxios());
                       } else {
                         setShow((content) => ({
                           ...content,
@@ -147,7 +148,7 @@ const Dept = () => {
                       }
                     }}
                   >
-                    부서삭제
+                    유형삭제
                   </CButton>
                 </CCardBody>
               </CCollapse>
@@ -156,14 +157,12 @@ const Dept = () => {
         }}
       />
       <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-        {deptData.length !== 0 && (
-          <InsertModal
-            visible={visible2}
-            setVisible={setVisible2}
-            dispatch={dispatch}
-            axios={deptAxios}
-          />
-        )}
+        {/* <InsertModal
+          visible={visible2}
+          setVisible={setVisible2}
+          dispatch={dispatch}
+          axios={teamAxios}
+        /> */}
         <CButton
           block
           variant="outline"
@@ -172,10 +171,10 @@ const Dept = () => {
             setVisible2(!visible2);
           }}
         >
-          부서추가
+          팀추가
         </CButton>
       </CCol>
     </>
   );
 };
-export default Dept;
+export default React.memo(Team);

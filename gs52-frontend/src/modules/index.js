@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import test from "./test";
-import manager, { managerSaga } from "./manager/manager";
+import manager, { managerSaga } from "./manager/addOptions";
 import emp from "./emp/emp";
 import task, { taskSaga } from "./task/task";
 import holiday, { holidaySaga2 } from "./manager/holiday";

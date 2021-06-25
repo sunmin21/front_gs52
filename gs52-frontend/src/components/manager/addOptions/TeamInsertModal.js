@@ -1,4 +1,4 @@
-import { UpdateTeam } from "src/lib/api/manager/addOptions/addOptions";
+import { InsertTeam } from "src/lib/api/manager/addOptions/addOptions";
 import React, { useState } from "react";
 const {
   CButton,
@@ -9,35 +9,60 @@ const {
   CModalFooter,
   CLabel,
   CInput,
-  CSelect,
   CCol,
   CFormGroup,
   CAlert,
+  CSelect,
 } = require("@coreui/react");
 
-const Modal = ({
-  index,
+const DeptInsertModal = ({
   visible,
   setVisible,
   dispatch,
   axios,
   workrule,
-  work_RULE_INDEX,
-  teamName,
+  dept,
 }) => {
   const [content, setContent] = useState({
-    teamname: teamName,
-    work_RULE_INDEX: work_RULE_INDEX,
-    index: index,
+    부서인덱스: 1,
+    팀이름: "",
+    근무유형: 1,
   });
   const [show, setShow] = useState(false);
+
   return (
     <>
       <CModal show={visible}>
         <CModalHeader>
-          <CModalTitle>수정</CModalTitle>
+          <CModalTitle>추가</CModalTitle>
         </CModalHeader>
         <CModalBody>
+          <CFormGroup row>
+            <CCol md="3">
+              <CLabel style={{ margin: "5px" }}>부서이름</CLabel>
+            </CCol>
+            <CCol xs="12" md="9" size="lg">
+              <CSelect
+                custom
+                size="lg"
+                name="selectLg"
+                id="selectLg"
+                value={content["부서인덱스"]}
+                onChange={(e) => {
+                  setContent((content) => ({
+                    ...content,
+                    부서인덱스: e.target.value,
+                  }));
+                }}
+              >
+                {dept.map((item) => (
+                  <option key={item.dept_INDEX} value={item.dept_INDEX}>
+                    {item.dept_NAME}
+                  </option>
+                ))}
+              </CSelect>
+            </CCol>
+          </CFormGroup>
           <CFormGroup row>
             <CCol md="3">
               <CLabel style={{ margin: "5px" }}>팀이름</CLabel>
@@ -45,11 +70,11 @@ const Modal = ({
             <CCol xs="12" md="9" size="lg">
               <CInput
                 placeholder="팀명"
-                value={content["teamname"]}
+                value={content["팀이름"]}
                 onChange={(e) => {
                   setContent((content) => ({
                     ...content,
-                    teamname: e.target.value,
+                    팀이름: e.target.value,
                   }));
                 }}
               />
@@ -65,11 +90,11 @@ const Modal = ({
                 size="lg"
                 name="selectLg"
                 id="selectLg"
-                value={content["work_RULE_INDEX"]}
+                value={content["근무유형"]}
                 onChange={(e) => {
                   setContent((content) => ({
                     ...content,
-                    work_RULE_INDEX: e.target.value,
+                    근무유형: e.target.value,
                   }));
                 }}
               >
@@ -101,28 +126,25 @@ const Modal = ({
             onClick={() => {
               setVisible(false);
               setContent({
-                teamname: teamName,
-                work_RULE_INDEX: work_RULE_INDEX,
+                부서인덱스: 1,
+                팀이름: "",
+                근무유형: 1,
               });
             }}
           >
             Close
           </CButton>
-
           <CButton
             color="primary"
             onClick={() => {
-              if (content["teamname"] !== "" && content["teamname"] !== null) {
-                UpdateTeam(content);
-                dispatch(axios());
-                setContent({
-                  teamname: teamName,
-                  work_RULE_INDEX: work_RULE_INDEX,
-                });
-                setVisible(false);
-              } else {
-                setShow(true);
-              }
+              InsertTeam(content);
+              dispatch(axios());
+              setContent({
+                부서인덱스: 1,
+                팀이름: "",
+                근무유형: 1,
+              });
+              setVisible(false);
             }}
           >
             저장
@@ -133,4 +155,4 @@ const Modal = ({
   );
 };
 
-export default React.memo(Modal);
+export default React.memo(DeptInsertModal);

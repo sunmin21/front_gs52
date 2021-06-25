@@ -1,5 +1,6 @@
 import { UpdateTeam } from "src/lib/api/manager/addOptions/addOptions";
 import React, { useState } from "react";
+import { TimePicker } from "antd";
 const {
   CButton,
   CModal,
@@ -21,16 +22,24 @@ const Modal = ({
   setVisible,
   dispatch,
   axios,
-  workrule,
-  work_RULE_INDEX,
-  teamName,
+  worktype,
+  work_TYPE_INDEX,
+  work_rule_name,
 }) => {
   const [content, setContent] = useState({
-    teamname: teamName,
-    work_RULE_INDEX: work_RULE_INDEX,
+    work_TYPE_INDEX: work_TYPE_INDEX,
     index: index,
+    WORK_RULE_NAME: "",
+    work_TYPE_INDEX: work_TYPE_INDEX,
+    work_rule_name: work_rule_name,
+    starttime: 0,
   });
   const [show, setShow] = useState(false);
+  const [time, setTime] = useState();
+  function onTime(timeString) {
+    setTime(timeString);
+  }
+  console.log(time);
   return (
     <>
       <CModal show={visible}>
@@ -40,7 +49,62 @@ const Modal = ({
         <CModalBody>
           <CFormGroup row>
             <CCol md="3">
-              <CLabel style={{ margin: "5px" }}>팀이름</CLabel>
+              <CLabel style={{ margin: "5px" }}>종류</CLabel>
+            </CCol>
+            <CCol xs="12" md="9" size="lg">
+              <CSelect
+                custom
+                size="lg"
+                name="selectLg"
+                id="selectLg"
+                value={content["work_TYPE_INDEX"]}
+                onChange={(e) => {
+                  setContent((content) => ({
+                    ...content,
+                    work_TYPE_INDEX: e.target.value,
+                  }));
+                }}
+              >
+                {worktype.map((item) => (
+                  <option
+                    key={item.work_TYPE_INDEX}
+                    value={item.work_TYPE_INDEX}
+                  >
+                    {item.work_TYPE_NAME}
+                  </option>
+                ))}
+              </CSelect>
+            </CCol>
+          </CFormGroup>
+          <CFormGroup row>
+            <CCol md="3">
+              <CLabel style={{ margin: "5px" }}>근무이름</CLabel>
+            </CCol>
+            <CCol xs="12" md="9" size="lg">
+              <CInput
+                placeholder="근무이름"
+                value={content["work_rule_name"]}
+                onChange={(e) => {
+                  setContent((content) => ({
+                    ...content,
+                    work_rule_name: e.target.value,
+                  }));
+                }}
+              />
+            </CCol>
+          </CFormGroup>
+          <CFormGroup row>
+            <CCol md="3">
+              <CLabel style={{ margin: "5px" }}>출/퇴근시간</CLabel>
+            </CCol>
+            <CCol xs="12" md="9" size="lg">
+              <TimePicker.RangePicker onChange={onTime} />
+            </CCol>
+          </CFormGroup>
+
+          <CFormGroup row>
+            <CCol md="3">
+              <CLabel style={{ margin: "5px" }}>평균근무시간</CLabel>
             </CCol>
             <CCol xs="12" md="9" size="lg">
               <CInput
@@ -53,35 +117,6 @@ const Modal = ({
                   }));
                 }}
               />
-            </CCol>
-          </CFormGroup>
-          <CFormGroup row>
-            <CCol md="3">
-              <CLabel style={{ margin: "5px" }}>근무유형</CLabel>
-            </CCol>
-            <CCol xs="12" md="9" size="lg">
-              <CSelect
-                custom
-                size="lg"
-                name="selectLg"
-                id="selectLg"
-                value={content["work_RULE_INDEX"]}
-                onChange={(e) => {
-                  setContent((content) => ({
-                    ...content,
-                    work_RULE_INDEX: e.target.value,
-                  }));
-                }}
-              >
-                {workrule.map((item) => (
-                  <option
-                    key={item.work_RULE_INDEX}
-                    value={item.work_RULE_INDEX}
-                  >
-                    {item.work_RULE_NAME}
-                  </option>
-                ))}
-              </CSelect>
             </CCol>
           </CFormGroup>
         </CModalBody>
@@ -101,8 +136,8 @@ const Modal = ({
             onClick={() => {
               setVisible(false);
               setContent({
-                teamname: teamName,
-                work_RULE_INDEX: work_RULE_INDEX,
+                work_TYPE_INDEX: work_TYPE_INDEX,
+                index: index,
               });
             }}
           >
@@ -116,8 +151,8 @@ const Modal = ({
                 UpdateTeam(content);
                 dispatch(axios());
                 setContent({
-                  teamname: teamName,
-                  work_RULE_INDEX: work_RULE_INDEX,
+                  work_TYPE_INDEX: work_TYPE_INDEX,
+                  index: index,
                 });
                 setVisible(false);
               } else {

@@ -14,6 +14,7 @@ import {
 import { DocsLink } from "src/reusable";
 import Dept from "src/components/manager/addOptions/Dept";
 import Team from "src/components/manager/addOptions/Team";
+import WorkRule from "src/components/manager/addOptions/WorkRule";
 const addOption = () => {
   return (
     <>
@@ -33,10 +34,7 @@ const addOption = () => {
                   <CNavLink>팀</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink>직급</CNavLink>
-                </CNavItem>
-                <CNavItem>
-                  <CNavLink>직책</CNavLink>
+                  <CNavLink>근무유형</CNavLink>
                 </CNavItem>
                 <CNavItem>
                   <CNavLink>회의실</CNavLink>
@@ -49,8 +47,9 @@ const addOption = () => {
                 <CTabPane>
                   <Team />
                 </CTabPane>
-                <CTabPane></CTabPane>
-                <CTabPane></CTabPane>
+                <CTabPane>
+                  <WorkRule />
+                </CTabPane>
                 <CTabPane></CTabPane>
               </CTabContent>
             </CTabs>

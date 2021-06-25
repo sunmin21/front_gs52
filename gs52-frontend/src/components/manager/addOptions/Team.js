@@ -9,15 +9,19 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteTeam } from "src/lib/api/manager/addOptions/addOptions";
-import { teamAxios } from "src/modules/manager/manager";
+import { teamAxios, workRuleAxios } from "src/modules/manager/addOptions";
 import Modal from "./TeamModal";
-
+import InsertModal from "./TeamInsertModal";
 const Team = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const dispatch = useDispatch();
-  let { team } = useSelector(({ manager }) => ({
+  let { team, dept } = useSelector(({ manager }) => ({
     team: manager.team,
+    dept: manager.dept,
+  }));
+  let { workrule } = useSelector(({ manager }) => ({
+    workrule: manager.workrule,
   }));
   const [show, setShow] = useState({
     show: false,
@@ -25,10 +29,10 @@ const Team = () => {
   });
   useEffect(() => {
     dispatch(teamAxios());
+    dispatch(workRuleAxios());
   }, [dispatch]);
 
   const [details, setDetails] = useState([]);
-  // const [items, setItems] = useState(usersData)
 
   const deptData = team.map((item) => {
     return {
@@ -37,8 +41,10 @@ const Team = () => {
       팀이름: item.team_NAME,
       근무유형: item.work_RULE_NAME,
       팀원COUNT: item.person_COUNT,
+      work_RULE_INDEX: item.work_RULE_INDEX,
     };
   });
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index);
     let newDetails = details.slice();
@@ -100,13 +106,18 @@ const Team = () => {
             return (
               <CCollapse show={details.includes(index)}>
                 <CCardBody>
-                  <Modal
-                    visible={visible}
-                    setVisible={setVisible}
-                    index={item.인덱스}
-                    dispatch={dispatch}
-                    axios={teamAxios}
-                  />
+                  {workrule.length !== 0 && (
+                    <Modal
+                      visible={visible}
+                      setVisible={setVisible}
+                      index={item.인덱스}
+                      dispatch={dispatch}
+                      axios={teamAxios}
+                      workrule={workrule}
+                      work_RULE_INDEX={item.work_RULE_INDEX}
+                      teamName={item.팀이름}
+                    />
+                  )}
                   <CAlert
                     color="danger"
                     show={show["show"] && show["index"] === item.인덱스}
@@ -158,12 +169,16 @@ const Team = () => {
         }}
       />
       <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-        {/* <InsertModal
-          visible={visible2}
-          setVisible={setVisible2}
-          dispatch={dispatch}
-          axios={teamAxios}
-        /> */}
+        {workrule.length !== 0 && (
+          <InsertModal
+            visible={visible2}
+            setVisible={setVisible2}
+            dispatch={dispatch}
+            axios={teamAxios}
+            workrule={workrule}
+            dept={dept}
+          />
+        )}
         <CButton
           block
           variant="outline"

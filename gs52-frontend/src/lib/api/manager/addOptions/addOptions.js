@@ -17,8 +17,6 @@ export const UpdateDept = async (index, content) => {
   return Dept;
 };
 export const InsertDept = async (content) => {
-  console.log("타냐?22");
-  console.log(content);
   const Dept = await client.post("/manager/addoptions/deptInsert", {
     dept_NAME: content,
   });
@@ -51,8 +49,43 @@ export const TeamDept = async (index) => {
 export const DeleteTeam = async (index) => {
   console.log(index);
   const Dept = await client.post("/manager/addoptions/teamDelete", {
-    dept_INDEX: index,
+    team_INDEX: index,
   });
+
+  return Dept;
+};
+
+export const UpdateTeam = async ({ teamname, work_RULE_INDEX, index }) => {
+  console.log(teamname);
+  console.log(work_RULE_INDEX);
+
+  const Dept = await client.post("/manager/addoptions/teamUpdate", {
+    team_WORK_TYPE: work_RULE_INDEX,
+    team_NAME: teamname,
+    team_INDEX: index,
+  });
+
+  return Dept;
+};
+
+export const InsertTeam = async ({ 부서인덱스, 팀이름, 근무유형 }) => {
+  const Dept = await client.post("/manager/addoptions/teamInsert", {
+    team_DEPT_INDEX: 부서인덱스,
+    team_NAME: 팀이름,
+    team_WORK_TYPE: 근무유형,
+  });
+
+  return Dept;
+};
+
+export const SelectWorkRule = async () => {
+  const Dept = await client.get("/manager/addoptions/workRule");
+
+  return Dept;
+};
+
+export const SelectWorkType = async () => {
+  const Dept = await client.get("/manager/addoptions/workType");
 
   return Dept;
 };

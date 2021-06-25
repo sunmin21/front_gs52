@@ -11,11 +11,17 @@ const {
   CInput,
   CCol,
   CFormGroup,
+  CAlert,
 } = require("@coreui/react");
 const { useState } = require("react");
 
 const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
   const [content, setContent] = useState("");
+  const [show, setShow] = useState({
+    show: false,
+    index: 0,
+  });
+
   return (
     <>
       <CModal show={visible}>
@@ -40,6 +46,19 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
+          <CAlert
+            color="danger"
+            show={show["show"]}
+            closeButton
+            onClick={() => {
+              setShow((content) => ({
+                ...content,
+                show: false,
+              }));
+            }}
+          >
+            모든 내용을 기입해주세요.
+          </CAlert>
           <CButton
             color="secondary"
             onClick={() => {
@@ -52,11 +71,18 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
           <CButton
             color="primary"
             onClick={() => {
-              console.log(content);
-              InsertDept(content);
-              dispatch(axios());
-              setContent("");
-              setVisible(false);
+              if (content === "") {
+                setShow((content) => ({
+                  ...content,
+                  show: true,
+                }));
+              } else {
+                console.log(content);
+                InsertDept(content);
+                dispatch(axios());
+                setContent("");
+                setVisible(false);
+              }
             }}
           >
             저장
