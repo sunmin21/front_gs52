@@ -36,6 +36,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   });
   const dispatch = useDispatch();
   const { annual } = useSelector((state) => {
+    console.log(state);
     return {
       annual: state.annual.annual,
     };

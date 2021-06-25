@@ -5,6 +5,7 @@ export const SelectVacation = async (index) => {
     //사원의 연차정보 전부 가져옴
     vacation_EMP_INDEX: index,
   });
+  console.log(annual);
 
   return annual;
 };

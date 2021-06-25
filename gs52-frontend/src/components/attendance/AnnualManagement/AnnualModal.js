@@ -65,10 +65,9 @@ function AnnualModal({
           await UpdateVacation(-0.5, 54321);
         }
 
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@됫냐");
         dispatch(annualAxios(vacation_EMP_INDEX.current));
         dispatch(empvacationAxios(vacation_EMP_INDEX.current));
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@됫냐");
+
         setInfo(!info);
       } else {
         setVisible(3);
