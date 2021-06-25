@@ -78,6 +78,16 @@ const DeptInsertModal = ({
                   }));
                 }}
               />
+              <CAlert
+                color="danger"
+                show={show}
+                closeButton
+                onClick={() => {
+                  setShow(false);
+                }}
+              >
+                모든 내용을 기입해주세요.
+              </CAlert>
             </CCol>
           </CFormGroup>
           <CFormGroup row>
@@ -111,16 +121,6 @@ const DeptInsertModal = ({
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
-          <CAlert
-            color="danger"
-            show={show}
-            closeButton
-            onClick={() => {
-              setShow(false);
-            }}
-          >
-            모든 내용을 기입해주세요.
-          </CAlert>
           <CButton
             color="secondary"
             onClick={() => {
@@ -130,6 +130,7 @@ const DeptInsertModal = ({
                 팀이름: "",
                 근무유형: 1,
               });
+              setShow(false);
             }}
           >
             Close
@@ -137,6 +138,10 @@ const DeptInsertModal = ({
           <CButton
             color="primary"
             onClick={() => {
+              if (content["팀이름"] === null || content["팀이름"] === "") {
+                setShow(true);
+                return;
+              }
               InsertTeam(content);
               dispatch(axios());
               setContent({
@@ -144,6 +149,7 @@ const DeptInsertModal = ({
                 팀이름: "",
                 근무유형: 1,
               });
+              setShow(false);
               setVisible(false);
             }}
           >

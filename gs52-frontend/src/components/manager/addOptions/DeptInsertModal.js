@@ -42,23 +42,23 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
                   setContent(e.target.value);
                 }}
               />
+              <CAlert
+                color="danger"
+                show={show["show"]}
+                closeButton
+                onClick={() => {
+                  setShow((content) => ({
+                    ...content,
+                    show: false,
+                  }));
+                }}
+              >
+                내용을 입력하세요.
+              </CAlert>
             </CCol>
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
-          <CAlert
-            color="danger"
-            show={show["show"]}
-            closeButton
-            onClick={() => {
-              setShow((content) => ({
-                ...content,
-                show: false,
-              }));
-            }}
-          >
-            모든 내용을 기입해주세요.
-          </CAlert>
           <CButton
             color="secondary"
             onClick={() => {

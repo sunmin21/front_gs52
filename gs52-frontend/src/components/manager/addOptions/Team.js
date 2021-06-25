@@ -15,6 +15,7 @@ import InsertModal from "./TeamInsertModal";
 const Team = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+
   const dispatch = useDispatch();
   let { team, dept } = useSelector(({ manager }) => ({
     team: manager.team,
@@ -31,7 +32,11 @@ const Team = () => {
     dispatch(teamAxios());
     dispatch(workRuleAxios());
   }, [dispatch]);
-
+  const [content, setContent] = useState({
+    teamname: "",
+    work_RULE_INDEX: "",
+    index: "",
+  });
   const [details, setDetails] = useState([]);
 
   const deptData = team.map((item) => {
@@ -116,8 +121,11 @@ const Team = () => {
                       workrule={workrule}
                       work_RULE_INDEX={item.work_RULE_INDEX}
                       teamName={item.팀이름}
+                      setContent={setContent}
+                      content={content}
                     />
                   )}
+
                   <CAlert
                     color="danger"
                     show={show["show"] && show["index"] === item.인덱스}
@@ -138,6 +146,11 @@ const Team = () => {
                     color="info"
                     onClick={() => {
                       setVisible(!visible);
+                      setContent({
+                        teamname: item.팀이름,
+                        work_RULE_INDEX: item.work_RULE_INDEX,
+                        index: item.인덱스,
+                      });
                     }}
                   >
                     팀수정

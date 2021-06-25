@@ -7,8 +7,6 @@ export const SelectDept = async () => {
 };
 
 export const UpdateDept = async (index, content) => {
-  console.log("타냐?");
-
   const Dept = await client.post("/manager/addoptions/deptUpdate", {
     dept_INDEX: index,
     dept_NAME: content,
@@ -86,6 +84,29 @@ export const SelectWorkRule = async () => {
 
 export const SelectWorkType = async () => {
   const Dept = await client.get("/manager/addoptions/workType");
+
+  return Dept;
+};
+
+export const UpdateWorkRule = async ({
+  work_type_index,
+  index,
+
+  work_rule_name,
+  starttime,
+  endtime,
+  work_rule_avg_time,
+  breaktime,
+}) => {
+  const Dept = await client.post("/manager/addoptions/workRuleUpdate", {
+    work_RULE_INDEX: index,
+    work_RULE_WORK_TYPE_INDEX: work_type_index,
+    work_RULE_NAME: work_rule_name,
+    work_RULE_START: starttime,
+    work_RULE_END: endtime,
+    work_RULE_AVG_HOUR: work_rule_avg_time,
+    work_RULE_BREAK: breaktime,
+  });
 
   return Dept;
 };

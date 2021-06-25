@@ -31,18 +31,26 @@ const Team = () => {
     dispatch(workRuleAxios());
     dispatch(workTypeAxios());
   }, [dispatch]);
-
+  const [content, setContent] = useState({
+    work_type_index: "",
+    index: "",
+    work_rule_name: "",
+    starttime: "",
+    endtime: "",
+    work_rule_avg_time: "",
+    breaktime: "",
+  });
   const [details, setDetails] = useState([]);
   // const [items, setItems] = useState(usersData)
 
   const deptData = workrule.map((item) => {
-    console.log(item);
     return {
       인덱스: item.work_RULE_INDEX,
       종류인덱스: item.work_TYPE_INDEX,
       종류: item.work_TYPE_NAME,
       이름: item.work_RULE_NAME,
       출근시간: item.work_RULE_START,
+      퇴근시간: item.work_RULE_END,
       휴식시간: item.work_RULE_BREAK,
       평균근무시간: item.work_RULE_AVG_HOUR,
     };
@@ -63,9 +71,10 @@ const Team = () => {
     { key: "종류", _style: { width: "20%" } },
     { key: "이름", _style: { width: "20%" } },
 
-    { key: "출근시간", _style: { width: "20%" } },
+    { key: "출근시간", _style: { width: "15%" } },
+    { key: "퇴근시간", _style: { width: "15%" } },
     { key: "휴식시간", _style: { width: "20%" } },
-    { key: "평균근무시간", _style: { width: "20%" } },
+    { key: "평균근무시간", _style: { width: "10%" } },
 
     {
       key: "show_details",
@@ -119,6 +128,13 @@ const Team = () => {
                     worktype={worktype}
                     work_TYPE_INDEX={item.종류인덱스}
                     work_rule_name={item.이름}
+                    work_TYPE_NAME={item.종류}
+                    출근시간={item.출근시간}
+                    퇴근시간={item.퇴근시간}
+                    휴식시간={item.휴식시간}
+                    평균근무시간={item.평균근무시간}
+                    setContent={setContent}
+                    content={content}
                   />
 
                   <CButton
@@ -126,6 +142,16 @@ const Team = () => {
                     color="info"
                     onClick={() => {
                       setVisible(!visible);
+                      setContent({
+                        work_type_index: item.종류인덱스,
+                        index: item.인덱스,
+                        work_rule_name: item.이름,
+                        starttime: item.출근시간,
+                        endtime: item.퇴근시간,
+                        work_rule_avg_time: item.평균근무시간,
+                        breaktime: item.휴식시간,
+                      });
+                      console.log(content);
                     }}
                   >
                     유형수정
@@ -137,7 +163,7 @@ const Team = () => {
                     className="ml-1"
                     onClick={() => {
                       if (item.팀원COUNT === 0) {
-                        DeleteTeam(item.인덱스);
+                        // DeleteWorkRule(item.인덱스);
                         dispatch(workRuleAxios());
                       } else {
                         setShow((content) => ({

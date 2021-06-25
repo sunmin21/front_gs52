@@ -24,13 +24,16 @@ const Modal = ({
   workrule,
   work_RULE_INDEX,
   teamName,
+  content,
+  setContent,
 }) => {
-  const [content, setContent] = useState({
-    teamname: teamName,
-    work_RULE_INDEX: work_RULE_INDEX,
-    index: index,
-  });
+  // const [content, setContent] = useState({
+  //   teamname: teamName,
+  //   work_RULE_INDEX: work_RULE_INDEX,
+  //   index: index,
+  // });
   const [show, setShow] = useState(false);
+
   return (
     <>
       <CModal show={visible}>
@@ -53,6 +56,16 @@ const Modal = ({
                   }));
                 }}
               />
+              <CAlert
+                color="danger"
+                show={show}
+                closeButton
+                onClick={() => {
+                  setShow(false);
+                }}
+              >
+                내용을 입력하세요.
+              </CAlert>
             </CCol>
           </CFormGroup>
           <CFormGroup row>
@@ -86,20 +99,11 @@ const Modal = ({
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
-          <CAlert
-            color="danger"
-            show={show}
-            closeButton
-            onClick={() => {
-              setShow(false);
-            }}
-          >
-            모든 내용을 기입해주세요.
-          </CAlert>
           <CButton
             color="secondary"
             onClick={() => {
               setVisible(false);
+              setShow(false);
               setContent({
                 teamname: teamName,
                 work_RULE_INDEX: work_RULE_INDEX,
@@ -120,6 +124,7 @@ const Modal = ({
                   work_RULE_INDEX: work_RULE_INDEX,
                 });
                 setVisible(false);
+                setShow(false);
               } else {
                 setShow(true);
               }
