@@ -7,34 +7,57 @@ const { SHOW_PARENT } = TreeSelect;
 
 const treeData = [
   {
-    title: "Node1",
+    title: "영업팀",
     value: "0-0",
     key: "0-0",
     children: [
       {
-        title: "Child Node1",
-        value: "0-0-0",
-        key: "0-0-0",
+        title: "김미자",
+        emp: "12345",
+        key: "123",
       },
     ],
   },
   {
-    title: "Node2",
+    title: "인사팀",
     value: "0-1",
     key: "0-1",
     children: [
       {
-        title: "Child Node3",
+        title: "김철수",
         value: "0-1-0",
         key: "0-1-0",
       },
       {
-        title: "Child Node4",
-        value: "0-1-1",
-        key: "0-1-1",
+        title: "김수한",
+        value: "543",
+        key: "543",
       },
       {
-        title: "Child Node5",
+        title: "무거북",
+        value: "0-1-2",
+        key: "0-1-2",
+      },
+    ],
+  },
+
+  {
+    title: "경리팀",
+    value: "0-1",
+    key: "0-1",
+    children: [
+      {
+        title: "김철수",
+        value: "0-1-0",
+        key: "0-1-0",
+      },
+      {
+        title: "김수한",
+        value: "543",
+        key: "543",
+      },
+      {
+        title: "무거북",
         value: "0-1-2",
         key: "0-1-2",
       },
@@ -43,10 +66,11 @@ const treeData = [
 ];
 
 const Dropdown = () => {
-  const [value, setValue] = useState(["0-0-0"]);
+  const [value, setValue] = useState(["0-0"]);
 
   const onChange = (value) => {
     setValue(value);
+    console.log(value);
   };
 
   const tProps = {

@@ -5,7 +5,6 @@ import AnnualTable from "src/components/attendance/AnnualManagement/AnnualTable"
 
 const AnnualManageMent = () => {
   const board = useSelector((state) => state.test.board);
-  const dispatch = useDispatch();
   const vacation_EMP_INDEX = useRef(5);
   return (
     <div class="container">
