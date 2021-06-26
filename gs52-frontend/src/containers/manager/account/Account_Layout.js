@@ -1,10 +1,12 @@
 import React,{useState} from "react";
-import AccountField from "../../../components/manager/accountRegist/Account_Field"
+import AccountField from "../../../components/manager/account/Account_Field"
+import AccountList from "../../../components/manager/account/Account_List"
 
 const InformLayout = () => {
     return (
         <div>
             <AccountField>sdfsdf</AccountField>
+            <AccountList></AccountList>
         </div>
     );
 }

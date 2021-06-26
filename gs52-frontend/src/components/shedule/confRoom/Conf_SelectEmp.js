@@ -13,6 +13,9 @@ import usersData from './UsersData'
 
 import { Select_emp,SelectConf } from "../../../lib/api/conf/ConfAPI";
 
+import { modalCheck2 } from 'src/modules/schedule/conf';
+import { useDispatch, useSelector } from 'react-redux';
+
 const fields = ['name','registered', 'role', 'status']
 const getBadge = status => {
   switch (status) {
@@ -24,36 +27,29 @@ const getBadge = status => {
   }
 }
 
+
 export function Conf_SelectEmp(props) {
+	console.log("emppppppppppppppp")
+  	const dispatch = useDispatch();
+	const { conf_modal2 } = useSelector((state) => {
+		return ({   
+		conf_modal2: state.conf_check.conf_modal2
+		})
+	});	
 
-	const [primary, setPrimary] = useState(false);
+	const click = () => {
+		dispatch(modalCheck2())
+	};
 
-
-  const click = () => {
-    setPrimary(!primary);
-  };
-
-  useEffect(() => {
-    // console.log('props.click 값이 설정됨');
-    // console.log("modal click  "+props.click);
-    // console.log("modal time  "+props.time);
-    
-    return () => {
-    //   console.log('props.click 가 바뀌기 전..');
-    //   console.log("modal click  "+props.click);
-    //   console.log("modal time  "+props.time);
-      setPrimary(!primary)
-    };
-  }, [props.emp_click]);
 
   return (
     <div>            
-		<button  onClick={Select_emp}>sdfsdf</button>
-      <CModal
-        show={primary}
-        onClose={() => setPrimary(!primary)}
-        color="primary"
-      >
+		<CModal
+			show={conf_modal2}
+			onClose={() => dispatch(modalCheck2())}
+			color="primary"
+		>
+        
         <CModalHeader closeButton>
           <CModalTitle>일정 초대</CModalTitle>
         </CModalHeader>
@@ -84,7 +80,7 @@ export function Conf_SelectEmp(props) {
           <CButton color="primary" onClick={click}>
             등록
           </CButton>{" "}
-          <CButton color="secondary" onClick={() => {setPrimary(!primary)}}>
+          <CButton color="secondary" onClick={() => {dispatch(modalCheck2())}}>
             취소
           </CButton>
         </CModalFooter>
