@@ -10,13 +10,6 @@ import holidaydata from './HolidayData';
 
 function ShowCalendar() {
   const [events, setEvents] = useState([]);
-  const dispatch = useDispatch();
-  const { holiday } = useSelector((state) => {
-    return {
-      holiday: state.holiday.holiday,
-    };
-  });
-
     const dispatch = useDispatch();
     const { holiday } = useSelector((state) => {
         // console.log("나 !!!!!!!!!!!!!!!!!")
