@@ -1,32 +1,39 @@
-import React, { useEffect }from 'react';
-import FullCalendar from '@fullcalendar/react';
-import daygridPlugin from '@fullcalendar/daygrid';
-import { CCard, CCardBody, CCardHeader } from '@coreui/react';
-import { DeleteHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
-import { useDispatch, useSelector } from 'react-redux';
-import { holidayAxios } from 'src/modules/manager/holiday';
+import React, { useEffect, useState } from "react";
+import FullCalendar from "@fullcalendar/react";
+import daygridPlugin from "@fullcalendar/daygrid";
+import { CCard, CCardBody, CCardHeader } from "@coreui/react";
+import { DeleteHoliday } from "src/lib/api/manager/holiday/HolidayAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { holidayAxios } from "src/modules/manager/holiday";
 
 import holidaydata from './HolidayData';
 
 function ShowCalendar() {
+  const [events, setEvents] = useState([]);
+  const dispatch = useDispatch();
+  const { holiday } = useSelector((state) => {
+    return {
+      holiday: state.holiday.holiday,
+    };
+  });
 
     const calendarBox = {
-        
+
     }
 
     const dispatch = useDispatch();
     const { holiday } = useSelector((state) => {
         // console.log("나 !!!!!!!!!!!!!!!!!")
         // console.log(state)
-        return ({   
-            holiday : state.holiday.holiday            
+        return ({
+            holiday : state.holiday.holiday
         })
     });
 
     useEffect(() => {
         dispatch(holidayAxios())
     }, [dispatch])
-    
+
     const eventOnclick = (e) => {
         var msg = ("삭제하시겠습니까?");
 
@@ -47,7 +54,7 @@ function ShowCalendar() {
         else {
             alert("국가 공휴일은 삭제할 수 없습니다.")
         }
-        
+
     }
     // console.log(holiday)
     const data = holiday.map((item) => {
