@@ -12,99 +12,122 @@ import {
   CInput,
   CInputGroupPrepend,
   CInputGroupText,
-  CInputGroup
+  CInputGroup, CAlert
 } from "@coreui/react";
-import { InsertConf,SelectConf } from "../../../lib/api/conf/ConfAPI";
+import { InsertConf,SelectConf, Select_emp } from "../../../lib/api/conf/ConfAPI";
 import 'antd/dist/antd.css';
 import { TimePicker, DatePicker } from 'antd';
 import moment from 'moment';
 
-export function ConfButton(){
-  
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { RoomAxios, modalCheck1, modalCheck2, modalDate, modalStartTime, modalEndTime } from 'src/modules/schedule/conf';
 
-export function ConfModal(props) {
+export function ConfModal() {
+	const dispatch = useDispatch();
+	const { room_list, conf_modal1, conf_date, conf_startTime, conf_endTime } = useSelector((state) => {
+		console.log(state)
+    return ({   
+      room_list:state.conf_check.room_list,
+		  conf_modal1: state.conf_check.conf_modal1,
+				conf_date: state.conf_check.conf_date,
+				conf_startTime: state.conf_check.conf_startTime,
+				conf_endTime: state.conf_check.conf_endTime
+		})
+	});
+  useEffect(() => {
+    dispatch(RoomAxios())
+}, [dispatch])
 
-	const FLOOR_SELECT = ["5", "6"];
-	const ROOM_SELECT = ["1", "2"];
+  const room_data = room_list.map((item) => ({
+    conf_ROOM_INDEX: item.conf_ROOM_INDEX,
+    conf_ROOM_FLOOR: item.conf_ROOM_FLOOR,
+    conf_ROOM_NUMBER: item.conf_ROOM_NUMBER,
+    }));
+
+
+	// const FLOOR_SELECT = ["5", "6"];
+	// const ROOM_SELECT = ["1", "2"];
 	const _SELECT = ["1", "2"];
 
-	const [primary, setPrimary] = useState(false);
   
-const dateFormat = 'YYYY-MM-DD';
+	const dateFormat = 'YYYY-MM-DD';
 
-const [inputs, setInputs] = useState({
-  title:null,
-  floor:FLOOR_SELECT[0],
-  room:ROOM_SELECT[0],
-  })
-const {title, floor, room} = inputs;
+	const [inputs, setInputs] = useState({
+	title:null,
+	// floor:FLOOR_SELECT[0],
+	// room:ROOM_SELECT[0],
+	})
+	const {title, floor, room} = inputs;
 
-const [date, setDate] = useState(moment().format(dateFormat));
-const [time, setTime] = useState();
+	const onChange = (e) => {
+	//input에 name을 가진 요소의 value에 이벤트를 걸었다
+	const { name, value } = e.target   
 
-const onChange = (e) => {
-  //input에 name을 가진 요소의 value에 이벤트를 걸었다
-  const { name, value } = e.target   
-
-  // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
-  const nextInputs = {            
-  //스프레드 문법으로 기존의 객체를 복사한다.
-      ...inputs,  
-      [name]: value,
-    }
-  //만든 변수를 seInput으로 변경해준다.
-    setInputs(nextInputs)      
-}
-
-function onDate(date, dateString) {
-  setDate(dateString)
-}
-function onTime(timeString) {
-  setTime(timeString)
-}
-
-  // useEffect(() => {
-  //   // console.log('props.conf_click 값이 설정됨');       //2021-06-22T07:00:00+09:00
-  //     console.log(primary);
-  //   return () => {
-  //     //console.log('props.conf_click 가 바뀌기 전..');
-  //     setPrimary(!primary)
-  //     console.log(primary);
-  //   };
-  // }, [props.conf_click]);
+	// 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
+	const nextInputs = {            
+	//스프레드 문법으로 기존의 객체를 복사한다.
+		...inputs,  
+		[name]: value,
+		}
+	//만든 변수를 seInput으로 변경해준다.
+		setInputs(nextInputs)      
+	}
 
 
-  const onClick = e => {
-		props.setEmp_click(true);
-  };
+	//date picker, time picker 클릭 이벤트 함수
+	function onDate(date, dateString) {
+	dispatch(modalDate(moment(dateString).format('YYYY/MM/DD')))
+	console.log("onDate   "+dateString)
+	console.log("moment(dateString).format('YYYY/MM/DD')   "+moment(dateString).format('YYYY/MM/DD'))
+	console.log("conf_date   "+conf_date)
+	//setDate(dateString)
+	}
+	function onTime(timeString) {
+	dispatch(modalStartTime(moment(timeString[0]).format('hh:mm')))
+	dispatch(modalEndTime(moment(timeString[1]).format('hh:mm')))
+	console.log(moment(timeString[0]).format('hh:mm'))
+	console.log(moment(timeString[1]).format('hh:mm'))
+  console.log(timeString)
+	//setTime(timeString)
+	}
 
-  const onRegist = () => {
-    console.log(date)
-    InsertConf(inputs.floor, inputs.room, inputs.title, date, time);
-    //props.setConf_Click(false);
-  };
-  const onCancle = e => {
-    setPrimary(!primary)
-    //props.setConf_Click(false);
-  }
 
 
-console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
-// console.log("1970/01/01" ===props.time )
-//if("1970/01/01" !==props.time){
+	//유저 추가 텍스트필드 클릭 이벤트 함수
+	const onClick = e => {
+	dispatch(modalCheck2())
+	};
+
+
+	//등록 버튼 클릭 이벤트 함수
+	const onRegist = () => {
+		console.log("title    "+inputs.title)
+		if(inputs.title===null){
+			{console.log("warning")}
+			return(
+			<CAlert color="warning">
+			This is a warning alert — check it out!
+		  </CAlert>);
+		}
+		else{
+			//floor, room, index, title, date, startTime, endTime
+			InsertConf(1, inputs.title, conf_date, conf_startTime, conf_endTime);
+			dispatch(modalCheck1())
+		}
+	  };	
+	const onCancle = e => {
+		dispatch(modalCheck1())
+	}
+
+
   return (
     <div>            
-      <CButton color="primary"
-        onClick={() => setPrimary(!primary)}
-      >
-        추가
-      </CButton>
-
+    {console.log("#######################")}
+      {console.log(room_data)}
       <CModal
-        show={primary}
+        show={conf_modal1}
         closeOnBackdrop={false}
-        onClose={() => setPrimary(!primary)}
+        onClose={() => dispatch(modalCheck1())}
         color="primary"
       >
         <CModalHeader closeButton>
@@ -122,11 +145,11 @@ console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
             <CCol md="3">
               
               <CFormGroup>
-                <CSelect id="floor" name="floor" onChange={onChange}>
-                  {FLOOR_SELECT.map((floor, idx) => {
+                 <CSelect id="floor" name="floor" onChange={onChange}>
+                  {room_data.map((floor, idx) => {
                     return (
-                      <option key={idx} value={floor} >
-                        {floor}층
+                      <option key={idx} value={floor.conf_ROOM_FLOOR} >
+                        {floor.conf_ROOM_FLOOR}층
                       </option>
                     );
                   })}
@@ -136,24 +159,20 @@ console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
             <CCol md="3">
               <CFormGroup>
                 <CSelect id="room" name="room" onChange={onChange}>
-                  {ROOM_SELECT.map((room, idx) => {
+                  {/* {room_data.map((room, idx) => {
                     return (
                       <option key={idx} value={room}>
                         {room}호
                       </option>
                     );
-                  })}
+                  })} */}
                 </CSelect>
               </CFormGroup>
             </CCol>
 
             <CCol md="9">
-            
-            
-            <DatePicker onChange={onDate} />
-            {/* <DatePicker defaultValue={moment(props.time, dateFormat)} format={dateFormat} /> */}
-            {/* {console.log("moment(date, dateFormat)   " + props.time)} */}
-            <TimePicker.RangePicker onChange={onTime} />
+            <DatePicker onChange={onDate} defaultValue={moment(conf_date, dateFormat)}/>
+            <TimePicker.RangePicker onChange={onTime} defaultValue = {[moment(conf_startTime, 'HH:mm'),moment(conf_endTime, 'HH:mm')]} format="HH:mm" minuteStep={10}/>
             </CCol>
 
             <CCol md="5">일정초대</CCol>
@@ -183,12 +202,8 @@ console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
       </CModal>
     </div>
   );
-// }
-// else{
-//   return<></>
-// }
-
 }
+
 
 
 
