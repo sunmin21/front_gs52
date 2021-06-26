@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { all } from "redux-saga/effects";
 import test from "./test";
-import manager, { managerSaga } from "./manager/manager";
+import manager, { managerSaga } from "./manager/addOptions";
 import emp from "./emp/emp";
 import task, { taskSaga } from "./task/task";
 import conf_check, { ConfSaga2 } from "./schedule/conf";
@@ -28,6 +28,7 @@ export function* rootSaga() {
     ConfSaga2(),
     reportSaga2(),
     annualSaga2(),
+    managerSaga(),
   ]);
 }
 export default rootReducer;
