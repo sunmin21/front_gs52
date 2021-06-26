@@ -6,7 +6,7 @@ import emp from "./emp/emp";
 import task, { taskSaga } from "./task/task";
 import holiday,{holidaySaga2} from './manager/holiday'
 import changeState from './changeStore';
-import conf_check from './schedule/conf'
+import conf_check,{ConfSaga2} from './schedule/conf'
 
 const rootReducer = combineReducers({
   test,
@@ -19,6 +19,6 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([taskSaga(),holidaySaga2()]);
+  yield all([taskSaga(),holidaySaga2(),ConfSaga2()]);
 }
 export default rootReducer;

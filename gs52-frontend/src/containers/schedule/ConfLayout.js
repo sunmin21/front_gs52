@@ -3,6 +3,13 @@ import {ConfRoom} from "../../components/shedule/confRoom/Conf_Room";
 import {ConfModal} from "../../components/shedule/confRoom/Conf_Modal";
 import {ConfButton} from "../../components/shedule/confRoom/Conf_Button";
 import {Conf_SelectEmp} from "../../components/shedule/confRoom/Conf_SelectEmp";
+import Readonly from "../../components/shedule/confRoom/Readonly";
+
+
+
+
+//import {sch} from "../../components/shedule/confRoom/Conf_sch";
+
 
 import {
 	CCard,
@@ -15,14 +22,10 @@ import {
 
 
 const ConfLayout = () => {
-    const [time,setTime]=useState(0);
-    //const [conf_click,setConf_Click]=useState(false);
-    const [emp_click,setEmp_click]=useState(false);
-
-
-  const { conf_modal1 } = useSelector((state) => {
+  const { conf_modal1, conf_modal2 } = useSelector((state) => {
       return ({   
         conf_modal1: state.conf_check.conf_modal1,
+        conf_modal2: state.conf_check.conf_modal2,
       })
   });
   
@@ -30,22 +33,27 @@ const ConfLayout = () => {
         <div>
             {console.log("LAYOUTTTTTTTTTTTTT")}
         <CCard>
+            
             <CCardHeader>
                 <big>회의실 예약</big>
                 
-                <ConfButton></ConfButton> 
-      <button>버어어튼</button>
-            
+        {/* <Readonly></Readonly> */}
+            </CCardHeader>
+                
+            <CCardBody>
+            <ConfButton></ConfButton> 
+            <ConfRoom ></ConfRoom>
+
             {
                 conf_modal1===true ?
                 <ConfModal></ConfModal> 
                 : null
             }
-            </CCardHeader>
-                
-            <CCardBody>
-                <Conf_SelectEmp emp_click={emp_click}></Conf_SelectEmp>
-                <ConfRoom ></ConfRoom>
+            {
+                conf_modal2===true ?
+                <Conf_SelectEmp></Conf_SelectEmp> 
+                : null
+            }
             </CCardBody>
         </CCard>
             

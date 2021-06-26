@@ -1,42 +1,75 @@
 import { createAction, handleActions } from "redux-actions";
+import moment from 'moment';
+
 import createRequestSaga, {createRequestActionTypes} from "../../lib/createRequestSaga";
-// import * as API from "../../lib/api/manager/holiday/HolidayAPI";
+import * as API from "../../lib/api/conf/ConfAPI";
 import { takeLatest } from "redux-saga/effects";
 
-const [HOLIDAY, HOLIDAY_SUCCESS, HOLIDAY_FAILURE] =
-  createRequestActionTypes("manager/HOLIDAY"); //타입유형
 
+//타입유형
+const [CONF_lIST, CONF_lIST_SUCCESS, CONF_lIST_FAILURE] = createRequestActionTypes("schedule/confRoom_conf"); //타입유형
+const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTypes("schedule/confRoom_room"); //타입유형
   const CHECK1 = 'schedule/confRoom_book';
   const CHECK2 = 'schedule/confRoom_emp';
   const DATE = 'schedule/confRoom_date';
-  const TIME = 'schedule/confRoom_time';
+  const STARTTIME = 'schedule/confRoom_starttime';
+  const ENDTIME = 'schedule/confRoom_endtime';
+
+  export const ConfAxios = createAction(CONF_lIST);
+  export const RoomAxios = createAction(CONF_ROOM);
 
   export const modalCheck1 = createAction(CHECK1);
   export const modalCheck2 = createAction(CHECK2);
   export const modalDate = createAction(DATE);
-  export const modalTime = createAction(TIME);
-//export const holidayAxios = createAction(HOLIDAY); //리덕스의 액션함수
+  export const modalStartTime = createAction(STARTTIME);
+  export const modalEndTime = createAction(ENDTIME);
 
-// const holidaySaga = createRequestSaga(HOLIDAY, API.SelectHoliday);
+  const ConfSaga = createRequestSaga(CONF_lIST, API.SelectConf);
+  const RoomSaga = createRequestSaga(CONF_ROOM, API.SelectRoom);
 
-// export function* holidaySaga2() {
-//     yield takeLatest(HOLIDAY, holidaySaga);
-// }
+  export function* ConfSaga2() {
+    yield takeLatest(CONF_lIST, ConfSaga);
+    yield takeLatest(CONF_ROOM, RoomSaga);  }
 
 const initialState = {
   //초기값을 정의
-    holiday: [],
-    holiError: null,
+    conf_list: [],
+    conf_list_error: null,
+    room_list:[],
+    room_list_error: null,
     
     conf_modal1: false,
     conf_modal2: false,
-    conf_date:'',
-    conf_time:'09:00',
+    conf_date:moment().format('YYYY/MM/DD'),
+    conf_startTime:'09:00',
+    conf_endTime:'09:30',
 };
 
 //const holiday = handleActions(
 const conf_check = handleActions(
     {
+        [CONF_lIST_SUCCESS]: (state, { payload: conf_list }) => ({
+            ...state,
+            conf_list_error: null,
+            conf_list,
+          }),
+      
+          [CONF_lIST_FAILURE]: (state, { payload: error }) => ({
+            ...state,
+            conf_list_error: error,
+          }),
+
+          [CONF_ROOM_SUCCESS]: (state, { payload: room_list }) => ({
+            ...state,
+            room_list_error: null,
+            room_list,
+          }),
+      
+          [CONF_ROOM_FAILURE]: (state, { payload: error }) => ({
+            ...state,
+            room_list_error: error,
+          }),
+
 
         [CHECK1] : (state) => ({
             ...state,
@@ -44,15 +77,19 @@ const conf_check = handleActions(
         }),
         [CHECK2] : (state) => ({
             ...state,
-            conf_modal1: !state.conf_modal2,
+            conf_modal2: !state.conf_modal2,
         }),
         [DATE] : (state,{ payload: conf_date }) => ({
             ...state,
             conf_date : conf_date,
         }),
-        [TIME] : (state,{ payload: conf_time }) => ({
+        [STARTTIME] : (state,{ payload: conf_startTime }) => ({
             ...state,
-            conf_time : conf_time,
+            conf_startTime : conf_startTime,
+        }),
+        [ENDTIME] : (state,{ payload: conf_endTime }) => ({
+            ...state,
+            conf_endTime : conf_endTime,
         }),
     },
     initialState
