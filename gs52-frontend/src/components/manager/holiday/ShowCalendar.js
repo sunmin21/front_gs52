@@ -17,10 +17,6 @@ function ShowCalendar() {
     };
   });
 
-    const calendarBox = {
-
-    }
-
     const dispatch = useDispatch();
     const { holiday } = useSelector((state) => {
         // console.log("나 !!!!!!!!!!!!!!!!!")

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-import { CCard, CCardBody, CCardHeader, CCardGroup, CCardText, CDataTable, CBadge } from '@coreui/react';
+import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from '@coreui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reportAxios } from 'src/modules/task/report';
 
@@ -11,7 +11,6 @@ function WeeklyReport() {
     const dispatch = useDispatch();
 
     const { report } = useSelector((state) => {
-        console.log("나 !!!!!!!!!!!!!!!!!")
         console.log(state)
         return ({   
             report : state.report.report            
@@ -19,7 +18,7 @@ function WeeklyReport() {
     });
 
     useEffect(() => {
-        dispatch(reportAxios())
+        // dispatch(reportAxios(emp, weekStart, weekEnd))
     }, [dispatch])
 
     const fields = ['contents','date']
@@ -41,8 +40,12 @@ function WeeklyReport() {
     const [startDate, setStartDate] = useState();
 
     var moment = require('moment');
-    var weekStart = moment(startDate).day(0).format("YYYY년 MM월 DD일");
-    var weekEnd = moment(startDate).day(6).format("YYYY년 MM월 DD일");
+    // var weekStart = moment(startDate).day(0).format("YYYY-MM-DD");
+    // var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
+
+    var weekStart = moment(new Date()).day(0).format("YYYY-MM-DD");
+    var weekEnd = moment(new Date()).day(6).format("YYYY-MM-DD");
+
     // --------------------------------------------//
 
     const data = report.map((item) => {
@@ -64,11 +67,16 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        onChange={(weekStart) => setStartDate(weekStart)}
+                        // onChange={(startDate)}
+                        onChange={(weekStart) => {
+                            return (dispatch(reportAxios({ emp, weekStart :moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd :moment(weekStart).day(6).format("YYYY-MM-DD") })))
+                        }}
                     />
                 </CCardBody>
                 <CCardBody>
-                    선택된 주 <h4>{weekStart + " - " + weekEnd}</h4>
+                    선택된 주 <h4>{
+                        weekStart + " - " + weekEnd
+                    }</h4>
                 </CCardBody>
             </CCardGroup>
             <hr></hr>
