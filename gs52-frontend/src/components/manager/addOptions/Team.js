@@ -28,6 +28,7 @@ const Team = () => {
     show: false,
     index: 0,
   });
+  const [doubleCheck, setDoubleCheck] = useState(true);
   useEffect(() => {
     dispatch(teamAxios());
     dispatch(workRuleAxios());
@@ -190,6 +191,8 @@ const Team = () => {
             axios={teamAxios}
             workrule={workrule}
             dept={dept}
+            doubleCheck={doubleCheck}
+            setDoubleCheck={setDoubleCheck}
           />
         )}
         <CButton
@@ -198,6 +201,7 @@ const Team = () => {
           color="primary"
           onClick={() => {
             setVisible2(!visible2);
+            setDoubleCheck(true);
           }}
         >
           팀추가

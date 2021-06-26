@@ -25,6 +25,8 @@ const DeptInsertModal = ({
   axios,
   workrule,
   dept,
+  setDoubleCheck,
+  doubleCheck,
 }) => {
   const [content, setContent] = useState({
     부서인덱스: 1,
@@ -33,6 +35,7 @@ const DeptInsertModal = ({
   });
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
+
   return (
     <>
       <CModal show={visible}>
@@ -144,6 +147,7 @@ const DeptInsertModal = ({
                 근무유형: 1,
               });
               setShow(false);
+              setDoubleCheck(true);
             }}
           >
             Close
@@ -151,25 +155,28 @@ const DeptInsertModal = ({
           <CButton
             color="primary"
             onClick={async () => {
-              if (
-                (await (await SelectCheckTeam(content["팀이름"])).data) !== 0
-              ) {
-                setShow2(true);
-                return;
+              if (doubleCheck) {
+                if (
+                  (await (await SelectCheckTeam(content["팀이름"])).data) !== 0
+                ) {
+                  setShow2(true);
+                  return;
+                }
+                if (content["팀이름"] === null || content["팀이름"] === "") {
+                  setShow(true);
+                  return;
+                }
+                InsertTeam(content);
+                dispatch(axios());
+                setContent({
+                  부서인덱스: 1,
+                  팀이름: "",
+                  근무유형: 1,
+                });
+                setShow(false);
+                setVisible(false);
+                setDoubleCheck(false);
               }
-              if (content["팀이름"] === null || content["팀이름"] === "") {
-                setShow(true);
-                return;
-              }
-              InsertTeam(content);
-              dispatch(axios());
-              setContent({
-                부서인덱스: 1,
-                팀이름: "",
-                근무유형: 1,
-              });
-              setShow(false);
-              setVisible(false);
             }}
           >
             저장

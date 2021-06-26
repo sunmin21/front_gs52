@@ -27,6 +27,8 @@ const DeptInsertModal = ({
   dispatch,
   axios,
   worktype,
+  doubleCheck,
+  setDoubleCheck,
 }) => {
   const [content, setContent] = useState({
     work_type_index: 1,
@@ -201,6 +203,7 @@ const DeptInsertModal = ({
                 breaktime: "01:00",
               });
               setShow(false);
+              setDoubleCheck(false);
             }}
           >
             Close
@@ -208,42 +211,46 @@ const DeptInsertModal = ({
           <CButton
             color="primary"
             onClick={async () => {
-              if (
-                (await (
-                  await SelectCheckRule(content["work_rule_name"])
-                ).data) !== 0
-              ) {
-                setShow3(true);
-                return;
-              }
-              if (
-                content["work_rule_name"] === "" ||
-                content["work_rule_name"] === null
-              ) {
-                setShow(true);
-                return;
-              }
-              if (
-                isNaN(content["work_rule_avg_time"]) ||
-                content["work_rule_avg_time"] === ""
-              ) {
-                setShow2(true);
-                return;
-              }
-              InsertWorkRule(content);
+              if (doubleCheck) {
+                if (
+                  (await (
+                    await SelectCheckRule(content["work_rule_name"])
+                  ).data) !== 0
+                ) {
+                  setShow3(true);
+                  return;
+                }
+                if (
+                  content["work_rule_name"] === "" ||
+                  content["work_rule_name"] === null
+                ) {
+                  setShow(true);
+                  return;
+                }
+                if (
+                  isNaN(content["work_rule_avg_time"]) ||
+                  content["work_rule_avg_time"] === ""
+                ) {
+                  setShow2(true);
+                  return;
+                }
+                InsertWorkRule(content);
 
-              dispatch(axios());
-              setContent({
-                work_type_index: 1,
-                index: "",
-                work_rule_name: "",
-                starttime: "09:00",
-                endtime: "18:00",
-                work_rule_avg_time: "",
-                breaktime: "01:00",
-              });
+                dispatch(axios());
+                setContent({
+                  work_type_index: 1,
+                  index: "",
+                  work_rule_name: "",
+                  starttime: "09:00",
+                  endtime: "18:00",
+                  work_rule_avg_time: "",
+                  breaktime: "01:00",
+                });
 
-              setVisible(false);
+                setVisible(false);
+                setShow(false);
+                setDoubleCheck(false);
+              }
             }}
           >
             저장

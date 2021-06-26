@@ -16,6 +16,7 @@ import InsertModal from "./DeptInsertModal";
 const Dept = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [doubleCheck, setDoubleCheck] = useState(true);
   const dispatch = useDispatch();
   let { dept } = useSelector(({ manager }) => ({
     dept: manager.dept,
@@ -27,7 +28,7 @@ const Dept = () => {
   useEffect(() => {
     dispatch(deptAxios());
   }, [dispatch]);
-
+  const [content, setContent] = useState();
   const [details, setDetails] = useState([]);
   // const [items, setItems] = useState(usersData)
 
@@ -104,6 +105,8 @@ const Dept = () => {
                       dispatch={dispatch}
                       axios={deptAxios}
                       부서이름={item.부서이름}
+                      setContent={setContent}
+                      content={content}
                     />
                   )}
                   <CAlert
@@ -125,6 +128,7 @@ const Dept = () => {
                     color="info"
                     onClick={() => {
                       setVisible(!visible);
+                      setContent(item.부서이름 || "");
                     }}
                   >
                     부서수정
@@ -162,6 +166,8 @@ const Dept = () => {
             setVisible={setVisible2}
             dispatch={dispatch}
             axios={deptAxios}
+            doubleCheck={doubleCheck}
+            setDoubleCheck={setDoubleCheck}
           />
         )}
         <CButton
@@ -170,6 +176,7 @@ const Dept = () => {
           color="primary"
           onClick={() => {
             setVisible2(!visible2);
+            setDoubleCheck(true);
           }}
         >
           부서추가

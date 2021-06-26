@@ -18,13 +18,23 @@ const {
 } = require("@coreui/react");
 const { useState } = require("react");
 
-const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) => {
+const Modal = ({
+  index,
+  visible,
+  setVisible,
+  dispatch,
+  axios,
+  부서이름,
+  content,
+  setContent,
+}) => {
   const [show, setShow] = useState({
     show: false,
     index: 0,
   });
   const [show2, setShow2] = useState(false);
-  const [content, setContent] = useState(부서이름);
+  // const [content, setContent] = useState(부서이름);
+  const [doubleCheck, setDoubleCheck] = useState(true);
 
   return (
     <>
@@ -41,7 +51,7 @@ const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) =>
               <CInput
                 placeholder="부서명"
                 autoComplete="email"
-                value={content}
+                value={content || ""}
                 onChange={(e) => {
                   setContent(e.target.value);
                 }}
@@ -83,6 +93,7 @@ const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) =>
                 show: false,
               }));
               setShow2(false);
+              setDoubleCheck(true);
             }}
           >
             Close
@@ -90,29 +101,32 @@ const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) =>
           <CButton
             color="primary"
             onClick={async () => {
-              if (
-                부서이름 !== content &&
-                (await (await SelectCheckDept(content)).data) !== 0
-              ) {
-                setShow2(true);
-                return;
-              }
-              if (content !== "") {
-                UpdateDept(index, content);
-                dispatch(axios());
-                setContent(content);
-                setVisible(false);
-                setShow((content) => ({
-                  ...content,
-                  show: false,
-                }));
-                setShow2(false);
-              } else {
-                setShow((content) => ({
-                  ...content,
-                  show: true,
-                }));
-                setShow2(false);
+              if (doubleCheck) {
+                if (
+                  부서이름 !== content &&
+                  (await (await SelectCheckDept(content)).data) !== 0
+                ) {
+                  setShow2(true);
+                  return;
+                }
+                if (content !== "") {
+                  UpdateDept(index, content);
+                  dispatch(axios());
+                  setContent(content);
+                  setVisible(false);
+                  setShow((content) => ({
+                    ...content,
+                    show: false,
+                  }));
+                  setShow2(false);
+                } else {
+                  setShow((content) => ({
+                    ...content,
+                    show: true,
+                  }));
+                  setShow2(false);
+                }
+                setDoubleCheck(false);
               }
             }}
           >

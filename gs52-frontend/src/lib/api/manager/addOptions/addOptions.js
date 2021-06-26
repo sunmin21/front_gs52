@@ -158,3 +158,29 @@ export const SelectConfRoom = async () => {
 
   return Dept;
 };
+
+export const SelectCheckConfRoom = async ({ 층, 호수 }) => {
+  const Dept = await client.post("/manager/addoptions/confRoomCheck", {
+    conf_ROOM_FLOOR: 층,
+    conf_ROOM_NUMBER: 호수,
+  });
+
+  return Dept;
+};
+export const DeleteConfRoom = async (index) => {
+  const Dept = await client.post("/manager/addoptions/confRoomDelete", {
+    conf_ROOM_INDEX: index,
+  });
+
+  return Dept;
+};
+
+export const UpdateConfRoom = async ({ 인덱스, 층, 호수 }) => {
+  const Dept = await client.post("/manager/addoptions/confRoomUpdate", {
+    conf_ROOM_INDEX: 인덱스,
+    conf_ROOM_FLOOR: 층,
+    conf_ROOM_NUMBER: 호수,
+  });
+
+  return Dept;
+};

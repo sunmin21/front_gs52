@@ -16,6 +16,7 @@ import InsertModal from "./WorkRuleInsertModal";
 const Team = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
+  const [doubleCheck, setDoubleCheck] = useState(true);
   const dispatch = useDispatch();
   let { team } = useSelector(({ manager }) => ({
     team: manager.team,
@@ -206,6 +207,8 @@ const Team = () => {
           dispatch={dispatch}
           axios={workRuleAxios}
           worktype={worktype}
+          doubleCheck={doubleCheck}
+          setDoubleCheck={setDoubleCheck}
         />
         <CButton
           block
@@ -213,6 +216,7 @@ const Team = () => {
           color="primary"
           onClick={() => {
             setVisible2(!visible2);
+            setDoubleCheck(true);
           }}
         >
           근무유형추가

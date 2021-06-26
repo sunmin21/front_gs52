@@ -18,13 +18,21 @@ const {
 } = require("@coreui/react");
 const { useState } = require("react");
 
-const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
+const DeptInsertModal = ({
+  visible,
+  setVisible,
+  dispatch,
+  axios,
+  doubleCheck,
+  setDoubleCheck,
+}) => {
   const [content, setContent] = useState("");
   const [show, setShow] = useState({
     show: false,
     index: 0,
   });
   const [show2, setShow2] = useState(false);
+
   return (
     <>
       <CModal show={visible}>
@@ -76,6 +84,7 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
             color="secondary"
             onClick={() => {
               setVisible(false);
+              setDoubleCheck(true);
               setContent("");
             }}
           >
@@ -84,20 +93,23 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
           <CButton
             color="primary"
             onClick={async () => {
-              if ((await (await SelectCheckDept(content)).data) !== 0) {
-                setShow2(true);
-                return;
-              }
-              if (content === "") {
-                setShow((content) => ({
-                  ...content,
-                  show: true,
-                }));
-              } else {
-                InsertDept(content);
-                dispatch(axios());
-                setContent("");
-                setVisible(false);
+              if (doubleCheck) {
+                if ((await (await SelectCheckDept(content)).data) !== 0) {
+                  setShow2(true);
+                  return;
+                }
+                if (content === "") {
+                  setShow((content) => ({
+                    ...content,
+                    show: true,
+                  }));
+                } else {
+                  InsertDept(content);
+                  dispatch(axios());
+                  setContent("");
+                  setVisible(false);
+                }
+                setDoubleCheck(false);
               }
             }}
           >

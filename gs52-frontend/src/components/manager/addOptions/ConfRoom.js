@@ -8,9 +8,9 @@ import {
 } from "@coreui/react";
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteTeam } from "src/lib/api/manager/addOptions/addOptions";
+import { DeleteConfRoom } from "src/lib/api/manager/addOptions/addOptions";
 import { confRoomAxios } from "src/modules/manager/addOptions";
-import Modal from "./TeamModal";
+import Modal from "./ConfRoomModal";
 import InsertModal from "./TeamInsertModal";
 const ConfRoom = () => {
   const [visible, setVisible] = useState(false);
@@ -20,9 +20,7 @@ const ConfRoom = () => {
   let { confroom } = useSelector(({ manager }) => ({
     confroom: manager.confroom,
   }));
-  let { workrule } = useSelector(({ manager }) => ({
-    workrule: manager.workrule,
-  }));
+
   const [show, setShow] = useState({
     show: false,
     index: 0,
@@ -31,9 +29,9 @@ const ConfRoom = () => {
     dispatch(confRoomAxios());
   }, [dispatch]);
   const [content, setContent] = useState({
-    teamname: "",
-    work_RULE_INDEX: "",
-    index: "",
+    층: "",
+    호수: "",
+    인덱스: "",
   });
   const [details, setDetails] = useState([]);
 
@@ -42,8 +40,8 @@ const ConfRoom = () => {
       confroom.map((item) => {
         console.log(item);
         return {
-          인덱스: item.conf_ROOM_FLOOR,
-          층: item.conf_ROOM_INDEX,
+          인덱스: item.conf_ROOM_INDEX,
+          층: item.conf_ROOM_FLOOR,
           호수: item.conf_ROOM_NUMBER,
           예약COUNT: item.conf_ROOM_COUNT,
         };
@@ -111,20 +109,17 @@ const ConfRoom = () => {
             return (
               <CCollapse show={details.includes(index)}>
                 <CCardBody>
-                  {workrule.length !== 0 && (
-                    <Modal
-                      visible={visible}
-                      setVisible={setVisible}
-                      index={item.인덱스}
-                      dispatch={dispatch}
-                      axios={confRoomAxios}
-                      workrule={workrule}
-                      work_RULE_INDEX={item.work_RULE_INDEX}
-                      teamName={item.팀이름}
-                      setContent={setContent}
-                      content={content}
-                    />
-                  )}
+                  <Modal
+                    visible={visible}
+                    setVisible={setVisible}
+                    index={item.인덱스}
+                    dispatch={dispatch}
+                    axios={confRoomAxios}
+                    setContent={setContent}
+                    content={content}
+                    층={item.층}
+                    호수={item.호수}
+                  />
 
                   <CAlert
                     color="danger"
@@ -139,7 +134,7 @@ const ConfRoom = () => {
                       }));
                     }}
                   >
-                    팀안에 팀원이 존재 합니다.
+                    회의실 예약자가 존재합니다.
                   </CAlert>
                   <CButton
                     size="sm"
@@ -147,13 +142,13 @@ const ConfRoom = () => {
                     onClick={() => {
                       setVisible(!visible);
                       setContent({
-                        teamname: item.팀이름,
-                        work_RULE_INDEX: item.work_RULE_INDEX,
-                        index: item.인덱스,
+                        층: item.층,
+                        호수: item.호수,
+                        인덱스: item.인덱스,
                       });
                     }}
                   >
-                    팀수정
+                    회의실 수정
                   </CButton>
 
                   <CButton
@@ -161,8 +156,10 @@ const ConfRoom = () => {
                     color="danger"
                     className="ml-1"
                     onClick={() => {
-                      if (item.팀원COUNT === 0) {
-                        DeleteTeam(item.인덱스);
+                      console.log(item.인덱스);
+                      console.log("confROOM");
+                      if (item.예약COUNT === 0) {
+                        DeleteConfRoom(item.인덱스);
                         dispatch(confRoomAxios());
                       } else {
                         setShow((content) => ({
@@ -173,7 +170,7 @@ const ConfRoom = () => {
                       }
                     }}
                   >
-                    팀삭제
+                    회의실 삭제
                   </CButton>
                 </CCardBody>
               </CCollapse>
