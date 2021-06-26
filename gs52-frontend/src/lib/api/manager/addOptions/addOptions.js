@@ -6,6 +6,14 @@ export const SelectDept = async () => {
   return Dept;
 };
 
+export const SelectCheckDept = async (content) => {
+  const Dept = await client.post("/manager/addoptions/deptCheck", {
+    dept_NAME: content,
+  });
+
+  return Dept;
+};
+
 export const UpdateDept = async (index, content) => {
   const Dept = await client.post("/manager/addoptions/deptUpdate", {
     dept_INDEX: index,
@@ -36,9 +44,9 @@ export const SelectTeam = async () => {
   return Dept;
 };
 
-export const TeamDept = async (index) => {
-  const Dept = await client.post("/manager/addoptions/teamDelete", {
-    team_INDEX: index,
+export const SelectCheckTeam = async (teamname) => {
+  const Dept = await client.post("/manager/addoptions/teamCheck", {
+    team_NAME: teamname,
   });
 
   return Dept;
@@ -84,6 +92,13 @@ export const SelectWorkRule = async () => {
 
 export const SelectWorkType = async () => {
   const Dept = await client.get("/manager/addoptions/workType");
+
+  return Dept;
+};
+export const SelectCheckRule = async (work_RULE_NAME) => {
+  const Dept = await client.post("/manager/addoptions/workRuleCheck", {
+    work_RULE_NAME: work_RULE_NAME,
+  });
 
   return Dept;
 };
@@ -135,6 +150,11 @@ export const InsertWorkRule = async ({
     work_RULE_AVG_HOUR: work_rule_avg_time,
     work_RULE_BREAK: breaktime,
   });
+
+  return Dept;
+};
+export const SelectConfRoom = async () => {
+  const Dept = await client.get("/manager/addoptions/confRoom");
 
   return Dept;
 };

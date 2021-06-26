@@ -1,4 +1,7 @@
-import { InsertDept } from "src/lib/api/manager/addOptions/addOptions";
+import {
+  InsertDept,
+  SelectCheckDept,
+} from "src/lib/api/manager/addOptions/addOptions";
 
 const {
   CButton,
@@ -21,7 +24,7 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
     show: false,
     index: 0,
   });
-
+  const [show2, setShow2] = useState(false);
   return (
     <>
       <CModal show={visible}>
@@ -55,6 +58,16 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
               >
                 내용을 입력하세요.
               </CAlert>
+              <CAlert
+                color="danger"
+                show={show2}
+                closeButton
+                onClick={() => {
+                  setShow2(false);
+                }}
+              >
+                이미 있는 부서입니다.
+              </CAlert>
             </CCol>
           </CFormGroup>
         </CModalBody>
@@ -70,14 +83,17 @@ const DeptInsertModal = ({ visible, setVisible, dispatch, axios }) => {
           </CButton>
           <CButton
             color="primary"
-            onClick={() => {
+            onClick={async () => {
+              if ((await (await SelectCheckDept(content)).data) !== 0) {
+                setShow2(true);
+                return;
+              }
               if (content === "") {
                 setShow((content) => ({
                   ...content,
                   show: true,
                 }));
               } else {
-                console.log(content);
                 InsertDept(content);
                 dispatch(axios());
                 setContent("");

@@ -1,4 +1,7 @@
-import { UpdateDept } from "src/lib/api/manager/addOptions/addOptions";
+import {
+  SelectCheckDept,
+  UpdateDept,
+} from "src/lib/api/manager/addOptions/addOptions";
 
 const {
   CButton,
@@ -20,6 +23,7 @@ const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) =>
     show: false,
     index: 0,
   });
+  const [show2, setShow2] = useState(false);
   const [content, setContent] = useState(부서이름);
 
   return (
@@ -55,6 +59,16 @@ const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) =>
               >
                 내용을 입력해주세요.
               </CAlert>
+              <CAlert
+                color="danger"
+                show={show2}
+                closeButton
+                onClick={() => {
+                  setShow2(false);
+                }}
+              >
+                이미 있는 부서입니다.
+              </CAlert>
             </CCol>
           </CFormGroup>
         </CModalBody>
@@ -64,23 +78,41 @@ const Modal = ({ index, visible, setVisible, dispatch, axios, 부서이름 }) =>
             onClick={() => {
               setVisible(false);
               setContent(부서이름);
+              setShow((content) => ({
+                ...content,
+                show: false,
+              }));
+              setShow2(false);
             }}
           >
             Close
           </CButton>
           <CButton
             color="primary"
-            onClick={() => {
+            onClick={async () => {
+              if (
+                부서이름 !== content &&
+                (await (await SelectCheckDept(content)).data) !== 0
+              ) {
+                setShow2(true);
+                return;
+              }
               if (content !== "") {
                 UpdateDept(index, content);
                 dispatch(axios());
-                setContent(부서이름);
+                setContent(content);
                 setVisible(false);
+                setShow((content) => ({
+                  ...content,
+                  show: false,
+                }));
+                setShow2(false);
               } else {
                 setShow((content) => ({
                   ...content,
                   show: true,
                 }));
+                setShow2(false);
               }
             }}
           >

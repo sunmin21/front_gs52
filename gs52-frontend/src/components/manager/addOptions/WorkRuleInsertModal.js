@@ -1,4 +1,7 @@
-import { InsertWorkRule } from "src/lib/api/manager/addOptions/addOptions";
+import {
+  InsertWorkRule,
+  SelectCheckRule,
+} from "src/lib/api/manager/addOptions/addOptions";
 import React, { useCallback, useState } from "react";
 import { TimePicker } from "antd";
 import moment from "moment";
@@ -38,6 +41,7 @@ const DeptInsertModal = ({
   const [show, setShow] = useState(false);
 
   const [show2, setShow2] = useState(false);
+  const [show3, setShow3] = useState(false);
   const onTime = useCallback((timeString) => {
     setContent((content) => ({
       ...content,
@@ -111,6 +115,16 @@ const DeptInsertModal = ({
                 }}
               >
                 내용을 입력하세요.
+              </CAlert>
+              <CAlert
+                color="danger"
+                show={show3}
+                closeButton
+                onClick={() => {
+                  setShow3(false);
+                }}
+              >
+                이미 있는 근무이름입니다.
               </CAlert>
             </CCol>
           </CFormGroup>
@@ -193,7 +207,15 @@ const DeptInsertModal = ({
           </CButton>
           <CButton
             color="primary"
-            onClick={() => {
+            onClick={async () => {
+              if (
+                (await (
+                  await SelectCheckRule(content["work_rule_name"])
+                ).data) !== 0
+              ) {
+                setShow3(true);
+                return;
+              }
               if (
                 content["work_rule_name"] === "" ||
                 content["work_rule_name"] === null

@@ -15,6 +15,7 @@ import { DocsLink } from "src/reusable";
 import Dept from "src/components/manager/addOptions/Dept";
 import Team from "src/components/manager/addOptions/Team";
 import WorkRule from "src/components/manager/addOptions/WorkRule";
+import ConfRoom from "src/components/manager/addOptions/ConfRoom";
 const addOption = () => {
   return (
     <>
@@ -50,7 +51,9 @@ const addOption = () => {
                 <CTabPane>
                   <WorkRule />
                 </CTabPane>
-                <CTabPane></CTabPane>
+                <CTabPane>
+                  <ConfRoom />
+                </CTabPane>
               </CTabContent>
             </CTabs>
           </CCardBody>

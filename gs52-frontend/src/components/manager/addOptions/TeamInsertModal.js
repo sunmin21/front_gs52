@@ -1,4 +1,7 @@
-import { InsertTeam } from "src/lib/api/manager/addOptions/addOptions";
+import {
+  InsertTeam,
+  SelectCheckTeam,
+} from "src/lib/api/manager/addOptions/addOptions";
 import React, { useState } from "react";
 const {
   CButton,
@@ -29,7 +32,7 @@ const DeptInsertModal = ({
     근무유형: 1,
   });
   const [show, setShow] = useState(false);
-
+  const [show2, setShow2] = useState(false);
   return (
     <>
       <CModal show={visible}>
@@ -88,6 +91,16 @@ const DeptInsertModal = ({
               >
                 모든 내용을 기입해주세요.
               </CAlert>
+              <CAlert
+                color="danger"
+                show={show2}
+                closeButton
+                onClick={() => {
+                  setShow2(false);
+                }}
+              >
+                이미 있는 팀입니다.
+              </CAlert>
             </CCol>
           </CFormGroup>
           <CFormGroup row>
@@ -137,7 +150,13 @@ const DeptInsertModal = ({
           </CButton>
           <CButton
             color="primary"
-            onClick={() => {
+            onClick={async () => {
+              if (
+                (await (await SelectCheckTeam(content["팀이름"])).data) !== 0
+              ) {
+                setShow2(true);
+                return;
+              }
               if (content["팀이름"] === null || content["팀이름"] === "") {
                 setShow(true);
                 return;

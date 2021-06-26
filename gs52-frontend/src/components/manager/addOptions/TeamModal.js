@@ -1,4 +1,7 @@
-import { UpdateTeam } from "src/lib/api/manager/addOptions/addOptions";
+import {
+  SelectCheckTeam,
+  UpdateTeam,
+} from "src/lib/api/manager/addOptions/addOptions";
 import React, { useState } from "react";
 const {
   CButton,
@@ -33,7 +36,7 @@ const Modal = ({
   //   index: index,
   // });
   const [show, setShow] = useState(false);
-
+  const [show2, setShow2] = useState(false);
   return (
     <>
       <CModal show={visible}>
@@ -65,6 +68,16 @@ const Modal = ({
                 }}
               >
                 내용을 입력하세요.
+              </CAlert>
+              <CAlert
+                color="danger"
+                show={show2}
+                closeButton
+                onClick={() => {
+                  setShow2(false);
+                }}
+              >
+                이미 있는 팀입니다.
               </CAlert>
             </CCol>
           </CFormGroup>
@@ -115,7 +128,14 @@ const Modal = ({
 
           <CButton
             color="primary"
-            onClick={() => {
+            onClick={async () => {
+              if (
+                teamName !== content["teamname"] &&
+                (await (await SelectCheckTeam(content["teamname"])).data) !== 0
+              ) {
+                setShow2(true);
+                return;
+              }
               if (content["teamname"] !== "" && content["teamname"] !== null) {
                 UpdateTeam(content);
                 dispatch(axios());

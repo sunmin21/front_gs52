@@ -18,12 +18,17 @@ const [WORKRULE, WORKRULE_SUCCESS, WORKRULE_FAILURE] = createRequestActionTypes(
 const [WORKTYPE, WORKTYPE_SUCCESS, WORKTYPE_FAILURE] = createRequestActionTypes(
   "addOptions/WORKTYPE"
 );
+
+const [CONFROOM, CONFROOM_SUCCESS, CONFROOM_FAILURE] = createRequestActionTypes(
+  "addOptions/CONFROOM"
+);
+
 export const deptAxios = createAction(DEPT); //리덕스의 액션함수
 export const teamAxios = createAction(TEAM); //리덕스의 액션함수
 export const workRuleAxios = createAction(WORKRULE); //리덕스의 액션함수
 
 export const workTypeAxios = createAction(WORKTYPE); //리덕스의 액션함수
-
+export const confRoomAxios = createAction(CONFROOM); //리덕스의 액션함수
 const todoSaga = createRequestSaga(DEPT, API.SelectDept);
 
 const teamSaga = createRequestSaga(TEAM, API.SelectTeam);
@@ -32,11 +37,13 @@ const workRuleSaga = createRequestSaga(WORKRULE, API.SelectWorkRule);
 
 const workTypeSaga = createRequestSaga(WORKTYPE, API.SelectWorkType);
 
+const confRoomSaga = createRequestSaga(CONFROOM, API.SelectConfRoom);
 export function* managerSaga() {
   yield takeLatest(DEPT, todoSaga);
   yield takeLatest(TEAM, teamSaga);
   yield takeLatest(WORKRULE, workRuleSaga);
   yield takeLatest(WORKTYPE, workTypeSaga);
+  yield takeLatest(CONFROOM, confRoomSaga);
 }
 const initialState = {
   //초기값을 정의
@@ -44,11 +51,12 @@ const initialState = {
   team: [],
   workrule: [],
   worktype: [],
-
+  confroom: [],
   worktypeError: null,
   deptError: null,
   workruleError: null,
   teamError: null,
+  confroomError: null,
 };
 const task = handleActions(
   {
@@ -91,6 +99,16 @@ const task = handleActions(
     [WORKTYPE_FAILURE]: (state, { payload: error }) => ({
       ...state,
       worktypeError: error,
+    }),
+    [CONFROOM_SUCCESS]: (state, { payload: confroom }) => ({
+      ...state,
+      confroomError: null,
+      confroom,
+    }),
+
+    [CONFROOM_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      confroomError: error,
     }),
   },
   initialState
