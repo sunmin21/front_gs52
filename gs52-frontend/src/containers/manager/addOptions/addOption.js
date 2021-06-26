@@ -13,6 +13,9 @@ import {
 } from "@coreui/react";
 import { DocsLink } from "src/reusable";
 import Dept from "src/components/manager/addOptions/Dept";
+import Team from "src/components/manager/addOptions/Team";
+import WorkRule from "src/components/manager/addOptions/WorkRule";
+import ConfRoom from "src/components/manager/addOptions/ConfRoom";
 const addOption = () => {
   return (
     <>
@@ -32,10 +35,7 @@ const addOption = () => {
                   <CNavLink>팀</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink>직급</CNavLink>
-                </CNavItem>
-                <CNavItem>
-                  <CNavLink>직책</CNavLink>
+                  <CNavLink>근무유형</CNavLink>
                 </CNavItem>
                 <CNavItem>
                   <CNavLink>회의실</CNavLink>
@@ -45,10 +45,15 @@ const addOption = () => {
                 <CTabPane>
                   <Dept />
                 </CTabPane>
-                <CTabPane></CTabPane>
-                <CTabPane></CTabPane>
-                <CTabPane></CTabPane>
-                <CTabPane></CTabPane>
+                <CTabPane>
+                  <Team />
+                </CTabPane>
+                <CTabPane>
+                  <WorkRule />
+                </CTabPane>
+                <CTabPane>
+                  <ConfRoom />
+                </CTabPane>
               </CTabContent>
             </CTabs>
           </CCardBody>
