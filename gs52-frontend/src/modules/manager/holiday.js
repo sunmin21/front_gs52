@@ -15,8 +15,8 @@ export function* holidaySaga2() {
 }
 const initialState = {
   //초기값을 정의
-    holiday: [],
-    holiError: null,
+  holiday: [],
+  holiError: null,
 };
 
 // 리듀서 선언부분

@@ -58,6 +58,7 @@ function ShowCalendar() {
             annual : item.holiday_ANNUAL_REPEAT
         })
     })
+
     return (
         <CCard>
             <CCardHeader>

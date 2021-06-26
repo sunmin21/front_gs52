@@ -14,7 +14,7 @@ export function* reportSaga2() {
     yield takeLatest(REPORT, reportSaga);
 }
 const initialState = {
-  //초기값을 정의
+    //초기값을 정의
     report: [],
     reportError: null,
 };
