@@ -8,9 +8,10 @@ import {
 } from "@coreui/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteTeam } from "src/lib/api/manager/addOptions/addOptions";
+import { DeleteWorkRule } from "src/lib/api/manager/addOptions/addOptions";
 import { workRuleAxios, workTypeAxios } from "src/modules/manager/addOptions";
 import Modal from "./WorkRuleModal";
+import InsertModal from "./WorkRuleInsertModal";
 
 const Team = () => {
   const [visible, setVisible] = useState(false);
@@ -42,7 +43,7 @@ const Team = () => {
   });
   const [details, setDetails] = useState([]);
   // const [items, setItems] = useState(usersData)
-
+  console.log();
   const deptData = workrule.map((item) => {
     return {
       인덱스: item.work_RULE_INDEX,
@@ -53,6 +54,7 @@ const Team = () => {
       퇴근시간: item.work_RULE_END,
       휴식시간: item.work_RULE_BREAK,
       평균근무시간: item.work_RULE_AVG_HOUR,
+      팀COUNT: item.team_COUNT,
     };
   });
 
@@ -71,10 +73,11 @@ const Team = () => {
     { key: "종류", _style: { width: "20%" } },
     { key: "이름", _style: { width: "20%" } },
 
-    { key: "출근시간", _style: { width: "15%" } },
-    { key: "퇴근시간", _style: { width: "15%" } },
+    { key: "출근시간", _style: { width: "10%" } },
+    { key: "퇴근시간", _style: { width: "10%" } },
     { key: "휴식시간", _style: { width: "20%" } },
     { key: "평균근무시간", _style: { width: "10%" } },
+    { key: "팀COUNT", _style: { width: "10%" } },
 
     {
       key: "show_details",
@@ -119,6 +122,21 @@ const Team = () => {
             return (
               <CCollapse show={details.includes(index)}>
                 <CCardBody>
+                  <CAlert
+                    color="danger"
+                    show={show["show"] && show["index"] === item.인덱스}
+                    closeButton
+                    name={item.인덱스}
+                    onClick={() => {
+                      setShow((content) => ({
+                        ...content,
+                        show: false,
+                        index: item.인덱스,
+                      }));
+                    }}
+                  >
+                    근무유형을 선택한 팀이 있습니다.
+                  </CAlert>
                   <Modal
                     visible={visible}
                     setVisible={setVisible}
@@ -151,7 +169,6 @@ const Team = () => {
                         work_rule_avg_time: item.평균근무시간,
                         breaktime: item.휴식시간,
                       });
-                      console.log(content);
                     }}
                   >
                     유형수정
@@ -162,8 +179,8 @@ const Team = () => {
                     color="danger"
                     className="ml-1"
                     onClick={() => {
-                      if (item.팀원COUNT === 0) {
-                        // DeleteWorkRule(item.인덱스);
+                      if (item.팀COUNT === 0) {
+                        DeleteWorkRule(item.인덱스);
                         dispatch(workRuleAxios());
                       } else {
                         setShow((content) => ({
@@ -183,12 +200,13 @@ const Team = () => {
         }}
       />
       <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-        {/* <InsertModal
+        <InsertModal
           visible={visible2}
           setVisible={setVisible2}
           dispatch={dispatch}
-          axios={teamAxios}
-        /> */}
+          axios={workRuleAxios}
+          worktype={worktype}
+        />
         <CButton
           block
           variant="outline"
@@ -197,7 +215,7 @@ const Team = () => {
             setVisible2(!visible2);
           }}
         >
-          팀추가
+          근무유형추가
         </CButton>
       </CCol>
     </>

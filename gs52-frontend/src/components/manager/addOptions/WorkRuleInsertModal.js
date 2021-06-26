@@ -1,8 +1,8 @@
-import { UpdateWorkRule } from "src/lib/api/manager/addOptions/addOptions";
+import { InsertWorkRule } from "src/lib/api/manager/addOptions/addOptions";
 import React, { useCallback, useState } from "react";
 import { TimePicker } from "antd";
-import "antd/dist/antd.css";
 import moment from "moment";
+import "antd/dist/antd.css";
 const {
   CButton,
   CModal,
@@ -12,32 +12,32 @@ const {
   CModalFooter,
   CLabel,
   CInput,
-  CSelect,
   CCol,
   CFormGroup,
   CAlert,
+  CSelect,
 } = require("@coreui/react");
 
-const Modal = ({
-  index,
+const DeptInsertModal = ({
   visible,
   setVisible,
   dispatch,
   axios,
   worktype,
-  work_TYPE_INDEX,
-
-  work_rule_name,
-  출근시간,
-  평균근무시간,
-  휴식시간,
-  퇴근시간,
-  content,
-  setContent,
 }) => {
-  const [show, setShow] = useState(false);
-  const [show2, setShow2] = useState(false);
+  const [content, setContent] = useState({
+    work_type_index: 1,
+    index: "",
+    work_rule_name: "",
+    starttime: "09:00",
+    endtime: "18:00",
+    work_rule_avg_time: "",
+    breaktime: "01:00",
+  });
 
+  const [show, setShow] = useState(false);
+
+  const [show2, setShow2] = useState(false);
   const onTime = useCallback((timeString) => {
     setContent((content) => ({
       ...content,
@@ -51,12 +51,11 @@ const Modal = ({
       breaktime: moment(timeString).format("HH:mm"),
     }));
   }, []);
-
   return (
     <>
       <CModal show={visible}>
         <CModalHeader>
-          <CModalTitle>수정</CModalTitle>
+          <CModalTitle>추가</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormGroup row>
@@ -125,8 +124,8 @@ const Modal = ({
                 format="HH:mm"
                 minuteStep={10}
                 defaultValue={[
-                  moment(출근시간, "HH:mm"),
-                  moment(퇴근시간, "HH:mm"),
+                  moment("09:00", "HH:mm"),
+                  moment("18:00", "HH:mm"),
                 ]}
               />
             </CCol>
@@ -167,7 +166,7 @@ const Modal = ({
               <TimePicker
                 format="HH:mm"
                 minuteStep={30}
-                defaultValue={moment(휴식시간, "HH:mm")}
+                defaultValue={moment("01:00", "HH:mm")}
                 onChange={onTime2}
               />
             </CCol>
@@ -178,21 +177,20 @@ const Modal = ({
             color="secondary"
             onClick={() => {
               setVisible(false);
-
               setContent({
-                work_type_index: work_TYPE_INDEX,
-                index: index,
-                work_rule_name: work_rule_name,
-                starttime: 출근시간,
-                endtime: 퇴근시간,
-                work_rule_avg_time: 평균근무시간,
-                breaktime: 휴식시간,
+                work_type_index: 1,
+                index: "",
+                work_rule_name: "",
+                starttime: "09:00",
+                endtime: "18:00",
+                work_rule_avg_time: "",
+                breaktime: "01:00",
               });
+              setShow(false);
             }}
           >
             Close
           </CButton>
-
           <CButton
             color="primary"
             onClick={() => {
@@ -200,13 +198,9 @@ const Modal = ({
                 content["work_rule_name"] === "" ||
                 content["work_rule_name"] === null
               ) {
-                console.log(content["work_rule_name"] === "");
                 setShow(true);
                 return;
               }
-
-              console.log(content["work_rule_avg_time"] === null);
-              console.log(content["work_rule_avg_time"] === "");
               if (
                 isNaN(content["work_rule_avg_time"]) ||
                 content["work_rule_avg_time"] === ""
@@ -214,19 +208,19 @@ const Modal = ({
                 setShow2(true);
                 return;
               }
+              InsertWorkRule(content);
 
-              console.log(content);
-              UpdateWorkRule(content);
               dispatch(axios());
               setContent({
-                work_type_index: work_TYPE_INDEX,
-                index: index,
-                work_rule_name: work_rule_name,
-                starttime: 출근시간,
-                endtime: 퇴근시간,
-                work_rule_avg_time: 평균근무시간,
-                breaktime: 휴식시간,
+                work_type_index: 1,
+                index: "",
+                work_rule_name: "",
+                starttime: "09:00",
+                endtime: "18:00",
+                work_rule_avg_time: "",
+                breaktime: "01:00",
               });
+
               setVisible(false);
             }}
           >
@@ -238,4 +232,4 @@ const Modal = ({
   );
 };
 
-export default React.memo(Modal);
+export default React.memo(DeptInsertModal);

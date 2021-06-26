@@ -110,3 +110,31 @@ export const UpdateWorkRule = async ({
 
   return Dept;
 };
+
+export const DeleteWorkRule = async (index) => {
+  console.log(index);
+  const Dept = await client.post("/manager/addoptions/workRuleDelete", {
+    work_RULE_INDEX: index,
+  });
+
+  return Dept;
+};
+export const InsertWorkRule = async ({
+  work_type_index,
+  work_rule_name,
+  starttime,
+  endtime,
+  work_rule_avg_time,
+  breaktime,
+}) => {
+  const Dept = await client.post("/manager/addoptions/workRuleInsert", {
+    work_RULE_WORK_TYPE_INDEX: work_type_index,
+    work_RULE_NAME: work_rule_name,
+    work_RULE_START: starttime,
+    work_RULE_END: endtime,
+    work_RULE_AVG_HOUR: work_rule_avg_time,
+    work_RULE_BREAK: breaktime,
+  });
+
+  return Dept;
+};
