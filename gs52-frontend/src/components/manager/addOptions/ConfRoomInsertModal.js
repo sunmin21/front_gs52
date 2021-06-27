@@ -1,12 +1,11 @@
 import {
-  UpdateConfRoom,
+  InsertConfROOM,
   SelectCheckConfRoom,
 } from "src/lib/api/manager/addOptions/addOptions";
 import React, { useCallback, useState } from "react";
 import { TimePicker } from "antd";
-import "antd/dist/antd.css";
 import moment from "moment";
-
+import "antd/dist/antd.css";
 const {
   CButton,
   CModal,
@@ -16,24 +15,29 @@ const {
   CModalFooter,
   CLabel,
   CInput,
-  CSelect,
   CCol,
   CFormGroup,
   CAlert,
+  CSelect,
 } = require("@coreui/react");
 
-const Modal = ({
-  index,
+const DeptInsertModal = ({
   visible,
   setVisible,
   dispatch,
   axios,
-  content,
-  setContent,
-  층,
-  호수,
+  worktype,
+  doubleCheck,
+  setDoubleCheck,
 }) => {
+  const [content, setContent] = useState({
+    층: "",
+    호수: "",
+    인덱스: "",
+  });
+
   const [show, setShow] = useState(false);
+
   const [show2, setShow2] = useState(false);
   const [show3, setShow3] = useState(false);
 
@@ -41,7 +45,7 @@ const Modal = ({
     <>
       <CModal show={visible}>
         <CModalHeader>
-          <CModalTitle>수정</CModalTitle>
+          <CModalTitle>추가</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormGroup row>
@@ -79,48 +83,63 @@ const Modal = ({
                 }}
               />
             </CCol>
-
-            <CAlert
-              color="danger"
-              show={show2}
-              closeButton
-              onClick={() => {
-                setShow2(false);
-              }}
-            >
-              이미 존재하는 회의실입니다.
-            </CAlert>
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
+          <CAlert
+            color="danger"
+            show={show2}
+            closeButton
+            onClick={() => {
+              setShow2(false);
+            }}
+          >
+            이미 존재하는 회의실입니다.
+          </CAlert>
           <CButton
             color="secondary"
             onClick={() => {
               setVisible(false);
+              setContent({
+                층: "",
+                호수: "",
+                인덱스: "",
+              });
+              setShow2(false);
+              setDoubleCheck(false);
             }}
           >
             Close
           </CButton>
-
           <CButton
             color="primary"
             onClick={async () => {
-              if (
-                층 + "" + 호수 !== content["층"] + "" + content["호수"] &&
-                (await (
-                  await SelectCheckConfRoom({
-                    층: content["층"],
-                    호수: content["호수"],
-                  })
-                ).data) !== 0
-              ) {
-                setShow2(true);
-                return;
-              }
-              UpdateConfRoom(content);
-              dispatch(axios());
+              if (doubleCheck) {
+                if (
+                  (await (
+                    await SelectCheckConfRoom({
+                      층: content["층"],
+                      호수: content["호수"],
+                    })
+                  ).data) !== 0
+                ) {
+                  setShow2(true);
+                  return;
+                }
+                console.log(content);
+                InsertConfROOM(content);
 
-              setVisible(false);
+                dispatch(axios());
+                setContent({
+                  층: "",
+                  호수: "",
+                  인덱스: "",
+                });
+
+                setVisible(false);
+                setShow2(false);
+                setDoubleCheck(false);
+              }
             }}
           >
             저장
@@ -131,4 +150,4 @@ const Modal = ({
   );
 };
 
-export default React.memo(Modal);
+export default React.memo(DeptInsertModal);

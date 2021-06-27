@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DeleteConfRoom } from "src/lib/api/manager/addOptions/addOptions";
 import { confRoomAxios } from "src/modules/manager/addOptions";
 import Modal from "./ConfRoomModal";
-import InsertModal from "./TeamInsertModal";
+import InsertModal from "./ConfRoomInsertModal";
 const ConfRoom = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
@@ -25,6 +25,7 @@ const ConfRoom = () => {
     show: false,
     index: 0,
   });
+  const [doubleCheck, setDoubleCheck] = useState(true);
   useEffect(() => {
     dispatch(confRoomAxios());
   }, [dispatch]);
@@ -179,24 +180,25 @@ const ConfRoom = () => {
         }}
       />
       <CCol col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
-        {/* {workrule.length !== 0 && (
-          <InsertModal
-            visible={visible2}
-            setVisible={setVisible2}
-            dispatch={dispatch}
-            axios={confRoomAxios}
-            workrule={workrule}
-          />
-        )} */}
+        <InsertModal
+          visible={visible2}
+          setVisible={setVisible2}
+          dispatch={dispatch}
+          axios={confRoomAxios}
+          doubleCheck={doubleCheck}
+          setDoubleCheck={setDoubleCheck}
+        />
+
         <CButton
           block
           variant="outline"
           color="primary"
           onClick={() => {
             setVisible2(!visible2);
+            setDoubleCheck(true);
           }}
         >
-          팀추가
+          회의실추가
         </CButton>
       </CCol>
     </>

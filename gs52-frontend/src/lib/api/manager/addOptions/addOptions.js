@@ -184,3 +184,13 @@ export const UpdateConfRoom = async ({ 인덱스, 층, 호수 }) => {
 
   return Dept;
 };
+export const InsertConfROOM = async ({ 호수, 층 }) => {
+  console.log(층);
+  console.log(호수);
+  const Dept = await client.post("/manager/addoptions/confRoomInsert", {
+    conf_ROOM_FLOOR: 층,
+    conf_ROOM_NUMBER: 호수,
+  });
+
+  return Dept;
+};
