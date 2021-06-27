@@ -3,7 +3,7 @@ import moment from "moment";
 export const todo = async (user) => {
   console.log("TODO호출");
   const res = await client.post("/task/todo", {
-    todo_RE_EMP_ID: user["todo_RE_EMP_ID"],
+    todo_RE_EMP_INDEX: user["todo_RE_EMP_ID"],
   });
 
   return res;
@@ -11,14 +11,14 @@ export const todo = async (user) => {
 
 export const send = async (user) => {
   const res = await client.post("/task/send", {
-    todo_EMP_ID_SEND: user["todo_EMP_ID_SEND"],
+    todo_EMP_INDEX_SEND: user["todo_EMP_ID_SEND"],
   });
 
   return res;
 };
 export const success = async (user) => {
   const res = await client.post("/task/success", {
-    todo_RE_EMP_ID: user["todo_RE_EMP_ID"],
+    todo_RE_EMP_INDEX: user["todo_RE_EMP_ID"],
   });
 
   return res;
@@ -43,7 +43,7 @@ export const doneInsert = async (user) => {
   const res = await client.post("/task/todo/Done", {
     todo_DONE: user[2],
     todo_INDEX: user[1],
-    todo_RE_EMP_ID: user[0],
+    todo_RE_EMP_INDEX: user[0],
     todo_END_DATE: date,
   });
 

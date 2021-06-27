@@ -43,7 +43,7 @@ const CreateTodo = () => {
   no.current = search.map((content) => {
     return content.사원번호;
   });
-
+  const [doubleCheck, setDoubleCheck] = useState(true);
   const dispatch = useDispatch();
   const [searchCheck, setSearchCheck] = useState(false);
 
@@ -156,13 +156,16 @@ const CreateTodo = () => {
 
                 return;
               }
-              await BoardSend({ no, board, sendId: 2 });
-              dispatch(searchInit());
-              dispatch(boardInit());
-              await dispatch(todoAxios(2));
-              await dispatch(sendAxios(2));
-              await dispatch(succssAxios(2));
-              history.goBack();
+              if (doubleCheck) {
+                await BoardSend({ no, board, sendId: 2 });
+                dispatch(searchInit());
+                dispatch(boardInit());
+                await dispatch(todoAxios(2));
+                await dispatch(sendAxios(2));
+                await dispatch(succssAxios(2));
+                history.goBack();
+                setDoubleCheck(false);
+              }
             }}
           >
             <CIcon name="cil-scrubber" /> Submit
