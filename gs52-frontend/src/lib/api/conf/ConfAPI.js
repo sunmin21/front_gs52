@@ -2,6 +2,7 @@ import client from "../client";
 
 import React,{useState} from "react";
 
+const API_URL = "http://localhost:8081";
 //export const InsertConf = async (floor, room, index, title, date, startTime, endTime) => {
   export const InsertConf = async (roomIndex, title, date, startTime, endTime) => {
   // console.log("Conf API inserrrrrr");
@@ -11,7 +12,7 @@ import React,{useState} from "react";
   console.log("startTime "+startTime);
   console.log("endTime "+endTime);
   
-  const conf = await client.post("/schedule/confRoom/insert", {conf_TITLE:title, conf_ROOM_INDEX:roomIndex, conf_DATE:date, conf_START:startTime,
+  const conf = await client.post(API_URL + "/schedule/confRoom/insert", {conf_TITLE:title, conf_ROOM_INDEX:roomIndex, conf_DATE:date, conf_START:startTime,
                                                                 conf_END:endTime, conf_EMP_INDEX_SEND:1})
                           .then(function (response){
                             //response
@@ -26,8 +27,8 @@ import React,{useState} from "react";
 };
 
 export const SelectConf = async () => {
-  // console.log("SelectConf")
-  const conf = await client.get("/schedule/confRoom/select");
+  console.log("SelectConf")
+  const conf = await client.post(API_URL + "/schedule/confRoom/select");
   //return conf.data;
   return conf;
 };
@@ -35,7 +36,7 @@ export const SelectConf = async () => {
 
 export const SelectRoomFloor = async () => {
   console.log("Select_floor");
-  const conf = await client.get("/schedule/confRoom/select_room_floor");
+  const conf = await client.post(API_URL + "/schedule/confRoom/select_room_floor");
   
   console.log(conf);
   return conf;
@@ -46,7 +47,7 @@ export const SelectRoomFloor = async () => {
 export const SelectConfRoom = async (floor) => {
   console.log("Select_room");
   console.log(floor);
-  const conf = await client.post("/schedule/confRoom/Select_conf_room", {conf_ROOM_FLOOR:floor});
+  const conf = await client.post(API_URL + "/schedule/confRoom/Select_conf_room", {conf_ROOM_FLOOR:floor});
   
   console.log("conffffffffffffff");
   console.log(conf);
@@ -55,7 +56,7 @@ export const SelectConfRoom = async (floor) => {
 
 export const Select_emp = async () => {
   console.log("이거오냐");
-  const conf = await client.get("/schedule/confRoom/select_emp");
+  const conf = await client.post(API_URL + "/schedule/confRoom/select_emp");
   console.log(conf.data);
 };
 
