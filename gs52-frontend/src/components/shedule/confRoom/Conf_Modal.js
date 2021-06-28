@@ -124,7 +124,7 @@ export function ConfModal() {
   const onRegist = () => {
     if (inputs.title === null) {
       {
-        console.log("warning");
+        alert("제목입력해라")
       }
       return (
         <CAlert color="warning">This is a warning alert — check it out!</CAlert>
