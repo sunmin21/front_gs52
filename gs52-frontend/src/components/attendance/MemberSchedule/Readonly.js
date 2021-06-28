@@ -14,24 +14,68 @@ function useForceUpdate() {
   const [value, setValue] = React.useState(0); // integer state
   return () => setValue((value) => ++value); // update the state to force render
 }
-let schedulerData = new SchedulerData(
-  "2021-06-25",
-  ViewTypes.Month,
-  false,
-  false,
-  {
-    eventItemPopoverEnabled: false,
-
-    views: [],
-  }
-);
-schedulerData.localeMoment.locale("en");
-schedulerData.setResources(DemoData.resources);
-schedulerData.setEvents(DemoData.events);
 
 const Readonly = withDragDropContext((props) => {
   //treevalue값 까지 받아와짐
+
+  console.log("props");
   console.log(props.treevalue);
+  console.log(props.data);
+  console.log(props.team);
+  console.log(props.emp);
+
+  // const teamList = props.data
+  //   .filter((item) => props.treevalue.includes(item.key))
+  //   .map((item) => ({
+  //     id: item.key,
+  //     name: item.title,
+  //     groupOnly: true,
+  //   }));
+
+  // const childList = props.data.map((item) => {
+  //   item.children.map((data) => ({
+  //     id: data.key,
+  //     name: data.title,
+  //     parentId: data.team,
+  //   }));
+  // });
+
+  const teamList = props.team
+    .filter((item) => props.treevalue.includes(String(item.team_INDEX)))
+    .map((item) => ({
+      id: String(item.team_INDEX),
+      name: item.team_NAME,
+      groupOnly: true,
+    }));
+
+  const empList = props.emp
+    .filter((item) => props.treevalue.includes(String(item.emp_TEAM_INDEX)))
+    .map((item) => ({
+      id: item.emp_ID,
+      name: item.emp_NAME,
+      parentId: String(item.emp_TEAM_INDEX),
+    }));
+
+  const List = teamList.concat(empList);
+
+  const selectList = {
+    resources: List,
+  };
+
+  let schedulerData = new SchedulerData(
+    "2021-06-25",
+    ViewTypes.Month,
+    false,
+    false,
+    {
+      eventItemPopoverEnabled: false,
+
+      views: [],
+    }
+  );
+  schedulerData.localeMoment.locale("en");
+  schedulerData.setResources(selectList.resources);
+  schedulerData.setEvents(DemoData.events);
 
   const forceUpdate = useForceUpdate();
 

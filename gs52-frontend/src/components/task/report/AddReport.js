@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-import {
-    CButton,
-    CInput,
-    CModal,
-    CModalBody,
-    CModalFooter,
-    CModalHeader,
-    CModalTitle,
-    CFormGroup,
-    CTextarea
-} from '@coreui/react'
-import { reportAxios } from 'src/modules/task/report';
+import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
+import { addreportAxios } from 'src/modules/task/report';
 import { useDispatch } from 'react-redux';
 
 function AddReport() {
+
+    let [emp] = useState(1);
 
     const tdStyle = {
         textAlign: "left",
@@ -24,33 +16,36 @@ function AddReport() {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(reportAxios())
+        // dispatch(addreportAxios())
     }, [dispatch])
 
     const [info, setInfo] = useState(false);
-    const [title, setTitle] = useState("");
-    const [startDate, setStartDate] = useState();
+    const [contents, setContents] = useState("");
+    const [targetDate, setTargetDate] = useState();
 
-    const handleTitle = e => {
-        setTitle(e.target.value);
-        console.log(title)
+    const handleContents = e => {
+        setContents(e.target.value);
+        console.log(contents)
     };
     
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        // window.location.reload();
+        window.location.reload();
         // dispatch(holidayAxios());
         // 자동 rendering
     }
 
     const submit = () => {
-        if (title == "") {
-            console.log("null이당")
+        if (contents == "") {
             alert("주간 보고 내용을 입력해주세요 !")
         }
         else {
-            
+            console.log("@@@@추가@@@@")
+            console.log(emp, contents, targetDate)
+            dispatch(addreportAxios({emp, contents, targetDate}))
+            setInfo(!info);
+            // dispatch(addreportAxios());
         }
     }
     
@@ -70,8 +65,8 @@ function AddReport() {
                                 <td style={tdStyle}>제목</td>
                                 <td style={tdStyle}>
                                     <CTextarea
-                                        id="title" name="title" placeholder="휴일"
-                                        onChange={handleTitle}
+                                        id="contents" name="contents" placeholder="휴일"
+                                        onChange={handleContents}
                                     />
                                 </td>
                             </tr>
@@ -79,8 +74,8 @@ function AddReport() {
                                 <td style={tdStyle}>날짜 설정</td>
                                 <td style={tdStyle}>
                                     <DatePicker
-                                        selected={startDate}
-                                        onChange={setStartDate}
+                                        selected={targetDate}
+                                        onChange={setTargetDate}
                                         inline // 달력이 모달창에 뜨도록
                                         // minDate={new Date()} // 이전 날은 선택 못하도록
                                         popperPlacement="auto" // 화면 중앙에 오도록
