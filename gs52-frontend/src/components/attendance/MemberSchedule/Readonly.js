@@ -5,8 +5,6 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import "react-big-scheduler/lib/css/style.css";
-import { Button, Col, Row } from "antd";
-import MemberDropdown from "./MemberDropdown";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -15,31 +13,22 @@ function useForceUpdate() {
   return () => setValue((value) => ++value); // update the state to force render
 }
 
+let schedulerData = new SchedulerData(
+  "2021-06-25",
+  ViewTypes.Month,
+  false,
+  false,
+  {
+    eventItemPopoverEnabled: false,
+
+    views: [],
+  }
+);
+schedulerData.localeMoment.locale("en");
+
 const Readonly = withDragDropContext((props) => {
   //treevalue값 까지 받아와짐
-
-  console.log("props");
   console.log(props.treevalue);
-  console.log(props.data);
-  console.log(props.team);
-  console.log(props.emp);
-
-  // const teamList = props.data
-  //   .filter((item) => props.treevalue.includes(item.key))
-  //   .map((item) => ({
-  //     id: item.key,
-  //     name: item.title,
-  //     groupOnly: true,
-  //   }));
-
-  // const childList = props.data.map((item) => {
-  //   item.children.map((data) => ({
-  //     id: data.key,
-  //     name: data.title,
-  //     parentId: data.team,
-  //   }));
-  // });
-
   const teamList = props.team
     .filter((item) => props.treevalue.includes(String(item.team_INDEX)))
     .map((item) => ({
@@ -61,22 +50,8 @@ const Readonly = withDragDropContext((props) => {
   const selectList = {
     resources: List,
   };
-
-  let schedulerData = new SchedulerData(
-    "2021-06-25",
-    ViewTypes.Month,
-    false,
-    false,
-    {
-      eventItemPopoverEnabled: false,
-
-      views: [],
-    }
-  );
-  schedulerData.localeMoment.locale("en");
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(DemoData.events);
-
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {
@@ -151,6 +126,7 @@ const Readonly = withDragDropContext((props) => {
   };
 
   const toggleExpandFunc = (schedulerData, slotId) => {
+    console.log(slotId);
     schedulerData.toggleExpandStatus(slotId);
     forceUpdate();
   };

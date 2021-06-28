@@ -9,11 +9,13 @@ const [TEAM, TEAM_SUCCESS, TEAM_FAILURE] =
   createRequestActionTypes("annual/TEAM"); //타입유형
 const [EMP, EMP_SUCCESS, EMP_FAILURE] = createRequestActionTypes("annual/EMP"); //타입유형
 const TREEVALUE = "annual/VALUE";
+const SELECTALLLIST = "annual/SELECTALLLIST";
 
 export const teamAxios = createAction(TEAM); //리덕스의 액션함수
 export const empAxios = createAction(EMP); //리덕스의 액션함수
 
 export const treeValue = createAction(TREEVALUE);
+export const selectAllList = createAction(SELECTALLLIST);
 
 const teamSaga = createRequestSaga(TEAM, API.SelectTeam);
 const empSaga = createRequestSaga(EMP, API.SelectEmp);
@@ -31,6 +33,9 @@ const initialState = {
 
   treevalue: [],
   treevalueError: null,
+
+  selectalllist: [],
+  selectalllistError: null,
 };
 
 const memberSchedule = handleActions(
@@ -58,6 +63,11 @@ const memberSchedule = handleActions(
       ...state,
       treevalueError: null,
       treevalue,
+    }),
+    [SELECTALLLIST]: (state, { payload: selectalllist }) => ({
+      ...state,
+      selectalllistError: null,
+      selectalllist,
     }),
   },
   initialState

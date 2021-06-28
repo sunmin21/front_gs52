@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true,
 });
+
 var DemoData = {
   resources: [
     {
@@ -395,5 +396,4 @@ var DemoData = {
     },
   ],
 };
-
 exports.default = DemoData;
