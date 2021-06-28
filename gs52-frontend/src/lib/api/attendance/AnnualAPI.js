@@ -1,7 +1,8 @@
 import client from "../client";
 
+const API_URL = "http://localhost:8081";
 export const SelectVacation = async (index) => {
-  const annual = await client.post("/annual/select", {
+  const annual = await client.post(API_URL + "/annual/select", {
     //사원의 연차정보 전부 가져옴
     vacation_EMP_INDEX: index,
   });
@@ -11,7 +12,7 @@ export const SelectVacation = async (index) => {
 };
 
 export const SelectEmpVacation = async (index) => {
-  const empvacation = await client.post("/annual/select2", {
+  const empvacation = await client.post(API_URL + "/annual/select2", {
     //개인 사원의 잔여 연차 수를 가져옴
     vacation_EMP_INDEX: index,
   });
@@ -20,7 +21,7 @@ export const SelectEmpVacation = async (index) => {
 };
 
 export const DeleteVacation = async (event) => {
-  const empvacation = await client.post("/annual/delete", {
+  const empvacation = await client.post(API_URL + "/annual/delete", {
     vacation_DATE: event,
   });
 
@@ -28,7 +29,7 @@ export const DeleteVacation = async (event) => {
 };
 
 export const UpdateVacation = async (count, emp_ID) => {
-  const upvacation = await client.post("/annual/update", {
+  const upvacation = await client.post(API_URL + "/annual/update", {
     count: count,
     emp_ID: emp_ID,
   });
@@ -42,7 +43,7 @@ export const InserVacation = async (
   contents
 ) => {
   const insertvaction = await client
-    .post("/annual/insert", {
+    .post(API_URL + "/annual/insert", {
       vacation_EMP_INDEX: vacation_EMP_INDEX,
       vacation_ATTEND_INFO_INDEX: infoindex,
       vacation_DATE: date,
