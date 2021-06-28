@@ -5,6 +5,7 @@ import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from '@coreui/r
 import { useDispatch, useSelector } from 'react-redux';
 import { reportAxios, delreportAxios } from 'src/modules/task/report';
 import AddReport from "./AddReport";
+import { DeleteReport } from "src/lib/api/task/ReportAPI";
 
 function WeeklyReport() {
 
@@ -59,16 +60,19 @@ function WeeklyReport() {
         return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
     }
 
+    // 열 클릭시 삭제 기능
     const eventOnclick = (e) => {
+        console.log(e.id)
         var msg = "삭제하시겠습니까?";
         
         if (window.confirm(msg) != 0) {
             console.log("삭제");
             // report_index를 가져옴
-            dispatch(delreportAxios({id : e.id}));
+            // dispatch(delreportAxios({id : e.id}));
             // 자동 rendering
+            DeleteReport(e.id);
+            dispatch(reportAxios())
             // 자동 렌더링이 안돼 @@@@@@@@@@@@@@@@@@@@@@@@
-            
         } else {
             console.log("삭제취소");
         }
@@ -103,7 +107,7 @@ function WeeklyReport() {
                     <CDataTable
                         fields={fields}
                         items={data}
-                        itemsPerPage={5}
+                        itemsPerPage={10}
                         onRowClick={eventOnclick}
                         pagination
                     />
@@ -113,7 +117,8 @@ function WeeklyReport() {
                     <CDataTable
                         fields={fields}
                         items={data2}
-                        itemsPerPage={5}
+                        itemsPerPage={10}
+                        onRowClick={eventOnclick}
                         pagination
                     />
                 </CCardBody>

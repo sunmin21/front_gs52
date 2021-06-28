@@ -21,20 +21,6 @@ export function ConfRoom(props) {
 		})
 	});
 
-	// useEffect(() => {
-    //     dispatch(ConfAxios())
-    // }, [dispatch])
-
-	// const data = conf_list.map((item) => ({
-	// 	id: item.conf_INDEX,
-	// 	title: item.conf_TITLE,
-	// 	date: moment(item.conf_DATE).format("YYYY-MM-DD"),
-	// 	start: item.conf_START,
-	// 	end: item.conf_END,
-	// 	conf_ROOM_INDEX: item.conf_ROOM_INDEX,
-	// 	conf_EMP_INDEX_SEND: item.conf_EMP_INDEX_SEND,
-	//   }));
-
 	const handleDateClick = (arg) => { 
 		dispatch(modalDate(moment(arg.dateStr).format('YYYY/MM/DD')))
 		dispatch(modalStartTime(moment(arg.dateStr).format('HH:mm')))
@@ -42,9 +28,22 @@ export function ConfRoom(props) {
 		dispatch(modalCheck1())
 	  }
 
-	//렌더링만 조절하면 데이터 다 받아와지는데.......
-	{console.log("conf_list")}
-	{console.log(conf_list)}
+	  const data = conf_list.map((item) => {
+        return{
+		//id: item.conf_INDEX,
+		title: item.conf_TITLE,
+		date: moment(item.conf_DATE).format("YYYY-MM-DD"),
+		start: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_START,
+		end: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_END,
+		//end: item.conf_END,
+		//conf_ROOM_INDEX: item.conf_ROOM_INDEX,
+		//conf_EMP_INDEX_SEND: item.conf_EMP_INDEX_SEND,
+		
+						// //'2021-06-22T15:30'	
+    }
+	  }
+      );
+
   	return (
 		<div>
 			{console.log("ROOMMMMMMMMMMMM")}
@@ -53,13 +52,8 @@ export function ConfRoom(props) {
 					dateClick={handleDateClick}
 					weekends={false}
 					width={50}
-					//eventSources={[data]}
-					events={[
-						{ title: 'event 1', date: '2021-06-28' },
-						//{ title: props.data[0].title, date:props.data[0].date},
-						 //{ title: data[0].title, date:data[0].date, start:data[0].start, end:data[0].end},
-						//'2021-06-22T15:30'
-
+					slotEventOverlap={false}
+					eventSources={[data	
 					]}
 		/> 
 		</div>

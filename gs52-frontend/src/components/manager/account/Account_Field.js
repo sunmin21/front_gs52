@@ -12,7 +12,7 @@ import { all } from 'redux-saga/effects';
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  DeptAxios
+  DeptAxios,RankAxios,PositionAxios
 } from "src/modules/manager/Account";
 
 export function AccountField() {
@@ -22,47 +22,30 @@ export function AccountField() {
   useEffect(() => {
     console.log("sdfsdfsdfsdfsdf")
     dispatch(DeptAxios());
+    dispatch(RankAxios());
+    dispatch(PositionAxios());
   }, [dispatch]);
 
-  const  {dept_list } =
+  const  {dept_list, rank_list,position_list } =
     useSelector((state) => {
       console.log(state);
       return {
         dept_list: state.account.dept_list,
+        rank_list: state.account.rank_list,
+        position_list: state.account.position_list,
       };
     });
 
 
-    const DEPT_SELECT = ["1", "2"];
-    const POSITION_SELECT = ["3", "4"];
-    const RANK_SELECT = ["5", "6"];
-
-    const [dept, setDept] = useState([{
-      index:'',
-      name:''
-    }])
-
-    // const [position, setPosition] = useState([{
-    //   index:'',
-    //   name:''
-    // }])
-
-    // const [rank, setRank] = useState([{
-    //   index:'',
-    //   name:''
-    // }])
-
-    
-
-
 	const [inputs, setInputs] = useState({
 		//dept:DEPT_SELECT[0],
-		rank:RANK_SELECT[0],
-		position:POSITION_SELECT[0],
-		num:123,
-		date:123,
+		rank:null,
+		position:null,
+		num:null,
+		date:null,
+    email:null
 	  })
-	const { rank, position, num, date} = inputs;
+	const { rank, position, num, date, email} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -80,12 +63,11 @@ export function AccountField() {
 	}
 
 	const onRegist=()=>{
-			{InsertAccount(dept, rank, position, num, date)}
+			//{InsertAccount(dept, rank, position, num, date)}
 		
             console.log(inputs)
 
 	}
-//.then((res) => this.setState({ users: res }))
     const onClick=()=>{
       // //const res=SelectDept().then((res) => setDept({ index: res.dept_INDEX, name: res.dept_NAME }));  
       // const res = SelectDept().then((item) => item.map((i)=>({
@@ -129,10 +111,10 @@ export function AccountField() {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CSelect onChange={onChange} id="dept" name="dept">
-                    {DEPT_SELECT.map((dept, idx) => {
+                    {dept_list.map((dept, idx) => {
                         return (
-                        <option key={idx} value={dept} >
-                            {dept}번
+                        <option key={idx} value={dept.dept_NAME} >
+                            {dept.dept_NAME}
                         </option>
                         );
                     })}
@@ -147,10 +129,10 @@ export function AccountField() {
                  </CCol>
                  <CCol xs="12" md="9">
                  <CSelect onChange={onChange} id="rank" name="rank">
-                    {RANK_SELECT.map((rank, idx) => {
+                    {rank_list.map((rank, idx) => {
                         return (
-                        <option key={idx} value={rank} >
-                            {rank}
+                        <option key={idx} value={rank.rank_NAME} >
+                            {rank.rank_NAME}
                         </option>
                         );
                     })}
@@ -164,10 +146,10 @@ export function AccountField() {
                  </CCol>
                  <CCol xs="12" md="9">
                  <CSelect onChange={onChange}>
-                    {POSITION_SELECT.map((position, idx) => {
+                    {position_list.map((position, idx) => {
                         return (
-                        <option key={idx} value={position} >
-                            {position}
+                        <option key={idx} value={position.position_NAME} >
+                            {position.position_NAME}
                         </option>
                         );
                     })}
@@ -175,17 +157,18 @@ export function AccountField() {
                  </CCol>
                </CFormGroup>
                
-              
-{/* 				
+              				
                 <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="num">사원번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput id="num" name="num" placeholder="사원 번호" 
-					onChange={onChange} value={num||''}/>
+					            onChange={onChange} value={num||''}/>
                   </CCol>
                 </CFormGroup>
+
+
                 <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="date">입사일</CLabel>
@@ -193,8 +176,23 @@ export function AccountField() {
                   <CCol xs="12" md="9">
                         date picker
                   </CCol>
-                </CFormGroup> */}
+                </CFormGroup>
+
+
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="email">이메일</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput id="email" name="email" placeholder="이메일" 
+				    	        onChange={onChange} value={email||''}/>
+                  </CCol>
+                </CFormGroup>
+
+                
                 </CCardBody>
+
+
 
                 <CCardFooter>              
                     <CButton type="submit" size="sm" color="primary" onClick={onRegist}>Submit</CButton>

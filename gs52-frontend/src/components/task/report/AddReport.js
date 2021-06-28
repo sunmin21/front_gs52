@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
-import { addreportAxios } from 'src/modules/task/report';
+import { reportAxios, addreportAxios } from 'src/modules/task/report';
 import { useDispatch } from 'react-redux';
+import { InsertReport } from 'src/lib/api/task/ReportAPI'
 
 function AddReport() {
 
@@ -43,9 +44,10 @@ function AddReport() {
         else {
             console.log("@@@@추가@@@@")
             console.log(emp, contents, targetDate)
-            dispatch(addreportAxios({emp, contents, targetDate}))
+            // dispatch(addreportAxios({emp, contents, targetDate}))
             setInfo(!info);
-            // dispatch(addreportAxios());
+            InsertReport(emp, contents, targetDate)
+            dispatch(reportAxios());
         }
     }
     
@@ -62,16 +64,16 @@ function AddReport() {
                     <table style={{ textAlign: "center", margin: "auto" }}>
                         <tbody>
                             <tr>
-                                <td style={tdStyle}>제목</td>
+                                <td style={tdStyle}>내용</td>
                                 <td style={tdStyle}>
                                     <CTextarea
-                                        id="contents" name="contents" placeholder="휴일"
+                                        id="contents" name="contents" placeholder="주간 보고 내용"
                                         onChange={handleContents}
                                     />
                                 </td>
                             </tr>
                             <tr>
-                                <td style={tdStyle}>날짜 설정</td>
+                                <td style={tdStyle}>목표 날짜</td>
                                 <td style={tdStyle}>
                                     <DatePicker
                                         selected={targetDate}
