@@ -67,7 +67,7 @@ function AddReport() {
                                 <td style={tdStyle}>내용</td>
                                 <td style={tdStyle}>
                                     <CTextarea
-                                        id="contents" name="contents" placeholder="휴일"
+                                        id="contents" name="contents" placeholder="주간 보고 내용"
                                         onChange={handleContents}
                                     />
                                 </td>

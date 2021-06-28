@@ -73,7 +73,6 @@ function WeeklyReport() {
             DeleteReport(e.id);
             dispatch(reportAxios())
             // 자동 렌더링이 안돼 @@@@@@@@@@@@@@@@@@@@@@@@
-            
         } else {
             console.log("삭제취소");
         }
@@ -108,7 +107,7 @@ function WeeklyReport() {
                     <CDataTable
                         fields={fields}
                         items={data}
-                        itemsPerPage={5}
+                        itemsPerPage={10}
                         onRowClick={eventOnclick}
                         pagination
                     />
@@ -118,7 +117,8 @@ function WeeklyReport() {
                     <CDataTable
                         fields={fields}
                         items={data2}
-                        itemsPerPage={5}
+                        itemsPerPage={10}
+                        onRowClick={eventOnclick}
                         pagination
                     />
                 </CCardBody>
