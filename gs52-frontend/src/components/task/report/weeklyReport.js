@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from '@coreui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { reportAxios } from 'src/modules/task/report';
+import AddReport from "./AddReport";
 
 function WeeklyReport() {
 
@@ -79,6 +80,9 @@ function WeeklyReport() {
                     선택된 주 <h4>{
                         weekStart + " - " + weekEnd
                     }</h4>
+                </CCardBody>
+                <CCardBody>
+                    <AddReport />
                 </CCardBody>
             </CCardGroup>
             <hr></hr>
