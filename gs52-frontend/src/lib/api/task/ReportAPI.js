@@ -16,7 +16,9 @@ export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
   return report;
 };
 
-export const InsertReport = async ({ emp, contents, targetDate }) => {
+// export const InsertReport = async ({ emp, contents, targetDate }) => {
+
+export const InsertReport = async (emp, contents, targetDate) => {
   console.log(
     "emp : " + emp + " contents : " + contents + " targetDate : " + targetDate
   );
@@ -33,7 +35,9 @@ export const InsertReport = async ({ emp, contents, targetDate }) => {
   return report;
 };
 
-export const DeleteReport = async ({ id }) => {
+// export const DeleteReport = async ({ id }) => {
+
+export const DeleteReport = async (id) => {
   console.log("id(index) : " + id);
   
   const report = await client.post(API_URL + "/report/delReport", {
