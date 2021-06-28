@@ -7,55 +7,55 @@ var DemoData = {
   resources: [
     {
       id: "r0",
-      name: "Resource0",
+      name: "영업부",
       groupOnly: true,
     },
     {
       id: "r1",
-      name: "Resource1",
+      name: "김철수",
       parentId: "r0",
     },
     {
       id: "r2",
-      name: "Resource2",
-      parentId: "r3",
+      name: "김민수",
+      parentId: "r0",
     },
     {
       id: "r3",
-      name: "Resource3",
-      parentId: "r1",
+      name: "김철지",
+      parentId: "r0",
     },
     {
       id: "r4",
-      name: "Resource4",
+      name: "김학수",
     },
     {
       id: "r5",
-      name: "Resource5",
+      name: "김진수",
     },
     {
       id: "r6",
-      name: "Resource6",
+      name: "김정수",
     },
     {
       id: "r7",
-      name: "RRR",
+      name: "김준수",
     },
     {
       id: "r8",
-      name: "Resource7Resource7Resource7Resource7Resource7",
+      name: "김재수",
     },
     {
       id: "r9",
-      name: "Resource7Resource7Resource7Resource7Resource7",
+      name: "김전수",
     },
     {
       id: "r10",
-      name: "Resource7Resource7Resource7Resource7Resource7",
+      name: "김절수",
     },
     {
       id: "r11",
-      name: "Resource7Resource7Resource7Resource7Resource7",
+      name: "김진슈",
     },
   ],
   events: [

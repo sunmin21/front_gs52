@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import { TreeSelect } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { treeValue } from "src/modules/annual/memberSchedule";
 
 const { SHOW_PARENT } = TreeSelect;
 
 const Dropdown = (data) => {
   const [value, setValue] = useState(["3"]);
 
+  const dispatch = useDispatch();
+
   const treeData = data.data;
+
+  useEffect(() => {
+    dispatch(treeValue(value));
+  }, [dispatch]);
 
   const onChange = (value) => {
     setValue(value);
-    console.log(value);
+    dispatch(treeValue(value));
   };
 
   const tProps = {

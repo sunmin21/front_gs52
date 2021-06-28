@@ -16,21 +16,32 @@ const MemberScheduleManagement = () => {
   // const test = SelectTeam();
   // console.log(test);
 
+  //리덕스에서 team 가져옴
   const { team } = useSelector((state) => {
     return {
       team: state.memberSchedule.team,
     };
   });
-
+  //리덕스에서 emp 가져옴
   const { emp } = useSelector((state) => {
-    console.log(state);
+    // console.log(state);
     return {
       emp: state.memberSchedule.emp,
     };
   });
+  //리덕스에서 tree 값 받아옴
+  const { treevalue } = useSelector((state) => {
+    return {
+      treevalue: state.memberSchedule.treevalue,
+    };
+  });
 
-  console.log("emp");
-  console.log(emp);
+  //Promise 푸는거
+  const test = SelectEmp().then((item) => {
+    //console.log(item);
+  });
+  //console.log(test);
+
   useEffect(() => {
     dispatch(teamAxios());
     dispatch(empAxios());
@@ -70,13 +81,13 @@ const MemberScheduleManagement = () => {
       </div> */}
       <div>
         <div class="row justify-content-end">
-          <div class="col-sm-4 ">
+          <div class="col-sm-4 mb-2">
             <MemberDropdown data={data}></MemberDropdown>
           </div>
         </div>
-        <div class="row">
+        <div class="row" style={{ backgroundColor: "White" }}>
           <div class="col">
-            <Readonly></Readonly>
+            <Readonly treevalue={treevalue}></Readonly>
           </div>
         </div>
       </div>

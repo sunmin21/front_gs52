@@ -8,9 +8,12 @@ import { takeLatest } from "redux-saga/effects";
 const [TEAM, TEAM_SUCCESS, TEAM_FAILURE] =
   createRequestActionTypes("annual/TEAM"); //타입유형
 const [EMP, EMP_SUCCESS, EMP_FAILURE] = createRequestActionTypes("annual/EMP"); //타입유형
+const TREEVALUE = "annual/VALUE";
 
 export const teamAxios = createAction(TEAM); //리덕스의 액션함수
 export const empAxios = createAction(EMP); //리덕스의 액션함수
+
+export const treeValue = createAction(TREEVALUE);
 
 const teamSaga = createRequestSaga(TEAM, API.SelectTeam);
 const empSaga = createRequestSaga(EMP, API.SelectEmp);
@@ -25,6 +28,9 @@ const initialState = {
   emp: [],
   teamError: null,
   empError: null,
+
+  treevalue: [],
+  treevalueError: null,
 };
 
 const memberSchedule = handleActions(
@@ -47,6 +53,11 @@ const memberSchedule = handleActions(
     [EMP_FAILURE]: (state, { payload: error }) => ({
       ...state,
       empError: error,
+    }),
+    [TREEVALUE]: (state, { payload: treevalue }) => ({
+      ...state,
+      treevalueError: null,
+      treevalue,
     }),
   },
   initialState
