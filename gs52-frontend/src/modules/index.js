@@ -19,6 +19,7 @@ const rootReducer = combineReducers({
   task,
   conf_check,
   annual,
+  report,
 });
 
 export function* rootSaga() {
