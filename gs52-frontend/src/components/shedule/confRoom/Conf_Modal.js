@@ -79,7 +79,7 @@ export function ConfModal() {
   const [inputs, setInputs] = useState({
     title: null,
     floor:floor_data[0].conf_ROOM_FLOOR,
-	room:null,
+	//room:floor_data[0],
   });
   const { title, floor, room} = inputs;
 
