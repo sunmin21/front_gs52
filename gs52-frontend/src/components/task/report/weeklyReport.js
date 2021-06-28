@@ -30,12 +30,11 @@ function WeeklyReport() {
     var weekStart = moment(startDate).day(0).format("YYYY-MM-DD");
     var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
 
-    // var weekStart = moment(new Date()).day(0).format("YYYY-MM-DD");
-    // var weekEnd = moment(new Date()).day(6).format("YYYY-MM-DD");
-
     // --------------------------------------------//
 
     const data = report.map((item) => {
+        // console.log("!!!!!!!!!!!!!!!!!!!!")
+        // console.log(item)
         return ({
             id: item.report_INDEX,
             emp : item.report_EMP_INDEX,
@@ -44,10 +43,22 @@ function WeeklyReport() {
         })
     })
 
-    const showReport = () => {
+    const data2 = report.map((item2) => {
+        // console.log("@@@@@@@@@@@@@@@")
+        // console.log(item2)
+        return ({
+            id: item2.report_INDEX,
+            emp : item2.report_EMP_INDEX,
+            contents: item2.report_CONTENTS,
+            date: item2.report_TARGET_DATE,
+        })
+    })
+
+    const showReport = (weekStart) => {
         console.log("@@@ this is show report zone @@@")
         console.log(weekStart)
         console.log(weekEnd)
+        setStartDate(weekStart)
         return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
     }
 
@@ -61,12 +72,7 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        // onChange={(date) => setStartDate(date)}
-                        onChange={showReport}
-                        
-                        // onChange={(weekStart) => {
-                        //     return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
-                        // }}
+                        onChange={(date)=>{showReport(date)}}
                     />
                 </CCardBody>
                 <CCardBody>
@@ -90,7 +96,7 @@ function WeeklyReport() {
                     다음주
                     <CDataTable
                         fields={fields}
-                        items={data}
+                        items={data2}
                         itemsPerPage={5}
                         pagination
                     />
