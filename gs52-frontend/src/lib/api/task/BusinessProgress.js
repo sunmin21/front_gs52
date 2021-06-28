@@ -1,8 +1,10 @@
 import client from "../client";
 import moment from "moment";
+
+const API_URL = "http://localhost:8081";
 export const todo = async (user) => {
   console.log("TODO호출");
-  const res = await client.post("/task/todo", {
+  const res = await client.post(API_URL + "/task/todo", {
     todo_RE_EMP_INDEX: user["todo_RE_EMP_ID"],
   });
 
@@ -10,14 +12,14 @@ export const todo = async (user) => {
 };
 
 export const send = async (user) => {
-  const res = await client.post("/task/send", {
+  const res = await client.post(API_URL + "/task/send", {
     todo_EMP_INDEX_SEND: user["todo_EMP_ID_SEND"],
   });
 
   return res;
 };
 export const success = async (user) => {
-  const res = await client.post("/task/success", {
+  const res = await client.post(API_URL + "/task/success", {
     todo_RE_EMP_INDEX: user["todo_RE_EMP_ID"],
   });
 
@@ -32,7 +34,7 @@ export const BoardSend = async ({ no, board, sendId }) => {
   params.append("sendId", sendId);
   params.append("startDate", startDate);
 
-  const res = await client.get("/task/board", {
+  const res = await client.get(API_URL + "/task/board", {
     params,
   });
   return res.data;
@@ -40,8 +42,7 @@ export const BoardSend = async ({ no, board, sendId }) => {
 export const doneInsert = async (user) => {
   const date = moment().format("YYYY-MM-DD HH:mm:ss");
 
-  
-  const res = await client.post("/task/todo/Done", {
+  const res = await client.post(API_URL + "/task/todo/Done", {
     todo_DONE: user[2],
     todo_INDEX: user[1],
     todo_RE_EMP_INDEX: user[0],
