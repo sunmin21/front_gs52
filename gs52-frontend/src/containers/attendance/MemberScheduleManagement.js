@@ -62,6 +62,7 @@ const MemberScheduleManagement = () => {
         title: data.emp_NAME,
         value: data.emp_ID,
         key: data.emp_ID,
+        team: String(data.emp_TEAM_INDEX),
       })),
   }));
 
@@ -87,7 +88,12 @@ const MemberScheduleManagement = () => {
         </div>
         <div class="row" style={{ backgroundColor: "White" }}>
           <div class="col">
-            <Readonly treevalue={treevalue}></Readonly>
+            <Readonly
+              treevalue={treevalue}
+              data={data}
+              team={team}
+              emp={emp}
+            ></Readonly>
           </div>
         </div>
       </div>
