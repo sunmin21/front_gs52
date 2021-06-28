@@ -29,6 +29,7 @@ import Dropdown from "./Conf_EmpDropdown";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ConfAxios,
   FloorAxios,
   RoomAxios,
   modalCheck1,
@@ -135,6 +136,7 @@ export function ConfModal() {
 	  console.log(inputs)
       InsertConf(room_data[inputs.room].conf_ROOM_INDEX, inputs.title, conf_date, conf_startTime, conf_endTime);
       dispatch(modalCheck1());
+      dispatch(ConfAxios());
     }
   };
   const onCancle = (e) => {
