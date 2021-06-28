@@ -2,8 +2,9 @@ import client from "../../client";
 
 import React,{useState} from "react";
 
+const API_URL = "http://localhost:8081";
 export const SelectDept = async () => {
-  const dept = await client.get("/manager/select_dept");
+  const dept = await client.post(API_URL +"/manager/select_dept");
   console.log("SelectDept API inserrrrrr");
   console.log(dept.data);
   return dept;
@@ -18,7 +19,7 @@ export const InsertAccount = async (team, rank, position, id, date) => {
   console.log("id "+id);
   console.log("date "+date);
   
-  const conf = await client.post("/manager/regist",{emp_TEAM_INDEX:team, emp_RANK_INDEX:rank, emp_POSITION_INDEX:position, emp_ID:id, emp_ENTRY_DATE:date})
+  const conf = await client.post(API_URL +"/manager/regist",{emp_TEAM_INDEX:team, emp_RANK_INDEX:rank, emp_POSITION_INDEX:position, emp_ID:id, emp_ENTRY_DATE:date})
                           .then(function (response){
                             //response
                           })
