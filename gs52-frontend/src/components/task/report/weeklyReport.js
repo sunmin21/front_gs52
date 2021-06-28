@@ -11,10 +11,9 @@ function WeeklyReport() {
     const dispatch = useDispatch();
 
     const { report } = useSelector((state) => {
-        console.log(state)
-        return ({   
-            report : state.report.report            
-        })
+        return {
+            report: state.report.report
+        };
     });
 
     useEffect(() => {
@@ -24,27 +23,15 @@ function WeeklyReport() {
     const fields = ['contents','date']
 
     // ---- 날짜 선택하면 해당되는 일주일을 보여줌 ----//
-    const tdDate = {
-        color: "red",
-        width: "100px",
-        padding: "20px 30px",
-        textAlign : "center"
-    }
-
-    const tdContents = {
-        width: "500px",
-        padding: "20px 30px",
-        textAlign : "center"
-    }
 
     const [startDate, setStartDate] = useState();
 
     var moment = require('moment');
-    // var weekStart = moment(startDate).day(0).format("YYYY-MM-DD");
-    // var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
+    var weekStart = moment(startDate).day(0).format("YYYY-MM-DD");
+    var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
 
-    var weekStart = moment(new Date()).day(0).format("YYYY-MM-DD");
-    var weekEnd = moment(new Date()).day(6).format("YYYY-MM-DD");
+    // var weekStart = moment(new Date()).day(0).format("YYYY-MM-DD");
+    // var weekEnd = moment(new Date()).day(6).format("YYYY-MM-DD");
 
     // --------------------------------------------//
 
@@ -57,6 +44,12 @@ function WeeklyReport() {
         })
     })
 
+    // const showReport = () => {
+    //     console.log(weekStart)
+    //     console.log(weekEnd)
+    //     return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
+    // }
+
     return (
         <CCard>
             <CCardHeader>
@@ -67,9 +60,9 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        // onChange={(startDate)}
+                        // onChange={showReport, (date) => setStartDate(date)} 
                         onChange={(weekStart) => {
-                            return (dispatch(reportAxios({ emp, weekStart :moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd :moment(weekStart).day(6).format("YYYY-MM-DD") })))
+                            return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
                         }}
                     />
                 </CCardBody>
@@ -82,6 +75,7 @@ function WeeklyReport() {
             <hr></hr>
             <CCardGroup>
                 <CCardBody>
+                    이번주
                     <CDataTable
                         fields={fields}
                         items={data}
@@ -90,6 +84,7 @@ function WeeklyReport() {
                     />
                 </CCardBody>
                 <CCardBody>
+                    다음주
                     <CDataTable
                         fields={fields}
                         items={data}

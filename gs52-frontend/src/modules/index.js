@@ -22,6 +22,7 @@ const rootReducer = combineReducers({
   annual,
   account,
   memberSchedule,
+  report,
 });
 
 export function* rootSaga() {

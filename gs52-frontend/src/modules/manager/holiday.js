@@ -1,7 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
-import createRequestSaga, {
-  createRequestActionTypes,
-} from "../../lib/createRequestSaga";
+import createRequestSaga, { createRequestActionTypes } from "../../lib/createRequestSaga";
 import * as API from "../../lib/api/manager/holiday/HolidayAPI";
 import { takeLatest } from "redux-saga/effects";
 
@@ -11,7 +9,6 @@ const [HOLIDAY, HOLIDAY_SUCCESS, HOLIDAY_FAILURE] =
 export const holidayAxios = createAction(HOLIDAY); //리덕스의 액션함수
 
 const holidaySaga = createRequestSaga(HOLIDAY, API.SelectHoliday);
-console.log(holidaySaga);
 
 export function* holidaySaga2() {
   yield takeLatest(HOLIDAY, holidaySaga);
