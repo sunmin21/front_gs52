@@ -1,26 +1,18 @@
-import React from "react";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CContainer,
-  CNav,
-  CNavItem,
-  CNavLink,
-  CRow,
-  CTabContent,
-  CTabPane,
-  CTabs,
-} from "@coreui/react";
-import { DocsLink } from "src/reusable";
-import Dept from "src/components/manager/addOptions/Dept";
-import Team from "src/components/manager/addOptions/Team";
-import WorkRule from "src/components/manager/addOptions/WorkRule";
-import ConfRoom from "src/components/manager/addOptions/ConfRoom";
+import React, { useEffect } from "react";
+import { CCard, CCardBody, CCol, CContainer, CRow } from "@coreui/react";
+
 import Notice from "src/components/main/Notice";
 import Test from "src/components/main/Test";
+import { useDispatch, useSelector } from "react-redux";
+import { noticeAxios } from "src/modules/main/main";
 const Main = () => {
+  const notice = useSelector((state) => state.main.notice);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(noticeAxios());
+  }, [dispatch]);
+  console.log(notice);
   return (
     <>
       <CContainer>
@@ -57,7 +49,7 @@ const Main = () => {
         </CRow>
         <CRow className="align-items-center">
           <CCol>
-            <Notice />
+            <Notice content={notice} />
           </CCol>
 
           <CCol>

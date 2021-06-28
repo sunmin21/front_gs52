@@ -26,12 +26,15 @@ const Notice = ({ content, pageCount, setSendContents }) => {
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
-  const Done = {
-    0: "대기중",
-    1: "거절",
-    2: "완료",
-  };
-
+  const data = content.map((item) => ({
+    인덱스: item.notice_INDEX,
+    제목: item.notice_TITLE,
+    내용: item.notice_CONTENTS,
+    작성자INDEX: item.notice_INDEX,
+    작성자: item.emp_NAME,
+    등록날짜: item.notice_DATE,
+  }));
+  console.log(data);
   return (
     <>
       <CCol xl={12}>
@@ -56,16 +59,25 @@ const Notice = ({ content, pageCount, setSendContents }) => {
           <CCardBody>
             {/* <Modal info={info} setInfo={setInfo}></Modal> */}
             <CDataTable
-              items={content}
+              items={data}
               fields={[
-                { key: "인덱스", _classes: "font-weight-bold" },
+                {
+                  key: "번호",
+                  _classes: "font-weight-bold",
+                  _style: { width: "10%", textAlign: "center" },
+                },
                 {
                   key: "제목",
-                  _style: { width: "70%", textAlign: "center" },
+                  _classes: "font-weight-bold",
+                  _style: { width: "60%", textAlign: "center" },
                 },
                 {
                   key: "등록날짜",
-                  _style: { width: "10%", textAlign: "center" },
+                  _style: { width: "15%", textAlign: "center" },
+                },
+                {
+                  key: "작성자",
+                  _style: { width: "15%", textAlign: "center" },
                 },
               ]}
               hover
@@ -73,14 +85,12 @@ const Notice = ({ content, pageCount, setSendContents }) => {
               itemsPerPage={10}
               activePage={page}
               clickableRows
-              // onRowClick={(item) =>
-              //   history.push(`/task/schedule/SendContent/${item.id}`)
-              // }
+              onRowClick={(item) =>
+                history.push(`/notice/detail/${item.인덱스}`)
+              }
               scopedSlots={{
-                인덱스: (item) => {
-                  return (
-                    <td style={{ textAlign: "center" }}>{item.emp_NAME}</td>
-                  );
+                번호: (item) => {
+                  return <td style={{ textAlign: "center" }}>{item.인덱스}</td>;
                 },
                 제목: (item) => {
                   return (
@@ -92,21 +102,22 @@ const Notice = ({ content, pageCount, setSendContents }) => {
 
                       // }
                     >
-                      {item.todo_CONTENTS}
+                      {item.제목}
                     </td>
                   );
                 },
                 등록날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>
-                    {item.todo_START_DATE}
-                  </td>
+                  <td style={{ textAlign: "center" }}>{item.등록날짜}</td>
+                ),
+                작성자: (item) => (
+                  <td style={{ textAlign: "center" }}>{item.작성자}</td>
                 ),
               }}
             />
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={10 / 10 + 1}
+              pages={data.length / 10 + 1}
               doubleArrows={false}
               align="center"
             />
