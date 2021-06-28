@@ -25,7 +25,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "계정 등록",
-    to: "/manager/accountRegist",
+    to: "/manager/addAccount",
     icon: "cil-Notes",
   },
   {

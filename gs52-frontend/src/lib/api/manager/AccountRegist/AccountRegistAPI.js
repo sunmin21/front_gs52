@@ -3,9 +3,10 @@ import client from "../../client";
 import React,{useState} from "react";
 
 export const SelectDept = async () => {
-  console.log("SelectDept API inserrrrrr");
   const dept = await client.get("/manager/select_dept");
-  return dept.data;
+  console.log("SelectDept API inserrrrrr");
+  console.log(dept.data);
+  return dept;
 
 };
 
