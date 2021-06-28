@@ -28,7 +28,7 @@ const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTyp
 
   const ConfSaga = createRequestSaga(CONF_lIST, API.SelectConf);
   const FloorSaga = createRequestSaga(CONF_FLOOR, API.SelectRoomFloor);
-  const RoomSaga = createRequestSaga(CONF_ROOM, API.SelectRoom);
+  const RoomSaga = createRequestSaga(CONF_ROOM, API.SelectConfRoom);
 
   export function* ConfSaga2() {
     yield takeLatest(CONF_lIST, ConfSaga);
