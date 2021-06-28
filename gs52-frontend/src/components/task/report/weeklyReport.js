@@ -10,11 +10,16 @@ import { DeleteReport } from "src/lib/api/task/ReportAPI";
 function WeeklyReport() {
 
     let [emp] = useState(1);
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     const { report } = useSelector((state) => {
         return {
             report: state.report.report
+        };
+    });
+    const { nextreport } = useSelector((state) => {
+        return {
+            nextreport: state.report.nextreport
         };
     });
 
@@ -35,6 +40,7 @@ function WeeklyReport() {
     // --------------------------------------------//
 
     const data = report.map((item) => {
+        console.log("item : " + item)
         return ({
             id: item.report_INDEX,
             emp : item.report_EMP_INDEX,
@@ -43,7 +49,7 @@ function WeeklyReport() {
         })
     })
 
-    const data2 = report.map((item2) => {
+    const data2 = nextreport.map((item2) => {
         return ({
             id: item2.report_INDEX,
             emp : item2.report_EMP_INDEX,
@@ -54,6 +60,11 @@ function WeeklyReport() {
 
     const showReport = (weekStart) => {
         setStartDate(weekStart)
+        return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
+    }
+
+    const showNextReport = (weekStart) => {
+        weekStart = (weekStart.getDate() + 7);
         return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
     }
 
@@ -85,7 +96,7 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        onChange={(date) => { showReport(date) }}
+                        onChange={(date) => {showNextReport(date)}}
                     />
                 </CCardBody>
                 <CCardBody>
@@ -113,7 +124,7 @@ function WeeklyReport() {
                     다음주
                     <CDataTable
                         fields={fields}
-                        items={data}
+                        items={data2}
                         itemsPerPage={10}
                         onRowClick={eventOnclick}
                         pagination

@@ -32,8 +32,8 @@ function AddReport() {
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        window.location.reload();
-        // dispatch(holidayAxios());
+        // window.location.reload();
+        dispatch(reportAxios());
         // 자동 rendering
     }
 
