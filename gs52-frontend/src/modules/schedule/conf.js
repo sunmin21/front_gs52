@@ -8,6 +8,7 @@ import { takeLatest } from "redux-saga/effects";
 
 //타입유형
 const [CONF_lIST, CONF_lIST_SUCCESS, CONF_lIST_FAILURE] = createRequestActionTypes("schedule/confRoom_conf"); //타입유형
+const [CONF_FLOOR, CONF_FLOOR_SUCCESS, CONF_FLOOR_FAILURE] = createRequestActionTypes("schedule/confRoom_floor"); //타입유형
 const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTypes("schedule/confRoom_room"); //타입유형
   const CHECK1 = 'schedule/confRoom_book';
   const CHECK2 = 'schedule/confRoom_emp';
@@ -16,6 +17,7 @@ const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTyp
   const ENDTIME = 'schedule/confRoom_endtime';
 
   export const ConfAxios = createAction(CONF_lIST);
+  export const FloorAxios = createAction(CONF_FLOOR);
   export const RoomAxios = createAction(CONF_ROOM);
 
   export const modalCheck1 = createAction(CHECK1);
@@ -25,18 +27,24 @@ const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTyp
   export const modalEndTime = createAction(ENDTIME);
 
   const ConfSaga = createRequestSaga(CONF_lIST, API.SelectConf);
+  const FloorSaga = createRequestSaga(CONF_FLOOR, API.SelectRoomFloor);
   const RoomSaga = createRequestSaga(CONF_ROOM, API.SelectRoom);
 
   export function* ConfSaga2() {
     yield takeLatest(CONF_lIST, ConfSaga);
-    yield takeLatest(CONF_ROOM, RoomSaga);  }
+    yield takeLatest(CONF_FLOOR, FloorSaga);  
+    yield takeLatest(CONF_ROOM, RoomSaga);  
+  }
 
 const initialState = {
   //초기값을 정의
     conf_list: [],
     conf_list_error: null,
+    floor_list:[],
+    floor_list_error: null,
     room_list:[],
     room_list_error: null,
+
     
     conf_modal1: false,
     conf_modal2: false,
@@ -59,10 +67,21 @@ const conf_check = handleActions(
             conf_list_error: error,
           }),
 
+          [CONF_FLOOR_SUCCESS]: (state, { payload: floor_list }) => ({
+            ...state,
+            floor_list_error: null,
+            floor_list: floor_list,
+          }),
+      
+          [CONF_FLOOR_FAILURE]: (state, { payload: error }) => ({
+            ...state,
+            floor_list_error: error,
+          }),
+
           [CONF_ROOM_SUCCESS]: (state, { payload: room_list }) => ({
             ...state,
             room_list_error: null,
-            room_list,
+            room_list: room_list,
           }),
       
           [CONF_ROOM_FAILURE]: (state, { payload: error }) => ({

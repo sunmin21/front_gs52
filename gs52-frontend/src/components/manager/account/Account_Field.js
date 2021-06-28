@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import {
   CCard,
   CCardBody,
@@ -10,15 +10,37 @@ import {
 import { SelectDept, InsertAccount } from "../../../lib/api/manager/AccountRegist/AccountRegistAPI";
 import { all } from 'redux-saga/effects';
 
+import { useDispatch, useSelector } from "react-redux";
+import {
+  DeptAxios
+} from "src/modules/manager/Account";
+
 export function AccountField() {
+
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    console.log("sdfsdfsdfsdfsdf")
+    dispatch(DeptAxios());
+  }, [dispatch]);
+
+  const  {dept_list } =
+    useSelector((state) => {
+      console.log(state);
+      return {
+        dept_list: state.account.dept_list,
+      };
+    });
+
+
     const DEPT_SELECT = ["1", "2"];
     const POSITION_SELECT = ["3", "4"];
     const RANK_SELECT = ["5", "6"];
 
-    // const [dept, setDept] = useState([{
-    //   index:'',
-    //   name:''
-    // }])
+    const [dept, setDept] = useState([{
+      index:'',
+      name:''
+    }])
 
     // const [position, setPosition] = useState([{
     //   index:'',
@@ -30,14 +52,17 @@ export function AccountField() {
     //   name:''
     // }])
 
+    
+
+
 	const [inputs, setInputs] = useState({
-		dept:DEPT_SELECT[0],
+		//dept:DEPT_SELECT[0],
 		rank:RANK_SELECT[0],
 		position:POSITION_SELECT[0],
 		num:123,
 		date:123,
 	  })
-	const {dept, rank, position, num, date} = inputs;
+	const { rank, position, num, date} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -60,10 +85,22 @@ export function AccountField() {
             console.log(inputs)
 
 	}
-
+//.then((res) => this.setState({ users: res }))
     const onClick=()=>{
-        const res=SelectDept();
-        console.log(res)
+      // //const res=SelectDept().then((res) => setDept({ index: res.dept_INDEX, name: res.dept_NAME }));  
+      // const res = SelectDept().then((item) => item.map((i)=>({
+      //   dept_INDEX : i.dept_INDEX,
+      //   dept_NAME : i.dept_NAME,
+
+      // })));
+      
+      // // const res=SelectDept().then((item) => {
+      // //   console.log(item)
+      // //   console.log(item[0].dept_INDEX)
+      // //   console.log(item[0].dept_NAME)
+      // //   setDept({item})
+      // // });  
+      // console.log(res)
     }
 
     // const handleDept = e =>{

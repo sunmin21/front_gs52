@@ -9,6 +9,7 @@ import holiday, { holidaySaga2 } from "./manager/holiday";
 import report, { reportSaga2 } from "./task/report";
 import changeState, { changeStore } from "./changeStore";
 import annual, { annualSaga2 } from "./annual/annual";
+import account, { AccountSaga } from "./manager/Account";
 
 const rootReducer = combineReducers({
   test,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   task,
   conf_check,
   annual,
+  account,
 });
 
 export function* rootSaga() {
@@ -29,6 +31,7 @@ export function* rootSaga() {
     reportSaga2(),
     annualSaga2(),
     managerSaga(),
+    AccountSaga(),
   ]);
 }
 export default rootReducer;

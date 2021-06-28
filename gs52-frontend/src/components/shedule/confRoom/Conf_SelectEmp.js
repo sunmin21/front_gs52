@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const fields = ['name','registered', 'role', 'status']
 const getBadge = status => {
-  switch (status) {
+  switch (status) { 
     case 'Active': return 'success'
     case 'Inactive': return 'secondary'
     case 'Pending': return 'warning'
