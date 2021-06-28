@@ -23,7 +23,7 @@ export const InsertReport = async ({ emp, contents, targetDate }) => {
 
   const report = await client.post(API_URL + "/report/addReport", {
     report_EMP_INDEX: emp,
-    report_CONTNETS: contents,
+    report_CONTENTS: contents,
     report_TARGET_DATE: targetDate,
   });
 

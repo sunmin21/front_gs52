@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from '@coreui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { reportAxios } from 'src/modules/task/report';
+import { reportAxios, delreportAxios } from 'src/modules/task/report';
 import AddReport from "./AddReport";
 
 function WeeklyReport() {
@@ -34,8 +34,8 @@ function WeeklyReport() {
     // --------------------------------------------//
 
     const data = report.map((item) => {
-        // console.log("!!!!!!!!!!!!!!!!!!!!")
-        // console.log(item)
+        console.log("!!!!!!!!!!!!!!!!!!!!")
+        console.log(item)
         return ({
             id: item.report_INDEX,
             emp : item.report_EMP_INDEX,
@@ -63,6 +63,21 @@ function WeeklyReport() {
         return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
     }
 
+    const eventOnclick = (e) => {
+        var msg = "삭제하시겠습니까?";
+        
+        if (window.confirm(msg) != 0) {
+            console.log("삭제");
+            // report_index를 가져옴
+            dispatch(delreportAxios({id : e.id}));
+            // 자동 rendering
+            // 자동 렌더링이 안돼 @@@@@@@@@@@@@@@@@@@@@@@@
+            
+        } else {
+            console.log("삭제취소");
+        }
+    };
+
     return (
         <CCard>
             <CCardHeader>
@@ -73,7 +88,7 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        onChange={(date)=>{showReport(date)}}
+                        onChange={(date) => { showReport(date) }}
                     />
                 </CCardBody>
                 <CCardBody>
@@ -93,6 +108,7 @@ function WeeklyReport() {
                         fields={fields}
                         items={data}
                         itemsPerPage={5}
+                        onRowClick={eventOnclick}
                         pagination
                     />
                 </CCardBody>

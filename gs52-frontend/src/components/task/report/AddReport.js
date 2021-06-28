@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
-import { reportAxios } from 'src/modules/task/report';
+import { addreportAxios } from 'src/modules/task/report';
 import { useDispatch } from 'react-redux';
 
 function AddReport() {
+
+    let [emp] = useState(1);
 
     const tdStyle = {
         textAlign: "left",
@@ -14,12 +16,12 @@ function AddReport() {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(reportAxios())
+        // dispatch(addreportAxios())
     }, [dispatch])
 
     const [info, setInfo] = useState(false);
     const [contents, setContents] = useState("");
-    const [startDate, setStartDate] = useState();
+    const [targetDate, setTargetDate] = useState();
 
     const handleContents = e => {
         setContents(e.target.value);
@@ -29,7 +31,7 @@ function AddReport() {
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        // window.location.reload();
+        window.location.reload();
         // dispatch(holidayAxios());
         // 자동 rendering
     }
@@ -40,7 +42,11 @@ function AddReport() {
             alert("주간 보고 내용을 입력해주세요 !")
         }
         else {
-            
+            console.log("달력에 뭘 찍었을깡ㅇㅁㅇ")
+            console.log(emp, contents, targetDate)
+            dispatch(addreportAxios({emp, contents, targetDate}))
+            setInfo(!info);
+            // dispatch(addreportAxios());
         }
     }
     
@@ -69,8 +75,8 @@ function AddReport() {
                                 <td style={tdStyle}>날짜 설정</td>
                                 <td style={tdStyle}>
                                     <DatePicker
-                                        selected={startDate}
-                                        onChange={setStartDate}
+                                        selected={targetDate}
+                                        onChange={setTargetDate}
                                         inline // 달력이 모달창에 뜨도록
                                         // minDate={new Date()} // 이전 날은 선택 못하도록
                                         popperPlacement="auto" // 화면 중앙에 오도록
