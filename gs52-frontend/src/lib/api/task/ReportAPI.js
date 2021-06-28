@@ -1,5 +1,5 @@
-import report from "src/modules/task/report";
 import client from "../client";
+
 
 const API_URL = "http://localhost:8081";
 export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
@@ -21,10 +21,13 @@ export const InsertReport = async ({ emp, contents, targetDate }) => {
     "emp : " + emp + " contents : " + contents + " targetDate : " + targetDate
   );
 
+  var moment = require("moment");
+  var event = moment(targetDate).format("YYYY-MM-DD");
+
   const report = await client.post(API_URL + "/report/addReport", {
     report_EMP_INDEX: emp,
     report_CONTENTS: contents,
-    report_TARGET_DATE: targetDate,
+    report_TARGET_DATE: event,
   });
 
   return report;

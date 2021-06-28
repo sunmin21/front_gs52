@@ -38,11 +38,10 @@ function AddReport() {
 
     const submit = () => {
         if (contents == "") {
-            console.log("null이당")
             alert("주간 보고 내용을 입력해주세요 !")
         }
         else {
-            console.log("달력에 뭘 찍었을깡ㅇㅁㅇ")
+            console.log("@@@@추가@@@@")
             console.log(emp, contents, targetDate)
             dispatch(addreportAxios({emp, contents, targetDate}))
             setInfo(!info);

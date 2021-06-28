@@ -34,8 +34,6 @@ function WeeklyReport() {
     // --------------------------------------------//
 
     const data = report.map((item) => {
-        console.log("!!!!!!!!!!!!!!!!!!!!")
-        console.log(item)
         return ({
             id: item.report_INDEX,
             emp : item.report_EMP_INDEX,
@@ -45,8 +43,6 @@ function WeeklyReport() {
     })
 
     const data2 = report.map((item2) => {
-        // console.log("@@@@@@@@@@@@@@@")
-        // console.log(item2)
         return ({
             id: item2.report_INDEX,
             emp : item2.report_EMP_INDEX,
