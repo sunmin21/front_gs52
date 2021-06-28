@@ -53,9 +53,6 @@ function WeeklyReport() {
     })
 
     const showReport = (weekStart) => {
-        console.log("@@@ this is show report zone @@@")
-        console.log(weekStart)
-        console.log(weekEnd)
         setStartDate(weekStart)
         return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
     }
@@ -116,7 +113,7 @@ function WeeklyReport() {
                     다음주
                     <CDataTable
                         fields={fields}
-                        items={data2}
+                        items={data}
                         itemsPerPage={10}
                         onRowClick={eventOnclick}
                         pagination
