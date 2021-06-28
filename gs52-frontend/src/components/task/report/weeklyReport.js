@@ -44,11 +44,12 @@ function WeeklyReport() {
         })
     })
 
-    // const showReport = () => {
-    //     console.log(weekStart)
-    //     console.log(weekEnd)
-    //     return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
-    // }
+    const showReport = () => {
+        console.log("@@@ this is show report zone @@@")
+        console.log(weekStart)
+        console.log(weekEnd)
+        return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
+    }
 
     return (
         <CCard>
@@ -60,10 +61,12 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        // onChange={showReport, (date) => setStartDate(date)} 
-                        onChange={(weekStart) => {
-                            return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
-                        }}
+                        // onChange={(date) => setStartDate(date)}
+                        onChange={showReport}
+                        
+                        // onChange={(weekStart) => {
+                        //     return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
+                        // }}
                     />
                 </CCardBody>
                 <CCardBody>
