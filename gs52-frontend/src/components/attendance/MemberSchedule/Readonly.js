@@ -14,7 +14,6 @@ function useForceUpdate() {
   const [value, setValue] = React.useState(0); // integer state
   return () => setValue((value) => ++value); // update the state to force render
 }
-
 let schedulerData = new SchedulerData(
   "2021-06-25",
   ViewTypes.Month,
@@ -31,6 +30,9 @@ schedulerData.setResources(DemoData.resources);
 schedulerData.setEvents(DemoData.events);
 
 const Readonly = withDragDropContext((props) => {
+  //treevalue값 까지 받아와짐
+  console.log(props.treevalue);
+
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {
@@ -44,63 +46,13 @@ const Readonly = withDragDropContext((props) => {
     schedulerData.setEvents(DemoData.events);
     forceUpdate();
 
-    console.log("@@");
+    // console.log("@@");
   };
 
   const onSelectDate = (schedulerData, date) => {
     schedulerData.setDate(date);
     schedulerData.setEvents(DemoData.events);
     forceUpdate();
-  };
-
-  const eventClicked = (schedulerData, event) => {
-    alert(
-      `You just clicked an event: {id: ${event.id}, title: ${event.title}}`
-    );
-  };
-
-  const ops1 = (schedulerData, event) => {
-    alert(
-      `You just executed ops1 to event: {id: ${event.id}, title: ${event.title}}`
-    );
-  };
-
-  const ops2 = (schedulerData, event) => {
-    alert(
-      `You just executed ops2 to event: {id: ${event.id}, title: ${event.title}}`
-    );
-  };
-
-  const newEvent = (
-    schedulerData,
-    slotId,
-    slotName,
-    start,
-    end,
-    type,
-    item
-  ) => {
-    if (
-      window.confirm(
-        `Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`
-      )
-    ) {
-      let newFreshId = 0;
-      schedulerData.events.forEach((item) => {
-        if (item.id >= newFreshId) newFreshId = item.id + 1;
-      });
-
-      let newEvent = {
-        id: newFreshId,
-        title: "New event you just created",
-        start: start,
-        end: end,
-        resourceId: slotId,
-        bgColor: "purple",
-      };
-      schedulerData.addEvent(newEvent);
-      forceUpdate();
-    }
   };
 
   const updateEventStart = (schedulerData, event, newStart) => {
@@ -123,17 +75,6 @@ const Readonly = withDragDropContext((props) => {
       schedulerData.updateEventEnd(event, newEnd);
     }
     forceUpdate();
-  };
-
-  const moveEvent = (schedulerData, event, slotId, slotName, start, end) => {
-    if (
-      window.confirm(
-        `Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`
-      )
-    ) {
-      schedulerData.moveEvent(event, slotId, slotName, start, end);
-      forceUpdate();
-    }
   };
 
   const onScrollRight = (schedulerData, schedulerContent, maxScrollLeft) => {
@@ -178,15 +119,8 @@ const Readonly = withDragDropContext((props) => {
           prevClick={prevClick}
           nextClick={nextClick}
           onSelectDate={onSelectDate}
-          eventItemClick={eventClicked}
-          viewEventClick={ops1}
-          viewEventText="Ops 1"
-          viewEvent2Text="Ops 2"
-          viewEvent2Click={ops2}
           updateEventStart={updateEventStart}
           updateEventEnd={updateEventEnd}
-          moveEvent={moveEvent}
-          newEvent={newEvent}
           onScrollLeft={onScrollLeft}
           onScrollRight={onScrollRight}
           onScrollTop={onScrollTop}
