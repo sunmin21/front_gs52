@@ -46,7 +46,7 @@ export const SelectRoomFloor = async () => {
 export const SelectRoom = async (floor) => {
   console.log("Select_room");
   console.log(floor);
-  const conf = await client.post("/schedule/confRoom/select_room", {conf_ROOM_FLOOR:floor});
+  const conf = await client.post("/schedule/confRoom/Select_conf_room", {conf_ROOM_FLOOR:floor});
   
   console.log("conffffffffffffff");
   console.log(conf);
