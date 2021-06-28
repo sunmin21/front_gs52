@@ -33,12 +33,12 @@ const Notice = ({ content, pageCount, setSendContents }) => {
   };
 
   return (
-    <CRow>
+    <>
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
             <div>
-              send!!
+              공지사항
               <CButton
                 active
                 block
@@ -46,10 +46,10 @@ const Notice = ({ content, pageCount, setSendContents }) => {
                 aria-pressed="true"
                 style={{ textAlign: "center", width: "10%", float: "right" }}
                 onClick={() => {
-                  history.push("/task/schedule/create");
+                  history.push("/notice/create");
                 }}
               >
-                요청하기
+                등록하기
               </CButton>
             </div>
           </CCardHeader>
@@ -58,14 +58,13 @@ const Notice = ({ content, pageCount, setSendContents }) => {
             <CDataTable
               items={content}
               fields={[
-                { key: "받은사람", _classes: "font-weight-bold" },
-                { key: "내용", _style: { width: "70%", textAlign: "center" } },
+                { key: "인덱스", _classes: "font-weight-bold" },
                 {
-                  key: "보낸날짜",
-                  _style: { width: "10%", textAlign: "center" },
+                  key: "제목",
+                  _style: { width: "70%", textAlign: "center" },
                 },
                 {
-                  key: "상태",
+                  key: "등록날짜",
                   _style: { width: "10%", textAlign: "center" },
                 },
               ]}
@@ -78,21 +77,12 @@ const Notice = ({ content, pageCount, setSendContents }) => {
               //   history.push(`/task/schedule/SendContent/${item.id}`)
               // }
               scopedSlots={{
-                받은사람: (item) => {
+                인덱스: (item) => {
                   return (
-                    <td
-                      style={{ textAlign: "center" }}
-                      // onClick={() =>
-                      //   // history.push(`/task/schedule/SendContent/${item.id}`)
-                      //   // setInfo(!info)
-
-                      // }
-                    >
-                      {item.emp_NAME}
-                    </td>
+                    <td style={{ textAlign: "center" }}>{item.emp_NAME}</td>
                   );
                 },
-                내용: (item) => {
+                제목: (item) => {
                   return (
                     <td
                       style={{ textAlign: "center" }}
@@ -106,18 +96,9 @@ const Notice = ({ content, pageCount, setSendContents }) => {
                     </td>
                   );
                 },
-                보낸날짜: (item) => (
+                등록날짜: (item) => (
                   <td style={{ textAlign: "center" }}>
                     {item.todo_START_DATE}
-                  </td>
-                ),
-                상태: (item) => (
-                  <td>
-                    <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(Done[item.todo_DONE])}>
-                        {Done[item.todo_DONE]}
-                      </CBadge>
-                    </h4>
                   </td>
                 ),
               }}
@@ -125,14 +106,14 @@ const Notice = ({ content, pageCount, setSendContents }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={content.length / 10 + 1}
+              pages={10 / 10 + 1}
               doubleArrows={false}
               align="center"
             />
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow>
+    </>
   );
 };
 
