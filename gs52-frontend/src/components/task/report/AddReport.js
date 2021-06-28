@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-import {
-    CButton,
-    CInput,
-    CModal,
-    CModalBody,
-    CModalFooter,
-    CModalHeader,
-    CModalTitle,
-    CFormGroup,
-    CTextarea
-} from '@coreui/react'
+import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
 import { reportAxios } from 'src/modules/task/report';
 import { useDispatch } from 'react-redux';
 
@@ -28,12 +18,12 @@ function AddReport() {
     }, [dispatch])
 
     const [info, setInfo] = useState(false);
-    const [title, setTitle] = useState("");
+    const [contents, setContents] = useState("");
     const [startDate, setStartDate] = useState();
 
-    const handleTitle = e => {
-        setTitle(e.target.value);
-        console.log(title)
+    const handleContents = e => {
+        setContents(e.target.value);
+        console.log(contents)
     };
     
     const cancel = () => {
@@ -45,7 +35,7 @@ function AddReport() {
     }
 
     const submit = () => {
-        if (title == "") {
+        if (contents == "") {
             console.log("null이당")
             alert("주간 보고 내용을 입력해주세요 !")
         }
@@ -70,8 +60,8 @@ function AddReport() {
                                 <td style={tdStyle}>제목</td>
                                 <td style={tdStyle}>
                                     <CTextarea
-                                        id="title" name="title" placeholder="휴일"
-                                        onChange={handleTitle}
+                                        id="contents" name="contents" placeholder="휴일"
+                                        onChange={handleContents}
                                     />
                                 </td>
                             </tr>
