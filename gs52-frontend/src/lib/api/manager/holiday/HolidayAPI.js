@@ -1,9 +1,10 @@
 import client from "../../client";
 
+const API_URL = "http://localhost:8081";
 export const SelectHoliday = async () => {
     // console.log("test");
 
-  const holiday = await client.get("/holiday/showHoliday");
+  const holiday = await client.get(API_URL + "/holiday/showHoliday");
 
   return holiday;
 };
@@ -14,8 +15,7 @@ export const InsertHoliday = async (title, date, annual) => {
   var moment = require("moment");
   var event = moment(date).format("YYYY-MM-DD");
 
-  const holiday = await client
-    .post("/holiday/addHoliday", {
+  const holiday = await client.post(API_URL + "/holiday/addHoliday", {
       holiday_TITLE: title,
       holiday_DATE: event,
       holiday_ANNUAL_REPEAT: annual,
@@ -34,8 +34,7 @@ export const DeleteHoliday = async (id) => {
   // console.log("id : " + id);
   // console.log(typeof (id));
 
-  const holiday = await client
-    .post("/holiday/delHoliday", {
+  const holiday = await client.post(API_URL + "/holiday/delHoliday", {
       holiday_INDEX: id,
     })
     .then(function (response) {
