@@ -23,6 +23,11 @@ export function AccountList() {
     }
         
       const fields = ['name','registered', 'role', 'status']
+      const CNT_LIST = [10,15,20,25,30]
+
+    const onChange = () => {
+
+    }
 
     return (
         <div>
@@ -32,6 +37,16 @@ export function AccountList() {
                 </CCardHeader>
 
                 <CCardBody>
+                <CSelect onChange={onChange}>
+                    {CNT_LIST.map((cnt, idx) => {
+                        return (
+                        <option key={idx} value={cnt} >
+                            {cnt}
+                        </option>
+                        );
+                    })}
+                    </CSelect>
+
                 <CDataTable
               items={usersData}
               fields={fields}
