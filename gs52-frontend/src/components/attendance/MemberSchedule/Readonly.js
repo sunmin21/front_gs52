@@ -5,6 +5,7 @@ import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
 import "react-big-scheduler/lib/css/style.css";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -20,7 +21,7 @@ let schedulerData = new SchedulerData(
   false,
   {
     eventItemPopoverEnabled: false,
-
+    movable: false,
     views: [],
   }
 );
@@ -29,29 +30,46 @@ schedulerData.localeMoment.locale("en");
 const Readonly = withDragDropContext((props) => {
   //treevalue값 까지 받아와짐
   console.log(props.treevalue);
-  const teamList = props.team
-    .filter((item) => props.treevalue.includes(String(item.team_INDEX)))
-    .map((item) => ({
-      id: String(item.team_INDEX),
-      name: item.team_NAME,
-      groupOnly: true,
-    }));
-
   const empList = props.emp
-    .filter((item) => props.treevalue.includes(String(item.emp_TEAM_INDEX)))
+    .filter(
+      (item) =>
+        props.treevalue.includes(String(item.emp_TEAM_INDEX)) ||
+        props.treevalue.includes(item.emp_ID)
+    )
     .map((item) => ({
       id: item.emp_ID,
       name: item.emp_NAME,
       parentId: String(item.emp_TEAM_INDEX),
     }));
 
+  const parentList = empList
+    .filter((item, i) => {
+      return (
+        empList.findIndex((item2, j) => {
+          return item.parentId === item2.parentId;
+        }) === i
+      );
+    })
+    .map((item) => item.parentId);
+
+  const teamList = props.team
+    .filter((item) => parentList.includes(String(item.team_INDEX)))
+    .map((item) => ({
+      id: String(item.team_INDEX),
+      name: item.team_NAME,
+      groupOnly: true,
+    }));
+
   const List = teamList.concat(empList);
+
+  console.log(List);
 
   const selectList = {
     resources: List,
   };
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(DemoData.events);
+
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {
