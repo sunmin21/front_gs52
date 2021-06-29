@@ -41,6 +41,7 @@ const CreateTodo = () => {
 
   const history = useHistory();
   const no = useRef([]);
+  console.log(search);
   no.current = search.map((content) => {
     return content.사원번호;
   });

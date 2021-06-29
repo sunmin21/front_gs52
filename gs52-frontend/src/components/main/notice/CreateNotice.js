@@ -18,11 +18,11 @@ import {
 import React, { useCallback, useState } from "react";
 
 import { useHistory, useLocation } from "react-router-dom";
+import { setContext } from "redux-saga/effects";
 
 import { InsertNotice } from "src/lib/api/main/Main";
 
 const DetailNotice = (e) => {
-  const location = useLocation();
   const history = useHistory();
 
   const [content, setContent] = useState({
@@ -43,10 +43,12 @@ const DetailNotice = (e) => {
     }));
   }, []);
   const ChangeContent = useCallback((e) => {
-    setContent((content) => ({
-      ...content,
-      내용: e.target.value,
-    }));
+    setContent((content) => {
+      return {
+        ...content,
+        내용: e.target.value,
+      };
+    });
   }, []);
 
   return (
@@ -158,7 +160,10 @@ const DetailNotice = (e) => {
             color="primary"
             style={{ float: "right" }}
             onClick={useCallback(() => {
+              console.log(content);
               if (content.제목 === "") {
+                console.log(content);
+
                 setTitleCheck(true);
                 return;
               }
@@ -166,19 +171,13 @@ const DetailNotice = (e) => {
                 setContentCheck(true);
                 return;
               }
+
               InsertNotice(content);
-              setContent({
-                인덱스: "",
-                제목: "",
-                내용: "",
-                작성자INDEX: "",
-                작성자: "",
-                등록날짜: "",
-              });
+
               setContentCheck(false);
               setTitleCheck(false);
               history.goBack();
-            }, [history])}
+            }, [content, history])}
           >
             <CIcon name="cil-scrubber" /> 등록
           </CButton>

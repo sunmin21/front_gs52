@@ -17,8 +17,10 @@ const Search = ({ check }) => {
     userList().then((data) => {
       setUserContents(
         data.map((item) => {
+          console.log(item);
           return {
-            사원번호: item.emp_ID,
+            사원번호: item.emp_INDEX,
+            사원아이디: item.emp_ID,
             이름: item.emp_NAME,
             부서: item.dept_NAME,
             팀: item.team_NAME,
