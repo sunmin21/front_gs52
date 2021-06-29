@@ -47,7 +47,7 @@ function AddReport() {
             // dispatch(addreportAxios({emp, contents, targetDate}))
             setInfo(!info);
             InsertReport(emp, contents, targetDate)
-            showAllReport();
+            // showAllReport();
         }
     }
     

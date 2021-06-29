@@ -113,6 +113,8 @@ function WeeklyReport() {
                         items={data}
                         itemsPerPage={10}
                         onRowClick={eventOnclick}
+                        // 자동 정렬
+                        sorterValue={{column: "date", asc : "true"}}
                         pagination
                     />
                 </CCardBody>
@@ -123,6 +125,7 @@ function WeeklyReport() {
                         items={nextdata}
                         itemsPerPage={10}
                         onRowClick={eventOnclick}
+                        sorterValue={{column: "date", asc : "true"}}
                         pagination
                     />
                 </CCardBody>
