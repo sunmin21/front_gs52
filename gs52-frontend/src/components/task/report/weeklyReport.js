@@ -27,17 +27,12 @@ function WeeklyReport() {
     }, [dispatch])
 
     const fields = ['contents','date']
-
-    // ---- 날짜 선택하면 해당되는 일주일을 보여줌 ----//
-
-    const [startDate, setStartDate] = useState();
+    const [startDate, setStartDate] = useState(new Date());
 
     var moment = require('moment');
     var weekStart = moment(startDate).day(0).format("YYYY-MM-DD");
     var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
-
-    // --------------------------------------------//
-
+    
     const data = report.map((item) => {
         // console.log("item : " + item)
         return ({
@@ -64,19 +59,18 @@ function WeeklyReport() {
         dispatch(nextreportAxios({ emp, weekStart: moment(weekStart).add(7, 'd').day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).add(7, 'd').day(6).format("YYYY-MM-DD") }))
     }
 
+    // showAllReport()
+
     // 열 클릭시 삭제 기능
     const eventOnclick = (e) => {
-        console.log(e.id)
         var msg = "삭제하시겠습니까?";
         
         if (window.confirm(msg) != 0) {
             console.log("삭제");
-            // report_index를 가져옴
-            // dispatch(delreportAxios({id : e.id}));
-            // 자동 rendering
             DeleteReport(e.id);
+            console.log(weekStart)
             showAllReport()
-            // 자동 렌더링이 안돼 @@@@@@@@@@@@@@@@@@@@@@@@
+            // 자동 렌더링
         } else {
             console.log("삭제취소");
         }
@@ -87,39 +81,37 @@ function WeeklyReport() {
             <CCardHeader>
                 주간 보고서
             </CCardHeader>
-            <CCardGroup>
+            <CCardGroup style={{textAlign:'center'}}>
                 <CCardBody>
-                    원하는 일자를 선택하세요 <br />
+                    <h5>원하는 일자를 선택하세요 </h5>
                     <DatePicker
                         selected={startDate}
                         onChange={(date) => { showAllReport(date) }}
                     />
                 </CCardBody>
                 <CCardBody>
-                    선택된 주 <h4>{
-                        weekStart + " - " + weekEnd
-                    }</h4>
+                    <h5>선택된 주 : </h5><h4>{ weekStart + " - " + weekEnd }</h4>
                 </CCardBody>
                 <CCardBody>
                     <AddReport />
                 </CCardBody>
             </CCardGroup>
             <hr></hr>
-            <CCardGroup>
+            <CCardGroup style={{textAlign:'center'}}>
                 <CCardBody>
-                    이번주
+                    <h4>이번주</h4><br />
                     <CDataTable
                         fields={fields}
                         items={data}
                         itemsPerPage={10}
                         onRowClick={eventOnclick}
                         // 자동 정렬
-                        sorterValue={{column: "date", asc : "true"}}
+                        sorterValue={{ column: "date", asc: "true" }}
                         pagination
                     />
                 </CCardBody>
                 <CCardBody>
-                    다음주
+                    <h4>다음주</h4><br />
                     <CDataTable
                         fields={fields}
                         items={nextdata}

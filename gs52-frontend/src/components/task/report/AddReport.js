@@ -5,6 +5,7 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, C
 import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
 import showAllReport from './weeklyReport';
+import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 
 function AddReport() {
 
@@ -47,6 +48,8 @@ function AddReport() {
             // dispatch(addreportAxios({emp, contents, targetDate}))
             setInfo(!info);
             InsertReport(emp, contents, targetDate)
+            dispatch(reportAxios())
+            dispatch(nextreportAxios())
             // showAllReport();
         }
     }
