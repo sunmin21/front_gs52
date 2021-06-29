@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
 import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
-import showAllReport from './weeklyReport';
+import showAllReport from './WeeklyReport';
 import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 
 function AddReport() {

@@ -1,7 +1,7 @@
 import React from 'react'
-import WeeklyReport from 'src/components/task/report/weeklyReport'
-
 import { CCardBody, CCol, CRow } from '@coreui/react'
+import CheckOthers from 'src/components/task/report/CheckOthers'
+import WeeklyReport from 'src/components/task/report/WeeklyReport'
 
 const HolidayManagement = () => {
     
@@ -9,6 +9,7 @@ const HolidayManagement = () => {
         <CRow>
             <CCol>
                 <CCardBody>
+                    <CheckOthers />
                     <WeeklyReport />
                 </CCardBody>
             </CCol>
