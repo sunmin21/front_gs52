@@ -15,7 +15,7 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -30,7 +30,7 @@ import {
   succssAxios,
   todoAxios,
 } from "src/modules/task/task";
-import modalcontent from "../task/BusinessProgress/Search";
+import modalcontent from "../../task/BusinessProgress/Search";
 const CreateTodo = (e) => {
   const { search } = useSelector(({ emp }) => ({
     search: emp.search,
@@ -187,4 +187,4 @@ const CreateTodo = (e) => {
   );
 };
 
-export default CreateTodo;
+export default React.memo(CreateTodo);

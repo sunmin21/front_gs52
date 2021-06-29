@@ -86,7 +86,10 @@ const Notice = ({ content, pageCount, setSendContents }) => {
               activePage={page}
               clickableRows
               onRowClick={(item) =>
-                history.push(`/notice/detail/${item.인덱스}`)
+                history.push({
+                  pathname: `/notice/detail/${item.인덱스}`,
+                  state: { item: item },
+                })
               }
               scopedSlots={{
                 번호: (item) => {

@@ -1,6 +1,8 @@
 import React from "react";
 const Main = React.lazy(() => import("src/containers/main/Main"));
-const Notice = React.lazy(() => import("src/components/main/CreateNotice"));
+const Notice = React.lazy(() =>
+  import("src/components/main/notice/DetailNotice")
+);
 const ManagerRoute = [
   {
     path: "/notice/detail/:id",

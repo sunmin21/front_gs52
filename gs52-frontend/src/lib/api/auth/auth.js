@@ -1,13 +1,16 @@
 import client from "../client";
+
+const API_URL = "http://localhost:8081";
 export const userList = async () => {
-  const res = await client.get("/emp/listAll");
+  console.log("이거타니?");
+  const res = await client.get(API_URL + "/emp/listAll");
 
   return res.data;
 };
 
 export const login = async ({ id, pwd }) => {
   // console.log(parseInt(EMP_ID), EMP_PWD);
-  return await client.post("/emp/login", {
+  return await client.post(API_URL + "/emp/login", {
     emp_ID: id,
     emp_PWD: pwd,
   });
