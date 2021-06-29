@@ -10,7 +10,6 @@ import { DeleteReport } from "src/lib/api/task/ReportAPI";
 function WeeklyReport() {
 
     let [emp] = useState(1);
-
     const dispatch = useDispatch();
     const { report } = useSelector((state) => {
         return {
@@ -58,7 +57,6 @@ function WeeklyReport() {
         })
     })
 
-
     const showAllReport = (weekStart) => {
         setStartDate(weekStart)
         dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") }))
@@ -77,7 +75,7 @@ function WeeklyReport() {
             // dispatch(delreportAxios({id : e.id}));
             // 자동 rendering
             DeleteReport(e.id);
-            dispatch(reportAxios())
+            showAllReport()
             // 자동 렌더링이 안돼 @@@@@@@@@@@@@@@@@@@@@@@@
         } else {
             console.log("삭제취소");
@@ -94,7 +92,6 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        // onChange={(date) => { showReport(date) }}
                         onChange={(date) => { showAllReport(date) }}
                     />
                 </CCardBody>
