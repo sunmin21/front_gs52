@@ -3,7 +3,7 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from '@coreui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { reportAxios, delreportAxios } from 'src/modules/task/report';
+import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 import AddReport from "./AddReport";
 import { DeleteReport } from "src/lib/api/task/ReportAPI";
 
@@ -40,7 +40,7 @@ function WeeklyReport() {
     // --------------------------------------------//
 
     const data = report.map((item) => {
-        console.log("item : " + item)
+        // console.log("item : " + item)
         return ({
             id: item.report_INDEX,
             emp : item.report_EMP_INDEX,
@@ -49,7 +49,7 @@ function WeeklyReport() {
         })
     })
 
-    const data2 = nextreport.map((item2) => {
+    const nextdata = nextreport.map((item2) => {
         return ({
             id: item2.report_INDEX,
             emp : item2.report_EMP_INDEX,
@@ -58,14 +58,12 @@ function WeeklyReport() {
         })
     })
 
-    const showReport = (weekStart) => {
-        setStartDate(weekStart)
-        return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
-    }
 
-    const showNextReport = (weekStart) => {
-        weekStart = (weekStart.getDate() + 7);
-        return (dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") })))
+    const showAllReport = (weekStart) => {
+        setStartDate(weekStart)
+        dispatch(reportAxios({ emp, weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD") }))
+
+        dispatch(nextreportAxios({ emp, weekStart: moment(weekStart).add(7, 'd').day(0).format("YYYY-MM-DD"), weekEnd: moment(weekStart).add(7, 'd').day(6).format("YYYY-MM-DD") }))
     }
 
     // 열 클릭시 삭제 기능
@@ -96,7 +94,8 @@ function WeeklyReport() {
                     원하는 일자를 선택하세요 <br />
                     <DatePicker
                         selected={startDate}
-                        onChange={(date) => {showNextReport(date)}}
+                        // onChange={(date) => { showReport(date) }}
+                        onChange={(date) => { showAllReport(date) }}
                     />
                 </CCardBody>
                 <CCardBody>
@@ -124,7 +123,7 @@ function WeeklyReport() {
                     다음주
                     <CDataTable
                         fields={fields}
-                        items={data2}
+                        items={nextdata}
                         itemsPerPage={10}
                         onRowClick={eventOnclick}
                         pagination
