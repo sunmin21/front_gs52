@@ -22,10 +22,6 @@ function CheckOthers() {
                     <h4>팀원 선택하기</h4>
                     <OthersList />
                 </CModalBody>
-                {/* <CModalBody>
-                    <h4>조회 하기</h4>
-                    머라머라
-                </CModalBody>   */}
             </CModal>
         </CCol>
     )
