@@ -6,8 +6,13 @@ import MemberSchedulePage from "src/components/attendance/MemberSchedule/MemberS
 import MemberDropdown from "./../../components/attendance/MemberSchedule/MemberDropdown";
 import Calendar from "src/components/attendance/MemberSchedule/calendar";
 import Readonly from "src/components/attendance/MemberSchedule/Readonly";
-import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
-import { SelectEmp } from "src/lib/api/attendance/MemberScheduleAPI";
+import {
+  attendAxios,
+  empAxios,
+  teamAxios,
+} from "src/modules/annual/memberSchedule";
+import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const MemberScheduleManagement = () => {
   const board = useSelector((state) => state.test.board);
@@ -31,13 +36,20 @@ const MemberScheduleManagement = () => {
   });
   //리덕스에서 tree 값 받아옴
   const { treevalue } = useSelector((state) => {
+    console.log(state);
     return {
       treevalue: state.memberSchedule.treevalue,
     };
   });
 
+  const { attend } = useSelector((state) => {
+    return {
+      attend: state.memberSchedule.attend,
+    };
+  });
+
   //Promise 푸는거
-  const test = SelectEmp().then((item) => {
+  const test = SelectAttend().then((item) => {
     //console.log(item);
   });
   //console.log(test);
@@ -45,6 +57,7 @@ const MemberScheduleManagement = () => {
   useEffect(() => {
     dispatch(teamAxios());
     dispatch(empAxios());
+    dispatch(attendAxios());
   }, [dispatch]);
 
   const member = emp.map((data) => ({
@@ -93,6 +106,7 @@ const MemberScheduleManagement = () => {
               data={data}
               team={team}
               emp={emp}
+              attend={attend}
             ></Readonly>
           </div>
         </div>

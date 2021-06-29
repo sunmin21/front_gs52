@@ -6,6 +6,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 
 import "react-big-scheduler/lib/css/style.css";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -30,6 +31,8 @@ schedulerData.localeMoment.locale("en");
 const Readonly = withDragDropContext((props) => {
   //treevalue값 까지 받아와짐
   console.log(props.treevalue);
+
+  ////////////////////////////팀, 직원 목록
   const empList = props.emp
     .filter(
       (item) =>
@@ -59,28 +62,90 @@ const Readonly = withDragDropContext((props) => {
       name: item.team_NAME,
       groupOnly: true,
     }));
+  // moment(weekStart).add(7, 'd').day(0).format("YYYY-MM-DD")
+  ////////////////////////////직원들 연차목록
+  const attendList = props.attend.map((item) => {
+    var startdate = new Date(item.attend_DATE);
+    startdate.setDate(startdate.getDate() + 1);
+    console.log(item.attend_TYPE_NAME);
+    if (item.attend_TYPE_NAME == "연차") {
+      console.log("연차");
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE,
+        end: moment(startdate).format("YYYY-MM-DD"),
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+        bgColor: "#FA9E95",
+      };
+    } else if (item.attend_TYPE_NAME == "반차") {
+      console.log("반차");
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE,
+        end: moment(startdate).format("YYYY-MM-DD"),
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+        bgColor: "#DC143C",
+      };
+    } else if (item.attend_TYPE_NAME == "출장") {
+      console.log("출장");
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE,
+        end: moment(startdate).format("YYYY-MM-DD"),
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+        bgColor: "#D9D9D9",
+      };
+    } else if (item.attend_TYPE_NAME == "외근") {
+      console.log("외근");
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE,
+        end: moment(startdate).format("YYYY-MM-DD"),
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+        bgColor: "#f759ab",
+      };
+    } else {
+      console.log("else");
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE,
+        end: moment(startdate).format("YYYY-MM-DD"),
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+        bgColor: "#f759ab",
+      };
+    }
+  });
+
+  console.log(attendList);
 
   const List = teamList.concat(empList);
 
   console.log(List);
+  console.log(empList);
 
   const selectList = {
     resources: List,
+    events: attendList,
   };
   schedulerData.setResources(selectList.resources);
-  schedulerData.setEvents(DemoData.events);
+  schedulerData.setEvents(selectList.events);
 
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {
     schedulerData.prev();
-    schedulerData.setEvents(DemoData.events);
+    schedulerData.setEvents(selectList.events);
     forceUpdate();
   };
 
   const nextClick = (schedulerData) => {
     schedulerData.next();
-    schedulerData.setEvents(DemoData.events);
+    schedulerData.setEvents(selectList.events);
     forceUpdate();
 
     // console.log("@@");
@@ -88,7 +153,7 @@ const Readonly = withDragDropContext((props) => {
 
   const onSelectDate = (schedulerData, date) => {
     schedulerData.setDate(date);
-    schedulerData.setEvents(DemoData.events);
+    schedulerData.setEvents(selectList.events);
     forceUpdate();
   };
 
@@ -117,7 +182,7 @@ const Readonly = withDragDropContext((props) => {
   const onScrollRight = (schedulerData, schedulerContent, maxScrollLeft) => {
     if (schedulerData.ViewTypes === ViewTypes.Day) {
       schedulerData.next();
-      schedulerData.setEvents(DemoData.events);
+      schedulerData.setEvents(selectList.events);
       forceUpdate();
 
       schedulerContent.scrollLeft = maxScrollLeft - 10;
@@ -127,7 +192,7 @@ const Readonly = withDragDropContext((props) => {
   const onScrollLeft = (schedulerData, schedulerContent, maxScrollLeft) => {
     if (schedulerData.ViewTypes === ViewTypes.Day) {
       schedulerData.prev();
-      schedulerData.setEvents(DemoData.events);
+      schedulerData.setEvents(selectList.events);
       forceUpdate();
 
       schedulerContent.scrollLeft = 10;

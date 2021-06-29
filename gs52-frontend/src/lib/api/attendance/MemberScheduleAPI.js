@@ -16,6 +16,11 @@ export const SelectEmp = async (index) => {
   return emp;
 };
 
+export const SelectAttend = async (index) => {
+  const attend = await client.post(API_URL + "/member/attend");
+  return attend;
+};
+
 // post로 값넘기기
 
 // const login = ({ username, password }) =>
