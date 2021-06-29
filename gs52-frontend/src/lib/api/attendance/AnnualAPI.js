@@ -6,7 +6,6 @@ export const SelectVacation = async (index) => {
     //사원의 연차정보 전부 가져옴
     vacation_EMP_INDEX: index,
   });
-  console.log(annual);
 
   return annual;
 };
@@ -20,9 +19,10 @@ export const SelectEmpVacation = async (index) => {
   return empvacation;
 };
 
-export const DeleteVacation = async (event) => {
+export const DeleteVacation = async (event, EMP_INDEX) => {
   const empvacation = await client.post(API_URL + "/annual/delete", {
     vacation_DATE: event,
+    vacation_EMP_INDEX: EMP_INDEX,
   });
 
   return empvacation;

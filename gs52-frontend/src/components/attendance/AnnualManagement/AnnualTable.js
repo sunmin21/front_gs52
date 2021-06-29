@@ -77,6 +77,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     var moment = require("moment");
     var nowDate = moment(new Date()).format("YYYY-MM-DD");
     var clickDate = e.날짜;
+    console.log(e);
     if (nowDate >= clickDate) {
       setVisible(3);
     } else {

@@ -67,9 +67,8 @@ const Readonly = withDragDropContext((props) => {
   const attendList = props.attend.map((item) => {
     var startdate = new Date(item.attend_DATE);
     startdate.setDate(startdate.getDate() + 1);
-    console.log(item.attend_TYPE_NAME);
+
     if (item.attend_TYPE_NAME == "연차") {
-      console.log("연차");
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE,
@@ -79,7 +78,6 @@ const Readonly = withDragDropContext((props) => {
         bgColor: "#FA9E95",
       };
     } else if (item.attend_TYPE_NAME.includes("반차")) {
-      console.log("반차");
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE,
@@ -89,7 +87,6 @@ const Readonly = withDragDropContext((props) => {
         bgColor: "#DC143C",
       };
     } else if (item.attend_TYPE_NAME == "출장") {
-      console.log("출장");
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE,
@@ -99,7 +96,6 @@ const Readonly = withDragDropContext((props) => {
         bgColor: "#D9D9D9",
       };
     } else if (item.attend_TYPE_NAME == "외근") {
-      console.log("외근");
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE,
@@ -109,7 +105,6 @@ const Readonly = withDragDropContext((props) => {
         bgColor: "#f759ab",
       };
     } else {
-      console.log("else");
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE,

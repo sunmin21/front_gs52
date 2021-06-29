@@ -32,7 +32,8 @@ function RowDeleteModal({
     // axios.post("/annual/delete", {
     //   vacation_DATE: event.날짜,
     // });
-    await DeleteVacation(event.날짜);
+
+    await DeleteVacation(event.날짜, vacation_EMP_INDEX.current);
     dispatch(annualAxios(vacation_EMP_INDEX.current));
     if (event.연차유형 == "연차") {
       await UpdateVacation(1, 54321);
