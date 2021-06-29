@@ -8,8 +8,8 @@ function CheckOthers() {
 
     return (
         <CCol col="2" className="text-center mt-3">
-            <CButton color="secondary" variant='outline'>
-                <CIcon name="cil-lightbulb" />Outline Button
+            <CButton color="danger" variant='outline'>
+                <CIcon name="cil-user" /> 팀원 주간보고 조회하기
             </CButton>
         </CCol>
     )
