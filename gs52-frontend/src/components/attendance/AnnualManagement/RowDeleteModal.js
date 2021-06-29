@@ -36,7 +36,7 @@ function RowDeleteModal({
     dispatch(annualAxios(vacation_EMP_INDEX.current));
     if (event.연차유형 == "연차") {
       await UpdateVacation(1, 54321);
-    } else if (event.연차유형 == "반차") {
+    } else if (event.연차유형.includes("반차")) {
       await UpdateVacation(0.5, 54321);
     }
     dispatch(empvacationAxios(vacation_EMP_INDEX.current));

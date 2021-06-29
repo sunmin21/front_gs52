@@ -15,6 +15,7 @@ import {
   InserVacation,
   UpdateVacation,
 } from "src/lib/api/attendance/AnnualAPI";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 function AnnualModal({
   dateHandle,
@@ -37,6 +38,7 @@ function AnnualModal({
   nDate.setDate(nDate.getDate() + 1);
   var nowDate = moment(nDate).format("YYYY-MM-DD");
   const [doubleCheck, setDoubleCheck] = useState(true);
+
   const onSubmit = async () => {
     var sameCount = 0;
     if (
@@ -48,6 +50,14 @@ function AnnualModal({
     ) {
       setVisible(3);
       setAlertContents("모두 입력해주세요");
+      setDoubleCheck(true);
+    } else if (
+      new Date(date).getDay() == "0" ||
+      new Date(date).getDay() == "6"
+    ) {
+      setVisible(3);
+      setAlertContents("공휴일은 사용할 수 없습니다.");
+      setDoubleCheck(true);
     } else {
       inputData.map((rowData) => {
         if (rowData.날짜 == moment(date).format("YYYY-MM-DD")) {
@@ -63,6 +73,8 @@ function AnnualModal({
           await UpdateVacation(-1, 54321);
         } else if (infoIndex == "8") {
           await UpdateVacation(-0.5, 54321);
+        } else if (infoIndex == "9") {
+          await UpdateVacation(-0.5, 54321);
         }
 
         dispatch(annualAxios(vacation_EMP_INDEX.current));
@@ -72,6 +84,7 @@ function AnnualModal({
       } else {
         setVisible(3);
         setAlertContents("휴가를 중복 사용할 수 없습니다.");
+        setDoubleCheck(true);
       }
     }
   };
@@ -102,7 +115,8 @@ function AnnualModal({
           <select onChange={infoIndexHandle}>
             <option value="0">선택</option>
             <option value="7">연차</option>
-            <option value="8">반차</option>
+            <option value="8">오전반차</option>
+            <option value="9">오후반차</option>
           </select>
           <hr />
           <h2>사유</h2>
@@ -128,8 +142,8 @@ function AnnualModal({
                 color="info"
                 onClick={() => {
                   if (doubleCheck) {
-                    onSubmit();
                     setDoubleCheck(false);
+                    onSubmit();
                   }
                 }}
               >
