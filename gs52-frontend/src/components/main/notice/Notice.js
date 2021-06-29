@@ -11,8 +11,9 @@ import {
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import styled from "styled-components";
 
-const Notice = ({ content, pageCount, setSendContents }) => {
+const Notice = ({ content }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 
@@ -20,7 +21,7 @@ const Notice = ({ content, pageCount, setSendContents }) => {
   const [page, setPage] = useState(currentPage);
 
   const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/task/schedule?page=${newPage}`);
+    currentPage !== newPage && history.push(`/?page=${newPage}`);
   };
   // const [info, setInfo] = useState(false);
   useEffect(() => {
@@ -34,27 +35,33 @@ const Notice = ({ content, pageCount, setSendContents }) => {
     작성자: item.emp_NAME,
     등록날짜: item.notice_DATE,
   }));
-  console.log(data);
+
   return (
     <>
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            <div>
+            <div
+              style={{
+                textAlign: "center",
+                fontWeight: "bold",
+                marginTop: "3px",
+              }}
+            >
               공지사항
-              <CButton
-                active
-                block
-                color="dark"
-                aria-pressed="true"
-                style={{ textAlign: "center", width: "10%", float: "right" }}
-                onClick={() => {
-                  history.push("/notice/create");
-                }}
-              >
-                등록하기
-              </CButton>
             </div>
+            <CButton
+              active
+              block
+              color="dark"
+              aria-pressed="true"
+              style={{ textAlign: "center", width: "10%", float: "right" }}
+              onClick={() => {
+                history.push("/notice/create");
+              }}
+            >
+              등록하기
+            </CButton>
           </CCardHeader>
           <CCardBody>
             {/* <Modal info={info} setInfo={setInfo}></Modal> */}
@@ -69,11 +76,11 @@ const Notice = ({ content, pageCount, setSendContents }) => {
                 {
                   key: "제목",
                   _classes: "font-weight-bold",
-                  _style: { width: "60%", textAlign: "center" },
+                  _style: { width: "55%", textAlign: "center" },
                 },
                 {
                   key: "등록날짜",
-                  _style: { width: "15%", textAlign: "center" },
+                  _style: { width: "20%", textAlign: "center" },
                 },
                 {
                   key: "작성자",
@@ -82,7 +89,7 @@ const Notice = ({ content, pageCount, setSendContents }) => {
               ]}
               hover
               striped
-              itemsPerPage={10}
+              itemsPerPage={5}
               activePage={page}
               clickableRows
               onRowClick={(item) =>
@@ -120,7 +127,7 @@ const Notice = ({ content, pageCount, setSendContents }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={data.length / 10 + 1}
+              pages={Math.floor((data.length - 1) / 5 + 1)}
               doubleArrows={false}
               align="center"
             />

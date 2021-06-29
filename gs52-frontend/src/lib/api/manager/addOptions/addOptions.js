@@ -54,7 +54,6 @@ export const SelectCheckTeam = async (teamname) => {
 };
 
 export const DeleteTeam = async (index) => {
-  console.log(index);
   const Dept = await client.post(API_URL + "/manager/addoptions/teamDelete", {
     team_INDEX: index,
   });
@@ -63,9 +62,6 @@ export const DeleteTeam = async (index) => {
 };
 
 export const UpdateTeam = async ({ teamname, work_RULE_INDEX, index }) => {
-  console.log(teamname);
-  console.log(work_RULE_INDEX);
-
   const Dept = await client.post(API_URL + "/manager/addoptions/teamUpdate", {
     team_WORK_TYPE: work_RULE_INDEX,
     team_NAME: teamname,
@@ -134,7 +130,6 @@ export const UpdateWorkRule = async ({
 };
 
 export const DeleteWorkRule = async (index) => {
-  console.log(index);
   const Dept = await client.post(
     API_URL + "/manager/addoptions/workRuleDelete",
     {

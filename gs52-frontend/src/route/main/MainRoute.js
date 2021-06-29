@@ -1,13 +1,22 @@
 import React from "react";
 const Main = React.lazy(() => import("src/containers/main/Main"));
-const Notice = React.lazy(() =>
+const NoticeDetail = React.lazy(() =>
   import("src/components/main/notice/DetailNotice")
 );
+const NoticeCreate = React.lazy(() =>
+  import("src/components/main/notice/CreateNotice")
+);
+
 const ManagerRoute = [
+  {
+    path: "/notice/create",
+    name: "공지사항추가",
+    component: NoticeCreate,
+  },
   {
     path: "/notice/detail/:id",
     name: "공지사항",
-    component: Notice,
+    component: NoticeDetail,
   },
   {
     path: "/",

@@ -15,44 +15,44 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
-import Modal from "src/containers/common/UserModal";
-import { BoardSend } from "src/lib/api/task/BusinessProgress";
-import { searchInit } from "src/modules/emp/emp";
-import {
-  boardInit,
-  changeBoard,
-  sendAxios,
-  succssAxios,
-  todoAxios,
-} from "src/modules/task/task";
-import modalcontent from "../../task/BusinessProgress/Search";
-const CreateTodo = (e) => {
-  const { search } = useSelector(({ emp }) => ({
-    search: emp.search,
-  }));
-  const { board } = useSelector(({ task }) => ({
-    board: task.board,
-  }));
+import { InsertNotice } from "src/lib/api/main/Main";
+
+const DetailNotice = (e) => {
+  const location = useLocation();
   const history = useHistory();
-  const no = useRef([]);
-  no.current = search.map((content) => {
-    return content.사원번호;
-  });
-  const [doubleCheck, setDoubleCheck] = useState(true);
-  const dispatch = useDispatch();
-  const [searchCheck, setSearchCheck] = useState(false);
 
-  const [boardCheck, setBoardCheck] = useState(false);
-  console.log(board);
+  const [content, setContent] = useState({
+    인덱스: "",
+    제목: "",
+    내용: "",
+    작성자INDEX: "",
+    작성자: "",
+    등록날짜: "",
+  });
+  const [titlecheck, setTitleCheck] = useState(false);
+  const [contentcheck, setContentCheck] = useState(false);
+
+  const ChangeTitle = useCallback((e) => {
+    setContent((content) => ({
+      ...content,
+      제목: e.target.value,
+    }));
+  }, []);
+  const ChangeContent = useCallback((e) => {
+    setContent((content) => ({
+      ...content,
+      내용: e.target.value,
+    }));
+  }, []);
+
   return (
     <>
       <CCard>
-        <CCardHeader>요청사항</CCardHeader>
+        <CCardHeader>공지사항</CCardHeader>
         <CCardBody>
           <CForm
             action=""
@@ -62,124 +62,125 @@ const CreateTodo = (e) => {
           >
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="textarea-input">직원이름</CLabel>
+                <CLabel style={{ marginTop: "3px" }}>작성자</CLabel>
               </CCol>
-              <CCol xs="12" md="9">
-                <CInputGroup style={{ float: "right" }}>
-                  <div style={{ float: "right", textAlign: "center" }}>
-                    <CInput
-                      id="input1-group2"
-                      name="input1-group2"
-                      //   placeholder="Username"
-                      style={{ width: "80%" }}
-                      value={
-                        search[0]
-                          ? search.length === 1
-                            ? search[0]["이름"]
-                            : search[0]["이름"] +
-                              "외 " +
-                              (search.length - 1) +
-                              "명"
-                          : ""
-                      }
-                      disabled
-                    />
-                  </div>
-                  <CInputGroupPrepend>
-                    <Modal Content={modalcontent} form="board" />
-                  </CInputGroupPrepend>
-                </CInputGroup>
+              <CCol xs="12" md="3">
+                <CInput
+                  name="작성자"
+                  id="textarea-input"
+                  rows="9"
+                  placeholder="작성자"
+                  value={content.작성자}
+                  readOnly
+                />
               </CCol>
             </CFormGroup>
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="textarea-input">요청사항</CLabel>
+                <CLabel style={{ marginTop: "3px" }}>제목</CLabel>
               </CCol>
               <CCol xs="12" md="9">
+                <CInput
+                  name="제목"
+                  id="textarea-input"
+                  rows="5"
+                  placeholder="제목"
+                  onChange={ChangeTitle}
+                  value={content.제목}
+                />
+                {titlecheck && (
+                  <CAlert
+                    color="danger"
+                    closeButton
+                    onClick={() => {
+                      setTitleCheck(false);
+                    }}
+                  >
+                    제목을 입력하세요
+                  </CAlert>
+                )}
+              </CCol>
+            </CFormGroup>
+            <CFormGroup row>
+              <CCol md="3">
+                <CLabel style={{ marginTop: "3px" }}>내용</CLabel>
+              </CCol>
+
+              <CCol xs="12" md="9">
                 <CTextarea
-                  name="요청사항"
+                  name="내용"
                   id="textarea-input"
                   rows="9"
-                  placeholder="Content..."
-                  value={board}
-                  onChange={(e) => {
-                    dispatch(
-                      changeBoard({
-                        form: "board",
-
-                        요청사항: e.target.value,
-                      })
-                    );
-                  }}
+                  placeholder="내용..."
+                  onChange={ChangeContent}
+                  value={content.내용}
                 />
+                {contentcheck && (
+                  <CAlert
+                    color="danger"
+                    closeButton
+                    onClick={() => {
+                      setContentCheck(false);
+                    }}
+                  >
+                    내용을 입력하세요
+                  </CAlert>
+                )}
               </CCol>
             </CFormGroup>
           </CForm>
         </CCardBody>
         <CCardFooter>
-          {searchCheck && (
-            <CAlert
-              color="danger"
-              closeButton
-              onClick={() => {
-                setSearchCheck(false);
-              }}
-            >
-              사용자를 선택해주세요
-            </CAlert>
-          )}
-          {boardCheck && (
-            <CAlert
-              color="danger"
-              closeButton
-              onClick={() => {
-                setBoardCheck(false);
-              }}
-            >
-              내용을 입력해주세요
-            </CAlert>
-          )}
-
-          <CButton
-            type="submit"
-            size="sm"
-            color="primary"
-            onClick={async () => {
-              if (search.length === 0) {
-                setSearchCheck(true);
-
-                return;
-              }
-
-              if (board === undefined || board === "") {
-                setBoardCheck(true);
-
-                return;
-              }
-              if (doubleCheck) {
-                await BoardSend({ no, board, sendId: 2 });
-                dispatch(searchInit());
-                dispatch(boardInit());
-                await dispatch(todoAxios(2));
-                await dispatch(sendAxios(2));
-                await dispatch(succssAxios(2));
-                history.goBack();
-                setDoubleCheck(false);
-              }
-            }}
-          >
-            <CIcon name="cil-scrubber" /> Submit
-          </CButton>
           <CButton
             type="reset"
             size="sm"
             color="danger"
-            onClick={() => {
-              dispatch(searchInit());
-              dispatch(boardInit());
-            }}
+            style={{ float: "right" }}
+            onClick={useCallback(() => {
+              setContent({
+                인덱스: "",
+                제목: "",
+                내용: "",
+                작성자INDEX: "",
+                작성자: "",
+                등록날짜: "",
+              });
+              setContentCheck(false);
+              setTitleCheck(false);
+              history.goBack();
+            }, [history])}
           >
-            <CIcon name="cil-ban" /> Reset
+            <CIcon name="cil-ban" /> 취소
+          </CButton>
+          <CButton
+            type="submit"
+            size="sm"
+            color="primary"
+            style={{ float: "right" }}
+            onClick={useCallback(() => {
+              if (content.제목 === "") {
+                setTitleCheck(true);
+                return;
+              }
+              if (content.내용 === "") {
+                setContentCheck(true);
+                return;
+              }
+              InsertNotice(content);
+              setContent({
+                인덱스: "",
+                제목: "",
+                내용: "",
+                작성자INDEX: "",
+                작성자: "",
+                등록날짜: "",
+              });
+              setContentCheck(false);
+              setTitleCheck(false);
+              history.goBack();
+            }, [history])}
+          >
+            <CIcon name="cil-scrubber" /> 등록
           </CButton>
         </CCardFooter>
       </CCard>
@@ -187,4 +188,4 @@ const CreateTodo = (e) => {
   );
 };
 
-export default React.memo(CreateTodo);
+export default React.memo(DetailNotice);

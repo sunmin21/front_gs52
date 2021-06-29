@@ -6,7 +6,7 @@ import * as API from "../../lib/api/main/Main";
 import { takeLatest } from "redux-saga/effects";
 
 const [NOTICE, NOTICE_SUCCESS, NOTICE_FAILURE] =
-  createRequestActionTypes("task/REPORT"); //타입유형
+  createRequestActionTypes("main/NOTICE"); //타입유형
 
 export const noticeAxios = createAction(NOTICE); //리덕스의 액션함수
 
@@ -17,7 +17,16 @@ export function* MainSaga() {
 }
 const initialState = {
   //초기값을 정의
-  notice: [],
+  notice: [
+    {
+      인덱스: "",
+      제목: "",
+      내용: "",
+      작성자INDEX: "",
+      작성자: "",
+      등록날짜: "",
+    },
+  ],
   noticeError: null,
 };
 

@@ -38,6 +38,7 @@ const CreateTodo = () => {
   const { board } = useSelector(({ task }) => ({
     board: task.board,
   }));
+
   const history = useHistory();
   const no = useRef([]);
   no.current = search.map((content) => {
@@ -48,7 +49,7 @@ const CreateTodo = () => {
   const [searchCheck, setSearchCheck] = useState(false);
 
   const [boardCheck, setBoardCheck] = useState(false);
-  console.log(board);
+
   return (
     <>
       <CCard>

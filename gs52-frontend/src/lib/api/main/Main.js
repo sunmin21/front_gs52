@@ -1,3 +1,4 @@
+import moment from "moment";
 import client from "../client";
 
 const API_URL = "http://localhost:8081";
@@ -9,43 +10,34 @@ export const SelectNotice = async (NOTICE_INDEX) => {
   return notice;
 };
 
-export const InsertHoliday = async (title, date, annual) => {
-  console.log("title : " + title + " date : " + date + " annual : " + annual);
-
-  var moment = require("moment");
-  var event = moment(date).format("YYYY-MM-DD");
-
-  const holiday = await client
-    .post(API_URL + "/holiday/addHoliday", {
-      holiday_TITLE: title,
-      holiday_DATE: event,
-      holiday_ANNUAL_REPEAT: annual,
-    })
-    .then(function (response) {})
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // 항상 실행되는 부분
-    });
+export const InsertNotice = async ({ 제목, 내용, 작성자INDEX }) => {
+  const date = moment().format("YYYY-MM-DD HH:mm:ss");
+  const notice = await client.post(API_URL + "/main/addNotice", {
+    notice_TITLE: 제목,
+    notice_CONTENTS: 내용,
+    notice_EMP_INDEX: 작성자INDEX || 2,
+    notice_DATE: date,
+  });
+  return notice;
+};
+export const DeleteNotice = async (인덱스) => {
+  const notice = await client.post(API_URL + "/main/deleteNotice", {
+    notice_INDEX: 인덱스,
+  });
+  return notice;
 };
 
-export const DeleteHoliday = async (id) => {
-  id = parseInt(id);
-  // console.log("id : " + id);
-  // console.log(typeof (id));
-
-  const holiday = await client
-    .post(API_URL + "/holiday/delHoliday", {
-      holiday_INDEX: id,
-    })
-    .then(function (response) {
-      // return response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // 항상 실행되는 부분
-    });
+export const UpdateNotice = async ({
+  notice_TITLE,
+  notice_CONTENTS,
+  notice_INDEX,
+}) => {
+  const date = moment().format("YYYY-MM-DD HH:mm:ss");
+  const notice = await client.post(API_URL + "/main/updateNotice", {
+    notice_INDEX: notice_INDEX,
+    notice_TITLE: notice_TITLE,
+    notice_CONTENTS: notice_CONTENTS,
+    notice_DATE: date,
+  });
+  return notice;
 };

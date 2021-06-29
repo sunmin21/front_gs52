@@ -2,7 +2,6 @@ import client from "../client";
 
 const API_URL = "http://localhost:8081";
 export const userList = async () => {
-  console.log("이거타니?");
   const res = await client.get(API_URL + "/emp/listAll");
 
   return res.data;
