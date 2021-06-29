@@ -8,14 +8,12 @@ const HolidayManagement = () => {
     return (
         <CRow>
             <CCol>
-                <CCardGroup>
-                    <CCardBody>
-                            <CheckOthers/>
-                    </CCardBody>
-                    <CCardBody>
-                            <WeeklyReport />
-                    </CCardBody>
-                </CCardGroup>
+                <CCardBody>
+                    <CheckOthers/>
+                </CCardBody>
+                <CCardBody>
+                    <WeeklyReport />
+                </CCardBody>
             </CCol>
         </CRow>
     )
