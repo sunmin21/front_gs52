@@ -156,12 +156,12 @@ const ConfRoom = () => {
                     size="sm"
                     color="danger"
                     className="ml-1"
-                    onClick={() => {
+                    onClick={async () => {
                       console.log(item.인덱스);
                       console.log("confROOM");
                       if (item.예약COUNT === 0) {
-                        DeleteConfRoom(item.인덱스);
-                        dispatch(confRoomAxios());
+                        await DeleteConfRoom(item.인덱스);
+                        await dispatch(confRoomAxios());
                       } else {
                         setShow((content) => ({
                           ...content,

@@ -61,6 +61,16 @@ const Modal = ({
                 }}
               />
             </CCol>
+            <CAlert
+              color="danger"
+              show={show2}
+              closeButton
+              onClick={() => {
+                setShow2(false);
+              }}
+            >
+              층: 숫자만입력해주세요
+            </CAlert>
           </CFormGroup>
           <CFormGroup row>
             <CCol md="3">
@@ -79,7 +89,16 @@ const Modal = ({
                 }}
               />
             </CCol>
-
+            <CAlert
+              color="danger"
+              show={show3}
+              closeButton
+              onClick={() => {
+                setShow3(false);
+              }}
+            >
+              호수: 숫자만입력해주세요
+            </CAlert>
             <CAlert
               color="danger"
               show={show2}
@@ -105,6 +124,14 @@ const Modal = ({
           <CButton
             color="primary"
             onClick={async () => {
+              if (isNaN(content["층"]) || content["층"] === "") {
+                setShow(true);
+                return;
+              }
+              if (isNaN(content["호수"]) || content["호수"] === "") {
+                setShow3(true);
+                return;
+              }
               if (
                 층 + "" + 호수 !== content["층"] + "" + content["호수"] &&
                 (await (
@@ -117,8 +144,8 @@ const Modal = ({
                 setShow2(true);
                 return;
               }
-              UpdateConfRoom(content);
-              dispatch(axios());
+              await UpdateConfRoom(content);
+              await dispatch(axios());
 
               setVisible(false);
             }}
