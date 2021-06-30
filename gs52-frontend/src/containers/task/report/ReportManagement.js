@@ -2,13 +2,14 @@ import React from "react";
 import { CRow, CCol, CCardGroup, CCardBody } from "@coreui/react";
 import CheckOthers from "src/components/task/report/CheckOthers";
 import WeeklyReport from "src/components/task/report/WeeklyReport";
-import EMPLIST from 'src/components/task/report/OthersList'
-const HolidayManagement = () => {
+import EMPREPORT from 'src/components/task/report/OthersList'
+
+const ReportManagement = () => {
   return (
     <CRow>
       <CCol>
         <CCardBody>
-          <CheckOthers Content={EMPLIST}/>
+          <CheckOthers Content={EMPREPORT}/>
         </CCardBody>
         <CCardBody>
           <WeeklyReport />
@@ -18,4 +19,4 @@ const HolidayManagement = () => {
   );
 };
 
-export default HolidayManagement;
+export default ReportManagement;

@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeSEARCHADD, searchInit } from "src/modules/task/reportemplist";
 
 // 팀원 조회하기
-// usermodal.js
-
-const CheckOthers = ({ Content, form }) => {
+const CheckOthers = ({ Content }) => {
     let [emp] = useState(1);    
     const [danger, setDanger] = useState(false);
 
