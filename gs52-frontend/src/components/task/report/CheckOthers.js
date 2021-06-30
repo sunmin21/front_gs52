@@ -3,6 +3,7 @@ import { CCol, CButton, CModalBody, CModal, CModalHeader, CModalFooter } from '@
 import CIcon from '@coreui/icons-react'
 import { useDispatch, useSelector } from 'react-redux';
 import { changeSEARCHADD, searchInit } from "src/modules/task/reportemplist";
+import OthersReport from './OthersReport';
 
 // 팀원 조회하기
 const CheckOthers = ({ Content }) => {
@@ -34,6 +35,7 @@ const CheckOthers = ({ Content }) => {
                 </CModalHeader>
                 <CModalBody>
                     <Content check={check} />
+                    <OthersReport />
                 </CModalBody>
                 <CModalFooter>
                     <CButton

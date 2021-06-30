@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCardGroup,
-  CDataTable,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { reportAxios, nextreportAxios } from "src/modules/task/report";
 import AddReport from "./AddReport";
@@ -90,7 +84,7 @@ function WeeklyReport() {
       // 자동 렌더링
     } else {
       console.log("삭제취소");
-    }
+    }    
   };
 
   return (

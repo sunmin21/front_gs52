@@ -13,11 +13,8 @@ const OthersList = ({ check }) => {
 
     useEffect(() => {
         EmpList().then((data) => {
-            console.log("@@@@@@")
-            console.log(data)
             setUserContents(
                 data.map((item) => {
-                    console.log(item);
                     return {
                         사원번호: item.emp_INDEX,
                         이름: item.emp_NAME,
@@ -42,96 +39,96 @@ const OthersList = ({ check }) => {
 
     return (
         <CModalBody>
-            <div>
-                <CHeader>팀원 선택</CHeader>
-                <CDataTable
-                    items={userContents}
-                    fields={fields}
-                    columnFilter
-                    tableFilter
-                    footer
-                    itemsPerPageSelect
-                    itemsPerPage={5}
-                    hover
-                    sorter
-                    pagination
-                    border
-                    // clickableRows
-                    onRowClick={(item) => {
-                        console.log(item)
-
-                        setUserContents((contents) => {
-                            return contents.map((content) => {
-                                return content.사원번호 === item.사원번호
-                                    ? { ...content, 선택: !content.선택 }
-                                    : content;
-                            });
+            <CHeader>팀원 선택</CHeader>
+            <CDataTable
+                items={userContents}
+                fields={fields}
+                columnFilter
+                tableFilter
+                footer
+                itemsPerPageSelect
+                itemsPerPage={5}
+                hover
+                sorter
+                pagination
+                border
+                // clickableRows
+                onRowClick={(item) => {
+                    setUserContents((contents) => {
+                        return contents.map((content) => {
+                            return content.사원번호 === item.사원번호
+                            ? { ...content, 선택 : !content.선택 }
+                                : content;
                         });
-                    }}
-                    scopedSlots={{
-                        이름: (item) => (
-                        <td
-                            className={item.사원번호}
-                            selected={item.선택}
-                            style={{
+                    });
+                }}
+                scopedSlots={{
+                    이름: (item) => (
+                    <td
+                        className={item.사원번호}
+                        selected={item.선택, console.log("이게 선택됐다 !" + setUserContents.emp_INDEX)}
+                        style={{
                             textAlign: "center",
-                            }}
-                        >
-                            {item.이름}
-                        </td>
-                        ),
-                        부서: (item) => (
-                        <td
-                            className={item.사원번호}
-                            selected={item.선택}
-                            style={{
-                            textAlign: "center",
-                            }}
-                        >
-                            {item.부서}
-                        </td>
-                        ),
-                        팀: (item) => (
-                        <td
-                            className={item.사원번호}
-                            selected={item.선택}
-                            style={{
-                            textAlign: "center",
-                            }}
-                        >
-                            {item.팀}
-                        </td>
-                        ),
-                    
-                        직급: (item) => (
-                        <td
-                            className={item.사원번호}
-                            selected={item.선택}
-                            style={{
-                            textAlign: "center",
-                            }}
-                        >
-                            {item.직급}
-                        </td>
-                        ),
+                            background: item.선택 ? "lightpink" : "white",
+                        }}
+                    >
+                        {item.이름}
+                    </td>
+                    ),
 
-                        직책: (item) => (
-                        <td
-                            className={item.사원번호}
-                            selected={item.선택}
-                            style={{
+                    부서: (item) => (
+                    <td
+                        className={item.사원번호}
+                        selected={item.선택}
+                        style={{
                             textAlign: "center",
-                            }}
-                        >
-                            {item.직책}
-                        </td>
-                        ),
-                    }}
-                />
-            </div>
-            <div>
-                <CHeader>날짜 선택</CHeader>
-            </div>
+                            background: item.선택 ? "lightpink" : "white",
+                        }}
+                    >
+                        {item.부서}
+                    </td>
+                    ),
+
+                    팀: (item) => (
+                    <td
+                        className={item.사원번호}
+                        selected={item.선택}
+                        style={{
+                            textAlign: "center",
+                            background: item.선택 ? "lightpink" : "white",
+                        }}
+                    >
+                        {item.팀}
+                    </td>
+                    ),
+
+                    직급: (item) => (
+                    <td
+                        className={item.사원번호}
+                        selected={item.선택}
+                        style={{
+                            textAlign: "center",
+                            background: item.선택 ? "lightpink" : "white",
+                        }}
+                    >
+                        {item.직급}
+                    </td>
+                    ),
+
+                    직책: (item) => (
+                    <td
+                        className={item.사원번호}
+                        selected={item.선택}
+                        style={{
+                            textAlign: "center",
+                            background: item.선택 ? "lightpink" : "white",
+                        }}
+                    >
+                    {item.직책}
+                    </td>
+                    ),
+                }}
+            />
         </CModalBody>
     );
 };
