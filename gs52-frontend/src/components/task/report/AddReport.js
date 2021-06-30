@@ -33,8 +33,9 @@ function AddReport() {
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        // window.location.reload();
-        showAllReport();
+        dispatch(reportAxios())
+        dispatch(nextreportAxios())
+        // showAllReport();
         // 자동 rendering
     }
 
@@ -44,8 +45,6 @@ function AddReport() {
         }
         else {
             console.log("@@@@추가@@@@")
-            console.log(emp, contents, targetDate)
-            // dispatch(addreportAxios({emp, contents, targetDate}))
             setInfo(!info);
             InsertReport(emp, contents, targetDate)
             dispatch(reportAxios())

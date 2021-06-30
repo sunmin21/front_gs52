@@ -3,6 +3,11 @@ import client from "../client";
 const API_URL = "http://localhost:8081";
 export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
 
+  // console.log("this is selectreport zone -----------")
+  // console.log(
+  //   "emp : " + emp + " weekstart : " + weekStart + " weekend : " + weekEnd
+  // );
+
   const report = await client.post(API_URL + "/report/showReport", {
     report_EMP_INDEX: emp,
     weekstart: weekStart,
@@ -17,7 +22,6 @@ export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
 
   return report, nextreport;
 };
-
 
 export const InsertReport = async (emp, contents, targetDate) => {
 
@@ -41,8 +45,24 @@ export const DeleteReport = async (id) => {
   console.log("id(index) : " + id);
   
   const report = await client.post(API_URL + "/report/delReport", {
-    report_INDEX : id
+    report_INDEX: id
   });
 
-return report;
+  return report;
+}
+
+// export const EmpList = async () => {
+//   console.log("emplist 접근")
+//   const res = await client.post(API_URL + "/report/empList");
+
+//   return res.data
+// }
+
+export const EmpList = async () => {
+  console.log("emplist 접근")
+  const res = await client.post(API_URL + "/report/empList", {
+    report_EMP_INDEX : 1
+  });
+
+  return res.data
 }

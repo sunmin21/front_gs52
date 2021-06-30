@@ -1,15 +1,31 @@
-import React, { useState } from 'react'
-import { CCol, CButton, CModalBody, CModal, CModalHeader,  } from '@coreui/react'
+import React, { useState, useEffect } from 'react'
+import { CCol, CButton, CModalBody, CModal, CModalHeader, CModalFooter } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
-import OthersList from './OthersList'
+import { useDispatch, useSelector } from 'react-redux';
+import { changeSEARCHADD, searchInit } from "src/modules/task/reportemplist";
 
-function CheckOthers() {
+// 팀원 조회하기
+// usermodal.js
 
+const CheckOthers = ({ Content, form }) => {
+    let [emp] = useState(1);    
     const [danger, setDanger] = useState(false);
+
+    const dispatch = useDispatch();
+    const { emplist } = useSelector(({ emp }) => ({
+        emplist: emp.emplist,
+    }))
+
+    const [check, setCheck] = useState(false);
+    useEffect(() => {
+        dispatch(searchInit());
+    }, [check, dispatch]);
 
     return (
         <CCol col="2" className="text-center mt-3">
-            <CButton color="danger" onClick={() => setDanger(!danger)}variant='outline'>
+            <CButton
+                color="danger"
+                onClick={() => (setDanger(!danger), setCheck(!check))} variant='outline'>
                 <CIcon name="cil-user" /> 팀원 주간보고 조회하기
             </CButton>
             <CModal size="lg" show={danger} 
@@ -19,9 +35,34 @@ function CheckOthers() {
                     팀원 주간보고 조회하기
                 </CModalHeader>
                 <CModalBody>
-                    <h4>팀원 선택하기</h4>
-                    <OthersList />
+                    <Content check={check} />
                 </CModalBody>
+                <CModalFooter>
+                    <CButton
+                        color="secondary"
+                        onClick={() => (
+                            setDanger(!danger),
+                            dispatch(
+                                changeSEARCHADD({
+                                    form: "search",
+                                    사원번호: [],
+                                    이름: "",
+                                    부서: "",
+                                    팀: "",
+                                    직급: "",
+                                    직책: "",
+                                    })
+                                )
+                            )}
+                        >
+                        취소
+                    </CButton>
+                    <CButton
+                        color="info"
+                        onClick={() => { return setDanger(!danger) }}>
+                        확인
+                    </CButton>
+                </CModalFooter>
             </CModal>
         </CCol>
     )
