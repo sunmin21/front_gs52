@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import { CCol, CButton, CModalBody, CModal, CModalHeader,  } from '@coreui/react'
+import React from 'react'
 
 // 팀원 주간보고 띄우기
-function CheckOthers() {
+const OthersReport = ({ Content, form }) => {
     return (
-        <>
-        </>
+        // <CDataTable>
+                        
+        // </CDataTable>
+        <h1>dd</h1>
     )
 }
 
-export default CheckOthers
+export default OthersReport

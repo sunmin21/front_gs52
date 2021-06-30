@@ -71,11 +71,7 @@ const emp = handleActions(
             });
         },
         [EMP_LIST]: (state, payload) => {
-            console.log("타냐?");
-        // console.log(payload);
-        // return produce(state, (draft) => {
-        //   draft["user"] =  ;
-        // });
+        
         },
     },
     initialState

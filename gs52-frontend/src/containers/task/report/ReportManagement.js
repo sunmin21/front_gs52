@@ -2,14 +2,13 @@ import React from "react";
 import { CRow, CCol, CCardGroup, CCardBody } from "@coreui/react";
 import CheckOthers from "src/components/task/report/CheckOthers";
 import WeeklyReport from "src/components/task/report/WeeklyReport";
-import Modal from 'src/components/task/report/OthersList'
-// import Modal from 'src/components/task/BusinessProgress/Search'
+import EMPLIST from 'src/components/task/report/OthersList'
 const HolidayManagement = () => {
   return (
     <CRow>
       <CCol>
         <CCardBody>
-          <CheckOthers Content={Modal} />
+          <CheckOthers Content={EMPLIST}/>
         </CCardBody>
         <CCardBody>
           <WeeklyReport />
