@@ -66,7 +66,7 @@ function AnnualModal({
       });
       console.log(sameCount);
       if (sameCount == 0) {
-        await InserVacation(5, infoIndex, date, contents);
+        await InserVacation(5, infoIndex, date, contents, 0);
 
         console.log(infoIndex);
         if (infoIndex == "7") {

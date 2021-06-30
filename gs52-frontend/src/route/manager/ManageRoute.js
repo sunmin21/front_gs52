@@ -12,6 +12,10 @@ const addAccount = React.lazy(() =>
   import("../../containers/manager/account/Account_Layout")
 );
 
+const vacationManage = React.lazy(() =>
+  import("../../containers/manager/vacationManage/VacationManage")
+);
+
 const ManagerRoute = [
   {
     path: "/manager/addOptions",
@@ -33,6 +37,12 @@ const ManagerRoute = [
     name: "informLayout",
     component: InformLayout,
   },
+  {
+    path: "/manager/VacationManage",
+    name: "연차/출장관리",
+    component: vacationManage,
+  },
+
   {
     path: "/manager/",
     name: "관리자페이지",

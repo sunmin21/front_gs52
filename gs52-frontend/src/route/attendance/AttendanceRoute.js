@@ -20,7 +20,7 @@ const AttendanceRoute = [
     component: AnnualManage,
   },
   { path: "/attendance/insite", name: "인사이트", component: Dashboard },
-  { path: "/attendance", name: "근태관리", component: Dashboard },
+  { path: "/attendance", name: "근태관리", component: MemberSchedule },
 ];
 
 export default AttendanceRoute;
