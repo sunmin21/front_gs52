@@ -10,7 +10,7 @@ const [NEXTREPORT, NEXTREPORT_SUCCESS, NEXTREPORT_FAILURE] =
 const [OTHERSREPORT, OTHERSREPORT_SUCCESS, OTHERSREPORT_FAILURE] =
     createRequestActionTypes("task/OTHERSREPORT"); //타입유형
 const [NEXTOTHERSREPORT, NEXTOTHERSREPORT_SUCCESS, NEXTOTHERSREPORT_FAILURE] =
-    createRequestActionTypes("task/NEXTREPORT"); //타입유형
+    createRequestActionTypes("task/NEXTOTHERSREPORT"); //타입유형
 
 export const reportAxios = createAction(REPORT); //리덕스의 액션함수
 export const nextreportAxios = createAction(NEXTREPORT); //리덕스의 액션함수

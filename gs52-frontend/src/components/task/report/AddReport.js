@@ -4,7 +4,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
 import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
-import showAllReport from './WeeklyReport';
 import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 
 function AddReport() {
@@ -35,7 +34,7 @@ function AddReport() {
         setInfo(!info);
         dispatch(reportAxios())
         dispatch(nextreportAxios())
-        // showAllReport();
+        // showAllReport(targetDate);
         // 자동 rendering
     }
 
@@ -49,7 +48,7 @@ function AddReport() {
             InsertReport(emp, contents, targetDate)
             dispatch(reportAxios())
             dispatch(nextreportAxios())
-            // showAllReport();
+            // showAllReport(targetDate);
         }
     }
     
