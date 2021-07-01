@@ -4,15 +4,19 @@ import "antd/dist/antd.css";
 import { TreeSelect } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { treeValue } from "src/modules/annual/memberSchedule";
+import { CodeSandboxCircleFilled } from "@ant-design/icons";
 
 const { SHOW_PARENT } = TreeSelect;
 
 const Dropdown = (data) => {
   const [value, setValue] = useState(["3"]);
 
+  console.log(data);
+
   const dispatch = useDispatch();
 
   const treeData = data.data;
+  console.log(treeData);
 
   useEffect(() => {
     dispatch(treeValue(value));
@@ -23,11 +27,16 @@ const Dropdown = (data) => {
     dispatch(treeValue(value));
   };
 
+  const onSearch = (value) => ({
+    title: value,
+  });
+
   const tProps = {
     treeData,
     value: value,
     onChange: onChange,
     treeCheckable: true,
+    treeNodeFilterProp: "title",
     showCheckedStrategy: SHOW_PARENT,
     placeholder: "Please select",
     style: {

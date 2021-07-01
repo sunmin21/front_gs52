@@ -30,6 +30,12 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "프로젝트",
+    to: "/schedule/project",
+    icon: "cil-Notes",
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: "팀별 인사이트",
     to: "/schedule/insite",
     icon: "cil-chart-pie",

@@ -27,6 +27,8 @@ const MemberScheduleManagement = () => {
       team: state.memberSchedule.team,
     };
   });
+  console.log(team);
+
   //리덕스에서 emp 가져옴
   const { emp } = useSelector((state) => {
     // console.log(state);
@@ -66,7 +68,7 @@ const MemberScheduleManagement = () => {
   }));
 
   const data = team.map((item) => ({
-    title: item.team_NAME,
+    title: item.dept_NAME + " : " + item.team_NAME,
     value: String(item.team_INDEX),
     key: String(item.team_INDEX),
     children: emp

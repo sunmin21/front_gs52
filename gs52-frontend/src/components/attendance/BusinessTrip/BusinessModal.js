@@ -15,9 +15,8 @@ import {
   InserVacation,
   UpdateVacation,
 } from "src/lib/api/attendance/AnnualAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
-function AnnualModal({
+function BusinessModal({
   dateHandle,
   infoIndexHandle,
   contentsHandle,
@@ -83,7 +82,7 @@ function AnnualModal({
         setInfo(!info);
       } else {
         setVisible(3);
-        setAlertContents("휴가를 중복 사용할 수 없습니다.");
+        setAlertContents("이미 일정이 있습니다.");
         setDoubleCheck(true);
       }
     }
@@ -158,4 +157,4 @@ function AnnualModal({
   );
 }
 
-export default AnnualModal;
+export default BusinessModal;
