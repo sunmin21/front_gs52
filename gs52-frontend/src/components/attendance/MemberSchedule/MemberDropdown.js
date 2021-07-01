@@ -10,6 +10,8 @@ const { SHOW_PARENT } = TreeSelect;
 const Dropdown = (data) => {
   const [value, setValue] = useState(["3"]);
 
+  console.log(data);
+
   const dispatch = useDispatch();
 
   const treeData = data.data;

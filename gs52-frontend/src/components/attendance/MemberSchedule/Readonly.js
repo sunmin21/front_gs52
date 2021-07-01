@@ -55,7 +55,7 @@ const Readonly = withDragDropContext((props) => {
     .filter((item) => parentList.includes(String(item.team_INDEX)))
     .map((item) => ({
       id: String(item.team_INDEX),
-      name: item.team_NAME,
+      name: item.dept_NAME + " : " + item.team_NAME,
       groupOnly: true,
     }));
   // moment(weekStart).add(7, 'd').day(0).format("YYYY-MM-DD")
