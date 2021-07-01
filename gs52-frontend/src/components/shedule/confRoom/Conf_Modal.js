@@ -43,6 +43,7 @@ export function ConfModal() {
   const dispatch = useDispatch();
   const { floor_list, room_list, conf_modal1, conf_date, conf_startTime, conf_endTime } =
     useSelector((state) => {
+      console.log("state");
       console.log(state);
       return {
         floor_list: state.conf_check.floor_list,

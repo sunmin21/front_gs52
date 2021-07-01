@@ -1,7 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 
 import createRequestSaga, {createRequestActionTypes} from "../../lib/createRequestSaga";
-import * as API from "../../lib/api/manager/AccountRegist/AccountRegistAPI";
+import * as API from "../../lib/api/manager/Account/AccountRegistAPI";
 import { takeLatest } from "redux-saga/effects";
 
 

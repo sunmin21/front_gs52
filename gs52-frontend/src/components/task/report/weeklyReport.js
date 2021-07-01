@@ -9,6 +9,8 @@ import { DeleteReport } from "src/lib/api/task/ReportAPI";
 
 function WeeklyReport() {
   let [emp] = useState(1);
+  let [lastDate] = useState();
+
   const dispatch = useDispatch();
   const { report } = useSelector((state) => {
     return {
@@ -69,16 +71,15 @@ function WeeklyReport() {
     );
   };
 
-  // showAllReport(new Date());
-
   // 열 클릭시 삭제 기능
   const eventOnclick = (e) => {
     var msg = "삭제하시겠습니까?";
 
     if (window.confirm(msg) != 0) {
       console.log("삭제");
+      lastDate = weekStart
       DeleteReport(e.id);
-      showAllReport();
+      showAllReport(new Date(lastDate));
       // 자동 렌더링
     } else {
       console.log("삭제취소");
@@ -94,7 +95,7 @@ function WeeklyReport() {
   // lastDate => 추가할때 달력에서 골랐던 마지막 값
   //          => 삭제할때 달력에서 타겟됐던 마지막 값
   window.onload = function () {
-    // showAllReport( lastDate || new Date())
+    showAllReport( new Date())
   }
   return (
     <CCard>
@@ -116,7 +117,7 @@ function WeeklyReport() {
           <h4>{weekStart + " - " + weekEnd}</h4>
         </CCardBody>
         <CCardBody>
-          <AddReport />
+          <AddReport showAllReport={showAllReport}/>
         </CCardBody>
       </CCardGroup>
       <hr></hr>

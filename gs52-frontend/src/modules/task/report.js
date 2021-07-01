@@ -76,7 +76,7 @@ const report = handleActions(
         ...state,
         othersreportError: error,
         }),
-        
+
         [NEXTOTHERSREPORT_SUCCESS]: (state, { payload: nextothersreport }) => ({
         ...state,
         nextothersreportError: null,
