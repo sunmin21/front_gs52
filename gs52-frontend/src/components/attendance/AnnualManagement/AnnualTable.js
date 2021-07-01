@@ -83,7 +83,10 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
         승인: status,
       };
     });
-
+  console.log("@@@@2");
+  console.log(annual);
+  console.log(data);
+  console.log("@@@@3");
   const data2 = empvacation.map((item) => {
     return item.emp_VACATION;
   });
@@ -126,6 +129,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                       infoIndexHandle={infoIndexHandle}
                       contentsHandle={contentsHandle}
                       date={date}
+                      annual={annual}
                       infoIndex={infoIndex}
                       contents={contents}
                       inputData={data}

@@ -24,6 +24,7 @@ function BusinessModal({
   infoIndex,
   contents,
   inputData,
+  annual,
   setInputData,
   setRestVacation,
   vacation_EMP_INDEX,
@@ -58,23 +59,14 @@ function BusinessModal({
       setAlertContents("공휴일은 사용할 수 없습니다.");
       setDoubleCheck(true);
     } else {
-      inputData.map((rowData) => {
-        if (rowData.날짜 == moment(date).format("YYYY-MM-DD")) {
+      annual.map((rowData) => {
+        if (rowData.vacation_DATE == moment(date).format("YYYY-MM-DD")) {
           sameCount++;
         }
       });
       console.log(sameCount);
       if (sameCount == 0) {
         await InserVacation(5, infoIndex, date, contents, 0);
-
-        console.log(infoIndex);
-        if (infoIndex == "7") {
-          await UpdateVacation(-1, 54321);
-        } else if (infoIndex == "8") {
-          await UpdateVacation(-0.5, 54321);
-        } else if (infoIndex == "9") {
-          await UpdateVacation(-0.5, 54321);
-        }
 
         dispatch(annualAxios(vacation_EMP_INDEX.current));
         dispatch(empvacationAxios(vacation_EMP_INDEX.current));
@@ -113,9 +105,8 @@ function BusinessModal({
           <h2>종류</h2>
           <select onChange={infoIndexHandle}>
             <option value="0">선택</option>
-            <option value="7">연차</option>
-            <option value="8">오전반차</option>
-            <option value="9">오후반차</option>
+            <option value="5">출장</option>
+            <option value="6">외근</option>
           </select>
           <hr />
           <h2>사유</h2>

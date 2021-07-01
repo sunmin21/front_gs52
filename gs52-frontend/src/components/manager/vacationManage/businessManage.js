@@ -156,7 +156,13 @@ const BusinessManage = ({
                       block
                       color="success"
                       onClick={async (e) => {
-                        await UpdateVacationStatus(1, item.vacation_INDEX);
+                        await UpdateVacationStatus(
+                          1,
+                          item.vacation_INDEX,
+                          item.vacation_DATE,
+                          item.vacation_ATTEND_INFO_INDEX,
+                          item.vacation_EMP_INDEX
+                        );
                         dispatch(vacationAxios());
                       }}
                       aria-pressed="true"
@@ -174,7 +180,13 @@ const BusinessManage = ({
                       block
                       color="danger"
                       onClick={async (e) => {
-                        await UpdateVacationStatus(2, item.vacation_INDEX);
+                        await UpdateVacationStatus(
+                          2,
+                          item.vacation_INDEX,
+                          item.vacation_DATE,
+                          item.vacation_ATTEND_INFO_INDEX,
+                          item.vacation_EMP_INDEX
+                        );
                         dispatch(vacationAxios());
                       }}
                       aria-pressed="true"

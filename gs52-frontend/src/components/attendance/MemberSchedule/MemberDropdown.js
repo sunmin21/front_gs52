@@ -27,10 +27,6 @@ const Dropdown = (data) => {
     dispatch(treeValue(value));
   };
 
-  const onSearch = (value) => ({
-    title: value,
-  });
-
   const tProps = {
     treeData,
     value: value,

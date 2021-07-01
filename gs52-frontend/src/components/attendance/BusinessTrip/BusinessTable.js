@@ -126,6 +126,7 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
                       infoIndex={infoIndex}
                       contents={contents}
                       inputData={data}
+                      annual={annual}
                       setInputData={setInputData}
                       setRestVacation={setRestVacation}
                     ></BusinessModal>

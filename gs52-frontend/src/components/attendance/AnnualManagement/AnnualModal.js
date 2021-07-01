@@ -25,6 +25,7 @@ function AnnualModal({
   infoIndex,
   contents,
   inputData,
+  annual,
   setInputData,
   setRestVacation,
   vacation_EMP_INDEX,
@@ -59,8 +60,8 @@ function AnnualModal({
       setAlertContents("공휴일은 사용할 수 없습니다.");
       setDoubleCheck(true);
     } else {
-      inputData.map((rowData) => {
-        if (rowData.날짜 == moment(date).format("YYYY-MM-DD")) {
+      annual.map((rowData) => {
+        if (rowData.vacation_DATE == moment(date).format("YYYY-MM-DD")) {
           sameCount++;
         }
       });
@@ -70,11 +71,11 @@ function AnnualModal({
 
         console.log(infoIndex);
         if (infoIndex == "7") {
-          await UpdateVacation(-1, 54321);
+          await UpdateVacation(-1, 55555);
         } else if (infoIndex == "8") {
-          await UpdateVacation(-0.5, 54321);
+          await UpdateVacation(-0.5, 55555);
         } else if (infoIndex == "9") {
-          await UpdateVacation(-0.5, 54321);
+          await UpdateVacation(-0.5, 55555);
         }
 
         dispatch(annualAxios(vacation_EMP_INDEX.current));
@@ -100,7 +101,7 @@ function AnnualModal({
         }}
         className="mr-1"
       >
-        신청
+        추가
       </CButton>
 
       <CModal show={info} onClose={() => setInfo(!info)} color="info">
