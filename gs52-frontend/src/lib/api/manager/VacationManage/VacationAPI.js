@@ -12,13 +12,15 @@ export const UpdateVacationStatus = async (
   count,
   vacation_INDEX,
   vacation_DATE,
-  vacation_ATTEND_INFO_INDEX
+  vacation_ATTEND_INFO_INDEX,
+  vacation_EMP_INDEX
 ) => {
   const upvacation = await client.post(API_URL + "/vacation/update", {
     count: count,
     vacation_INDEX: vacation_INDEX,
     vacation_DATE: vacation_DATE,
     vacation_ATTEND_INFO_INDEX: vacation_ATTEND_INFO_INDEX,
+    vacation_EMP_INDEX: vacation_EMP_INDEX,
   });
   return upvacation;
 };

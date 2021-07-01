@@ -166,7 +166,8 @@ const AttendManage = ({
                           1,
                           item.vacation_INDEX,
                           item.vacation_DATE,
-                          item.vacation_ATTEND_INFO_INDEX
+                          item.vacation_ATTEND_INFO_INDEX,
+                          item.vacation_EMP_INDEX
                         );
                         dispatch(vacationAxios());
                       }}
@@ -189,7 +190,8 @@ const AttendManage = ({
                           2,
                           item.vacation_INDEX,
                           item.vacation_DATE,
-                          item.vacation_ATTEND_INFO_INDEX
+                          item.vacation_ATTEND_INFO_INDEX,
+                          item.vacation_EMP_INDEX
                         );
                         dispatch(vacationAxios());
                         if (item.attend_TYPE_NAME.includes("반차")) {
