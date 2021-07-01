@@ -100,7 +100,7 @@ function AnnualModal({
         }}
         className="mr-1"
       >
-        추가
+        신청
       </CButton>
 
       <CModal show={info} onClose={() => setInfo(!info)} color="info">

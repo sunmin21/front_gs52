@@ -82,7 +82,7 @@ function BusinessModal({
         setInfo(!info);
       } else {
         setVisible(3);
-        setAlertContents("휴가를 중복 사용할 수 없습니다.");
+        setAlertContents("이미 일정이 있습니다.");
         setDoubleCheck(true);
       }
     }
@@ -99,7 +99,7 @@ function BusinessModal({
         }}
         className="mr-1"
       >
-        추가
+        신청
       </CButton>
 
       <CModal show={info} onClose={() => setInfo(!info)} color="info">
