@@ -21,8 +21,14 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
-    name: "연차관리",
+    name: "연차/반차",
     to: "/attendance/AnnualManagement",
+    icon: "cil-happy",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "출장/외근",
+    to: "/attendance/BusinessTrip",
     icon: "cil-happy",
   },
   {
