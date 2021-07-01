@@ -15,6 +15,7 @@ const Dropdown = (data) => {
   const dispatch = useDispatch();
 
   const treeData = data.data;
+  console.log(treeData);
 
   useEffect(() => {
     dispatch(treeValue(value));

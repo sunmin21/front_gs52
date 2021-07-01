@@ -5,8 +5,15 @@ const confRoom = React.lazy(() =>
   import("../../containers/schedule/ConfLayout")
 );
 const Project = React.lazy(() => import("src/containers/schedule/Project"));
-
+const ProjectCreate = React.lazy(() =>
+  import("src/components/shedule/project/ProjectCreate")
+);
 const ScheduleRoute = [
+  {
+    path: "/schedule/project/create",
+    name: "프로젝트 생성",
+    component: ProjectCreate,
+  },
   { path: "/schedule/schedule", name: "개인스케줄", component: Dashboard },
   { path: "/schedule/confRoom", name: "회의실", component: confRoom },
   { path: "/schedule/project", name: "프로젝트", component: Project },
