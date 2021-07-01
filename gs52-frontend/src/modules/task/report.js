@@ -10,23 +10,23 @@ const [NEXTREPORT, NEXTREPORT_SUCCESS, NEXTREPORT_FAILURE] =
 const [OTHERSREPORT, OTHERSREPORT_SUCCESS, OTHERSREPORT_FAILURE] =
     createRequestActionTypes("task/OTHERSREPORT"); //타입유형
 const [NEXTOTHERSREPORT, NEXTOTHERSREPORT_SUCCESS, NEXTOTHERSREPORT_FAILURE] =
-    createRequestActionTypes("task/NEXTOTHERSREPORT"); //타입유형
+    createRequestActionTypes("task/NEXTREPORT"); //타입유형
 
 export const reportAxios = createAction(REPORT); //리덕스의 액션함수
 export const nextreportAxios = createAction(NEXTREPORT); //리덕스의 액션함수
 export const othersreportAxios = createAction(OTHERSREPORT);
-export const nextreothersportAxios = createAction(NEXTOTHERSREPORT);
+export const nextothersreportAxios = createAction(NEXTOTHERSREPORT);
 
 const reportSaga = createRequestSaga(REPORT, API.SelectReport);
 const nextreportSaga = createRequestSaga(NEXTREPORT, API.SelectReport);
 const othersreportSaga = createRequestSaga(OTHERSREPORT, API.SelectOthersReport);
-const nextreothersportSaga = createRequestSaga(NEXTOTHERSREPORT, API.SelectOthersReport);
+const nextothersreportSaga = createRequestSaga(NEXTOTHERSREPORT, API.SelectOthersReport);
 
 export function* reportSaga2() {
     yield takeLatest(REPORT, reportSaga);
     yield takeLatest(NEXTREPORT, nextreportSaga);
     yield takeLatest(OTHERSREPORT, othersreportSaga);
-    yield takeLatest(NEXTOTHERSREPORT, nextreothersportSaga);
+    yield takeLatest(NEXTOTHERSREPORT, nextothersreportSaga);
 }
 
 const initialState = {

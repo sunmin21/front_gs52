@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CModalBody, CHeader, CCardGroup, CCardBody, CDataTable } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { reportAxios, nextreportAxios } from "src/modules/task/report";
+import { othersreportAxios, nextothersreportAxios } from "src/modules/task/report";
 import { EmpList } from "src/lib/api/task/ReportAPI";
 
 // 팀원 리스트 불러오기 + 팀원 주간보고 띄우기
@@ -86,16 +86,16 @@ const OthersList = ({ check }) => {
     const showAllReport = (weekStart) => {
         setStartDate(weekStart);
         dispatch(
-            reportAxios({
-                emp: empid,
+            othersreportAxios({
+                othersemp: empid,
                 weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"),
                 weekEnd: moment(weekStart).day(6).format("YYYY-MM-DD"),
             })
         );
 
         dispatch(
-            nextreportAxios({
-                emp: empid,
+            nextothersreportAxios({
+                othersemp: empid,
                 weekStart: moment(weekStart).add(7, "d").day(0).format("YYYY-MM-DD"),
                 weekEnd: moment(weekStart).add(7, "d").day(6).format("YYYY-MM-DD"),
             })
