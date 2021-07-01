@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory  } from "react-router-dom";
 import {
   CButton,
   CCard,
@@ -18,10 +18,13 @@ import CIcon from "@coreui/icons-react";
 import { login } from "src/lib/api/auth/auth";
 
 
-import AuthService from "../../jwt/services/auth.service";
+import {LoginAPI
+} from "../../lib/api/manager/Account/LoginAPI";
+//import AuthService from "../../jwt/services/auth.service";
 
 export function Login() {
 
+  const history = useHistory();
     const [user, setUser] = useState({
         id: "",
         pwd: "",
@@ -53,9 +56,15 @@ export function Login() {
         console.log(user.id)        
         console.log(user.pwd)
         //AuthService.login(user.id, user.pwd)
-        AuthService.login(user.id, user.pwd).then(
+        const res = LoginAPI(user.id, user.pwd).then(
             () => {
                 console.log("로그인 성공")
+                
+          //  if(){
+
+          //  }
+            console.log(res)
+                history.push('/first_login');
             },
             error => {
                 console.log("error")
@@ -63,6 +72,11 @@ export function Login() {
                 alert("로그인에 실패하였습니다.")
             }
           );
+
+          
+           console.log("로그인결과")  
+           console.log(res)
+           
     }
 
   return (

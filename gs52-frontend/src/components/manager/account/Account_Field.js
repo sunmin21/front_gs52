@@ -6,14 +6,20 @@ import {
   CInput,
   CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect
 } from '@coreui/react';
+import { DatePicker } from "antd";
+import "antd/dist/antd.css";
+import moment from "moment";
 
-import { SelectDept, InsertAccount } from "../../../lib/api/manager/AccountRegist/AccountRegistAPI";
+import { SelectDept, InsertAccount } from "../../../lib/api/manager/Account/AccountRegistAPI";
 import { all } from 'redux-saga/effects';
 
 import { useDispatch, useSelector } from "react-redux";
 import {
   DeptAxios,RankAxios,PositionAxios
 } from "src/modules/manager/Account";
+
+import {RegistAccount
+} from "../../../lib/api/manager/Account/AccountRegistAPI";
 
 export function AccountField() {
 
@@ -38,14 +44,15 @@ export function AccountField() {
 
 
 	const [inputs, setInputs] = useState({
-		//dept:DEPT_SELECT[0],
+    name:null,
+		dept:null,
 		rank:null,
 		position:null,
 		num:null,
 		date:null,
     email:null
 	  })
-	const { rank, position, num, date, email} = inputs;
+	const { name, dept, rank, position, num, date, email} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -64,56 +71,52 @@ export function AccountField() {
 
 	const onRegist=()=>{
 			//{InsertAccount(dept, rank, position, num, date)}
-		
+      //    username, email, password, position, rank, team
+      RegistAccount(name, email, num, position, rank, dept, 1).then(
+        
+        response => {
+          console.log("성공")
+        },
+        error => {
+          console.log("실패")
+        }
+      );
             console.log(inputs)
 
 	}
-    const onClick=()=>{
-      // //const res=SelectDept().then((res) => setDept({ index: res.dept_INDEX, name: res.dept_NAME }));  
-      // const res = SelectDept().then((item) => item.map((i)=>({
-      //   dept_INDEX : i.dept_INDEX,
-      //   dept_NAME : i.dept_NAME,
 
-      // })));
-      
-      // // const res=SelectDept().then((item) => {
-      // //   console.log(item)
-      // //   console.log(item[0].dept_INDEX)
-      // //   console.log(item[0].dept_NAME)
-      // //   setDept({item})
-      // // });  
-      // console.log(res)
-    }
-
-    // const handleDept = e =>{
-    //     console.log(e.target)
-	// 	setInputs(e.target.value);
-	// };	    
-    // const handlePosition = e =>{
-	// 	//setFloor(e.target.value);
-	// };	
-
-    // const handleRank = e =>{
-	// 	//setFloor(e.target.value);
-	// };	
+  function onDate(dateString) {
+    console.log(moment(dateString).format("YYYY/MM/DD"))
+  }
 
     return (
         <div>
-            <button onClick={onClick}>sdfsdf</button>
             <CCard>
                 <CCardHeader>
                     계정 등록
                 </CCardHeader>
                 <CCardBody>
+                
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="name">이름</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput id="name" name="name" placeholder="이름" 
+				    	        onChange={onChange} value={name||''}/>
+                  </CCol>
+                </CFormGroup>
+
+
                 <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="dept">부서</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CSelect onChange={onChange} id="dept" name="dept">
+                    <CSelect onChange={onChange} id="dept" name="dept" defaultValue={dept_list[0]}>
                     {dept_list.map((dept, idx) => {
                         return (
-                        <option key={idx} value={dept.dept_NAME} >
+                        <option key={idx} value={dept.dept_INDEX} >
                             {dept.dept_NAME}
                         </option>
                         );
@@ -125,13 +128,13 @@ export function AccountField() {
                
                 <CFormGroup row>
                  <CCol md="3">
-                   <CLabel htmlFor="emp_rank">직급</CLabel>
+                   <CLabel htmlFor="rank">직급</CLabel>
                  </CCol>
                  <CCol xs="12" md="9">
                  <CSelect onChange={onChange} id="rank" name="rank">
                     {rank_list.map((rank, idx) => {
                         return (
-                        <option key={idx} value={rank.rank_NAME} >
+                        <option key={idx} value={rank.rank_INDEX} >
                             {rank.rank_NAME}
                         </option>
                         );
@@ -145,10 +148,10 @@ export function AccountField() {
                    <CLabel htmlFor="position" id="position" name="position">직책</CLabel>
                  </CCol>
                  <CCol xs="12" md="9">
-                 <CSelect onChange={onChange}>
+                 <CSelect onChange={onChange}  id="position" name="position">
                     {position_list.map((position, idx) => {
                         return (
-                        <option key={idx} value={position.position_NAME} >
+                        <option key={idx} value={position.position_INDEX} >
                             {position.position_NAME}
                         </option>
                         );
@@ -163,7 +166,7 @@ export function AccountField() {
                     <CLabel htmlFor="num">사원번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="num" name="num" placeholder="사원 번호" 
+                    <CInput id="num" name="num" placeholder="사원 번호 (초기 비밀번호로 설정됩니다.)" 
 					            onChange={onChange} value={num||''}/>
                   </CCol>
                 </CFormGroup>
@@ -174,7 +177,10 @@ export function AccountField() {
                     <CLabel htmlFor="date">입사일</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                        date picker
+                  <DatePicker
+                    id="date" name="date"
+				            onChange={onDate}
+                    />
                   </CCol>
                 </CFormGroup>
 
