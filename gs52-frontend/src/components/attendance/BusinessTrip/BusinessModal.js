@@ -15,9 +15,8 @@ import {
   InserVacation,
   UpdateVacation,
 } from "src/lib/api/attendance/AnnualAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
-function AnnualModal({
+function BusinessModal({
   dateHandle,
   infoIndexHandle,
   contentsHandle,
@@ -158,4 +157,4 @@ function AnnualModal({
   );
 }
 
-export default AnnualModal;
+export default BusinessModal;

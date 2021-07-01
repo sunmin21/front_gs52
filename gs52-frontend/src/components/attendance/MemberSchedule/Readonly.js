@@ -15,17 +15,13 @@ function useForceUpdate() {
   return () => setValue((value) => ++value); // update the state to force render
 }
 
-let schedulerData = new SchedulerData(
-  "2021-06-25",
-  ViewTypes.Month,
-  false,
-  false,
-  {
-    eventItemPopoverEnabled: false,
-    movable: false,
-    views: [],
-  }
-);
+const now = moment(new Date()).format("YYYY-MM-DD");
+
+let schedulerData = new SchedulerData(now, ViewTypes.Month, false, false, {
+  eventItemPopoverEnabled: false,
+  movable: false,
+  views: [],
+});
 schedulerData.localeMoment.locale("en");
 
 const Readonly = withDragDropContext((props) => {

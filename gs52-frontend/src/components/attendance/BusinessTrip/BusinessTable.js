@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Home } from "../../../lib/api/test";
 import {
   CCard,
   CCardBody,
@@ -12,12 +11,12 @@ import {
 } from "@coreui/react";
 
 import axios from "axios";
-import AnnualModal from "./AnnualModal";
+import BusinessModal from "./BusinessModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
-const annualArr = ["날짜", "연차유형", "사유", "승인"];
-const AnnualTables = ({ vacation_EMP_INDEX }) => {
+const businessArr = ["날짜", "연차유형", "사유", "승인"];
+const BusinessTables = ({ vacation_EMP_INDEX }) => {
   var moment = require("moment");
   const [doubleCheck, setDoubleCheck] = useState(true);
   const [inputData, setInputData] = useState([]);
@@ -65,7 +64,11 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   };
 
   const data = annual
-    .filter((item) => item.vacation_ATTEND_INFO_INDEX > 6)
+    .filter(
+      (item) =>
+        item.vacation_ATTEND_INFO_INDEX < 7 &&
+        item.vacation_ATTEND_INFO_INDEX > 4
+    )
     .map((item) => {
       var status = null;
       if (item.vacation_STATUS == 0) {
@@ -110,17 +113,11 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
               <div class="container">
                 <div class="row align-items-center h-100">
                   <div class="col-sm-8">
-                    <h4>연차 사용 정보</h4>
+                    <h4>출장 사용 정보</h4>
                   </div>
 
-                  <div class="col-sm-2">
-                    <h5 class="text-center">잔여 휴가 </h5>
-                  </div>
-                  <div class="col-sm-1 ">
-                    <h5>{data2}</h5>
-                  </div>
                   <div class="col-sm-1">
-                    <AnnualModal
+                    <BusinessModal
                       vacation_EMP_INDEX={vacation_EMP_INDEX}
                       dateHandle={dateHandle}
                       infoIndexHandle={infoIndexHandle}
@@ -131,7 +128,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                       inputData={data}
                       setInputData={setInputData}
                       setRestVacation={setRestVacation}
-                    ></AnnualModal>
+                    ></BusinessModal>
                   </div>
                 </div>
               </div>
@@ -139,7 +136,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
             <CCardBody>
               <CDataTable
                 items={data}
-                fields={annualArr}
+                fields={businessArr}
                 hover
                 sorterValue={{ column: "날짜", desc: "true" }}
                 striped
@@ -176,4 +173,4 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   );
 };
 
-export default AnnualTables;
+export default BusinessTables;

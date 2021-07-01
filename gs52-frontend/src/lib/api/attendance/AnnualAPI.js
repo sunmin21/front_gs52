@@ -40,7 +40,8 @@ export const InserVacation = async (
   vacation_EMP_INDEX,
   infoindex,
   date,
-  contents
+  contents,
+  status
 ) => {
   const insertvaction = await client
     .post(API_URL + "/annual/insert", {
@@ -48,6 +49,7 @@ export const InserVacation = async (
       vacation_ATTEND_INFO_INDEX: infoindex,
       vacation_DATE: date,
       vacation_CONTENTS: contents,
+      vacation_STATUS: status,
     })
     .then(function (response) {
       //response
