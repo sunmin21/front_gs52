@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { CCol, CButton, CModalBody, CModal, CModalHeader, CModalFooter } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSEARCHADD, searchInit } from "src/modules/task/reportemplist";
-import OthersReport from './OthersReport';
+import { searchInit } from "src/modules/task/reportemplist";
 
 // 팀원 조회하기
 const CheckOthers = ({ Content }) => {
-    let [emp] = useState(1);    
     const [danger, setDanger] = useState(false);
 
     const dispatch = useDispatch();
@@ -35,32 +33,13 @@ const CheckOthers = ({ Content }) => {
                 </CModalHeader>
                 <CModalBody>
                     <Content check={check} />
-                    <OthersReport />
+                    {/* <OthersReport /> */}
                 </CModalBody>
                 <CModalFooter>
                     <CButton
-                        color="secondary"
-                        onClick={() => (
-                            setDanger(!danger),
-                            dispatch(
-                                changeSEARCHADD({
-                                    form: "search",
-                                    사원번호: [],
-                                    이름: "",
-                                    부서: "",
-                                    팀: "",
-                                    직급: "",
-                                    직책: "",
-                                    })
-                                )
-                            )}
-                        >
-                        취소
-                    </CButton>
-                    <CButton
                         color="info"
                         onClick={() => { return setDanger(!danger) }}>
-                        확인
+                        닫기
                     </CButton>
                 </CModalFooter>
             </CModal>

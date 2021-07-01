@@ -3,6 +3,8 @@ import client from "../client";
 const API_URL = "http://localhost:8081";
 export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
 
+  console.log("emp : " + emp + " weekStart : " + weekStart + " weekEnd : " + weekEnd)
+
   const report = await client.post(API_URL + "/report/showReport", {
     report_EMP_INDEX: emp,
     weekstart: weekStart,
@@ -11,6 +13,25 @@ export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
 
   const nextreport = await client.post(API_URL + "/report/showReport", {
     report_EMP_INDEX: emp,
+    weekstart: weekStart,
+    weekend: weekEnd,
+  });
+
+  return report, nextreport;
+};
+
+export const SelectOthersReport = async ({ othersemp, weekStart, weekEnd }) => {
+
+  console.log("other emp : " + othersemp + " weekStart : " + weekStart + " weekEnd : " + weekEnd)
+
+  const report = await client.post(API_URL + "/report/showReport", {
+    report_EMP_INDEX: othersemp,
+    weekstart: weekStart,
+    weekend: weekEnd,
+  });
+
+  const nextreport = await client.post(API_URL + "/report/showReport", {
+    report_EMP_INDEX: othersemp,
     weekstart: weekStart,
     weekend: weekEnd,
   });
