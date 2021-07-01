@@ -15,18 +15,16 @@ const OthersList = ({ check }) => {
     const [userContents, setUserContents] = useState([]);
 
     const dispatch = useDispatch();
-    const { report } = useSelector((state) => {
+    const { othersreport } = useSelector((state) => {
         return {
-        report: state.report.report,
+        othersreport: state.report.othersreport,
         };
     });
-    const { nextreport } = useSelector((state) => {
+    const { nextothersreport } = useSelector((state) => {
         return {
-        nextreport: state.report.nextreport,
+        nextothersreport: state.report.nextothersreport,
         };
     });
-
-
 
     useEffect(() => {
         EmpList().then((data) => {
@@ -65,7 +63,7 @@ const OthersList = ({ check }) => {
     var weekStart = moment(startDate).day(0).format("YYYY-MM-DD");
     var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
 
-    const data = report.map((item) => {
+    const othersdata = othersreport.map((item) => {
         return {
             id: item.report_INDEX,
             emp: item.report_EMP_INDEX,
@@ -74,7 +72,7 @@ const OthersList = ({ check }) => {
         };
     });
 
-    const nextdata = nextreport.map((item2) => {
+    const nextothersdata = nextothersreport.map((item2) => {
         return {
             id: item2.report_INDEX,
             emp: item2.report_EMP_INDEX,
@@ -121,24 +119,18 @@ const OthersList = ({ check }) => {
                 sorter
                 pagination
                 border
-                onRowClick={(item) => {
-                    console.log("item on click !!!!!!!")
-                    // const select = document.getElementsByClassName(item.사원번호);
+                clickableRows={true}
+                onRowClick={ (item) => {                  
                     setEmpName(item.이름);
                     setEmpId(item.사원번호);
-                    console.log(empname + " | " + empid)         
                 }}
                 scopedSlots={{
                     이름: (item) => (
                     <td
                         className={item.사원번호}
                         selected={item.선택}
-                        style={{
-                            textAlign: "center",
-                            background: item.선택 ? "lightpink" : "white",
-                        }}
-                    >
-                            {item.이름}
+                        style={{ textAlign: "center" }}>
+                        {item.이름}
                     </td>
                     ),
 
@@ -146,11 +138,7 @@ const OthersList = ({ check }) => {
                     <td
                         className={item.사원번호}
                         selected={item.선택}
-                        style={{
-                            textAlign: "center",
-                            background: item.선택 ? "lightpink" : "white",
-                        }}
-                    >
+                        style={{ textAlign: "center" }}>
                         {item.부서}
                     </td>
                     ),
@@ -159,11 +147,7 @@ const OthersList = ({ check }) => {
                     <td
                         className={item.사원번호}
                         selected={item.선택}
-                        style={{
-                            textAlign: "center",
-                            background: item.선택 ? "lightpink" : "white",
-                        }}
-                    >
+                        style={{ textAlign: "center" }}>
                         {item.팀}
                     </td>
                     ),
@@ -172,11 +156,7 @@ const OthersList = ({ check }) => {
                     <td
                         className={item.사원번호}
                         selected={item.선택}
-                        style={{
-                            textAlign: "center",
-                            background: item.선택 ? "lightpink" : "white",
-                        }}
-                    >
+                        style={{ textAlign: "center" }}>
                         {item.직급}
                     </td>
                     ),
@@ -185,11 +165,7 @@ const OthersList = ({ check }) => {
                     <td
                         className={item.사원번호}
                         selected={item.선택}
-                        style={{
-                            textAlign: "center",
-                            background: item.선택 ? "lightpink" : "white",
-                        }}
-                    >
+                        style={{ textAlign: "center" }}>
                     {item.직책}
                     </td>
                     ),
@@ -221,7 +197,7 @@ const OthersList = ({ check }) => {
                 <br />
                 <CDataTable
                     fields={reportfields}
-                    items={data}
+                    items={othersdata}
                     itemsPerPage={10}
                     onRowClick={eventOnclick}
                     // 자동 정렬
@@ -234,7 +210,7 @@ const OthersList = ({ check }) => {
                 <br />
                 <CDataTable
                     fields={reportfields}
-                    items={nextdata}
+                    items={nextothersdata}
                     itemsPerPage={10}
                     onRowClick={eventOnclick}
                     sorterValue={{ column: "date", asc: "true" }}

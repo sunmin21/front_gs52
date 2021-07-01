@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable } from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable, CButton } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { reportAxios, nextreportAxios } from "src/modules/task/report";
 import AddReport from "./AddReport";
@@ -33,7 +33,6 @@ function WeeklyReport() {
   var weekEnd = moment(startDate).day(6).format("YYYY-MM-DD");
 
   const data = report.map((item) => {
-    // console.log("item : " + item)
     return {
       id: item.report_INDEX,
       emp: item.report_EMP_INDEX,
@@ -70,7 +69,7 @@ function WeeklyReport() {
     );
   };
 
-  // showAllReport()
+  // showAllReport(new Date());
 
   // 열 클릭시 삭제 기능
   const eventOnclick = (e) => {
@@ -79,7 +78,6 @@ function WeeklyReport() {
     if (window.confirm(msg) != 0) {
       console.log("삭제");
       DeleteReport(e.id);
-      console.log(weekStart);
       showAllReport();
       // 자동 렌더링
     } else {
@@ -87,6 +85,17 @@ function WeeklyReport() {
     }    
   };
 
+  const todayOnClick = (e) => {
+    showAllReport(new Date())
+  }
+
+  // 화면을 실행 할 때 받아오는 변수값이 있으면 그걸로 실행
+  // 없으면 오늘 날자로 타겟팅 !_!
+  // lastDate => 추가할때 달력에서 골랐던 마지막 값
+  //          => 삭제할때 달력에서 타겟됐던 마지막 값
+  window.onload = function () {
+    // showAllReport( lastDate || new Date())
+  }
   return (
     <CCard>
       <CCardHeader>주간 보고서</CCardHeader>
@@ -99,6 +108,8 @@ function WeeklyReport() {
               showAllReport(date);
             }}
           />
+          &nbsp;
+          <CButton color="secondary" onClick={todayOnClick} className="mr-1">TODAY</CButton>
         </CCardBody>
         <CCardBody>
           <h5>선택된 주 : </h5>
