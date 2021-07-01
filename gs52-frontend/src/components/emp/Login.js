@@ -17,11 +17,54 @@ import {
 import CIcon from "@coreui/icons-react";
 import { login } from "src/lib/api/auth/auth";
 
-const Login = () => {
-  const [user, setUser] = useState({
-    id: "",
-    pwd: "",
-  });
+
+import AuthService from "../../jwt/services/auth.service";
+
+export function Login() {
+
+    const [user, setUser] = useState({
+        id: "",
+        pwd: "",
+    });
+    const { id, pwd} = user;
+
+    const onChange = (e) => {
+        const { name, value } = e.target;
+        const nextInputs = {
+          ...user,
+          [name]: value,
+        };
+        setUser(nextInputs);
+      };
+
+  
+    const required = value => {
+        if (!value) {
+        return (
+            <div className="alert alert-danger" role="alert">
+            This field is required!
+            </div>
+        );
+        }
+    };
+
+    const onLogin = () => {
+        console.log("onLogin")
+        console.log(user.id)        
+        console.log(user.pwd)
+        //AuthService.login(user.id, user.pwd)
+        AuthService.login(user.id, user.pwd).then(
+            () => {
+                console.log("로그인 성공")
+            },
+            error => {
+                console.log("error")
+                console.log(error)
+                alert("로그인에 실패하였습니다.")
+            }
+          );
+    }
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
@@ -29,7 +72,11 @@ const Login = () => {
           <CCol md="8">
             <CCardGroup>
               <CCard className="p-4">
+
+
+                  
                 <CCardBody>
+
                   <CForm>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
@@ -44,14 +91,11 @@ const Login = () => {
                         placeholder="Username"
                         autoComplete="username"
                         name="id"
-                        onChange={(e) => {
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          });
-                        }}
+                        onChange={onChange}
                       />
                     </CInputGroup>
+
+
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
                         <CInputGroupText>
@@ -63,23 +107,17 @@ const Login = () => {
                         placeholder="Password"
                         autoComplete="current-password"
                         name="pwd"
-                        onChange={(e) => {
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          });
-                        }}
+                        onChange={onChange}
                       />
                     </CInputGroup>
+
+
                     <CRow>
                       <CCol xs="6">
                         <CButton
                           color="primary"
                           className="px-4"
-                          onClick={(e) => {
-                            // console.log();user
-                            login(user);
-                          }}
+                          onClick={onLogin}
                         >
                           Login
                         </CButton>
@@ -91,33 +129,11 @@ const Login = () => {
                       </CCol>
                     </CRow>
                   </CForm>
+
+
                 </CCardBody>
               </CCard>
-              <CCard
-                className="text-white bg-primary py-5 d-md-down-none"
-                style={{ width: "44%" }}
-              >
-                <CCardBody className="text-center">
-                  <div>
-                    <h2>Sign up</h2>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
-                    </p>
-                    <Link to="/register">
-                      <CButton
-                        color="primary"
-                        className="mt-3"
-                        active
-                        tabIndex={-1}
-                      >
-                        Register Now!
-                      </CButton>
-                    </Link>
-                  </div>
-                </CCardBody>
-              </CCard>
+             
             </CCardGroup>
           </CCol>
         </CRow>
