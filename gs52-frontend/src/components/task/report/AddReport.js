@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
 import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 
-function AddReport() {
+function AddReport({ showAllReport }) {
 
     let [emp] = useState(1);
 
@@ -17,7 +17,7 @@ function AddReport() {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        // dispatch(addreportAxios())
+        
     }, [dispatch])
 
     const [info, setInfo] = useState(false);
@@ -32,10 +32,7 @@ function AddReport() {
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        dispatch(reportAxios())
-        dispatch(nextreportAxios())
-        // showAllReport(targetDate);
-        // 자동 rendering
+        // showAllReport()
     }
 
     const submit = () => {
@@ -48,7 +45,9 @@ function AddReport() {
             InsertReport(emp, contents, targetDate)
             dispatch(reportAxios())
             dispatch(nextreportAxios())
-            // showAllReport(targetDate);
+            showAllReport(targetDate);
+            console.log(targetDate)
+            
         }
     }
     
@@ -80,7 +79,6 @@ function AddReport() {
                                         selected={targetDate}
                                         onChange={setTargetDate}
                                         inline // 달력이 모달창에 뜨도록
-                                        // minDate={new Date()} // 이전 날은 선택 못하도록
                                         popperPlacement="auto" // 화면 중앙에 오도록
                                     />
                                 </td>

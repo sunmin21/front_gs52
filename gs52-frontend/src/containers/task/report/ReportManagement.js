@@ -5,6 +5,8 @@ import WeeklyReport from "src/components/task/report/WeeklyReport";
 import EMPREPORT from "src/components/task/report/OthersList";
 
 const ReportManagement = () => {
+
+  
   return (
     <CRow>
       <CCol>
