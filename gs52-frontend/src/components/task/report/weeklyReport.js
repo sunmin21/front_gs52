@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CCard, CCardBody, CCardHeader, CCardGroup, CDataTable, CButton } from "@coreui/react";
+import {
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCardGroup,
+  CDataTable,
+  CButton,
+} from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { reportAxios, nextreportAxios } from "src/modules/task/report";
 import AddReport from "./AddReport";
@@ -77,26 +84,26 @@ function WeeklyReport() {
 
     if (window.confirm(msg) != 0) {
       console.log("삭제");
-      lastDate = weekStart
+      lastDate = weekStart;
       DeleteReport(e.id);
       showAllReport(new Date(lastDate));
       // 자동 렌더링
     } else {
       console.log("삭제취소");
-    }    
+    }
   };
 
   const todayOnClick = (e) => {
-    showAllReport(new Date())
-  }
+    showAllReport(new Date());
+  };
 
   // 화면을 실행 할 때 받아오는 변수값이 있으면 그걸로 실행
   // 없으면 오늘 날자로 타겟팅 !_!
   // lastDate => 추가할때 달력에서 골랐던 마지막 값
   //          => 삭제할때 달력에서 타겟됐던 마지막 값
   window.onload = function () {
-    showAllReport( new Date())
-  }
+    showAllReport(new Date());
+  };
   return (
     <CCard>
       <CCardHeader>주간 보고서</CCardHeader>
@@ -110,14 +117,16 @@ function WeeklyReport() {
             }}
           />
           &nbsp;
-          <CButton color="secondary" onClick={todayOnClick} className="mr-1">TODAY</CButton>
+          <CButton color="secondary" onClick={todayOnClick} className="mr-1">
+            TODAY
+          </CButton>
         </CCardBody>
         <CCardBody>
           <h5>선택된 주 : </h5>
           <h4>{weekStart + " - " + weekEnd}</h4>
         </CCardBody>
         <CCardBody>
-          <AddReport showAllReport={showAllReport}/>
+          <AddReport showAllReport={showAllReport} />
         </CCardBody>
       </CCardGroup>
       <hr></hr>

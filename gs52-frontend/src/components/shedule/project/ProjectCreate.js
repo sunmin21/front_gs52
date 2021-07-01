@@ -14,7 +14,7 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import modalcontent from "src/components/task/BusinessProgress/Search";
 import Modal from "src/containers/common/UserModal";
@@ -25,7 +25,7 @@ const ProjectCreate = () => {
     타이틀: "",
     참여원: "",
     내용: "",
-    파일: "",
+    파일: [],
     시작기간: "",
     종료기간: "",
   });
@@ -75,6 +75,11 @@ const ProjectCreate = () => {
 
     InsertProject(formData);
   };
+
+  console.log(content.파일);
+  console.log(content.파일.length);
+  const [filename, setFileName] = useState("");
+  let Filename = useRef("");
   return (
     <>
       {" "}
@@ -237,14 +242,6 @@ const ProjectCreate = () => {
               </CFormGroup>
 
               <CFormGroup row>
-                <CLabel col md="3" htmlFor="file-input">
-                  File input
-                </CLabel>
-                <CCol xs="12" md="9">
-                  <CInputFile id="file-input" name="file-input" />
-                </CCol>
-              </CFormGroup>
-              <CFormGroup row>
                 <CCol md="3">
                   <CLabel>Multiple File input</CLabel>
                 </CCol>
@@ -260,11 +257,43 @@ const ProjectCreate = () => {
                         파일: e.target.files,
                       }));
                     }}
-                  />
-                  <CLabel htmlFor="file-multiple-input" variant="custom-file">
-                    Choose Files...
-                  </CLabel>
+                  ></CInputFile>
+                  {content.파일.length === 0 && (
+                    <CLabel htmlFor="file-multiple-input" variant="custom-file">
+                      File Upload..
+                    </CLabel>
+                  )}
+                  {content.파일.length !== 0 &&
+                    Array.from(content.파일).map((a, key) => {
+                      if (key === 0) {
+                        Filename.current = "";
+                      }
+                      if (content.파일.length === 1) {
+                        Filename.current += a.name;
+                      } else {
+                        if (content.파일.length - 1 === key) {
+                          if (Filename.current.length >= 150) {
+                            Filename.current =
+                              Filename.current.substring(0, 150) + "...";
+                          } else {
+                            Filename.current += a.name;
+                          }
+                        } else {
+                          Filename.current += a.name + " ,   ";
+                        }
+                      }
+                      return (
+                        <CLabel
+                          htmlFor="file-multiple-input"
+                          variant="custom-file"
+                          key={key}
+                        >
+                          {Filename.current}
+                        </CLabel>
+                      );
+                    })}
                 </CCol>
+                {console.log("안녕")}
               </CFormGroup>
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
