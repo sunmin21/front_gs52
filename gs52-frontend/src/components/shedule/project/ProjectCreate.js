@@ -62,7 +62,7 @@ const ProjectCreate = () => {
       if (key !== "length") {
         console.log(key);
         console.log(content.파일[key]);
-        formData.append("FILESx", content.파일[key]);
+        formData.append("FILES", content.파일[key]);
       }
     }
     // formData.append ( 'jsonBodyData',
