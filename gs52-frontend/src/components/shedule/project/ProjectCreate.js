@@ -51,6 +51,8 @@ const ProjectCreate = () => {
   const updatedate = moment().format("YYYY-MM-DD HH:mm:ss");
   const [titlecheck, setTitlecheck] = useState(false);
   const [contentcheck, setContentCheck] = useState(false);
+  const [empcheck, setEmpcheck] = useState(false);
+  const [filecheck, setFilecheck] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -60,6 +62,10 @@ const ProjectCreate = () => {
     }
     if (content.내용 === "") {
       setContentCheck(true);
+      return;
+    }
+    if (data.length === 0) {
+      setEmpcheck(true);
       return;
     }
     const formData = new FormData();
@@ -76,6 +82,7 @@ const ProjectCreate = () => {
 
     for (let key of Object.keys(content.파일)) {
       if (key !== "length") {
+        console.log(content.파일[key]);
         formData.append("FILES", content.파일[key]);
       }
     }
@@ -87,7 +94,6 @@ const ProjectCreate = () => {
 
   useEffect(() => {
     Array.from(content.파일).map((a, key) => {
-      console.log(key);
       if (key === 0) {
         Filename.current = "";
       }
@@ -95,8 +101,6 @@ const ProjectCreate = () => {
         Filename.current += a.name;
       } else {
         if (content.파일.length - 1 === key) {
-          console.log(key);
-          console.log(Filename.current);
           Filename.current += a.name;
           if (Filename.current.length >= 80) {
             Filename.current =
@@ -251,6 +255,7 @@ const ProjectCreate = () => {
                 <CCol md="3">
                   <CLabel htmlFor="date-input">참여원 선택</CLabel>
                 </CCol>
+
                 <CCol xs="6" md="2">
                   {data.map((content, key) => {
                     if (key % 2 === 0) {
@@ -301,14 +306,28 @@ const ProjectCreate = () => {
                     }
                   })}
                 </CCol>
+
                 <CCol xs="12" md="2">
                   <Modal Content={modalcontent}></Modal>
                 </CCol>
+                {empcheck && (
+                  <CCol xs="6" md="9" style={{ marginLeft: "230px" }}>
+                    <CAlert
+                      color="danger"
+                      closeButton
+                      onClick={() => {
+                        setEmpcheck(false);
+                      }}
+                    >
+                      참여인원을 선택하세요
+                    </CAlert>
+                  </CCol>
+                )}
               </CFormGroup>
 
               <CFormGroup row>
                 <CCol md="3">
-                  <CLabel>Multiple File input</CLabel>
+                  <CLabel>파일첨부</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
                   <CInputFile
@@ -317,12 +336,30 @@ const ProjectCreate = () => {
                     multiple
                     custom
                     onChange={(e) => {
+                      for (let key of Object.keys(e.target.files)) {
+                        if (e.target.files[key].size > 102400) {
+                          setFilecheck(true);
+                          return;
+                        }
+                      }
+
                       setContent((content) => ({
                         ...content,
                         파일: e.target.files,
                       }));
                     }}
                   ></CInputFile>
+                  {filecheck && (
+                    <CAlert
+                      color="danger"
+                      closeButton
+                      onClick={() => {
+                        setFilecheck(false);
+                      }}
+                    >
+                      100MB를 초과하였습니다.
+                    </CAlert>
+                  )}
                   {content.파일.length === 0 && (
                     <CLabel htmlFor="file-multiple-input" variant="custom-file">
                       File Upload..
