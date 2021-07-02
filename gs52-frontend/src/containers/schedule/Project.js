@@ -49,12 +49,12 @@ const Project = () => {
             </CCardGroup>
           </CCol>
         </CRow>
-        <div style={{height:"50px"}}></div>
+        {/* <div style={{height:"50px"}}></div> */}
         <CRow className="align-items-center">
           <CCol>
-            <CCardBody style={{textAlign:"center"}}>
+            <CCard style={{textAlign:"center"}}>
               <ShowProect />
-            </CCardBody>
+            </CCard>
           </CCol>
         </CRow>
       </CContainer>
