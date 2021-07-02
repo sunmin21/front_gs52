@@ -2,10 +2,13 @@ import React, { Component, useEffect, useState } from "react";
 import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
+import "react-dom";
 
-import "react-big-scheduler/lib/css/style.css";
+//import "react-big-scheduler/lib/css/style.css";
+import "./style.css";
 
 import moment from "moment";
+import { Button } from "antd";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -19,12 +22,14 @@ const now = moment(new Date()).format("YYYY-MM-DD");
 let schedulerData = new SchedulerData(now, ViewTypes.Month, false, false, {
   eventItemPopoverEnabled: false,
   movable: false,
+  calendarPopoverEnabled: false,
+  showAgenda: true,
   views: [],
 });
 schedulerData.localeMoment.locale("en");
+//treevalue값 까지 받아와짐
 
 const Readonly = withDragDropContext((props) => {
-  //treevalue값 까지 받아와짐
   console.log(props.treevalue);
   console.log(props.emp);
   ////////////////////////////팀, 직원 목록
@@ -124,6 +129,8 @@ const Readonly = withDragDropContext((props) => {
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(selectList.events);
 
+  console.log(schedulerData);
+  console.log(schedulerData.startDate);
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {

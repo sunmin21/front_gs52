@@ -1,5 +1,9 @@
 import React, { Component, useEffect, useState } from "react";
-import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
+import Scheduler, {
+  SchedulerData,
+  ViewTypes,
+  DemoData,
+} from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 
@@ -16,9 +20,10 @@ function useForceUpdate() {
 
 const now = moment(new Date()).format("YYYY-MM-DD");
 
-let schedulerData = new SchedulerData(now, ViewTypes.Month, false, false, {
+let schedulerData = new SchedulerData(now, ViewTypes.Day, false, false, {
   eventItemPopoverEnabled: false,
   movable: false,
+  calendarPopoverEnabled: false,
   views: [],
 });
 schedulerData.localeMoment.locale("en");
@@ -203,6 +208,16 @@ const Readonly = withDragDropContext((props) => {
     forceUpdate();
   };
 
+  const onViewChange = (schedulerData, view) => {
+    schedulerData.setViewType(
+      view.viewType,
+      view.showAgenda,
+      view.isEventPerspective
+    );
+    schedulerData.setEvents(selectList.events);
+    forceUpdate();
+  };
+
   return (
     <div>
       <div>
@@ -211,6 +226,7 @@ const Readonly = withDragDropContext((props) => {
           prevClick={prevClick}
           nextClick={nextClick}
           onSelectDate={onSelectDate}
+          onViewChange={onViewChange}
           updateEventStart={updateEventStart}
           updateEventEnd={updateEventEnd}
           onScrollLeft={onScrollLeft}

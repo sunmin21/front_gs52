@@ -31,6 +31,7 @@
     "holidayapi": "^5.0.0",
     "holidays-kr": "^1.0.3",
     "immer": "^9.0.3",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
