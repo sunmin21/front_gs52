@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import {
   CButton,
+  CCardGroup,
   CCard,
   CCardBody,
   CCol,
@@ -13,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 import { useHistory } from "react-router-dom";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
+import ShowProect from 'src/components/shedule/project/ShowProject';
+
 const Project = () => {
   const Notice = React.lazy(() => import("src/components/main/notice/Notice"));
   const notice = useSelector((state) => state.main.notice);
@@ -27,22 +30,32 @@ const Project = () => {
       <CContainer>
         <CRow className="align-items-start">
           <CCol>
-            <CButton
-              color="danger"
-              size="lg"
-              className="m-2"
-              onClick={() => {
-                history.push("/schedule/project/create");
-              }}
-            >
-              프로젝트 생성
-            </CButton>
+            <CCardGroup>
+              <CCardBody>
+                <CButton
+                  color="danger"
+                  size="lg"
+                  className="m-2"
+                  onClick={() => {
+                    history.push("/schedule/project/create");
+                  }}
+                  >
+                  프로젝트 생성
+                </CButton>
+              </CCardBody>
+              <CCardBody style={{textAlign:"right"}}>
+                <button>요청된 프로젝트</button>
+              </CCardBody>              
+            </CCardGroup>
           </CCol>
         </CRow>
+        <div style={{height:"50px"}}></div>
         <CRow className="align-items-center">
           <CCol>
-            
+            <CCardBody style={{backgroundColor:"gray"}}>
+              <ShowProect />
             {/* <Notice content={notice} /> */}
+            </CCardBody>
           </CCol>
 
           <CCol>
