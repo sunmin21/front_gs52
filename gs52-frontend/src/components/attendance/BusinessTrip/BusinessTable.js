@@ -15,7 +15,7 @@ import BusinessModal from "./BusinessModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
-const businessArr = ["날짜", "연차유형", "사유", "승인"];
+const businessArr = ["날짜", "출장유형", "사유", "승인"];
 const BusinessTables = ({ vacation_EMP_INDEX }) => {
   var moment = require("moment");
   const [doubleCheck, setDoubleCheck] = useState(true);
@@ -81,15 +81,11 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
       return {
         vacation_index: item.vacation_INDEX,
         날짜: moment(item.vacation_DATE).format("YYYY-MM-DD"),
-        연차유형: item.attend_TYPE_NAME,
+        출장유형: item.attend_TYPE_NAME,
         사유: item.vacation_CONTENTS,
         승인: status,
       };
     });
-
-  const data2 = empvacation.map((item) => {
-    return item.emp_VACATION;
-  });
 
   const eventHandle = (e) => {
     var moment = require("moment");

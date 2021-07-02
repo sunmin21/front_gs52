@@ -63,6 +63,7 @@ const BusinessManage = ({
       attend_TYPE_NAME: item.attend_TYPE_NAME,
       emp_ID: item.emp_ID,
       vacation_INDEX: item.vacation_INDEX,
+      vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
     }));
 
   return (
