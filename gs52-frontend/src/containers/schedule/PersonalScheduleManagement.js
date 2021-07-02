@@ -1,8 +1,8 @@
 import Item from "antd/lib/list/Item";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MemberDropdown from "./../../components/attendance/MemberSchedule/MemberDropdown";
-import Readonly from "src/components/attendance/MemberSchedule/Readonly";
+import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
+import Readonly from "src/components/shedule/personalSchedule/Readonly";
 import {
   attendAxios,
   empAxios,
