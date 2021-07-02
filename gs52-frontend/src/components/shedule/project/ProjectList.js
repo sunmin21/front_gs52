@@ -10,7 +10,7 @@ const usersData = [
 
 function ProjectList() {
     const [details, setDetails] = useState([])
-    const [items, setItems] = useState(usersData)
+    // const [items, setItems] = useState(usersData)
 
     const toggleDetails = (index) => {
         const position = details.indexOf(index)
@@ -49,45 +49,10 @@ function ProjectList() {
                 itemsPerPageSelect
                 itemsPerPage={5}
                 hover
+                sorter
                 sorterValue={{ column: "번호", desc: "true" }}
                 pagination
-                scopedSlots = {{
-                    'show_details':
-                    (item, index)=>{
-                        return (
-                        <td className="py-2">
-                            <CButton
-                            color="primary"
-                            variant="outline"
-                            shape="square"
-                            size="sm"
-                            onClick={()=>{toggleDetails(index)}}
-                            >
-                            {details.includes(index) ? '간단히' : '자세히'}
-                            </CButton>
-                        </td>
-                        )
-                    },
-                    'details':
-                        (item, index)=>{
-                        return (
-                        <CCollapse show={details.includes(index)}>
-                            <CCardBody>
-                            <h4>
-                                {item.username}
-                            </h4>
-                            <p className="text-muted">User since: {item.registered}</p>
-                            <CButton size="sm" color="info">
-                                User Settings
-                            </CButton>
-                            <CButton size="sm" color="danger" className="ml-1">
-                                Delete
-                            </CButton>
-                            </CCardBody>
-                        </CCollapse>
-                        )
-                    }
-                }}
+                onRowClick
             />
         </CCardBody>
         
