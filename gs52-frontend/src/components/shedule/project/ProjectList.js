@@ -51,63 +51,63 @@ function ProjectList() {
 
     return (
         <CCardBody>
-<CDataTable
-            items={usersData}
-            fields={fields}
-            columnFilter
-            tableFilter
-            footer
-            itemsPerPageSelect
-            itemsPerPage={5}
-            hover
-            sorter
-            pagination
-            scopedSlots = {{
-                'status':
-                (item)=>(
-                    <td>
-                    <CBadge color={getBadge(item.status)}>
-                        {item.status}
-                    </CBadge>
-                    </td>
-                ),
-                'show_details':
-                (item, index)=>{
-                    return (
-                    <td className="py-2">
-                        <CButton
-                        color="primary"
-                        variant="outline"
-                        shape="square"
-                        size="sm"
-                        onClick={()=>{toggleDetails(index)}}
-                        >
-                        {details.includes(index) ? 'Hide' : 'Show'}
-                        </CButton>
-                    </td>
-                    )
-                },
-                'details':
+            <CDataTable
+                items={usersData}
+                fields={fields}
+                columnFilter
+                tableFilter
+                footer
+                itemsPerPageSelect
+                itemsPerPage={5}
+                hover
+                sorter
+                pagination
+                scopedSlots = {{
+                    'status':
+                    (item)=>(
+                        <td>
+                        <CBadge color={getBadge(item.status)}>
+                            {item.status}
+                        </CBadge>
+                        </td>
+                    ),
+                    'show_details':
                     (item, index)=>{
-                    return (
-                    <CCollapse show={details.includes(index)}>
-                        <CCardBody>
-                        <h4>
-                            {item.username}
-                        </h4>
-                        <p className="text-muted">User since: {item.registered}</p>
-                        <CButton size="sm" color="info">
-                            User Settings
-                        </CButton>
-                        <CButton size="sm" color="danger" className="ml-1">
-                            Delete
-                        </CButton>
-                        </CCardBody>
-                    </CCollapse>
-                    )
-                }
-            }}
-        />
+                        return (
+                        <td className="py-2">
+                            <CButton
+                            color="primary"
+                            variant="outline"
+                            shape="square"
+                            size="sm"
+                            onClick={()=>{toggleDetails(index)}}
+                            >
+                            {details.includes(index) ? 'Hide' : 'Show'}
+                            </CButton>
+                        </td>
+                        )
+                    },
+                    'details':
+                        (item, index)=>{
+                        return (
+                        <CCollapse show={details.includes(index)}>
+                            <CCardBody>
+                            <h4>
+                                {item.username}
+                            </h4>
+                            <p className="text-muted">User since: {item.registered}</p>
+                            <CButton size="sm" color="info">
+                                User Settings
+                            </CButton>
+                            <CButton size="sm" color="danger" className="ml-1">
+                                Delete
+                            </CButton>
+                            </CCardBody>
+                        </CCollapse>
+                        )
+                    }
+                }}
+            />
         </CCardBody>
         
     )
