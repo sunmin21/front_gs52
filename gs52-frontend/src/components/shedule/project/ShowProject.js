@@ -5,33 +5,41 @@ import ProjectList from './ProjectList';
 function ShowProject() {
     return (
         <CCardBody>
-            <CTabs activeTab="home">
+            <CTabs activeTab="proceeding">
                 <CNav variant="tabs">
                     <CNavItem>
-                    <CNavLink data-tab="home">
-                        진행중인 프로젝트
-                    </CNavLink>
+                        <CNavLink data-tab="requested">
+                            요청받은 프로젝트
+                        </CNavLink>
                     </CNavItem>
                     <CNavItem>
-                    <CNavLink data-tab="profile">
-                        완료된 프로젝트
-                    </CNavLink>
+                        <CNavLink data-tab="proceeding">
+                            진행중인 프로젝트
+                        </CNavLink>
                     </CNavItem>
                     <CNavItem>
-                    <CNavLink data-tab="messages">
-                        예정된 프로젝트
-                    </CNavLink>
+                        <CNavLink data-tab="completed">
+                            완료된 프로젝트
+                        </CNavLink>
+                    </CNavItem>
+                    <CNavItem>
+                        <CNavLink data-tab="expected">
+                            예정된 프로젝트
+                        </CNavLink>
                     </CNavItem>
                 </CNav>
                 <CTabContent>
-                    <CTabPane data-tab="home">
-                    <ProjectList />
+                    <CTabPane data-tab="requested">
+                        <h1>requested</h1>
                     </CTabPane>
-                    <CTabPane data-tab="profile">
-                    456
+                    <CTabPane data-tab="proceeding">
+                        <ProjectList />
                     </CTabPane>
-                    <CTabPane data-tab="messages">
-                    789
+                    <CTabPane data-tab="completed">
+                        <h1>completed</h1>
+                    </CTabPane>
+                    <CTabPane data-tab="expected">
+                        <h1>expected</h1>
                     </CTabPane>
                 </CTabContent>
             </CTabs>
