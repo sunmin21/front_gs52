@@ -14,8 +14,10 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
-import { useEffect, useRef, useState } from "react";
+import moment from "moment";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import modalcontent from "src/components/task/BusinessProgress/Search";
 import Modal from "src/containers/common/UserModal";
 import { InsertProject } from "src/lib/api/schedule/Project";
@@ -30,6 +32,7 @@ const ProjectCreate = () => {
     종료기간: "",
   });
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(teamAxios());
     dispatch(empAxios());
@@ -43,25 +46,23 @@ const ProjectCreate = () => {
   useEffect(() => {
     setData(search);
   }, [search]);
+  const updatedate = moment().format("YYYY-MM-DD HH:mm:ss");
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    console.log(content.파일);
     formData.append("PROJECT_TITLE", content.타이틀);
     formData.append("PROJECT_CONTENT", content.내용);
-
+    formData.append("PROJECT_DATE", updatedate);
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
     formData.append("PROJECT_WITH_READER", 2);
     formData.append(
-      "PROJECT_WITH_EMP_INDEX",
+      "PROJECT_WITH_EMP_INDEXS",
       data.map((item) => item["사원번호"])
     );
 
     for (let key of Object.keys(content.파일)) {
       if (key !== "length") {
-        console.log(key);
-        console.log(content.파일[key]);
         formData.append("FILES", content.파일[key]);
       }
     }
@@ -69,16 +70,44 @@ const ProjectCreate = () => {
     //   new Blob ([JSON.stringify (jsonBodyData)], {
     //     type : 'application / json'
     //   }));
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
+    // for (var pair of formData.entries()) {
+    //   console.log(pair[0] + ", " + pair[1]);
+    // }
 
     InsertProject(formData);
+    history.goBack();
   };
-
-  console.log(content.파일);
-  console.log(content.파일.length);
   const [filename, setFileName] = useState("");
+
+  useEffect(() => {
+    console.log("@@?");
+    Array.from(content.파일).map((a, key) => {
+      console.log(key);
+      if (key === 0) {
+        Filename.current = "";
+      }
+      if (content.파일.length === 1) {
+        Filename.current += a.name;
+      } else {
+        if (content.파일.length - 1 === key) {
+          console.log(key);
+          console.log(Filename.current);
+          Filename.current += a.name;
+          if (Filename.current.length >= 80) {
+            Filename.current =
+              Filename.current.substring(0, 80) +
+              "... 총 " +
+              content.파일.length +
+              "개";
+          }
+        } else {
+          Filename.current += a.name + " ,   ";
+        }
+      }
+      setFileName(Filename.current);
+    });
+  }, [filename, content.파일]);
+
   let Filename = useRef("");
   return (
     <>
@@ -263,37 +292,12 @@ const ProjectCreate = () => {
                       File Upload..
                     </CLabel>
                   )}
-                  {content.파일.length !== 0 &&
-                    Array.from(content.파일).map((a, key) => {
-                      if (key === 0) {
-                        Filename.current = "";
-                      }
-                      if (content.파일.length === 1) {
-                        Filename.current += a.name;
-                      } else {
-                        if (content.파일.length - 1 === key) {
-                          if (Filename.current.length >= 150) {
-                            Filename.current =
-                              Filename.current.substring(0, 150) + "...";
-                          } else {
-                            Filename.current += a.name;
-                          }
-                        } else {
-                          Filename.current += a.name + " ,   ";
-                        }
-                      }
-                      return (
-                        <CLabel
-                          htmlFor="file-multiple-input"
-                          variant="custom-file"
-                          key={key}
-                        >
-                          {Filename.current}
-                        </CLabel>
-                      );
-                    })}
+                  {content.파일.length !== 0 && (
+                    <CLabel htmlFor="file-multiple-input" variant="custom-file">
+                      {filename}
+                    </CLabel>
+                  )}
                 </CCol>
-                {console.log("안녕")}
               </CFormGroup>
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
