@@ -1,9 +1,10 @@
 import React from "react";
-import { CTabs, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
+import { CCard, CTabs, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
 
 function ShowProject() {
     return (
-        <CTabs activeTab="home">
+        <CCard>
+             <CTabs activeTab="home">
             <CNav variant="tabs">
                 <CNavItem>
                 <CNavLink data-tab="home">
@@ -32,7 +33,8 @@ function ShowProject() {
                 789
                 </CTabPane>
             </CTabContent>
-        </CTabs>
+            </CTabs>
+        </CCard>
     )
 }
 

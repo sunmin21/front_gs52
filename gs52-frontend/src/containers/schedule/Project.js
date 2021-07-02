@@ -52,14 +52,9 @@ const Project = () => {
         <div style={{height:"50px"}}></div>
         <CRow className="align-items-center">
           <CCol>
-            <CCardBody style={{backgroundColor:"gray"}}>
+            <CCardBody style={{textAlign:"center"}}>
               <ShowProect />
-            {/* <Notice content={notice} /> */}
             </CCardBody>
-          </CCol>
-
-          <CCol>
-            {/* <Test /> */}
           </CCol>
         </CRow>
       </CContainer>
