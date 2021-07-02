@@ -1,5 +1,6 @@
 import CIcon from "@coreui/icons-react";
 import {
+  CAlert,
   CButton,
   CCard,
   CCardBody,
@@ -46,9 +47,21 @@ const ProjectCreate = () => {
   useEffect(() => {
     setData(search);
   }, [search]);
+  const date = moment().format("YYYY-MM-DD");
   const updatedate = moment().format("YYYY-MM-DD HH:mm:ss");
+  const [titlecheck, setTitlecheck] = useState(false);
+  const [contentcheck, setContentCheck] = useState(false);
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (content.타이틀 === "") {
+      setTitlecheck(true);
+      return;
+    }
+    if (content.내용 === "") {
+      setContentCheck(true);
+      return;
+    }
     const formData = new FormData();
     formData.append("PROJECT_TITLE", content.타이틀);
     formData.append("PROJECT_CONTENT", content.내용);
@@ -66,13 +79,6 @@ const ProjectCreate = () => {
         formData.append("FILES", content.파일[key]);
       }
     }
-    // formData.append ( 'jsonBodyData',
-    //   new Blob ([JSON.stringify (jsonBodyData)], {
-    //     type : 'application / json'
-    //   }));
-    // for (var pair of formData.entries()) {
-    //   console.log(pair[0] + ", " + pair[1]);
-    // }
 
     InsertProject(formData);
     history.goBack();
@@ -80,7 +86,6 @@ const ProjectCreate = () => {
   const [filename, setFileName] = useState("");
 
   useEffect(() => {
-    console.log("@@?");
     Array.from(content.파일).map((a, key) => {
       console.log(key);
       if (key === 0) {
@@ -148,7 +153,17 @@ const ProjectCreate = () => {
                       }));
                     }}
                   />
-                  <CFormText>This is a help text</CFormText>
+                  {titlecheck && (
+                    <CAlert
+                      color="danger"
+                      closeButton
+                      onClick={() => {
+                        setTitlecheck(false);
+                      }}
+                    >
+                      제목을 입력하세요
+                    </CAlert>
+                  )}
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -169,6 +184,17 @@ const ProjectCreate = () => {
                       }));
                     }}
                   />
+                  {contentcheck && (
+                    <CAlert
+                      color="danger"
+                      closeButton
+                      onClick={() => {
+                        setContentCheck(false);
+                      }}
+                    >
+                      내용을 입력하세요
+                    </CAlert>
+                  )}
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -181,12 +207,21 @@ const ProjectCreate = () => {
                     id="date-input"
                     name="date-input"
                     placeholder="date"
-                    value={content.시작기간 || ""}
+                    value={content.시작기간 || date}
+                    min={date}
                     onChange={(e) => {
-                      setContent((content) => ({
-                        ...content,
-                        시작기간: e.target.value,
-                      }));
+                      if (content.시작기간 >= content.종료기간) {
+                        setContent((content) => ({
+                          ...content,
+                          시작기간: e.target.value,
+                          종료기간: e.target.value,
+                        }));
+                      } else {
+                        setContent((content) => ({
+                          ...content,
+                          시작기간: e.target.value,
+                        }));
+                      }
                     }}
                   />
                 </CCol>
@@ -201,7 +236,8 @@ const ProjectCreate = () => {
                     id="date-input"
                     name="date-input"
                     placeholder="date"
-                    value={content.종료기간 || ""}
+                    value={content.종료기간 || date}
+                    min={content.시작기간 || date}
                     onChange={(e) => {
                       setContent((content) => ({
                         ...content,
