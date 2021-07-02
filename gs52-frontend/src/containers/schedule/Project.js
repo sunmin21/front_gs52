@@ -41,11 +41,12 @@ const Project = () => {
         </CRow>
         <CRow className="align-items-center">
           <CCol>
-            <Notice content={notice} />
+            
+            {/* <Notice content={notice} /> */}
           </CCol>
 
           <CCol>
-            <Test />
+            {/* <Test /> */}
           </CCol>
         </CRow>
       </CContainer>
