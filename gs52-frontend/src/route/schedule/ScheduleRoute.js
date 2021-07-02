@@ -8,6 +8,9 @@ const Project = React.lazy(() => import("src/containers/schedule/Project"));
 const ProjectCreate = React.lazy(() =>
   import("src/components/shedule/project/ProjectCreate")
 );
+const ProjectDetail = React.lazy(() =>
+  import("src/components/shedule/project/ProjectDetail")
+);
 
 const PersonalSchedule = React.lazy(() =>
   import("src/containers/schedule/PersonalScheduleManagement")
@@ -18,6 +21,11 @@ const ScheduleRoute = [
     path: "/schedule/project/create",
     name: "프로젝트 생성",
     component: ProjectCreate,
+  },
+  {
+    path: "/schedule/project/detail/:id",
+    name: "프로젝트 상세보기",
+    component: ProjectDetail,
   },
   {
     path: "/schedule/schedule",

@@ -327,7 +327,7 @@ const ProjectCreate = () => {
 
               <CFormGroup row>
                 <CCol md="3">
-                  <CLabel>Multiple File input</CLabel>
+                  <CLabel>파일첨부</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
                   <CInputFile
