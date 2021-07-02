@@ -92,7 +92,10 @@ function ProjectList() {
         sorterValue={{ column: "번호", desc: "true" }}
         pagination
         onRowClick={(item) => {
-          history.push(`/schedule/project/detail/${item.번호}`);
+          history.push({
+            pathname: `/schedule/project/detail`,
+            state: item.번호,
+          });
         }}
       />
     </CCardBody>

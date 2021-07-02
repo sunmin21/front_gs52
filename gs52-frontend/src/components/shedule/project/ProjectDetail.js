@@ -12,8 +12,12 @@ import {
   CRow,
 } from "@coreui/react";
 import ProjectList from "./ProjectList";
+import { useLocation } from "react-router-dom";
 
 function ShowProject() {
+  const location = useLocation();
+
+  console.log(location.state); // 2
   return (
     <CRow className="align-items-center">
       <CCol>
