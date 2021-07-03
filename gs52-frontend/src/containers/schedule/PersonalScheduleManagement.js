@@ -2,7 +2,7 @@ import Item from "antd/lib/list/Item";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
-import Readonly from "src/components/shedule/personalSchedule/Readonly";
+import PersonalReadonly from "src/components/shedule/personalSchedule/PersonalReadonly";
 import {
   attendAxios,
   empAxios,
@@ -10,6 +10,7 @@ import {
 } from "src/modules/annual/memberSchedule";
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { ConfAxios } from "src/modules/schedule/conf";
 
 const MemberScheduleManagement = () => {
   const dispatch = useDispatch();
@@ -20,29 +21,13 @@ const MemberScheduleManagement = () => {
   // console.log(test);
 
   //리덕스에서 team 가져옴
-  const { team } = useSelector((state) => {
+  const { team, emp, treevalue, attend, conf_list } = useSelector((state) => {
     return {
       team: state.memberSchedule.team,
-    };
-  });
-
-  //리덕스에서 emp 가져옴
-  const { emp } = useSelector((state) => {
-    // console.log(state);
-    return {
       emp: state.memberSchedule.emp,
-    };
-  });
-  //리덕스에서 tree 값 받아옴
-  const { treevalue } = useSelector((state) => {
-    return {
       treevalue: state.memberSchedule.treevalue,
-    };
-  });
-
-  const { attend } = useSelector((state) => {
-    return {
       attend: state.memberSchedule.attend,
+      conf_list: state.conf_check.conf_list,
     };
   });
 
@@ -53,18 +38,13 @@ const MemberScheduleManagement = () => {
       String(item.emp_TEAM_INDEX)
     );
   //Promise 푸는거
-  const test = SelectAttend().then((item) => {
-    //console.log(item);
-  });
-
-  console.log(nowEmpTeam);
-
-  //console.log(test);
+  const test = SelectAttend().then((item) => {});
 
   useEffect(() => {
     dispatch(teamAxios());
     dispatch(empAxios());
     dispatch(attendAxios());
+    dispatch(ConfAxios());
   }, [dispatch]);
 
   const data = team.map((item) => ({
@@ -106,13 +86,14 @@ const MemberScheduleManagement = () => {
         </div>
         <div class="row" style={{ backgroundColor: "White" }}>
           <div class="col">
-            <Readonly
+            <PersonalReadonly
               treevalue={treevalue}
               data={data}
               team={team}
               emp={emp}
               attend={attend}
-            ></Readonly>
+              conf_list={conf_list}
+            ></PersonalReadonly>
           </div>
         </div>
       </div>

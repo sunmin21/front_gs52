@@ -115,12 +115,7 @@ const Readonly = withDragDropContext((props) => {
     }
   });
 
-  console.log(attendList);
-
   const List = teamList.concat(empList);
-
-  console.log(List);
-  console.log(empList);
 
   const selectList = {
     resources: List,
@@ -129,8 +124,6 @@ const Readonly = withDragDropContext((props) => {
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(selectList.events);
 
-  console.log(schedulerData);
-  console.log(schedulerData.startDate);
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {

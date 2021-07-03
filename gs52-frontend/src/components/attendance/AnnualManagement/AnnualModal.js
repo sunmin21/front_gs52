@@ -65,11 +65,10 @@ function AnnualModal({
           sameCount++;
         }
       });
-      console.log(sameCount);
+
       if (sameCount == 0) {
         await InserVacation(5, infoIndex, date, contents, 0);
 
-        console.log(infoIndex);
         if (infoIndex == "7") {
           await UpdateVacation(-1, 55555);
         } else if (infoIndex == "8") {

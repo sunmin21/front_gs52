@@ -64,7 +64,6 @@ function BusinessModal({
           sameCount++;
         }
       });
-      console.log(sameCount);
       if (sameCount == 0) {
         await InserVacation(5, infoIndex, date, contents, 0);
 
