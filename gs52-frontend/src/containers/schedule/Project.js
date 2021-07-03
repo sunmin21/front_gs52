@@ -43,9 +43,6 @@ const Project = () => {
                   프로젝트 생성
                 </CButton>
               </CCardBody>
-              <CCardBody style={{textAlign:"right"}}>
-                <button>요청된 프로젝트</button>
-              </CCardBody>              
             </CCardGroup>
           </CCol>
         </CRow>
