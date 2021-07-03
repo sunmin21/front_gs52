@@ -41,7 +41,8 @@ const usersData = [
         종료: "2021-08-01",
         담당자: "Member",
     },
-    ];
+];
+
 function ProjectList() {
     let [emp] = useState(8);
     const history = useHistory();
@@ -56,7 +57,7 @@ function ProjectList() {
     }, [dispatch]);
 
     const fields = [
-        { key: "번호", _style: { width: "5%" } },
+        { key: "번호", _style: { width: "15%" } },
         { key: "프로젝트명", _style: { width: "50%" } },
         "시작",
         "종료",
