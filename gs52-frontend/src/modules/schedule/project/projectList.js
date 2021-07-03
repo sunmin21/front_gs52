@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
     createRequestActionTypes,
 } from "../../../lib/createRequestSaga";
-import * as API from "../../../lib/api/schedule/Project";
+import * as API from "../../../lib/api/schedule/ProjectList";
 import { takeLatest } from "redux-saga/effects";
 
 const [PROCEEDING, PROCEEDING_SUCCESS, PROCEEDING_FAILURE] =
