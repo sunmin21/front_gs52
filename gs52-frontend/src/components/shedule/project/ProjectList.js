@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { proceedingAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
+import { SelectProceeding } from "src/lib/api/schedule/ProjectList";
 const usersData = [
     {
         번호: 1,
@@ -44,7 +45,8 @@ const usersData = [
 function ProjectList() {
     let [emp] = useState(8);
     const history = useHistory();
-
+    //const test = SelectProceeding(emp);
+   // console.log(test);
     const dispatch = useDispatch();
     const { proceeding } = useSelector((state) => {
         console.log(state);
@@ -52,7 +54,6 @@ function ProjectList() {
             proceeding: state.projectList.proceeding,
         };
     });
-
     useEffect(() => {
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
