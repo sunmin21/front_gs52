@@ -5,56 +5,57 @@ import createRequestSaga, {
 import * as API from "../../../lib/api/schedule/Project";
 import { takeLatest } from "redux-saga/effects";
 
-// const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
-  // createRequestActionTypes("schedule/PROJECT"); //타입유형
-const [PROCEEDING, PROCEEDING_SUCCESS, PROCEEDING_FAILURE] =
-  createRequestActionTypes("schedule/PROCEEDING"); //타입유형
+const PROJECTNO = "schedule/PROJECTNO";
 
-// export const projectAxios = createAction(PROJECT, ({ 인덱스 }) => ({
-//   인덱스,
-// })); //리덕스의 액션함수
-export const proceedingAxios = createAction(PROCEEDING); //리덕스의 액션함수
+const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
+  createRequestActionTypes("schedule/PROJECT"); //타입유형
 
-// const projectSelectSaga = createRequestSaga(PROJECT, API.SelectProject);
-const proceedingSaga = createRequestSaga(PROCEEDING, API.SelectProceeding);
+export const projectAxios = createAction(PROJECT, (index) => {
+  console.log(index);
+  return {
+    index,
+  };
+}); //리덕스의 액션함수
+
+export const projectNoChange = createAction(PROJECTNO, ({ index }) => {
+  return {
+    index,
+  };
+});
+const projectSelectSaga = createRequestSaga(PROJECT, API.SelectOneProject);
 
 export function* projectSaga2() {
-  // yield takeLatest(PROJECT, projectSelectSaga);
-  yield takeLatest(PROCEEDING, proceedingSaga);
+  yield takeLatest(PROJECT, projectSelectSaga);
 }
 
 const initialState = {
   //초기값을 정의
-  // project: {},
-  // projectError: null,
-  proceeding: [],
-  proceedingError: null,
+  projectNo: 0,
+  projectContent: {},
+  projectFile: {},
+  projectWith: {},
+  projectError: null,
 };
 
 // 리듀서 선언부분
 const project = handleActions(
   {
-    // [PROJECT_SUCCESS]: (state, { payload: project }) => ({
-    //   ...state,
-    //   projectError: null,
-    //   project,
-    // }),
-
-    // [PROJECT_FAILURE]: (state, { payload: error }) => ({
-    //   ...state,
-    //   projectError: error,
-    // }),
-
-    [PROCEEDING_SUCCESS]: (state, { payload: proceeding }) => ({
+    [PROJECT_SUCCESS]: (state, { payload: projectContent }) => ({
       ...state,
-      proceedingError: null,
-      proceeding,
+      projectError: null,
+      projectContent,
     }),
 
-    [PROCEEDING_FAILURE]: (state, { payload: error }) => ({
+    [PROJECT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      proceedingError: error,
+      projectError: error,
     }),
+    [PROJECTNO]: (state, { payload: { index } }) => {
+      return {
+        ...state,
+        projectNo: index,
+      };
+    },
   },
   initialState
 );

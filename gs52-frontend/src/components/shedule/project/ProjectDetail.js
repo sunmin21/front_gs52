@@ -10,54 +10,42 @@ import {
   CTabPane,
   CCol,
   CRow,
+  CCardHeader,
 } from "@coreui/react";
-import ProjectList from "./ProjectList";
-import { useLocation } from "react-router-dom";
+
 import ProjectContent from "./projectDetail/ProjectContent";
 
 function ShowProject() {
-  const location = useLocation();
-
-  console.log(location.state); // 2
   return (
-    <CRow className="align-items-center">
-      <CCol>
-        <CCard style={{ textAlign: "center" }}>
+    <>
+      <CCol xs="12" md="12" className="mb-4">
+        <CCard>
+          <CCardHeader>프로젝트</CCardHeader>
           <CCardBody>
-            <CTabs activeTab="proceeding">
+            <CTabs>
               <CNav variant="tabs">
                 <CNavItem>
-                  <CNavLink data-tab="requested">프로젝트 설명</CNavLink>
+                  <CNavLink>프로젝트 개요</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink data-tab="proceeding">진행중인 프로젝트</CNavLink>
+                  <CNavLink>보낸 요청</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink data-tab="completed">완료된 프로젝트</CNavLink>
-                </CNavItem>
-                <CNavItem>
-                  <CNavLink data-tab="expected">예정된 프로젝트</CNavLink>
+                  <CNavLink>완료한 요청</CNavLink>
                 </CNavItem>
               </CNav>
               <CTabContent>
-                <CTabPane data-tab="requested">
+                <CTabPane>
                   <ProjectContent />
                 </CTabPane>
-                <CTabPane data-tab="proceeding">
-                  <ProjectList />
-                </CTabPane>
-                <CTabPane data-tab="completed">
-                  <h1>completed</h1>
-                </CTabPane>
-                <CTabPane data-tab="expected">
-                  <h1>expected</h1>
-                </CTabPane>
+                <CTabPane></CTabPane>
+                <CTabPane></CTabPane>
               </CTabContent>
             </CTabs>
           </CCardBody>
         </CCard>
       </CCol>
-    </CRow>
+    </>
   );
 }
 

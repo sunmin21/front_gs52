@@ -23,6 +23,7 @@ import modalcontent from "src/components/task/BusinessProgress/Search";
 import Modal from "src/containers/common/UserModal";
 import { InsertProject } from "src/lib/api/schedule/Project";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
+import { projectAxios } from "src/modules/schedule/project/project";
 const ProjectContent = () => {
   const date = moment().format("YYYY-MM-DD");
   const [content, setContent] = useState({
@@ -35,11 +36,21 @@ const ProjectContent = () => {
   });
   const dispatch = useDispatch();
   const history = useHistory();
+  const { projectNo } = useSelector(({ project }) => {
+    return {
+      projectNo: project.projectNo,
+    };
+  });
   useEffect(() => {
     dispatch(teamAxios());
     dispatch(empAxios());
-  }, [dispatch]);
+    dispatch(projectAxios(projectNo));
+  }, [dispatch, projectNo]);
+  if (projectNo === 0) {
+    history.goBack();
+  }
   const [data, setData] = useState([]);
+
   const { search } = useSelector(({ emp }) => {
     return {
       search: emp.search,
@@ -121,7 +132,7 @@ const ProjectContent = () => {
   return (
     <>
       {" "}
-      <CCol xs="12" md="12">
+      <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
         <CCard>
           <CCardHeader>프로젝트 생성</CCardHeader>
           <CCardBody>

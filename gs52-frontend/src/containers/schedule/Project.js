@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 import { useHistory } from "react-router-dom";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
-import ShowProect from 'src/components/shedule/project/ShowProject';
+import ShowProject from 'src/components/shedule/project/ShowProject';
 
 const Project = () => {
   const Notice = React.lazy(() => import("src/components/main/notice/Notice"));
@@ -43,9 +43,6 @@ const Project = () => {
                   프로젝트 생성
                 </CButton>
               </CCardBody>
-              <CCardBody style={{textAlign:"right"}}>
-                <button>요청된 프로젝트</button>
-              </CCardBody>              
             </CCardGroup>
           </CCol>
         </CRow>
@@ -53,7 +50,7 @@ const Project = () => {
         <CRow className="align-items-center">
           <CCol>
             <CCard style={{textAlign:"center"}}>
-              <ShowProect />
+              <ShowProject />
             </CCard>
           </CCol>
         </CRow>
