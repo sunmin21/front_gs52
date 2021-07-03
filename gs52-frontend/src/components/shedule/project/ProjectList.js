@@ -3,12 +3,15 @@ import { CCardBody, CDataTable } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { proceedingAxios } from "src/modules/schedule/project/project";
+import { useDispatch } from "react-redux";
+import { projectNoChange } from "src/modules/schedule/project/project";
 
 function ProjectList() {
 
     let [emp] = useState(8);
 
     const dispatch = useDispatch();
+
     const { proceeding } = useSelector((state) => {
         console.log(state)
         return {
@@ -17,7 +20,7 @@ function ProjectList() {
     })
 
     useEffect(() => {
-        dispatch(proceedingAxios(emp))
+        dispatch(proceedingAxios({ emp }))
     }, [dispatch])
 
     const fields = [
@@ -26,13 +29,6 @@ function ProjectList() {
         "시작",
         "종료",
         // { key: "담당자", _style: { width: "20%" } },
-        {
-        key: "show_details",
-        label: "",
-        _style: { width: "7%" },
-        sorter: false,
-        filter: false,
-        },
     ];
 
     const data = proceeding.map((item) => {
@@ -58,12 +54,12 @@ function ProjectList() {
             sorter
             sorterValue={{ column: "번호", desc: "true" }}
             pagination
-            // onRowClick={(item) => {
-            // history.push({
-            //     pathname: `/schedule/project/detail`,
-            //     state: item.번호,
-            //     });
-            // }}
+            onRowClick={(item) => {
+                history.push({
+                    pathname: `/schedule/project/detail`,
+                });
+                dispatch(projectNoChange({ index: item.번호 }));
+            }}
         />
         </CCardBody>
     );
