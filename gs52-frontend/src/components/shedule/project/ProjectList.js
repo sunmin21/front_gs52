@@ -40,23 +40,23 @@ function ProjectList() {
 
     return (
         <CCardBody>
-        <CDataTable
-            items={data}
-            fields={fields}
-            columnFilter
-            tableFilter
-            footer
-            itemsPerPageSelect
-            itemsPerPage={5}
-            hover
-            sorter
-            sorterValue={{ column: "번호", desc: "true" }}
-            pagination
-            onRowClick={(item) => {
-            history.push({
-                pathname: `/schedule/project/detail`,
-            });
-            dispatch(projectNoChange({ index: item.번호 }));
+            <CDataTable
+                items={data}
+                fields={fields}
+                columnFilter
+                tableFilter
+                footer
+                itemsPerPageSelect
+                itemsPerPage={5}
+                hover
+                sorter
+                sorterValue={{ column: "번호", desc: "true" }}
+                pagination
+                onRowClick={(item) => {
+                history.push({
+                    pathname: `/schedule/project/detail`,
+                });
+                dispatch(projectNoChange({ index: item.번호 }));
             }}
         />
         </CCardBody>
