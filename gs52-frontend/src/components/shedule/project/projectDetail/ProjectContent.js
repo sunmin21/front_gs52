@@ -23,7 +23,7 @@ import modalcontent from "src/components/task/BusinessProgress/Search";
 import Modal from "src/containers/common/UserModal";
 import { InsertProject } from "src/lib/api/schedule/Project";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
-const ProjectCreate = () => {
+const ProjectContent = () => {
   const date = moment().format("YYYY-MM-DD");
   const [content, setContent] = useState({
     타이틀: "",
@@ -118,7 +118,6 @@ const ProjectCreate = () => {
   }, [filename, content.파일]);
 
   let Filename = useRef("");
-  console.log(data);
   return (
     <>
       {" "}
@@ -388,4 +387,4 @@ const ProjectCreate = () => {
   );
 };
 
-export default ProjectCreate;
+export default ProjectContent;

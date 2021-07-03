@@ -46,20 +46,20 @@ const AnnualModal = ({ Content, form }) => {
         <CModalFooter>
           <CButton
             color="secondary"
-            onClick={() => (
-              setInfo(!info),
-              dispatch(
-                changeSEARCHADD({
-                  form: "search",
+            onClick={() =>
+              setInfo(!info)
+              // dispatch(
+              //   changeSEARCHADD({
+              //     form: "search",
 
-                  사원번호: [],
-                  이름: "",
-                  부서: "",
-                  팀: "",
-                  직책: "",
-                })
-              )
-            )}
+              //     사원번호: [],
+              //     이름: "",
+              //     부서: "",
+              //     팀: "",
+              //     직책: "",
+              //   })
+              // )
+            }
           >
             취소
           </CButton>
