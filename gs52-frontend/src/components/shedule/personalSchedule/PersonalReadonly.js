@@ -10,6 +10,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import "react-big-scheduler/lib/css/style.css";
 
 import moment from "moment";
+import { Modal } from "antd";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -21,9 +22,12 @@ function useForceUpdate() {
 const now = moment(new Date()).format("YYYY-MM-DD");
 
 let schedulerData = new SchedulerData(now, ViewTypes.Day, false, false, {
+  startResizable: false,
+  endResizable: false,
   eventItemPopoverEnabled: false,
   movable: false,
   calendarPopoverEnabled: false,
+  resourceName: "개인 스케줄",
   views: [],
 });
 schedulerData.localeMoment.locale("en");
@@ -114,18 +118,28 @@ const Readonly = withDragDropContext((props) => {
     }
   });
 
-  const confList = props.conf_list.map((item) => {
-    console.log(item);
-  });
-
   ///직원 별 회의실 목록
-  console.log(props.conf_list);
+  const confLeader = props.leader.map((item) => ({
+    id: item.conf_INDEX,
+    start: item.conf_DATE + " " + item.conf_START,
+    end: item.conf_DATE + " " + item.conf_END,
+    resourceId: item.emp_ID,
+    title: item.conf_TITLE,
+  }));
+
+  const confPerson = props.person.map((item) => ({
+    id: item.conf_RE_INDEX,
+    start: item.conf_DATE + " " + item.conf_START,
+    end: item.conf_DATE + " " + item.conf_END,
+    resourceId: item.emp_ID,
+    title: item.conf_TITLE,
+  }));
 
   //직원, 팀 부서 리스트
   const List = teamList.concat(empList);
 
   //각 직원별 일정 리스트
-  const eventList = attendList;
+  const eventList = attendList.concat(confLeader).concat(confPerson);
 
   const selectList = {
     resources: List,
@@ -221,6 +235,13 @@ const Readonly = withDragDropContext((props) => {
     schedulerData.setEvents(selectList.events);
     forceUpdate();
   };
+  const eventClicked = (schedulerData, event) => {
+    Modal.info({
+      title: event.title,
+      content: <div></div>,
+      onOk() {},
+    });
+  };
 
   return (
     <div>
@@ -238,6 +259,7 @@ const Readonly = withDragDropContext((props) => {
           onScrollTop={onScrollTop}
           onScrollBottom={onScrollBottom}
           toggleExpandFunc={toggleExpandFunc}
+          eventItemClick={eventClicked}
         />
       </div>
     </div>

@@ -11,6 +11,10 @@ import {
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
 import { ConsoleSqlOutlined } from "@ant-design/icons";
 import { ConfAxios } from "src/modules/schedule/conf";
+import {
+  leaderAxios,
+  personAxios,
+} from "src/modules/schedule/personSchedule/personSchedule";
 
 const MemberScheduleManagement = () => {
   const dispatch = useDispatch();
@@ -21,15 +25,18 @@ const MemberScheduleManagement = () => {
   // console.log(test);
 
   //리덕스에서 team 가져옴
-  const { team, emp, treevalue, attend, conf_list } = useSelector((state) => {
-    return {
-      team: state.memberSchedule.team,
-      emp: state.memberSchedule.emp,
-      treevalue: state.memberSchedule.treevalue,
-      attend: state.memberSchedule.attend,
-      conf_list: state.conf_check.conf_list,
-    };
-  });
+  const { team, emp, treevalue, attend, person, leader } = useSelector(
+    (state) => {
+      return {
+        team: state.memberSchedule.team,
+        emp: state.memberSchedule.emp,
+        treevalue: state.memberSchedule.treevalue,
+        attend: state.memberSchedule.attend,
+        person: state.personSchedule.person,
+        leader: state.personSchedule.leader,
+      };
+    }
+  );
 
   const nowEmpTeam = emp //현재 로그인한 사람의 팀 구하기
     .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.current)
@@ -44,7 +51,8 @@ const MemberScheduleManagement = () => {
     dispatch(teamAxios());
     dispatch(empAxios());
     dispatch(attendAxios());
-    dispatch(ConfAxios());
+    dispatch(personAxios());
+    dispatch(leaderAxios());
   }, [dispatch]);
 
   const data = team.map((item) => ({
@@ -92,7 +100,8 @@ const MemberScheduleManagement = () => {
               team={team}
               emp={emp}
               attend={attend}
-              conf_list={conf_list}
+              person={person}
+              leader={leader}
             ></PersonalReadonly>
           </div>
         </div>

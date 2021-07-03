@@ -1,27 +1,14 @@
 import client from "../client";
 
 const API_URL = "http://localhost:8081";
-export const SelectTeam = async () => {
-  const team = await client.post(API_URL + "/member/team");
+export const SelectConfPerson = async () => {
+  const person = await client.post(API_URL + "/personal/confPerson");
 
-  return team;
+  return person;
 };
 
-export const SelectEmp = async (index) => {
-  const emp = await client.post(API_URL + "/member/emp", {
-    //개인 사원의 잔여 연차 수를 가져옴
-    // emp_TEAM_INDEX: index,
-  });
+export const SelectConfLeader = async () => {
+  const leader = await client.post(API_URL + "/personal/confLeader");
 
-  return emp;
+  return leader;
 };
-
-export const SelectAttend = async (index) => {
-  const attend = await client.post(API_URL + "/member/attend");
-  return attend;
-};
-
-// post로 값넘기기
-
-// const login = ({ username, password }) =>
-//   client.post('/api/auth/login', { username, password });

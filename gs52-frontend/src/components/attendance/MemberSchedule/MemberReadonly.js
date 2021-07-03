@@ -20,6 +20,8 @@ function useForceUpdate() {
 const now = moment(new Date()).format("YYYY-MM-DD");
 
 let schedulerData = new SchedulerData(now, ViewTypes.Month, false, false, {
+  startResizable: false,
+  endResizable: false,
   eventItemPopoverEnabled: false,
   movable: false,
   calendarPopoverEnabled: false,
@@ -30,8 +32,6 @@ schedulerData.localeMoment.locale("en");
 //treevalue값 까지 받아와짐
 
 const Readonly = withDragDropContext((props) => {
-  console.log(props.treevalue);
-  console.log(props.emp);
   ////////////////////////////팀, 직원 목록
   const empList = props.emp
     .filter(
