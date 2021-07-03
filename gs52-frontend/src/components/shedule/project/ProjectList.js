@@ -58,27 +58,28 @@ function ProjectList() {
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
 
-    const fields = ["번호", "프로젝트명", "시작", "종료"
-        // { key: "번호", _style: { width: "5%" } },
-        // { key: "프로젝트명", _style: { width: "50%" } },
-        // "시작",
-        // "종료",
-        // { key: "담당자", _style: { width: "20%" } },
+    const fields = [
+        { key: "번호", _style: { width: "5%" } },
+        { key: "프로젝트명", _style: { width: "50%" } },
+        "시작",
+        "종료",
+        { key: "담당자", _style: { width: "20%" } },
     ];
-    console.log(proceeding)
     const data = proceeding.map((item) => {
+        console.log(item)
         return {
             번호: item.project_INDEX,
             프로젝트명: item.project_TITLE,
             시작: item.project_START,
             종료: item.project_END,
+            담당자: item.emp_NAME
         };
     });
 
     return (
         <CCardBody>
             <CDataTable
-                items={usersData}
+                items={data}
                 fields={fields}
                 columnFilter
                 tableFilter
