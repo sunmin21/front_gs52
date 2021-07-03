@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import createRequestSaga, {
-    createRequestActionTypes,
+  createRequestActionTypes,
 } from "../../../lib/createRequestSaga";
 import * as API from "../../../lib/api/schedule/ProjectList";
 import { takeLatest } from "redux-saga/effects";
@@ -17,26 +17,26 @@ export function* proceedingSaga2() {
 }
 
 const initialState = {
-    //초기값을 정의
-    proceeding: [],
-    proceedingError: null,
+  //초기값을 정의
+  proceeding: [],
+  proceedingError: null,
 };
 
 // 리듀서 선언부분
 const project = handleActions(
-    {
-        [PROCEEDING_SUCCESS]: (state, { payload: proceeding }) => ({
-            ...state,
-            proceedingError: null,
-            proceeding,
-        }),
+  {
+    [PROCEEDING_SUCCESS]: (state, { payload: proceeding }) => ({
+      ...state,
+      proceedingError: null,
+      proceeding,
+    }),
 
-        [PROCEEDING_FAILURE]: (state, { payload: error }) => ({
-            ...state,
-            proceedingError: error,
-        }),
-    },
-    initialState
+    [PROCEEDING_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      proceedingError: error,
+    }),
+  },
+  initialState
 );
 
 export default project;

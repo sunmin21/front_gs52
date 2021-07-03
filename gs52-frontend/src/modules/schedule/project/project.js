@@ -31,17 +31,19 @@ export function* projectSaga2() {
 const initialState = {
   //초기값을 정의
   projectNo: 0,
-  project: {},
+  projectContent: {},
+  projectFile: {},
+  projectWith: {},
   projectError: null,
 };
 
 // 리듀서 선언부분
 const project = handleActions(
   {
-    [PROJECT_SUCCESS]: (state, { payload: project }) => ({
+    [PROJECT_SUCCESS]: (state, { payload: projectContent }) => ({
       ...state,
       projectError: null,
-      project,
+      projectContent,
     }),
 
     [PROJECT_FAILURE]: (state, { payload: error }) => ({
