@@ -13,11 +13,9 @@ const Dropdown = (data) => {
   const [value, setValue] = useState([data.nowEmpTeam[0]]);
   //const [value, setValue] = useState(["3"]);
 
-  console.log(value);
   const dispatch = useDispatch();
 
   const treeData = data.data;
-  console.log(treeData);
 
   useEffect(() => {
     dispatch(treeValue(value));

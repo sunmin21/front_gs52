@@ -37,7 +37,6 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   });
   const dispatch = useDispatch();
   const { annual } = useSelector((state) => {
-    console.log(state);
     return {
       annual: state.annual.annual,
     };
@@ -83,10 +82,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
         승인: status,
       };
     });
-  console.log("@@@@2");
-  console.log(annual);
-  console.log(data);
-  console.log("@@@@3");
+
   const data2 = empvacation.map((item) => {
     return item.emp_VACATION;
   });

@@ -1,15 +1,13 @@
-import Item from "antd/lib/list/Item";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "./../../components/attendance/MemberSchedule/MemberDropdown";
-import Readonly from "src/components/attendance/MemberSchedule/Readonly";
+import MemberReadonly from "src/components/attendance/MemberSchedule/MemberReadonly";
 import {
   attendAxios,
   empAxios,
   teamAxios,
 } from "src/modules/annual/memberSchedule";
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const MemberScheduleManagement = () => {
   const dispatch = useDispatch();
@@ -57,8 +55,6 @@ const MemberScheduleManagement = () => {
     //console.log(item);
   });
 
-  console.log(nowEmpTeam);
-
   //console.log(test);
 
   useEffect(() => {
@@ -83,22 +79,11 @@ const MemberScheduleManagement = () => {
 
   return (
     <>
-      {/* <div class="container">
-        <div class="row">
-          <div class="col">
-            <MemberSchedulePage></MemberSchedulePage>
-          </div>
-          <div class="col mb-3">
-            <MemberDropdown></MemberDropdown>
-          </div>
-
-          <MemberSchedule></MemberSchedule>
-        </div>
-      </div> */}
       <div>
         <div class="row justify-content-end">
           <div class="col-sm-4 mb-2">
             <MemberDropdown
+              style={{ borderRadius: "40px 80px" }}
               data={data}
               nowEmpTeam={nowEmpTeam}
             ></MemberDropdown>
@@ -106,13 +91,13 @@ const MemberScheduleManagement = () => {
         </div>
         <div class="row" style={{ backgroundColor: "White" }}>
           <div class="col">
-            <Readonly
+            <MemberReadonly
               treevalue={treevalue}
               data={data}
               team={team}
               emp={emp}
               attend={attend}
-            ></Readonly>
+            ></MemberReadonly>
           </div>
         </div>
       </div>

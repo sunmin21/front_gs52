@@ -30,8 +30,7 @@ schedulerData.localeMoment.locale("en");
 
 const Readonly = withDragDropContext((props) => {
   //treevalue값 까지 받아와짐
-  console.log(props.treevalue);
-  console.log(props.emp);
+
   ////////////////////////////팀, 직원 목록
   const empList = props.emp
     .filter(
@@ -115,16 +114,22 @@ const Readonly = withDragDropContext((props) => {
     }
   });
 
-  console.log(attendList);
+  const confList = props.conf_list.map((item) => {
+    console.log(item);
+  });
 
+  ///직원 별 회의실 목록
+  console.log(props.conf_list);
+
+  //직원, 팀 부서 리스트
   const List = teamList.concat(empList);
 
-  console.log(List);
-  console.log(empList);
+  //각 직원별 일정 리스트
+  const eventList = attendList;
 
   const selectList = {
     resources: List,
-    events: attendList,
+    events: eventList,
   };
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(selectList.events);
@@ -203,7 +208,6 @@ const Readonly = withDragDropContext((props) => {
   };
 
   const toggleExpandFunc = (schedulerData, slotId) => {
-    console.log(slotId);
     schedulerData.toggleExpandStatus(slotId);
     forceUpdate();
   };
