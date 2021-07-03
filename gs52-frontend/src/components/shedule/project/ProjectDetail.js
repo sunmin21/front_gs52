@@ -13,6 +13,7 @@ import {
 } from "@coreui/react";
 import ProjectList from "./ProjectList";
 import { useLocation } from "react-router-dom";
+import ProjectContent from "./projectDetail/ProjectContent";
 
 function ShowProject() {
   const location = useLocation();
@@ -26,7 +27,7 @@ function ShowProject() {
             <CTabs activeTab="proceeding">
               <CNav variant="tabs">
                 <CNavItem>
-                  <CNavLink data-tab="requested">요청받은 프로젝트</CNavLink>
+                  <CNavLink data-tab="requested">프로젝트 설명</CNavLink>
                 </CNavItem>
                 <CNavItem>
                   <CNavLink data-tab="proceeding">진행중인 프로젝트</CNavLink>
@@ -40,7 +41,7 @@ function ShowProject() {
               </CNav>
               <CTabContent>
                 <CTabPane data-tab="requested">
-                  <h1>requested</h1>
+                  <ProjectContent />
                 </CTabPane>
                 <CTabPane data-tab="proceeding">
                   <ProjectList />

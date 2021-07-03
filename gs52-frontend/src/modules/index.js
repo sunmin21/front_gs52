@@ -13,6 +13,7 @@ import account, { AccountSaga } from "./manager/Account";
 import main, { MainSaga } from "./main/main";
 import memberSchedule, { memberScheduleSaga2 } from "./annual/memberSchedule";
 import vacation, { vacationSaga2 } from "./manager/vacation";
+import project, { projectSaga2 } from "./schedule/project/project";
 const rootReducer = combineReducers({
   test,
   manager,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   report,
   main,
   vacation,
+  project,
 });
 
 export function* rootSaga() {
@@ -41,6 +43,7 @@ export function* rootSaga() {
     memberScheduleSaga2(),
     MainSaga(),
     vacationSaga2(),
+    projectSaga2(),
   ]);
 }
 export default rootReducer;
