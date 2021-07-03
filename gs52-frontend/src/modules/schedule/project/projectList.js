@@ -12,7 +12,7 @@ export const proceedingAxios = createAction(PROCEEDING); //리덕스의 액션�
 
 const proceedingSaga = createRequestSaga(PROCEEDING, API.SelectProceeding);
 
-export function* projectSaga2() {
+export function* proceedingSaga2() {
     yield takeLatest(PROCEEDING, proceedingSaga);
 }
 
