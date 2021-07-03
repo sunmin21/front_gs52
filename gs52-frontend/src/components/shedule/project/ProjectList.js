@@ -45,11 +45,8 @@ const usersData = [
 function ProjectList() {
     let [emp] = useState(8);
     const history = useHistory();
-    //const test = SelectProceeding(emp);
-   // console.log(test);
     const dispatch = useDispatch();
     const { proceeding } = useSelector((state) => {
-        console.log(state);
         return {
             proceeding: state.projectList.proceeding,
         };

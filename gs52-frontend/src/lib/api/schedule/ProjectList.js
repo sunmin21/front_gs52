@@ -7,7 +7,6 @@ export const SelectProceeding = async (emp) => {
     const proceeding = await client.post(API_URL + "/project/selectProceeding", {
         project_WITH_EMP_INDEX: emp
     })
-    console.log("@@@@@@@@" + emp)
     
     return proceeding;
 }
