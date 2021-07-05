@@ -1,5 +1,6 @@
 import React from "react";
 import { CCardBody, CTabs, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
+import Requested from './projectList/Requested';
 import Proceeding from './projectList/Proceeding';
 import Completed from './projectList/Completed';
 import Expected from './projectList/Expected';
@@ -7,7 +8,7 @@ import Expected from './projectList/Expected';
 function ShowProject() {
     return (
         <CCardBody>
-            <CTabs activeTab="proceeding">
+            <CTabs activeTab="requested">
                 <CNav variant="tabs">
                     <CNavItem>
                         <CNavLink data-tab="requested">
@@ -32,7 +33,7 @@ function ShowProject() {
                 </CNav>
                 <CTabContent>
                     <CTabPane data-tab="requested">
-                        <h1>requested</h1>
+                        <Requested />
                     </CTabPane>
                     <CTabPane data-tab="proceeding">
                         <Proceeding />

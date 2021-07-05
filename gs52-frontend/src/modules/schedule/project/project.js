@@ -11,7 +11,7 @@ const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
   createRequestActionTypes("schedule/PROJECT"); //타입유형
 
 export const projectAxios = createAction(PROJECT, (index) => {
-  console.log(index);
+  // console.log(index);
   return {
     index,
   };
