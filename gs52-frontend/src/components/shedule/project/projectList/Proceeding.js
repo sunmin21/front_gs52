@@ -4,7 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { proceedingAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
-import { SelectProceeding } from "src/lib/api/schedule/ProjectList";
+import moment from "moment";
+
 const usersData = [
     {
         번호: 1,
@@ -43,7 +44,7 @@ const usersData = [
     },
 ];
 
-function ProjectList() {
+function Proceeding() {
     let [emp] = useState(8);
     const history = useHistory();
     const dispatch = useDispatch();
@@ -56,29 +57,33 @@ function ProjectList() {
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
 
-    const fields = [
-        { key: "번호", _style: { width: "15%" } },
-        { key: "프로젝트명", _style: { width: "50%" } },
-        "시작",
-        "종료",
-        { key: "담당자", _style: { width: "20%" } },
-    ];
-    const data = proceeding.map((item) => {
-        console.log(item)
-        return {
-            번호: item.project_INDEX,
+    const date = moment().format("YYYY-MM-DD");
+
+    const data = proceeding
+        .filter(
+            (item) =>
+                ( item.project_START < date
+                && item.project_END > date )
+        )
+        .map((item, key) => ({
+            번호: key + 1, // index를 1부터 세 주기 위해서
             프로젝트명: item.project_TITLE,
             시작: item.project_START,
             종료: item.project_END,
-            담당자: item.emp_NAME
-        };
-    });
+            담당자: item.emp_NAME            
+    }))
 
     return (
         <CCardBody>
             <CDataTable
                 items={data}
-                fields={fields}
+                fields={[
+                    { key: "번호", _style: { width: "10%" } },
+                    { key: "프로젝트명", _style: { width: "45%" } },
+                    "시작",
+                    "종료",
+                    { key: "담당자", _style: { width: "15%" } },
+                ]}
                 columnFilter
                 tableFilter
                 footer
@@ -99,4 +104,4 @@ function ProjectList() {
     );
 }
 
-export default ProjectList;
+export default Proceeding;

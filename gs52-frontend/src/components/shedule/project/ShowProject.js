@@ -1,6 +1,8 @@
 import React from "react";
-import { CCard, CCardBody, CTabs, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
-import ProjectList from './ProjectList';
+import { CCardBody, CTabs, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
+import Proceeding from './projectList/Proceeding';
+import Completed from './projectList/Completed';
+import Expected from './projectList/Expected';
 
 function ShowProject() {
     return (
@@ -33,13 +35,13 @@ function ShowProject() {
                         <h1>requested</h1>
                     </CTabPane>
                     <CTabPane data-tab="proceeding">
-                        <ProjectList />
+                        <Proceeding />
                     </CTabPane>
                     <CTabPane data-tab="completed">
-                        <h1>completed</h1>
+                        <Completed />
                     </CTabPane>
                     <CTabPane data-tab="expected">
-                        <h1>expected</h1>
+                        <Expected />
                     </CTabPane>
                 </CTabContent>
             </CTabs>
