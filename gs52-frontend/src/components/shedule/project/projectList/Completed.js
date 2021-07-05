@@ -52,7 +52,7 @@ function Completed() {
                 itemsPerPage={5}
                 hover
                 sorter
-                sorterValue={{ column: "번호", desc: "true" }}
+                sorterValue={{ column: "시작", asc: "true" }}
                 pagination
                 onRowClick={(item) => {
                 history.push({

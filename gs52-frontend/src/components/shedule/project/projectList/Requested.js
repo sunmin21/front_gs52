@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CCardBody, CDataTable, CBadge, CButton } from "@coreui/react";
+import { CCardBody, CDataTable, CBadge, CButton, CCollapse, CInput, CCardGroup, CCard } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { requestedAxios } from "src/modules/schedule/project/projectList";
@@ -14,12 +14,31 @@ const getBadge = (status) => {
             return "success";
         case "거절":
             return "danger";
+        case "닫기":
+            return "secondary";
         default:
         return "primary";
     }
 };
-
+    
 function Requested() {
+
+    const [details, setDetails] = useState([])
+    const [text, setText] = useState();
+    const handleChange = (e) => {
+        setText(e.target.value);
+    }
+
+    const toggleDetails = (index) => {
+        const position = details.indexOf(index)
+        let newDetails = details.slice()
+        if (position !== -1) {
+            newDetails.splice(position, 1)
+        } else {
+            newDetails = [...details, index]
+        }
+            setDetails(newDetails)
+    }
     let [emp] = useState(8);
     const history = useHistory();
     const dispatch = useDispatch();
@@ -37,9 +56,11 @@ function Requested() {
         0: "대기중",
         1: "수락",
         2: "거절",
+        3: "닫기"
     };
 
     const data = requested.map((item, key) => ({
+        pwindex: item.project_WITH_INDEX,
         번호: key + 1, // index를 1부터 세 주기 위해서
         프로젝트명: item.project_TITLE,
         시작: item.project_START,
@@ -55,7 +76,7 @@ function Requested() {
                 items={data}
                 fields={[
                     { key: "번호", _style: { width: "10%" } },
-                    { key: "프로젝트명", _style: { width: "40%" } },
+                    { key: "프로젝트명", _style: { width: "30%" } },
                     "시작",
                     "종료",
                     { key: "담당자", _style: { width: "10%" } },
@@ -70,14 +91,14 @@ function Requested() {
                 itemsPerPage={5}
                 hover
                 sorter
-                sorterValue={{ column: "번호", desc: "true" }}
+                sorterValue={{ column: "시작", asc: "true" }}
                 pagination
-                onRowClick={(item) => {
-                    history.push({
-                        pathname: `/schedule/project/detail`,
-                    });
-                    dispatch(projectNoChange({ index: item.번호 }));
-                }}
+                // onRowClick={(item) => {
+                //     history.push({
+                //         pathname: `/schedule/project/detail`,
+                //     });
+                //     dispatch(projectNoChange({ index: item.번호 }));
+                // }}
                 scopedSlots={{
                     상태: (item) => (
                         <td>
@@ -89,39 +110,55 @@ function Requested() {
                     수락: (item) => (
                     <td>
                         <CButton
-                            active
-                            block
-                            color="success"
-                            onClick={async (e) => {
-                                await UpdateRequested(1, "");
-                                dispatch(requestedAxios());
+                                onClick={async (e) => {
+                                    console.log(item.pwindex)
+                                await UpdateRequested(item.pwindex, 1, "null");
+                                await dispatch(requestedAxios(emp));
                             }}
-                            // aria-pressed="true"
-                            // value={item.vacation_INDEX}
-                            // name={2}
                             >
-                            수락
+                            <CBadge color={getBadge(Done[1])}>
+                                {Done[1]}
+                            </CBadge>
                         </CButton>
                     </td>
                     ),
-                    거절: (item) => (
-                    <td>
-                        <CButton
-                            active
-                            block
-                            color="danger"
-                            onClick={async (e) => {
-                                await UpdateRequested(2, item.사유);
-                                dispatch(requestedAxios());
-                            }}
-                            // aria-pressed="true"
-                            // value={item.vacation_INDEX}
-                            // name={2}
-                            >
-                            거절
-                        </CButton>
-                    </td>
-                    ),
+                    거절:
+                    (item, index)=>{
+                        return (
+                        <td className="py-2">
+                            <CButton onClick={()=>{toggleDetails(index)}}>
+                                {details.includes(index)
+                                ? <CBadge color={getBadge(Done[3])}>
+                                    {Done[3]}
+                                </CBadge>
+                                : <CBadge color={getBadge(Done[2])}>
+                                    {Done[2]}
+                                </CBadge>}
+                            </CButton>
+                        </td>
+                        )
+                    },
+                    'details':
+                        (item, index)=>{
+                        return (
+                        <CCollapse show={details.includes(index)}>
+                            <CCard>
+                                <CCardBody>
+                                        <CInput placeholder="거절 사유를 적어주세요"
+                                            onChange={handleChange}/>
+                                    <br />
+                                    <CButton size="sm" color="danger" className="ml-1"
+                                        onClick={async (e) => {
+                                            await UpdateRequested(item.pwindex, 2, text );
+                                            await dispatch(requestedAxios(emp));
+                                        }}>
+                                        거절
+                                    </CButton>
+                                </CCardBody>
+                            </CCard>
+                        </CCollapse>
+                        )
+                    }
                 }}
             />
         </CCardBody>

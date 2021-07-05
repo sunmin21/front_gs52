@@ -20,12 +20,13 @@ export const SelectRequested = async (emp) => {
     return requested;
 }
 
-export const UpdateRequested = async (project_WITH_OKAY, project_WITH_REJECT) => {
+export const UpdateRequested = async (pwindex, okay, reject) => {
     
-    console.log(project_WITH_OKAY + " | " + project_WITH_REJECT)
+    console.log(pwindex + " | " + okay + " | "+ reject)
     const uprequested = await client.post(API_URL + "/project/updateRequested", {
-        project_WITH_OKAY: project_WITH_OKAY,
-        project_WITH_REJECT: project_WITH_REJECT
+        project_WITH_INDEX: pwindex,
+        project_WITH_OKAY: okay,
+        project_WITH_REJECT: reject
     })
 
     return uprequested;
