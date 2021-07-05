@@ -27,6 +27,7 @@
     "core-js": "^3.9.1",
     "css-loader": "^5.2.6",
     "enzyme": "^3.11.0",
+    "file-saver": "^2.0.5",
     "holiday-kr": "^0.1.5",
     "holidayapi": "^5.0.0",
     "holidays-kr": "^1.0.3",
