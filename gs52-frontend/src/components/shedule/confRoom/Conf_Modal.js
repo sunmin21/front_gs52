@@ -24,10 +24,16 @@ import "antd/dist/antd.css";
 import { TimePicker, DatePicker } from "antd";
 import moment from "moment";
 
-import Dropdown from "./Conf_EmpDropdown";
-
+import MemberDropdown from "./../../../components/attendance/MemberSchedule/MemberDropdown";
 
 import { useDispatch, useSelector } from "react-redux";
+
+import {
+  attendAxios,
+  empAxios,
+  teamAxios,
+} from "src/modules/annual/memberSchedule";
+
 import {
   ConfAxios,
   FloorAxios,
@@ -53,9 +59,19 @@ export function ConfModal() {
         conf_endTime: state.conf_check.conf_endTime,
       };
     });
+ //리덕스에서 team 가져옴
+  const { team,emp } = useSelector((state) => {
+    return {
+      team: state.memberSchedule.team,
+      emp: state.memberSchedule.emp,
+    };
+  });
+
+console.log(team);
 
   useEffect(() => {
     dispatch(RoomAxios(floor_list[0].conf_ROOM_FLOOR));
+    dispatch(teamAxios());
   }, [dispatch]);
 
   const floor_data = floor_list.map((item) => ({
@@ -69,11 +85,20 @@ export function ConfModal() {
     conf_ROOM_FLOOR: item.conf_ROOM_FLOOR,
     conf_ROOM_NUMBER: item.conf_ROOM_NUMBER,
   }));
-
   
-  console.log("room_data");
-  console.log(floor_data[0]);
-  console.log(room_data[0]);
+  const data = team.map((item) => ({
+    title: item.dept_NAME + " : " + item.team_NAME,
+    value: String(item.team_INDEX),
+    key: String(item.team_INDEX),
+    children: emp
+      .filter((data) => data.emp_TEAM_INDEX === item.team_INDEX)
+      .map((data) => ({
+        title: data.emp_NAME,
+        value: data.emp_ID,
+        key: data.emp_ID,
+        team: String(data.emp_TEAM_INDEX),
+      })),
+  }));
 
   const dateFormat = "YYYY-MM-DD";
 
@@ -201,7 +226,7 @@ export function ConfModal() {
 				/>
 
 				<div className="controls">
-					<Dropdown></Dropdown>
+					<MemberDropdown data={data}></MemberDropdown>
 
 				<p className="help-block">초대 인원 선택하세요</p>
 				</div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
   CHeader,
   CToggler,
@@ -15,7 +16,22 @@ import CIcon from "@coreui/icons-react";
 // routes config
 import routes from "../../route/routes";
 
+
+import {logout,getCurrentUser} from "../../lib/api/jwt/LoginAPI"
+
+
 const TheHeader = () => {
+  const history = useHistory();
+
+  const user = getCurrentUser();
+  // console.log("user")
+  // console.log(user)
+
+  const onLogout = () =>{
+    logout();
+    history.push('/');
+  }
+
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
 
@@ -32,7 +48,8 @@ const TheHeader = () => {
       : "responsive";
     dispatch({ type: "set", sidebarShow: val });
   };
-  console.log("header");
+  
+
   return (
     <CHeader withSubheader>
       <CToggler
@@ -59,9 +76,23 @@ const TheHeader = () => {
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink to="/task">업무관리</CHeaderNavLink>
         </CHeaderNavItem>
+
+{/*         
+        {
+          user.roles =="ROLE_ADMIN" ? */}
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
         </CHeaderNavItem>
+        {/* : null
+      } */}
+
+        {
+          user !== null ?
+          <button onClick={onLogout}>로그아웃</button>
+          : null
+            
+        }
+      
       </CHeaderNav>
 
       {/* <CHeaderNav className="px-3">

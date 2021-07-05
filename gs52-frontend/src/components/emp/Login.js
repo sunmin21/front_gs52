@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+=======
+import React, { useState, useEffect } from "react";
+import { useHistory, Redirect   } from "react-router-dom";
+>>>>>>> Stashed changes
 import {
   CButton,
   CCard,
@@ -15,13 +20,23 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import { login } from "src/lib/api/auth/auth";
 
-
+<<<<<<< Updated upstream
 import AuthService from "../../jwt/services/auth.service";
 
 export function Login() {
 
+=======
+import {LoginAPI
+} from "../../lib/api/jwt/LoginAPI";
+//import AuthService from "../../jwt/services/auth.service";
+import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
+
+export function Login() {
+
+
+  const history = useHistory();
+>>>>>>> Stashed changes
     const [user, setUser] = useState({
         id: "",
         pwd: "",
@@ -52,10 +67,24 @@ export function Login() {
         console.log("onLogin")
         console.log(user.id)        
         console.log(user.pwd)
+<<<<<<< Updated upstream
         //AuthService.login(user.id, user.pwd)
         AuthService.login(user.id, user.pwd).then(
             () => {
                 console.log("로그인 성공")
+=======
+
+        const res = LoginAPI(user.id, user.pwd).then(
+            () => {
+                console.log("로그인 성공")
+                const user_state = getCurrentUser();
+                if(user_state.first_login === 1){
+                  history.push('/first_login');
+                }
+                else{
+                  history.push('/');
+                }
+>>>>>>> Stashed changes
             },
             error => {
                 console.log("error")
@@ -73,10 +102,7 @@ export function Login() {
             <CCardGroup>
               <CCard className="p-4">
 
-
-                  
                 <CCardBody>
-
                   <CForm>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
@@ -88,7 +114,7 @@ export function Login() {
                       </CInputGroupPrepend>
                       <CInput
                         type="text"
-                        placeholder="Username"
+                        placeholder="사원번호"
                         autoComplete="username"
                         name="id"
                         onChange={onChange}
@@ -104,7 +130,7 @@ export function Login() {
                       </CInputGroupPrepend>
                       <CInput
                         type="password"
-                        placeholder="Password"
+                        placeholder="비밀번호"
                         autoComplete="current-password"
                         name="pwd"
                         onChange={onChange}

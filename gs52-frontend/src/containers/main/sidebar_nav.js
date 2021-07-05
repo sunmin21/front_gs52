@@ -1,6 +1,9 @@
 import React from "react";
 import CIcon from "@coreui/icons-react";
+import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
+import { render } from "@testing-library/react";
 
+const user = getCurrentUser();
 const _nav = [
   // {
   //   _tag: "CSidebarNavItem",
@@ -14,26 +17,14 @@ const _nav = [
   // },
   {
     _tag: "CSidebarNavTitle",
-    _children: ["관리자페이지"],
+    _children: ["Main"],
   },
-  {
-    _tag: "CSidebarNavItem",
-    name: "휴일관리",
-    to: "/manager/HolidayManagement",
-    icon: "cil-description",
-  },
-  {
-    _tag: "CSidebarNavItem",
-    name: "계정 등록",
-    to: "/manager/addAccount",
-    icon: "cil-Notes",
-  },
-  {
-    _tag: "CSidebarNavItem",
-    name: "항목추가",
-    to: "/manager/addOptions",
-    icon: "cil-Notes",
-  },
+  // {
+  //   _tag: "CSidebarNavItem",
+  //   name: user.name,
+  //   to: "/manager/VacationManage",
+  //   icon: "cil-Notes",
+  // },
 ];
 
 export default _nav;

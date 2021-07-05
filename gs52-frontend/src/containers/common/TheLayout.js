@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 
+import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
+
 const TheLayout = (props) => {
   const { location } = props;
   const [nav, setNav] = useState([]);
 
-  if (location.pathname === "/manager") {
+  const user = getCurrentUser();
+
+  console.log("THE LAYOUTTTTTTTTTTTTTTTTTTT")
+  console.log(user)
+  console.log(user)
+  if (location.pathname === "/manager"/* && user.roles=="ROLE_ADMIN"*/) {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/schedule") {
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));
@@ -13,6 +20,8 @@ const TheLayout = (props) => {
     import("../task/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/attendance") {
     import("../attendance/sidebar_nav").then((nav) => setNav(nav.default));
+  } else if (location.pathname === "/") {
+    import("../main/sidebar_nav").then((nav) => setNav(nav.default));
   }
 
   return (

@@ -20,7 +20,6 @@ export function AccountField() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("sdfsdfsdfsdfsdf")
     dispatch(DeptAxios());
     dispatch(RankAxios());
     dispatch(PositionAxios());
@@ -28,7 +27,6 @@ export function AccountField() {
 
   const  {dept_list, rank_list,position_list } =
     useSelector((state) => {
-      console.log(state);
       return {
         dept_list: state.account.dept_list,
         rank_list: state.account.rank_list,
@@ -64,7 +62,24 @@ export function AccountField() {
 
 	const onRegist=()=>{
 			//{InsertAccount(dept, rank, position, num, date)}
+<<<<<<< Updated upstream:gs52-frontend/src/components/manager/account/Account_Field.js
 		
+=======
+      //    username, email, password, position, rank, team
+      const id = num;
+      console.log(id)   //사원번호
+      console.log(name)   //sunmin
+      console.log(num)    //사원번호
+      RegistAccount(id, name, email, num, position, rank, dept, 1).then(
+        
+        response => {
+          console.log("성공")
+        },
+        error => {
+          console.log("실패")
+        }
+      );
+>>>>>>> Stashed changes:gs52-frontend/src/components/manager/account/Account_Regist.js
             console.log(inputs)
 
 	}
@@ -105,6 +120,32 @@ export function AccountField() {
                     계정 등록
                 </CCardHeader>
                 <CCardBody>
+<<<<<<< Updated upstream:gs52-frontend/src/components/manager/account/Account_Field.js
+=======
+                
+              				
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="num">사원번호</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput id="num" name="num" placeholder="사원 번호 (초기 비밀번호로 설정됩니다.)" 
+					            onChange={onChange} value={num||''}/>
+                  </CCol>
+                </CFormGroup>
+
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="name">이름</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput id="name" name="name" placeholder="이름" 
+				    	        onChange={onChange} value={name||''}/>
+                  </CCol>
+                </CFormGroup>
+
+
+>>>>>>> Stashed changes:gs52-frontend/src/components/manager/account/Account_Regist.js
                 <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="dept">부서</CLabel>
@@ -157,6 +198,7 @@ export function AccountField() {
                  </CCol>
                </CFormGroup>
                
+<<<<<<< Updated upstream:gs52-frontend/src/components/manager/account/Account_Field.js
               				
                 <CFormGroup row>
                   <CCol md="3">
@@ -168,6 +210,8 @@ export function AccountField() {
                   </CCol>
                 </CFormGroup>
 
+=======
+>>>>>>> Stashed changes:gs52-frontend/src/components/manager/account/Account_Regist.js
 
                 <CFormGroup row>
                   <CCol md="3">

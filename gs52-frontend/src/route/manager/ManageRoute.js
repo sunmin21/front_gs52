@@ -28,11 +28,11 @@ const ManagerRoute = [
     name: "계정등록",
     component: addAccount,
   },
-  {
-    path: "/manager/informLayout",
-    name: "informLayout",
-    component: InformLayout,
-  },
+  // {
+  //   path: "/manager/informLayout",
+  //   name: "informLayout",
+  //   component: InformLayout,
+  // },
   {
     path: "/manager/",
     name: "관리자페이지",

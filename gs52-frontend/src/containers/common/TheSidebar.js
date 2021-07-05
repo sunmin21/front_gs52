@@ -10,17 +10,18 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
+  CSidebarHeader
 } from "@coreui/react";
 
 import CIcon from "@coreui/icons-react";
+import Sidebar_Header from "../main/Sidebar_Header";
 
 // sidebar nav config
 
 const TheSidebar = ({ nav }) => {
   const dispatch = useDispatch();
-
   const show = useSelector((state) => state.changeState.sidebarShow);
-  console.log("sidebar");
+
   return (
     <CSidebar
       show={show}
@@ -40,6 +41,11 @@ const TheSidebar = ({ nav }) => {
           height={35}
         />
       </CSidebarBrand>
+
+      <CSidebarHeader>
+          <Sidebar_Header></Sidebar_Header>
+      </CSidebarHeader>
+
       <CSidebarNav>
         <CCreateElement
           items={nav}
