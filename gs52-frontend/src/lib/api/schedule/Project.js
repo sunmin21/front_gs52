@@ -18,9 +18,28 @@ export const InsertProject = async (regiInfo) => {
 };
 
 export const SelectOneProject = async ({ index }) => {
-  console.log(index);
   const project = await client.post(
-    API_URL + "/schedule/project/selectOneproject",
+    API_URL + "/schedule/project/selectOneProject",
+    {
+      project_INDEX: index,
+    }
+  );
+
+  return project;
+};
+export const SelectOneFile = async ({ index }) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/selectOneProjectFile",
+    {
+      project_INDEX: index,
+    }
+  );
+
+  return project;
+};
+export const SelectOneWith = async ({ index }) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/selectOneProjectWith",
     {
       project_INDEX: index,
     }
