@@ -1,10 +1,5 @@
-<<<<<<< Updated upstream
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-=======
-import React, { useState, useEffect } from "react";
 import { useHistory, Redirect   } from "react-router-dom";
->>>>>>> Stashed changes
 import {
   CButton,
   CCard,
@@ -21,12 +16,6 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
-<<<<<<< Updated upstream
-import AuthService from "../../jwt/services/auth.service";
-
-export function Login() {
-
-=======
 import {LoginAPI
 } from "../../lib/api/jwt/LoginAPI";
 //import AuthService from "../../jwt/services/auth.service";
@@ -36,7 +25,6 @@ export function Login() {
 
 
   const history = useHistory();
->>>>>>> Stashed changes
     const [user, setUser] = useState({
         id: "",
         pwd: "",
@@ -67,12 +55,6 @@ export function Login() {
         console.log("onLogin")
         console.log(user.id)        
         console.log(user.pwd)
-<<<<<<< Updated upstream
-        //AuthService.login(user.id, user.pwd)
-        AuthService.login(user.id, user.pwd).then(
-            () => {
-                console.log("로그인 성공")
-=======
 
         const res = LoginAPI(user.id, user.pwd).then(
             () => {
@@ -84,7 +66,7 @@ export function Login() {
                 else{
                   history.push('/');
                 }
->>>>>>> Stashed changes
+
             },
             error => {
                 console.log("error")
@@ -92,6 +74,11 @@ export function Login() {
                 alert("로그인에 실패하였습니다.")
             }
           );
+
+          
+           console.log("로그인결과")  
+           console.log(res)
+           
     }
 
   return (

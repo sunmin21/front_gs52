@@ -222,13 +222,10 @@ const Modal = ({
                 content["work_rule_name"] === "" ||
                 content["work_rule_name"] === null
               ) {
-                console.log(content["work_rule_name"] === "");
                 setShow(true);
                 return;
               }
 
-              console.log(content["work_rule_avg_time"] === null);
-              console.log(content["work_rule_avg_time"] === "");
               if (
                 isNaN(content["work_rule_avg_time"]) ||
                 content["work_rule_avg_time"] === ""
@@ -237,7 +234,6 @@ const Modal = ({
                 return;
               }
 
-              console.log(content);
               UpdateWorkRule(content);
               dispatch(axios());
               setContent({

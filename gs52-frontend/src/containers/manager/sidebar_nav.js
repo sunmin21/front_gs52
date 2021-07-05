@@ -34,6 +34,12 @@ const _nav = [
     to: "/manager/addOptions",
     icon: "cil-Notes",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "연차/출장관리",
+    to: "/manager/VacationManage",
+    icon: "cil-Notes",
+  },
 ];
 
 export default _nav;

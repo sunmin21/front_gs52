@@ -3,7 +3,6 @@ import moment from "moment";
 
 const API_URL = "http://localhost:8081";
 export const todo = async (user) => {
-  console.log("TODO호출");
   const res = await client.post(API_URL + "/task/todo", {
     todo_RE_EMP_INDEX: user["todo_RE_EMP_ID"],
   });

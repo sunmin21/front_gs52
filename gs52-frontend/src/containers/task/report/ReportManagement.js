@@ -1,19 +1,22 @@
-import React from 'react'
-import WeeklyReport from 'src/components/task/report/weeklyReport'
+import React from "react";
+import { CRow, CCol, CCardBody } from "@coreui/react";
+import CheckOthers from "src/components/task/report/CheckOthers";
+import WeeklyReport from "src/components/task/report/WeeklyReport";
+import EMPREPORT from "src/components/task/report/OthersList";
 
-import { CCardBody, CCol, CRow } from '@coreui/react'
+const ReportManagement = () => {
+  return (
+    <CRow>
+      <CCol>
+        <CCardBody>
+          <CheckOthers Content={EMPREPORT} />
+        </CCardBody>
+        <CCardBody>
+          <WeeklyReport />
+        </CCardBody>
+      </CCol>
+    </CRow>
+  );
+};
 
-const HolidayManagement = () => {
-    
-    return (
-        <CRow>
-            <CCol>
-                <CCardBody>
-                    <WeeklyReport />
-                </CCardBody>
-            </CCol>
-        </CRow>
-    )
-}
-
-export default HolidayManagement
+export default ReportManagement;

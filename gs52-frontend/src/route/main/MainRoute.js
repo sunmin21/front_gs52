@@ -1,9 +1,6 @@
 import React from "react";
 const Main = React.lazy(() => import("src/containers/main/Main"));
-<<<<<<< Updated upstream
-const Notice = React.lazy(() => import("src/components/main/CreateNotice"));
-const ManagerRoute = [
-=======
+
 const NoticeDetail = React.lazy(() =>
   import("src/components/main/notice/DetailNotice")
 );
@@ -12,11 +9,15 @@ const NoticeCreate = React.lazy(() =>
 );
 
 const MainRoute = [
->>>>>>> Stashed changes
+  {
+    path: "/notice/create",
+    name: "공지사항추가",
+    component: NoticeCreate,
+  },
   {
     path: "/notice/detail/:id",
     name: "공지사항",
-    component: Notice,
+    component: NoticeDetail,
   },
   {
     path: "/",

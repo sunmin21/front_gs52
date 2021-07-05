@@ -44,7 +44,7 @@ const Team = () => {
   });
   const [details, setDetails] = useState([]);
   // const [items, setItems] = useState(usersData)
-  console.log();
+
   const deptData = workrule.map((item) => {
     return {
       인덱스: item.work_RULE_INDEX,

@@ -7,7 +7,9 @@ const TodoBoard = React.lazy(() =>
 const BusinessProgress = React.lazy(() =>
   import("src/containers/task/BusinessProgress")
 );
-const ReportManagement = React.lazy(() => import("../../containers/task/report/ReportManagement"))
+const ReportManagement = React.lazy(() =>
+  import("../../containers/task/report/ReportManagement")
+);
 
 const TaskRoute = [
   // {

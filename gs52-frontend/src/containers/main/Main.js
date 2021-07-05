@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import { CCard, CCardBody, CCol, CContainer, CRow } from "@coreui/react";
 
-import Notice from "src/components/main/Notice";
 import Test from "src/components/main/Test";
 import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 const Main = () => {
+  const Notice = React.lazy(() => import("src/components/main/notice/Notice"));
   const notice = useSelector((state) => state.main.notice);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(noticeAxios());
   }, [dispatch]);
-  console.log(notice);
+
   return (
     <>
       <CContainer>

@@ -65,6 +65,16 @@ const DeptInsertModal = ({
                 }}
               />
             </CCol>
+            <CAlert
+              color="danger"
+              show={show}
+              closeButton
+              onClick={() => {
+                setShow(false);
+              }}
+            >
+              층: 숫자만입력해주세요
+            </CAlert>
           </CFormGroup>
           <CFormGroup row>
             <CCol md="3">
@@ -83,6 +93,16 @@ const DeptInsertModal = ({
                 }}
               />
             </CCol>
+            <CAlert
+              color="danger"
+              show={show3}
+              closeButton
+              onClick={() => {
+                setShow3(false);
+              }}
+            >
+              호수: 숫자만입력해주세요
+            </CAlert>
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
@@ -105,6 +125,8 @@ const DeptInsertModal = ({
                 호수: "",
                 인덱스: "",
               });
+              setShow(false);
+              setShow3(false);
               setShow2(false);
               setDoubleCheck(false);
             }}
@@ -114,6 +136,15 @@ const DeptInsertModal = ({
           <CButton
             color="primary"
             onClick={async () => {
+              if (isNaN(content["층"]) || content["층"] === "") {
+                setShow(true);
+                return;
+              }
+              if (isNaN(content["호수"]) || content["호수"] === "") {
+                setShow3(true);
+                return;
+              }
+
               if (doubleCheck) {
                 if (
                   (await (
@@ -127,9 +158,9 @@ const DeptInsertModal = ({
                   return;
                 }
                 console.log(content);
-                InsertConfROOM(content);
+                await InsertConfROOM(content);
 
-                dispatch(axios());
+                await dispatch(axios());
                 setContent({
                   층: "",
                   호수: "",
@@ -138,6 +169,8 @@ const DeptInsertModal = ({
 
                 setVisible(false);
                 setShow2(false);
+                setShow(false);
+                setShow3(false);
                 setDoubleCheck(false);
               }
             }}

@@ -8,6 +8,10 @@ const MemberSchedule = React.lazy(() =>
   import("../../containers/attendance/MemberScheduleManagement")
 );
 
+const BusinessTrip = React.lazy(() =>
+  import("../../containers/attendance/BusinessTripManagement")
+);
+
 const AttendanceRoute = [
   {
     path: "/attendance/schedule",
@@ -16,11 +20,16 @@ const AttendanceRoute = [
   },
   {
     path: "/attendance/AnnualManagement",
-    name: "연차관리",
+    name: "연차/반차",
     component: AnnualManage,
   },
+  {
+    path: "/attendance/BusinessTrip",
+    name: "출장/외근",
+    component: BusinessTrip,
+  },
   { path: "/attendance/insite", name: "인사이트", component: Dashboard },
-  { path: "/attendance", name: "근태관리", component: Dashboard },
+  { path: "/attendance", name: "근태관리", component: MemberSchedule },
 ];
 
 export default AttendanceRoute;

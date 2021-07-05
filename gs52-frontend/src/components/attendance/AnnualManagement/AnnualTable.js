@@ -16,7 +16,7 @@ import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
-const annualArr = ["날짜", "연차유형", "사유"];
+const annualArr = ["날짜", "연차유형", "사유", "승인"];
 const AnnualTables = ({ vacation_EMP_INDEX }) => {
   var moment = require("moment");
   const [doubleCheck, setDoubleCheck] = useState(true);
@@ -33,6 +33,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     날짜: "",
     연차유형: "",
     사유: "",
+    승인: "",
   });
   const dispatch = useDispatch();
   const { annual } = useSelector((state) => {
@@ -62,12 +63,25 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     setContents(e.target.value);
   };
 
-  const data = annual.map((item) => ({
-    vacation_index: item.vacation_INDEX,
-    날짜: moment(item.vacation_DATE).format("YYYY-MM-DD"),
-    연차유형: item.attend_TYPE_NAME,
-    사유: item.vacation_CONTENTS,
-  }));
+  const data = annual
+    .filter((item) => item.vacation_ATTEND_INFO_INDEX > 6)
+    .map((item) => {
+      var status = null;
+      if (item.vacation_STATUS == 0) {
+        status = "대기";
+      } else if (item.vacation_STATUS == 1) {
+        status = "완료";
+      } else {
+        status = "거절";
+      }
+      return {
+        vacation_index: item.vacation_INDEX,
+        날짜: moment(item.vacation_DATE).format("YYYY-MM-DD"),
+        연차유형: item.attend_TYPE_NAME,
+        사유: item.vacation_CONTENTS,
+        승인: status,
+      };
+    });
 
   const data2 = empvacation.map((item) => {
     return item.emp_VACATION;
@@ -77,7 +91,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     var moment = require("moment");
     var nowDate = moment(new Date()).format("YYYY-MM-DD");
     var clickDate = e.날짜;
-    if (nowDate >= clickDate) {
+    if (nowDate >= clickDate || e.승인 == "거절") {
       setVisible(3);
     } else {
       setDoubleCheck(true);
@@ -111,6 +125,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                       infoIndexHandle={infoIndexHandle}
                       contentsHandle={contentsHandle}
                       date={date}
+                      annual={annual}
                       infoIndex={infoIndex}
                       contents={contents}
                       inputData={data}

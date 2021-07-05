@@ -38,8 +38,10 @@ const CreateTodo = () => {
   const { board } = useSelector(({ task }) => ({
     board: task.board,
   }));
+
   const history = useHistory();
   const no = useRef([]);
+  console.log(search);
   no.current = search.map((content) => {
     return content.사원번호;
   });
@@ -48,7 +50,7 @@ const CreateTodo = () => {
   const [searchCheck, setSearchCheck] = useState(false);
 
   const [boardCheck, setBoardCheck] = useState(false);
-  console.log(board);
+
   return (
     <>
       <CCard>

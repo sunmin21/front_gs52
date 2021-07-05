@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
 import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
-import { reportAxios, addreportAxios } from 'src/modules/task/report';
 import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
+import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 
-function AddReport() {
+function AddReport({ showAllReport }) {
 
     let [emp] = useState(1);
 
@@ -17,7 +17,7 @@ function AddReport() {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        // dispatch(addreportAxios())
+        
     }, [dispatch])
 
     const [info, setInfo] = useState(false);
@@ -32,9 +32,7 @@ function AddReport() {
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        // window.location.reload();
-        dispatch(reportAxios());
-        // 자동 rendering
+        // showAllReport()
     }
 
     const submit = () => {
@@ -43,11 +41,13 @@ function AddReport() {
         }
         else {
             console.log("@@@@추가@@@@")
-            console.log(emp, contents, targetDate)
-            // dispatch(addreportAxios({emp, contents, targetDate}))
             setInfo(!info);
             InsertReport(emp, contents, targetDate)
-            dispatch(reportAxios());
+            dispatch(reportAxios())
+            dispatch(nextreportAxios())
+            showAllReport(targetDate);
+            console.log(targetDate)
+            
         }
     }
     
@@ -79,7 +79,6 @@ function AddReport() {
                                         selected={targetDate}
                                         onChange={setTargetDate}
                                         inline // 달력이 모달창에 뜨도록
-                                        // minDate={new Date()} // 이전 날은 선택 못하도록
                                         popperPlacement="auto" // 화면 중앙에 오도록
                                     />
                                 </td>

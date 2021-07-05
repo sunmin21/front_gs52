@@ -2,11 +2,12 @@ import client from "../client";
 
 const API_URL = "http://localhost:8081";
 export const SelectVacation = async (index) => {
+  console.log(index);
+  console.log("ssdadsadassadsd");
   const annual = await client.post(API_URL + "/annual/select", {
     //사원의 연차정보 전부 가져옴
     vacation_EMP_INDEX: index,
   });
-  console.log(annual);
 
   return annual;
 };
@@ -20,9 +21,10 @@ export const SelectEmpVacation = async (index) => {
   return empvacation;
 };
 
-export const DeleteVacation = async (event) => {
+export const DeleteVacation = async (event, EMP_INDEX) => {
   const empvacation = await client.post(API_URL + "/annual/delete", {
     vacation_DATE: event,
+    vacation_EMP_INDEX: EMP_INDEX,
   });
 
   return empvacation;
@@ -40,7 +42,8 @@ export const InserVacation = async (
   vacation_EMP_INDEX,
   infoindex,
   date,
-  contents
+  contents,
+  status
 ) => {
   const insertvaction = await client
     .post(API_URL + "/annual/insert", {
@@ -48,6 +51,7 @@ export const InserVacation = async (
       vacation_ATTEND_INFO_INDEX: infoindex,
       vacation_DATE: date,
       vacation_CONTENTS: contents,
+      vacation_STATUS: status,
     })
     .then(function (response) {
       //response
