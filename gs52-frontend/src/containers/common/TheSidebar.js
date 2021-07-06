@@ -31,7 +31,7 @@ const TheSidebar = ({ nav }) => {
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
-          src="logo/mainLogo.png"
+          src="logo/mainLogo2.png"
           name="logo-negative"
           width={200}
           height={105}
@@ -43,7 +43,7 @@ const TheSidebar = ({ nav }) => {
         />
       </CSidebarBrand>
 
-      <CSidebarHeader style={{color:"black"}}>
+      <CSidebarHeader>
         <Sidebar_Header></Sidebar_Header>
       </CSidebarHeader>
 

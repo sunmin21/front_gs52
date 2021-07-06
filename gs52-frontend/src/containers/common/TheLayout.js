@@ -28,7 +28,8 @@ const TheLayout = (props) => {
   return (
     <>
       <div className="c-app c-default-layout"
-        style={{ background: "linear-gradient( 184deg, #C6FFFF, #48E6FE, #489CFF 50%, #fff 10% )" }}>
+        style={{ background: "linear-gradient( 184deg, #C6FFFF, #48E6FE, #489CFF 55%, #f5f5f5 55% )" }}
+      >
         <TheSidebar nav={nav}/>
         <div className="c-wrapper" >
           <TheHeader />
