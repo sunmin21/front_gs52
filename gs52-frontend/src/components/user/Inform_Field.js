@@ -8,10 +8,19 @@ import {
 } from '@coreui/react';
 import { useHistory   } from "react-router-dom";
 
-import { InformInsert } from "../../lib/api/manager/inform_regist/InformAPI";
 import { update } from "../../lib/api/jwt/LoginAPI";
-import { all } from 'redux-saga/effects';
 import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
+//import {handleComplete} from "./post/PostPage"
+
+const postCodeStyle = {
+    display: "block",
+    position: "absolute",
+    top: "50%",
+    width: "400px",
+    height: "500px",
+    padding: "7px",
+  };
+  
 
 export function InformField() {
 	const history = useHistory();
@@ -153,6 +162,7 @@ export function InformField() {
                     <CLabel htmlFor="address">주소</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
+				  {/* <DaumPostcode style={postCodeStyle} /> */}
                     <CInput id="address" name="address" placeholder="address" autoComplete="new-address"
 					onChange={onChange} value={address||''}/>
                   </CCol>

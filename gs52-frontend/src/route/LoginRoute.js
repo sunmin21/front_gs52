@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import {Route, Redirect} from 'react-router';
 import { TheLayout } from "../containers/common";
-import Login from "../components/emp/Login";
+import Login from "../components/user/Login";
 
 export function PrivateRoute ({component:Component, ...parentProps}){
     return(

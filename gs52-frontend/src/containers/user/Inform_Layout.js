@@ -1,5 +1,5 @@
 import React,{useState} from "react";
-import InformField from "../../components/informRegist/Inform_Field"
+import InformField from "../../components/user/Inform_Field"
 
 const InformLayout = () => {
     return (
