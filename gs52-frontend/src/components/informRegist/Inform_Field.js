@@ -130,9 +130,14 @@ export function InformField() {
                   </CCol>
                 </CFormGroup>                
 				
-				<p>{pwd_message}</p>
+				<CFormGroup row>
+                  <CCol md="3">
+                  </CCol>
+                  <CCol xs="12" md="9" >
+						{pwd_message}
+                  </CCol>
+                </CFormGroup>  
 				
-				{console.log(inputs.pwd_message)}
 
                 <CFormGroup row>
                   <CCol md="3">
