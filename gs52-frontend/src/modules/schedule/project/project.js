@@ -6,6 +6,7 @@ import * as API from "../../../lib/api/schedule/Project";
 import { takeLatest } from "redux-saga/effects";
 
 const PROJECTNO = "schedule/PROJECTNO";
+const PROJECTWITHCHANGE = "schedule/PROJECTWITHCHANGE";
 
 const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
   createRequestActionTypes("schedule/PROJECT"); //타입유형
@@ -37,6 +38,16 @@ export const projectNoChange = createAction(PROJECTNO, ({ index }) => {
     index,
   };
 });
+
+export const projectWithChange = createAction(
+  PROJECTWITHCHANGE,
+  (projectWith) => {
+    console.log(projectWith);
+    return {
+      projectWith,
+    };
+  }
+);
 const projectSelectSaga = createRequestSaga(PROJECT, API.SelectOneProject);
 
 const projectWithSelectSaga = createRequestSaga(PROJECTWITH, API.SelectOneWith);
@@ -124,6 +135,13 @@ const project = handleActions(
       return {
         ...state,
         projectNo: index,
+      };
+    },
+
+    [PROJECTWITHCHANGE]: (state, { payload: { projectWith } }) => {
+      return {
+        ...state,
+        projectWith,
       };
     },
   },

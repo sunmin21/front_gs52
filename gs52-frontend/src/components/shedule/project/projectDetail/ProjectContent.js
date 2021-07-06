@@ -31,6 +31,7 @@ import {
   projectAxios,
   projectFileAxios,
   projectWithAxios,
+  projectWithChange,
 } from "src/modules/schedule/project/project";
 import Helpers from "./helpers";
 const ProjectContent = () => {
@@ -68,6 +69,9 @@ const ProjectContent = () => {
   const contentInput = useRef();
   const startInput = useRef();
   const endInput = useRef();
+  const withInput = useRef();
+  const with2Input = useRef();
+  const [filecheck, setFilecheck] = useState(false);
 
   return (
     <>
@@ -81,6 +85,14 @@ const ProjectContent = () => {
               size="sm"
               color="primary"
               style={{ float: "right" }}
+              onClick={() => {
+                console.log(titleInput.current);
+                titleInput.current.readOnly = false;
+                contentInput.current.readOnly = false;
+                startInput.current.readOnly = false;
+                endInput.current.readOnly = false;
+                setUpdateCheck(true);
+              }}
             >
               <CIcon name="cil-scrubber" /> 수정
             </CButton>
@@ -107,6 +119,7 @@ const ProjectContent = () => {
                   value={projectContent.project_TITLE || ""}
                   style={{ background: "white" }}
                   readOnly
+                  innerRef={titleInput}
                 />
               </CCol>
             </CFormGroup>
@@ -122,6 +135,7 @@ const ProjectContent = () => {
                   placeholder="Content..."
                   value={projectContent.project_CONTENT || ""}
                   style={{ background: "white" }}
+                  innerRef={contentInput}
                   readOnly
                 />
               </CCol>
@@ -138,6 +152,7 @@ const ProjectContent = () => {
                   placeholder="date"
                   value={projectContent.project_START || ""}
                   style={{ background: "white" }}
+                  innerRef={startInput}
                   readOnly
                 />
               </CCol>
@@ -154,6 +169,7 @@ const ProjectContent = () => {
                   placeholder="date"
                   value={projectContent.project_END || ""}
                   style={{ background: "white" }}
+                  innerRef={endInput}
                   readOnly
                 />
               </CCol>
@@ -164,28 +180,72 @@ const ProjectContent = () => {
               </CCol>
 
               <CCol xs="6" md="2">
-                {projectWith.map((content, key) => {
-                  if (key % 2 === 0) {
-                    return (
-                      <CButton block variant="outline" color="dark" key={key}>
-                        {content.dept_NAME} {content.team_NAME}{" "}
-                        {content.emp_NAME}
-                      </CButton>
-                    );
-                  }
-                })}
+                {projectWith.length !== 0 &&
+                  projectWith.map((content, key) => {
+                    if (key % 2 === 0) {
+                      return (
+                        <CButton
+                          block
+                          variant="outline"
+                          color="dark"
+                          key={key}
+                          onClick={() => {
+                            if (
+                              updateCheck &&
+                              window.confirm("삭제하시겠습니까?")
+                            ) {
+                              dispatch(
+                                projectWithChange(
+                                  projectWith.filter(
+                                    (item) => item.사원번호 !== content.사원번호
+                                  )
+                                )
+                              );
+                            }
+                          }}
+                          innerRef={withInput}
+                          readOnly
+                        >
+                          {content.dept_NAME} {content.team_NAME}{" "}
+                          {content.emp_NAME}
+                        </CButton>
+                      );
+                    }
+                  })}
               </CCol>
               <CCol xs="6" md="2">
-                {projectWith.map((content, key) => {
-                  if (key % 2 === 1) {
-                    return (
-                      <CButton block variant="outline" color="dark" key={key}>
-                        {content.dept_NAME} {content.team_NAME}{" "}
-                        {content.emp_NAME}
-                      </CButton>
-                    );
-                  }
-                })}
+                {projectWith.length !== 0 &&
+                  projectWith.map((content, key) => {
+                    if (key % 2 === 1) {
+                      return (
+                        <CButton
+                          block
+                          variant="outline"
+                          color="dark"
+                          key={key}
+                          onClick={() => {
+                            if (
+                              updateCheck &&
+                              window.confirm("삭제하시겠습니까?")
+                            ) {
+                              dispatch(
+                                projectWithChange(
+                                  projectWith.filter(
+                                    (item) => item.사원번호 !== content.사원번호
+                                  )
+                                )
+                              );
+                            }
+                          }}
+                          innerRef={with2Input}
+                          readOnly
+                        >
+                          {content.dept_NAME} {content.team_NAME}{" "}
+                          {content.emp_NAME}
+                        </CButton>
+                      );
+                    }
+                  })}
               </CCol>
               {updateCheck && (
                 <CCol xs="12" md="2">
@@ -199,15 +259,16 @@ const ProjectContent = () => {
                 <CLabel>파일첨부</CLabel>
               </CCol>
               <CCol xs="12" md="9">
-                {projectFile.map((item) => {
+                {projectFile.map((item, key) => {
                   return (
                     <CButton
                       block
                       variant="outline"
                       color="dark"
+                      key={key}
                       onClick={() => {
                         Helpers.httpRequest(
-                          `http://localhost:3000?upload=${item.project_FILE_NAME}`,
+                          `http://192.168.20.17:3000?upload=${item.project_FILE_NAME}`,
                           "get"
                         )
                           .then((response) => response.blob())
@@ -242,6 +303,40 @@ const ProjectContent = () => {
                     </CButton>
                   );
                 })}
+
+                {updateCheck && (
+                  <CInputFile
+                    id="file-multiple-input"
+                    name="file-multiple-input"
+                    multiple
+                    custom
+                    onChange={(e) => {
+                      for (let key of Object.keys(e.target.files)) {
+                        console.log(e.target.files[key].size);
+                        if (e.target.files[key].size > 102400000) {
+                          setFilecheck(true);
+                          return;
+                        }
+                      }
+
+                      setContent((content) => ({
+                        ...content,
+                        파일: e.target.files,
+                      }));
+                    }}
+                  ></CInputFile>
+                )}
+                {filecheck && (
+                  <CAlert
+                    color="danger"
+                    closeButton
+                    onClick={() => {
+                      setFilecheck(false);
+                    }}
+                  >
+                    1024KB를 초과하였습니다.
+                  </CAlert>
+                )}
               </CCol>
             </CFormGroup>
           </CCardBody>
