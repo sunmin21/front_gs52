@@ -64,9 +64,15 @@ function AnnualModal({
           sameCount++;
         }
       });
-
+      console.log(vacation_EMP_INDEX);
       if (sameCount == 0) {
-        await InserVacation(5, infoIndex, date, contents, 0);
+        await InserVacation(
+          vacation_EMP_INDEX.index,
+          infoIndex,
+          date,
+          contents,
+          0
+        );
 
         if (infoIndex == "7") {
           await UpdateVacation(-1, vacation_EMP_INDEX.id);
@@ -99,7 +105,7 @@ function AnnualModal({
         }}
         className="mr-1"
       >
-        추가
+        신청
       </CButton>
 
       <CModal show={info} onClose={() => setInfo(!info)} color="info">
@@ -157,4 +163,4 @@ function AnnualModal({
   );
 }
 
-export default AnnualModal;
+export default React.memo(AnnualModal);

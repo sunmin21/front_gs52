@@ -42,4 +42,4 @@ const Dropdown = (data) => {
   return <TreeSelect {...tProps} />;
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);

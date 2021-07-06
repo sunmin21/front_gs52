@@ -33,10 +33,10 @@ function RowDeleteModal({
     //   vacation_DATE: event.날짜,
     // });
 
-    await DeleteVacation(event.날짜, vacation_EMP_INDEX.current);
-    dispatch(annualAxios(vacation_EMP_INDEX.current));
+    await DeleteVacation(event.날짜, vacation_EMP_INDEX.index);
+    dispatch(annualAxios(vacation_EMP_INDEX.index));
 
-    dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+    dispatch(empvacationAxios(vacation_EMP_INDEX.index));
 
     setInfo(!info);
   };
@@ -70,4 +70,4 @@ function RowDeleteModal({
   );
 }
 
-export default RowDeleteModal;
+export default React.memo(RowDeleteModal);

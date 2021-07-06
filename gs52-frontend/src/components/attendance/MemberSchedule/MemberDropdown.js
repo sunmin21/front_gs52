@@ -9,7 +9,7 @@ const { SHOW_PARENT } = TreeSelect;
 
 const Dropdown = (data) => {
   //const nowEmpTeam = data.nowEmpTeam[0];
-
+  console.log(data);
   const [value, setValue] = useState([data.nowEmpTeam[0]]);
   //const [value, setValue] = useState(["3"]);
 
@@ -42,4 +42,4 @@ const Dropdown = (data) => {
   return <TreeSelect {...tProps} />;
 };
 
-export default Dropdown;
+export default React.memo(Dropdown);

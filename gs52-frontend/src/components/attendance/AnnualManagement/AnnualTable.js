@@ -176,4 +176,4 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   );
 };
 
-export default AnnualTables;
+export default React.memo(AnnualTables);
