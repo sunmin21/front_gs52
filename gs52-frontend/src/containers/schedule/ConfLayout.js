@@ -50,7 +50,6 @@ const ConfLayout = () => {
             <CCardHeader>
                 <big>회의실 예약</big>  
                 
-        {/* <Readonly></Readonly> */}
             </CCardHeader>
                 
             <CCardBody>

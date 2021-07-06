@@ -4,23 +4,18 @@ import {
   CCardBody,
   CCardHeader,
   CInput,
-  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect
+  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect,
+  CModal,
+  CModalBody,
+  CModalFooter,
+  CModalHeader,
+  CModalTitle,
 } from '@coreui/react';
 import { useHistory   } from "react-router-dom";
 
 import { update } from "../../lib/api/jwt/LoginAPI";
 import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
-//import {handleComplete} from "./post/PostPage"
-
-const postCodeStyle = {
-    display: "block",
-    position: "absolute",
-    top: "50%",
-    width: "400px",
-    height: "500px",
-    padding: "7px",
-  };
-  
+import DaumPostCode from 'react-daum-postcode';
 
 export function InformField() {
 	const history = useHistory();
@@ -37,6 +32,7 @@ export function InformField() {
 	
 	const [pwd_message, setPwd_message] = useState(null);
 	const [pwd_check, setPwd_check] = useState(false);
+	const [addr, setAddr] = useState("");
 
 	const {first_pwd, second_pwd, tel, address, birth, photo, bank_name, account_number} = inputs;
 	
@@ -113,6 +109,35 @@ export function InformField() {
 
 	}
 
+	const [isDaumPost,setIsDaumPost]=useState(false);
+	const onModal = () =>{
+        setIsDaumPost(true);
+    }
+
+	const modalStyle = {
+		position: 'absolute',
+		zIndex: '100',
+		border: '1px solid #000000',
+		overflow: 'hidden',
+	  };
+
+	const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = '';
+        if (data.addressType === 'R') {
+            if (data.bname !== '') {
+                extraAddress += data.bname;
+            }
+            if (data.buildingName !== '') {
+                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+            }
+            fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+
+        //fullAddress -> 전체 주소반환
+        setAddr(fullAddress);
+    }
+
     return (
         <div>
             <CCard>
@@ -162,8 +187,15 @@ export function InformField() {
                     <CLabel htmlFor="address">주소</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-				  {/* <DaumPostcode style={postCodeStyle} /> */}
-                    <CInput id="address" name="address" placeholder="address" autoComplete="new-address"
+						{/* <DaumPost setAddr={setAddr}></DaumPost> */}
+						<CButton 
+							onClick={onModal} 
+							className="mr-1"
+							>우편번호찾기</CButton>
+							{console.log(isDaumPost)}
+							{isDaumPost?(<DaumPostCode onComplete={handleComplete} style={modalStyle} autoClose={true} isDaumPost={isDaumPost} className="post-code" />):null}
+						<p>{addr}</p>
+						<CInput id="address" name="address" placeholder="상세주소를 입력하세요"
 					onChange={onChange} value={address||''}/>
                   </CCol>
                 </CFormGroup>
