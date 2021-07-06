@@ -16,9 +16,7 @@ import CIcon from "@coreui/icons-react";
 // routes config
 import routes from "../../route/routes";
 
-
-import {logout,getCurrentUser} from "../../lib/api/jwt/LoginAPI"
-
+import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
 
 const TheHeader = () => {
   const history = useHistory();
@@ -27,10 +25,10 @@ const TheHeader = () => {
   // console.log("user")
   // console.log(user)
 
-  const onLogout = () =>{
+  const onLogout = () => {
     logout();
-    history.push('/');
-  }
+    history.push("/");
+  };
 
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
@@ -48,7 +46,6 @@ const TheHeader = () => {
       : "responsive";
     dispatch({ type: "set", sidebarShow: val });
   };
-  
 
   return (
     <CHeader withSubheader>
@@ -77,22 +74,13 @@ const TheHeader = () => {
           <CHeaderNavLink to="/task">업무관리</CHeaderNavLink>
         </CHeaderNavItem>
 
-        
-        {
-          user.roles =="ROLE_ADMIN" ?
-        <CHeaderNavItem className="px-3">
-          <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
-        </CHeaderNavItem>
-        : null
-      }
+        {user.roles == "ROLE_ADMIN" ? (
+          <CHeaderNavItem className="px-3">
+            <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
+          </CHeaderNavItem>
+        ) : null}
 
-        {
-          user !== null ?
-          <button onClick={onLogout}>로그아웃</button>
-          : null
-            
-        }
-      
+        {user !== null ? <button onClick={onLogout}>로그아웃</button> : null}
       </CHeaderNav>
 
       {/* <CHeaderNav className="px-3">
