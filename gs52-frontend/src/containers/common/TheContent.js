@@ -21,7 +21,7 @@ const TheContent = () => {
   // css 
   const contentStyle = {
     backgroundColor : "white",
-    margin: "30px 50px",
+    margin: "35px 50px",
     borderRadius: "20px",
     boxShadow: "3px 3px 20px gray"
   }
