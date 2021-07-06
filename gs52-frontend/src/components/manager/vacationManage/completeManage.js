@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CBadge,
   CButton,
@@ -143,4 +144,4 @@ const CompleteManage = ({
   );
 };
 
-export default CompleteManage;
+export default React.memo(CompleteManage);

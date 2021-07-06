@@ -1,3 +1,4 @@
+import React from "react";
 import Item from "antd/lib/list/Item";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,4 +20,4 @@ const AnnualManageMent = () => {
   );
 };
 
-export default AnnualManageMent;
+export default React.memo(AnnualManageMent);

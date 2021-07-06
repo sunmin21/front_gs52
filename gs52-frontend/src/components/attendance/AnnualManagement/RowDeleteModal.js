@@ -73,4 +73,4 @@ function RowDeleteModal({
   );
 }
 
-export default RowDeleteModal;
+export default React.memo(RowDeleteModal);

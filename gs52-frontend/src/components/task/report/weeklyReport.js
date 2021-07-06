@@ -18,7 +18,7 @@ import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 function WeeklyReport() {
   const user = getCurrentUser();
   let [emp] = useState(user.index);
-  
+
   let [lastDate] = useState();
 
   const dispatch = useDispatch();
