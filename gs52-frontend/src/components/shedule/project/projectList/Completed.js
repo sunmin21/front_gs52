@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { CCardBody, CDataTable } from "@coreui/react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { proceedingAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import moment from "moment";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 function Completed({dispatch,proceeding}) {
-    let [emp] = useState(8);
+    const user = getCurrentUser();
+    let [emp] = useState(user.index);
+
     const history = useHistory();
-    // const dispatch = useDispatch();
-    // const { proceeding } = useSelector((state) => {
-    //     return {
-    //         proceeding: state.projectList.proceeding,
-    //     };
-    // });
+    
     useEffect(() => {
         dispatch(proceedingAxios(emp));
     }, [dispatch]);

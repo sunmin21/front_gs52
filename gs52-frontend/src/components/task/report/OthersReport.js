@@ -5,11 +5,14 @@ import { CModalBody, CHeader, CCardGroup, CCardBody, CDataTable } from "@coreui/
 import { useDispatch, useSelector } from "react-redux";
 import { reportAxios, nextreportAxios } from "src/modules/task/report";
 import OthersList from './OthersList';
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 // 팀원 주간보고 띄우기
 function OthersReport() {
 
-    let [emp] = useState();
+    const user = getCurrentUser();
+    let [emp] = useState(user.index);
+
     const dispatch = useDispatch();
     const { report } = useSelector((state) => {
         return {

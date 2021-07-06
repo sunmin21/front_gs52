@@ -30,10 +30,10 @@ const TheSidebar = ({ nav }) => {
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
-          src="logo/logo3.png"
-          // name="logo-negative"
-          width={200}
-          height={50}
+          src="logo/mainLogo.png"
+          name="logo-negative"
+          // width={200}
+          height={77.5}
         />
         <CIcon
           className="c-sidebar-brand-minimized"

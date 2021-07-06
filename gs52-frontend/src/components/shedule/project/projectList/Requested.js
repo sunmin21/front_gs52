@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { CCardBody, CDataTable, CBadge, CButton, CCollapse, CInput, CCardGroup, CCard } from "@coreui/react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { proceedingAxios, requestedAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { UpdateRequested } from "src/lib/api/schedule/ProjectList";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const getBadge = (status) => {
     switch (status) {
@@ -22,7 +23,10 @@ const getBadge = (status) => {
 };
     
 function Requested({ dispatch }) {
- 
+
+    const user = getCurrentUser();
+    let [emp] = useState(user.index);
+    
     const [details, setDetails] = useState([])
     const [text, setText] = useState();
     const handleChange = (e) => {
@@ -39,7 +43,7 @@ function Requested({ dispatch }) {
         }
             setDetails(newDetails)
     }
-    let [emp] = useState(8);
+    
     const history = useHistory();
    
     const { requested } = useSelector((state) => {
