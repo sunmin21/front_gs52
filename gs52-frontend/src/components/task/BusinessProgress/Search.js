@@ -2,32 +2,63 @@ import { CDataTable } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userList } from "src/lib/api/auth/auth";
-import {
-  changeSEARCHADD,
-  changeSEARCHSUB,
-  userLists,
-} from "src/modules/emp/emp";
+import { changeSEARCHADD, changeSEARCHSUB } from "src/modules/emp/emp";
 
-const Search = ({ check }) => {
+const Search = ({ check, no }) => {
   //   const [userCount, setUserCount] = useState(0);
   const [userContents, setUserContents] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     userList().then((data) => {
-      setUserContents(
-        data.map((item) => {
-          return {
-            사원번호: item.emp_INDEX,
-            사원아이디: item.emp_ID,
-            이름: item.emp_NAME,
-            부서: item.dept_NAME,
-            팀: item.team_NAME,
-            직책: item.position_NAME,
-            선택: false,
-          };
-        })
-      );
+      if (no !== undefined) {
+        setUserContents(() => {
+          if (!isNaN(no[0])) {
+            return data
+              .filter((fill) => {
+                return !no.includes(Number(fill.emp_INDEX));
+              })
+              .map((item) => {
+                return {
+                  사원번호: item.emp_INDEX,
+                  사원아이디: item.emp_ID,
+                  이름: item.emp_NAME,
+                  부서: item.dept_NAME,
+                  팀: item.team_NAME,
+                  직책: item.position_NAME,
+                  선택: false,
+                };
+              });
+          } else {
+            return data.map((item) => {
+              console.log("여기냐");
+              return {
+                사원번호: item.emp_INDEX,
+                사원아이디: item.emp_ID,
+                이름: item.emp_NAME,
+                부서: item.dept_NAME,
+                팀: item.team_NAME,
+                직책: item.position_NAME,
+                선택: false,
+              };
+            });
+          }
+        });
+      } else {
+        setUserContents(
+          data.map((item) => {
+            return {
+              사원번호: item.emp_INDEX,
+              사원아이디: item.emp_ID,
+              이름: item.emp_NAME,
+              부서: item.dept_NAME,
+              팀: item.team_NAME,
+              직책: item.position_NAME,
+              선택: false,
+            };
+          })
+        );
+      }
     });
   }, [check]);
 
@@ -79,6 +110,7 @@ const Search = ({ check }) => {
               직책: item.직책,
             })
           );
+
           setUserContents((contents) => {
             return contents.map((content) => {
               return content.사원번호 === item.사원번호

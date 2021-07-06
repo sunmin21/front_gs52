@@ -3,7 +3,7 @@ import client from "../client";
 const API_URL = "http://192.168.20.17:8081";
 export const InsertProject = async (regiInfo) => {
   // console.log("test");
-
+  console.log(regiInfo);
   const project = await client.post(
     API_URL + "/schedule/project/insertproject",
     regiInfo,
@@ -17,6 +17,21 @@ export const InsertProject = async (regiInfo) => {
   return project;
 };
 
+export const updateProject = async (regiInfo) => {
+  // console.log("test");
+  console.log(regiInfo);
+  const project = await client.post(
+    API_URL + "/schedule/project/updateproject",
+    regiInfo,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return project;
+};
 export const SelectOneProject = async ({ index }) => {
   const project = await client.post(
     API_URL + "/schedule/project/selectOneProject",

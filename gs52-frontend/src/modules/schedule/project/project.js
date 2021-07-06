@@ -7,7 +7,7 @@ import { takeLatest } from "redux-saga/effects";
 
 const PROJECTNO = "schedule/PROJECTNO";
 const PROJECTWITHCHANGE = "schedule/PROJECTWITHCHANGE";
-
+const PROJECTFILECHANGE = "schedule/PROJECTFILECHANGE";
 const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
   createRequestActionTypes("schedule/PROJECT"); //타입유형
 const [PROJECTWITH, PROJECTWITH_SUCCESS, PROJECTWITH_FAILURE] =
@@ -42,9 +42,17 @@ export const projectNoChange = createAction(PROJECTNO, ({ index }) => {
 export const projectWithChange = createAction(
   PROJECTWITHCHANGE,
   (projectWith) => {
-    console.log(projectWith);
     return {
       projectWith,
+    };
+  }
+);
+
+export const projectFileChange = createAction(
+  PROJECTFILECHANGE,
+  (projectFile) => {
+    return {
+      projectFile,
     };
   }
 );
@@ -91,6 +99,9 @@ const initialState = {
       PROJECT_WITH_REJECT: "",
       PROJECT_WITH_LEADER: "",
       PROJECT_WITH_COLOR: "",
+      emp_NAME: "",
+      team_NAME: "",
+      dept_NAME: "",
     },
   ],
   projectError: null,
@@ -142,6 +153,12 @@ const project = handleActions(
       return {
         ...state,
         projectWith,
+      };
+    },
+    [PROJECTFILECHANGE]: (state, { payload: { projectFile } }) => {
+      return {
+        ...state,
+        projectFile,
       };
     },
   },
