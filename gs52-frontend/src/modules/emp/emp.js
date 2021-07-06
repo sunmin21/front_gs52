@@ -7,7 +7,7 @@ const SEARCH_CHANGE_FIELD = "emp/SEARCH_CHANGE_FIELD"; //기능에 대한 이름
 const SEARCH_CHANGE_FIELD2 = "emp/SEARCH_CHANGE_FIELD2";
 const SEARCH_INIT = "emp/SEARCH_INIT";
 const USER_LIST = "emp/USER_LIST"; // emp 목록 뽑아오기
-
+const SEARCH_CONFIRM = "emp/SEARCH_CONFIRM";
 // const [USER, TEST_SUCCESS, TEST_FAILURE] =
 //   createRequestActionTypes("auth/TEST");
 
@@ -31,12 +31,14 @@ export const searchInit = createAction(SEARCH_INIT);
 //   값: userList(),
 // }));
 
+export const searchConfirm = createAction(SEARCH_CONFIRM);
 export const userLists = () => ({
   type: USER_LIST,
   payload: userList(),
 });
 const initialState = {
   //초기값을 정의
+  searchConfirm: [],
   search: [],
   user: [
     userList().then((data) => {
@@ -63,6 +65,11 @@ const emp = handleActions(
     [SEARCH_CHANGE_FIELD2]: (state, { payload: { form, 사원번호 } }) => {
       return produce(state, (draft) => {
         draft[form] = state.search.filter((item) => item.사원번호 !== 사원번호);
+      });
+    },
+    [SEARCH_CONFIRM]: (state) => {
+      return produce(state, (draft) => {
+        draft["searchConfirm"] = state.search;
       });
     },
     [SEARCH_INIT]: (state) => {
