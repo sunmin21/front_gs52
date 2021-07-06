@@ -26,7 +26,7 @@ let schedulerData = new SchedulerData(now, ViewTypes.Month, false, false, {
   movable: false,
   calendarPopoverEnabled: false,
   showAgenda: true,
-  schedulerWidth: "72%",
+  schedulerWidth: "78%",
   views: [],
 });
 schedulerData.localeMoment.locale("en");

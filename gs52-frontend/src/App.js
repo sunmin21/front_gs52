@@ -20,12 +20,12 @@ function App() {
   return (
     /*
      *<Route {...parentProps}/>
-     <Route exact path="/users" ..../> 
+    <Route exact path="/users" ..../> 
     */
     <HashRouter>
-      <React.Suspense fallback={loading}>
+      <React.Suspense fallback={loading} >
         <Switch>
-        <Route
+        <Route 
             render={(props) => {
             // console.log("props")
             // console.log(props)
@@ -34,12 +34,9 @@ function App() {
           }
           path="/"
           />
-
-
-
 {/* 
 
-         {
+        {
           user === null ?
           <Route exact path="/" component={Login} /> 
           :null

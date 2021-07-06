@@ -21,10 +21,8 @@ const TheContent = () => {
   // css 
   const contentStyle = {
     backgroundColor : "white",
-    // background:"linear-gradient( 185deg, #C6FFFF, #48E6FE, #489CFF 550px, #fff 10% )"
-    margin: "50px 100px",
-    border: "transparent solid",
-    borderRadius: "50px",
+    margin: "30px 50px",
+    borderRadius: "20px",
     boxShadow: "3px 3px 20px gray"
   }
 
