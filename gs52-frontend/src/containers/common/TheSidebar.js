@@ -24,7 +24,7 @@ const TheSidebar = ({ nav }) => {
 
   return (
     <CSidebar
-      style={{backgroundColor:"white"}}
+      style={{backgroundColor:"#EAEAEA"}}
       show={show}
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
