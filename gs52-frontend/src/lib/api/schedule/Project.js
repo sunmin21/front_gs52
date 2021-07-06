@@ -1,6 +1,6 @@
 import client from "../client";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 export const InsertProject = async (regiInfo) => {
   // console.log("test");
 
@@ -18,9 +18,28 @@ export const InsertProject = async (regiInfo) => {
 };
 
 export const SelectOneProject = async ({ index }) => {
-  console.log(index);
   const project = await client.post(
-    API_URL + "/schedule/project/selectOneproject",
+    API_URL + "/schedule/project/selectOneProject",
+    {
+      project_INDEX: index,
+    }
+  );
+
+  return project;
+};
+export const SelectOneFile = async ({ index }) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/selectOneProjectFile",
+    {
+      project_INDEX: index,
+    }
+  );
+
+  return project;
+};
+export const SelectOneWith = async ({ index }) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/selectOneProjectWith",
     {
       project_INDEX: index,
     }

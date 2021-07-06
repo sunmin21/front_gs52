@@ -6,15 +6,15 @@ import { proceedingAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import moment from "moment";
 
-function Completed() {
+function Completed({dispatch,proceeding}) {
     let [emp] = useState(8);
     const history = useHistory();
-    const dispatch = useDispatch();
-    const { proceeding } = useSelector((state) => {
-        return {
-            proceeding: state.projectList.proceeding,
-        };
-    });
+    // const dispatch = useDispatch();
+    // const { proceeding } = useSelector((state) => {
+    //     return {
+    //         proceeding: state.projectList.proceeding,
+    //     };
+    // });
     useEffect(() => {
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
@@ -52,7 +52,7 @@ function Completed() {
                 itemsPerPage={5}
                 hover
                 sorter
-                sorterValue={{ column: "번호", desc: "true" }}
+                sorterValue={{ column: "번호", asc: "true" }}
                 pagination
                 onRowClick={(item) => {
                 history.push({

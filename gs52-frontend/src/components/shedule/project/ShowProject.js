@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CCardBody, CTabs, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from "@coreui/react";
+import Requested from './projectList/Requested';
 import Proceeding from './projectList/Proceeding';
 import Completed from './projectList/Completed';
 import Expected from './projectList/Expected';
+import { useDispatch, useSelector } from "react-redux";
+import { proceedingAxios } from "src/modules/schedule/project/projectList";
 
 function ShowProject() {
+    const dispatch = useDispatch();
+    const { proceeding } = useSelector((state) => {
+        return {
+            proceeding: state.projectList.proceeding,
+        };
+    });
+    const [emp] = useState(8);
+    useEffect(() => {
+         console.log("너돌아가니?")
+        dispatch(proceedingAxios(emp));
+    }, [dispatch]);
+    
     return (
         <CCardBody>
-            <CTabs activeTab="proceeding">
+            <CTabs activeTab="requested">
                 <CNav variant="tabs">
                     <CNavItem>
                         <CNavLink data-tab="requested">
@@ -32,16 +47,16 @@ function ShowProject() {
                 </CNav>
                 <CTabContent>
                     <CTabPane data-tab="requested">
-                        <h1>requested</h1>
+                        <Requested dispatch={dispatch} />
                     </CTabPane>
                     <CTabPane data-tab="proceeding">
-                        <Proceeding />
+                        <Proceeding dispatch={dispatch} proceeding={proceeding} />
                     </CTabPane>
                     <CTabPane data-tab="completed">
-                        <Completed />
+                        <Completed dispatch={dispatch} proceeding={proceeding} />
                     </CTabPane>
                     <CTabPane data-tab="expected">
-                        <Expected />
+                        <Expected dispatch={dispatch} proceeding={proceeding}/>
                     </CTabPane>
                 </CTabContent>
             </CTabs>

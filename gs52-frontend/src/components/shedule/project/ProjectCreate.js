@@ -75,7 +75,7 @@ const ProjectCreate = () => {
     formData.append("PROJECT_DATE", updatedate);
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
-    formData.append("PROJECT_WITH_READER", 2);
+    formData.append("PROJECT_WITH_LEADER", 2);
     formData.append(
       "PROJECT_WITH_EMP_INDEXS",
       data.map((item) => item["사원번호"])
@@ -118,7 +118,7 @@ const ProjectCreate = () => {
   }, [filename, content.파일]);
 
   let Filename = useRef("");
-  console.log(data);
+
   return (
     <>
       {" "}
@@ -338,7 +338,8 @@ const ProjectCreate = () => {
                     custom
                     onChange={(e) => {
                       for (let key of Object.keys(e.target.files)) {
-                        if (e.target.files[key].size > 102400) {
+                        console.log(e.target.files[key].size);
+                        if (e.target.files[key].size > 102400000) {
                           setFilecheck(true);
                           return;
                         }
@@ -358,7 +359,7 @@ const ProjectCreate = () => {
                         setFilecheck(false);
                       }}
                     >
-                      100MB를 초과하였습니다.
+                      1024KB를 초과하였습니다.
                     </CAlert>
                   )}
                   {content.파일.length === 0 && (
