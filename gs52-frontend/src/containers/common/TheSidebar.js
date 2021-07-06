@@ -24,16 +24,18 @@ const TheSidebar = ({ nav }) => {
 
   return (
     <CSidebar
+      style={{backgroundColor:"white"}}
       show={show}
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
+      {/* sidebar 로고 자리 */}
       <CSidebarBrand className="d-md-down-none" to="/">
         <CIcon
           className="c-sidebar-brand-full"
-          src="logo/mainLogo.png"
+          src="logo/mainLogo2.png"
           name="logo-negative"
-          // width={200}
-          height={77.5}
+          width={256}
+          height={100}
         />
         <CIcon
           className="c-sidebar-brand-minimized"
@@ -43,7 +45,7 @@ const TheSidebar = ({ nav }) => {
       </CSidebarBrand>
 
       <CSidebarHeader>
-          <Sidebar_Header></Sidebar_Header>
+        <Sidebar_Header></Sidebar_Header>
       </CSidebarHeader>
 
       <CSidebarNav>
