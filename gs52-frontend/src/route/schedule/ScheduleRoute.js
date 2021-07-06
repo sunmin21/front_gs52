@@ -26,7 +26,6 @@ const ScheduleRoute = [
     path: "/schedule/project/detail",
     name: "프로젝트 상세보기",
     component: ProjectDetail,
-    exact: true,
   },
   {
     path: "/schedule/schedule",
@@ -38,11 +37,11 @@ const ScheduleRoute = [
     path: "/schedule/project",
     name: "프로젝트",
     component: Project,
-    exact: true,
   },
   { path: "/schedule/insite", name: "팀별 인사이트", component: Dashboard },
 
-  { path: "/schedule", name: "일정관리", component: Dashboard },
+  { path: "/schedule", name: "일정관리", component: Dashboard ,
+  exact:true,},
 ];
 
 export default ScheduleRoute;

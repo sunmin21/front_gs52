@@ -3,7 +3,7 @@ const HolidayManagement = React.lazy(() =>
   import("../../containers/manager/holiday/HolidayManagement")
 );
 const InformLayout = React.lazy(() =>
-  import("../../containers/informRegist/Inform_Layout")
+  import("../../containers/user/Inform_Layout")
 );
 const addOptions = React.lazy(() =>
   import("../../containers/manager/addOptions/addOption")
@@ -32,11 +32,6 @@ const ManagerRoute = [
     name: "계정등록",
     component: addAccount,
   },
-  // {
-  //   path: "/manager/informLayout",
-  //   name: "informLayout",
-  //   component: InformLayout,
-  // },
   {
     path: "/manager/VacationManage",
     name: "연차/출장관리",

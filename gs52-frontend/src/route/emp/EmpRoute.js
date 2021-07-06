@@ -1,6 +1,6 @@
 import React from "react";
-const Login = React.lazy(() => import("src/containers/emp/LoginLayout"));
-const First_login = React.lazy(() => import("src/containers/informRegist/Inform_Layout"));
+const Login = React.lazy(() => import("src/containers/user/LoginLayout"));
+const First_login = React.lazy(() => import("src/containers/user/Inform_Layout"));
 const Regist = React.lazy(() => import("src/containers/manager/account/Account_Layout"));
 const EmpRoute = [
   {

@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from "react";
-import Login from "../../components/emp/Login";
+import Login from "../../components/user/Login";
 import moment from 'moment';
 import {
 	CCard,
