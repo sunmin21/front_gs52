@@ -69,6 +69,16 @@ export const register = async({username, email, password, position, rank, team})
 	  .then()
 	  .error();
 }
+
+export const update = async(id, password, address, phone, birth, photo, bank_name, account_number)=>{
+  console.log(id);
+  //String password, String address, String phone, String birth, String photo, String bank_name, long account_number
+  return await client.post(API_URL+"/api/auth/update_user",{
+    id, password, address, phone, birth, photo, bank_name, account_number
+  });
+}
+
+
   //token 생성
 export const createJWTToken = (token) => {
 	return 'Bearer '+token

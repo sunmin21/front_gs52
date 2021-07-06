@@ -77,14 +77,14 @@ const TheHeader = () => {
           <CHeaderNavLink to="/task">업무관리</CHeaderNavLink>
         </CHeaderNavItem>
 
-{/*         
+        
         {
-          user.roles =="ROLE_ADMIN" ? */}
+          user.roles =="ROLE_ADMIN" ?
         <CHeaderNavItem className="px-3">
           <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
         </CHeaderNavItem>
-        {/* : null
-      } */}
+        : null
+      }
 
         {
           user !== null ?

@@ -14,7 +14,7 @@ import {
 } from "@coreui/react";
 
 import CIcon from "@coreui/icons-react";
-import Sidebar_Header from "../main/Sidebar_Header";
+import Sidebar_Header from "../../components/main/sidebar/Sidebar_Header";
 
 // sidebar nav config
 

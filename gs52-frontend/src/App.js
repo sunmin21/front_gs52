@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 import { TheLayout } from "./containers/common";
-import Regist from "./jwt/components/register.component";
 import {getCurrentUser} from "./lib/api/jwt/LoginAPI";
 import PrivateRoute from "./route/LoginRoute"
 
@@ -17,7 +16,6 @@ function App() {
 
   const user = getCurrentUser();
 
-  console.log(user.id);
 
   return (
     /*
@@ -29,8 +27,8 @@ function App() {
         <Switch>
         <Route
             render={(props) => {
-            console.log("props")
-            console.log(props)
+            // console.log("props")
+            // console.log(props)
             return <PrivateRoute {...props} />;
             }
           }

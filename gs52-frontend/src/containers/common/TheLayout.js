@@ -10,9 +10,10 @@ const TheLayout = (props) => {
   const user = getCurrentUser();
 
   console.log("THE LAYOUTTTTTTTTTTTTTTTTTTT")
+  console.log("↓↓↓↓ 현재 로그인한 유저 정보 ↓↓↓↓")
   console.log(user)
-  console.log(user)
-  if (location.pathname === "/manager"/* && user.roles=="ROLE_ADMIN"*/) {
+
+  if (location.pathname === "/manager" && user.roles=="ROLE_ADMIN") {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/schedule") {
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));

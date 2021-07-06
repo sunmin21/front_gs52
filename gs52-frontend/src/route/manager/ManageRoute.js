@@ -46,6 +46,7 @@ const ManagerRoute = [
   {
     path: "/manager/",
     name: "관리자페이지",
+    exact:true,
     component: HolidayManagement,
   },
 ];

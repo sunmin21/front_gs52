@@ -4,27 +4,32 @@ import {
   CCardBody,
   CCardHeader,
   CInput,
-  CFormGroup, CCol, CLabel, CCardFooter, CButton
+  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect
 } from '@coreui/react';
+import { useHistory   } from "react-router-dom";
 
 import { InformInsert } from "../../lib/api/manager/inform_regist/InformAPI";
+import { update } from "../../lib/api/jwt/LoginAPI";
 import { all } from 'redux-saga/effects';
+import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
 
 export function InformField() {
+	const history = useHistory();
 	const [inputs, setInputs] = useState({
 		first_pwd:null,
 		second_pwd:null,
 		tel:null,
 		address:null,
-		bank:null,
-		account:null
+		birth:null,
+		photo:null,
+		bank_name:null,
+		account_number:null
 	  })
 	
 	const [pwd_message, setPwd_message] = useState(null);
 	const [pwd_check, setPwd_check] = useState(false);
 
-	  
-	const {first_pwd, second_pwd, tel, address, bank, account} = inputs;
+	const {first_pwd, second_pwd, tel, address, birth, photo, bank_name, account_number} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -83,7 +88,18 @@ export function InformField() {
 			alert("비밀번호를 확인하세요.")
 		}
 		else{
-			{InformInsert(first_pwd, second_pwd, tel, address, bank, account)}
+			const user = getCurrentUser();
+			{update(user.id, first_pwd, address, tel, birth, photo, bank_name, account_number).then(
+				() => {
+					console.log("성공")
+					  history.push('/');
+				},
+				error => {
+					console.log("error")
+					console.log(error)
+				}
+			  );}
+			//password, address, phone, birth, photo, bank_name, account_number
 		}
 
 	}
@@ -136,14 +152,19 @@ export function InformField() {
 					onChange={onChange} value={address||''}/>
                   </CCol>
                 </CFormGroup>
+
+				
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="account">급여계좌</CLabel>
+                    <CLabel htmlFor="account_number">급여계좌</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="account" name="account" placeholder="account" autoComplete="new-account" 
-					onChange={onChange} value={account||''}/>
-                  </CCol>
+				  	<CSelect id="bank_name" name="bank_name" onChange={onChange}>
+				
+					</CSelect>
+                    <CInput id="account_number" name="account_number" placeholder="계좌" autoComplete="account_number" 
+					onChange={onChange} value={account_number||''}/>
+				  </CCol>
                 </CFormGroup>
 
                 </CCardBody>
