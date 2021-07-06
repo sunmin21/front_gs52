@@ -82,7 +82,7 @@ const MemberScheduleManagement = () => {
     <>
       <div>
         <div class="row justify-content-end">
-          <div class="col-sm-4 mb-2">
+          <div class="col-sm-4 mb-2 mr-3">
             <MemberDropdown
               style={{ borderRadius: "40px 80px" }}
               data={data}

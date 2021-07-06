@@ -12,8 +12,7 @@ const Dropdown = (data) => {
 
   const [value, setValue] = useState(["1", "2", "3"]);
   //const [value, setValue] = useState(["3"]);
-  console.log("ㅡㅡ");
-  console.log(value);
+
   const dispatch = useDispatch();
 
   const treeData = data.data;
