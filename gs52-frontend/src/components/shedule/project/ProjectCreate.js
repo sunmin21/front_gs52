@@ -97,6 +97,10 @@ const ProjectCreate = () => {
     setNo(data.map((item) => Number(item.사원번호)));
   }, [data]);
   useEffect(() => {
+    let leader = userContents.filter((item) => {
+      return Number(item.사원번호) === Number(user.index);
+    });
+    console.log(leader[0]);
     setNo(data.map((item) => Number(item.사원번호)));
     setData(
       userContents.filter((item) => {
@@ -127,6 +131,7 @@ const ProjectCreate = () => {
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
     formData.append("PROJECT_WITH_LEADER", user.index);
+
     formData.append(
       "PROJECT_WITH_EMP_INDEXS",
       data.map((item) => item["사원번호"])
@@ -169,7 +174,7 @@ const ProjectCreate = () => {
   }, [filename, content.파일]);
 
   let Filename = useRef("");
-
+  console.log(data);
   return (
     <>
       {" "}
@@ -323,6 +328,9 @@ const ProjectCreate = () => {
                           style={{
                             background:
                               "linear-gradient(#ff9a9e, #fad0c4, #fad0c4)",
+                          }}
+                          onClick={() => {
+                            window.confirm("프로젝트생성자");
                           }}
                         >
                           {content.부서} {content.팀} {content.이름}
