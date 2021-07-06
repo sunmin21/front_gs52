@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { CCardBody, CDataTable, CBadge, CButton, CCollapse, CInput, CCardGroup, CCard } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { requestedAxios } from "src/modules/schedule/project/projectList";
+import { proceedingAxios, requestedAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { UpdateRequested } from "src/lib/api/schedule/ProjectList";
 
@@ -21,8 +21,8 @@ const getBadge = (status) => {
     }
 };
     
-function Requested() {
-
+function Requested({ dispatch }) {
+ 
     const [details, setDetails] = useState([])
     const [text, setText] = useState();
     const handleChange = (e) => {
@@ -41,7 +41,7 @@ function Requested() {
     }
     let [emp] = useState(8);
     const history = useHistory();
-    const dispatch = useDispatch();
+   
     const { requested } = useSelector((state) => {
         return {
             requested: state.projectList.requested,
@@ -50,6 +50,7 @@ function Requested() {
 
     useEffect(() => {
         dispatch(requestedAxios(emp));
+        dispatch(proceedingAxios(emp));
     }, [dispatch]);
 
     const Done = {
@@ -93,26 +94,15 @@ function Requested() {
                 sorter
                 sorterValue={{ column: "번호", asc: "true" }}
                 pagination
-                // onRowClick={(item) => {
-                //     history.push({
-                //         pathname: `/schedule/project/detail`,
-                //     });
-                //     dispatch(projectNoChange({ index: item.번호 }));
-                // }}
                 scopedSlots={{
                     프로젝트명: (item) => (
                         <td onClick={(item) => {
-                    history.push({
-                        pathname: `/schedule/project/detail`,
-                    });
-                    dispatch(projectNoChange({ index: item.번호 }));
-                }}>
-                            
-                                {item.프로젝트명}
-                            
-                        </td>
-                    ),
-
+                            history.push({
+                                pathname: `/schedule/project/detail`,
+                            });
+                            dispatch(projectNoChange({ index: item.번호 }));
+                            }}>{item.프로젝트명}</td>
+                        ),
                     상태: (item) => (
                         <td>
                             <CBadge color={getBadge(Done[item.상태])}>
@@ -125,9 +115,11 @@ function Requested() {
                         <CButton
                                 onClick={async (e) => {
                                     console.log(item.pwindex)
+                                    
                                 await UpdateRequested(item.pwindex, 1, "null");
                                 await dispatch(requestedAxios(emp));
-                            }}
+                                await dispatch(proceedingAxios(emp));
+                                }}
                             >
                             <CBadge color={getBadge(Done[1])}>
                                 {Done[1]}
