@@ -39,7 +39,6 @@ function AnnualModal({
   nDate.setDate(nDate.getDate() + 1);
   var nowDate = moment(nDate).format("YYYY-MM-DD");
   const [doubleCheck, setDoubleCheck] = useState(true);
-
   const onSubmit = async () => {
     var sameCount = 0;
     if (
@@ -70,15 +69,15 @@ function AnnualModal({
         await InserVacation(5, infoIndex, date, contents, 0);
 
         if (infoIndex == "7") {
-          await UpdateVacation(-1, 55555);
+          await UpdateVacation(-1, vacation_EMP_INDEX.id);
         } else if (infoIndex == "8") {
-          await UpdateVacation(-0.5, 55555);
+          await UpdateVacation(-0.5, vacation_EMP_INDEX.id);
         } else if (infoIndex == "9") {
-          await UpdateVacation(-0.5, 55555);
+          await UpdateVacation(-0.5, vacation_EMP_INDEX.id);
         }
 
-        dispatch(annualAxios(vacation_EMP_INDEX.current));
-        dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+        dispatch(annualAxios(vacation_EMP_INDEX.index));
+        dispatch(empvacationAxios(vacation_EMP_INDEX.index));
 
         setInfo(!info);
       } else {
