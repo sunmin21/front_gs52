@@ -6,17 +6,22 @@ import Completed from './projectList/Completed';
 import Expected from './projectList/Expected';
 import { useDispatch, useSelector } from "react-redux";
 import { proceedingAxios } from "src/modules/schedule/project/projectList";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 function ShowProject() {
+
+    const user = getCurrentUser();
+    let [emp] = useState(user.index);
+    
     const dispatch = useDispatch();
     const { proceeding } = useSelector((state) => {
         return {
             proceeding: state.projectList.proceeding,
         };
     });
-    const [emp] = useState(8);
+    
     useEffect(() => {
-         console.log("너돌아가니?")
+        console.log("너돌아가니?")
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
     

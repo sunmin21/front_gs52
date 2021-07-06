@@ -13,9 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { reportAxios, nextreportAxios } from "src/modules/task/report";
 import AddReport from "./AddReport";
 import { DeleteReport } from "src/lib/api/task/ReportAPI";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 function WeeklyReport() {
-  let [emp] = useState(1);
+  const user = getCurrentUser();
+  let [emp] = useState(user.index);
+
   let [lastDate] = useState();
 
   const dispatch = useDispatch();

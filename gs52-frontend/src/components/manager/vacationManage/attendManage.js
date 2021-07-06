@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CBadge,
   CButton,
@@ -217,4 +218,4 @@ const AttendManage = ({
   );
 };
 
-export default AttendManage;
+export default React.memo(AttendManage);

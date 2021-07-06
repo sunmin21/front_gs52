@@ -1,3 +1,4 @@
+import React from "react";
 import Item from "antd/lib/list/Item";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,11 +16,12 @@ import {
   leaderAxios,
   personAxios,
 } from "src/modules/schedule/personSchedule/personSchedule";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
-const MemberScheduleManagement = () => {
+const PersonalScheduleManagement = () => {
   const dispatch = useDispatch();
   const board = useSelector((state) => state.test.board);
-  const vacation_EMP_INDEX = useRef(4);
+  const vacation_EMP_INDEX = getCurrentUser();
 
   // const test = SelectTeam();
   // console.log(test);
@@ -39,7 +41,7 @@ const MemberScheduleManagement = () => {
   );
 
   const nowEmpTeam = emp //현재 로그인한 사람의 팀 구하기
-    .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.current)
+    .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.index)
     .map((item) =>
       //String(item.emp_TEAM_INDEX);
       String(item.emp_TEAM_INDEX)
@@ -110,4 +112,4 @@ const MemberScheduleManagement = () => {
   );
 };
 
-export default MemberScheduleManagement;
+export default React.memo(PersonalScheduleManagement);

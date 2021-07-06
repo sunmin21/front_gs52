@@ -48,8 +48,8 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     };
   });
   useEffect(() => {
-    dispatch(annualAxios(vacation_EMP_INDEX.current));
-    dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+    dispatch(annualAxios(vacation_EMP_INDEX.index));
+    dispatch(empvacationAxios(vacation_EMP_INDEX.index));
   }, [dispatch]);
 
   //setInputData(data);
@@ -176,4 +176,4 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   );
 };
 
-export default AnnualTables;
+export default React.memo(AnnualTables);

@@ -18,15 +18,20 @@ const TheContent = () => {
   
   const user = getCurrentUser();
 
+  // css 
+  const contentStyle = {
+    // backgroundColor : "purple"
+    background:" linear-gradient( 185deg, #48D2FE, #489CFF 45%, #fff 10% ) "
+  }
 
   return (
-    <main className="c-main">
+    <main className="c-main" style={contentStyle}>
       <CContainer fluid>
         <Suspense fallback={loading}>
           <Switch>
           <Admin></Admin>
                 {/* { (user.roles=="ROLE_USER")?
-                     <User></User>: <Admin></Admin>
+                  <User></User>: <Admin></Admin>
                } */}
 
             {/* {routes.map((route, idx) => {
@@ -42,7 +47,6 @@ const TheContent = () => {
                       ( <CFade>
                         <route.component {...props} />
                       </CFade>):( alert("권한없음"))
-                     
                     )}
                   />
                 )
@@ -68,10 +72,9 @@ const User = () => {
             exact={route.exact}
             name={route.name}
             render={(props) => (
-               <CFade>
+              <CFade>
                 <route.component {...props} />
               </CFade>
-             
             )}
           />
         )
@@ -90,10 +93,9 @@ const Admin = () => {
             exact={route.exact}
             name={route.name}
             render={(props) => (
-               <CFade>
+              <CFade>
                 <route.component {...props} />
               </CFade>
-             
             )}
           />
         )

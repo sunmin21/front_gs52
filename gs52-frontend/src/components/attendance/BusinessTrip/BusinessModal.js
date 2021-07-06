@@ -65,10 +65,16 @@ function BusinessModal({
         }
       });
       if (sameCount == 0) {
-        await InserVacation(5, infoIndex, date, contents, 0);
+        await InserVacation(
+          vacation_EMP_INDEX.index,
+          infoIndex,
+          date,
+          contents,
+          0
+        );
 
-        dispatch(annualAxios(vacation_EMP_INDEX.current));
-        dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+        dispatch(annualAxios(vacation_EMP_INDEX.index));
+        dispatch(empvacationAxios(vacation_EMP_INDEX.index));
 
         setInfo(!info);
       } else {
@@ -147,4 +153,4 @@ function BusinessModal({
   );
 }
 
-export default BusinessModal;
+export default React.memo(BusinessModal);

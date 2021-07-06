@@ -47,8 +47,8 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
     };
   });
   useEffect(() => {
-    dispatch(annualAxios(vacation_EMP_INDEX.current));
-    dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+    dispatch(annualAxios(vacation_EMP_INDEX.index));
+    dispatch(empvacationAxios(vacation_EMP_INDEX.index));
   }, [dispatch]);
 
   //setInputData(data);
@@ -107,7 +107,7 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
             <CCardHeader>
               <div class="container">
                 <div class="row align-items-center h-100">
-                  <div class="col-sm-8">
+                  <div class="col-sm-11">
                     <h4>출장 사용 정보</h4>
                   </div>
 
@@ -169,4 +169,4 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
   );
 };
 
-export default BusinessTables;
+export default React.memo(BusinessTables);

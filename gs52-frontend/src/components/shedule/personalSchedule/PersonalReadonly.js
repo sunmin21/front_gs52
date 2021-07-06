@@ -266,4 +266,4 @@ const Readonly = withDragDropContext((props) => {
   );
 });
 
-export default withDragDropContext(Readonly);
+export default React.memo(withDragDropContext(Readonly));

@@ -39,7 +39,6 @@ function AnnualModal({
   nDate.setDate(nDate.getDate() + 1);
   var nowDate = moment(nDate).format("YYYY-MM-DD");
   const [doubleCheck, setDoubleCheck] = useState(true);
-
   const onSubmit = async () => {
     var sameCount = 0;
     if (
@@ -65,20 +64,26 @@ function AnnualModal({
           sameCount++;
         }
       });
-
+      console.log(vacation_EMP_INDEX);
       if (sameCount == 0) {
-        await InserVacation(5, infoIndex, date, contents, 0);
+        await InserVacation(
+          vacation_EMP_INDEX.index,
+          infoIndex,
+          date,
+          contents,
+          0
+        );
 
         if (infoIndex == "7") {
-          await UpdateVacation(-1, 55555);
+          await UpdateVacation(-1, vacation_EMP_INDEX.id);
         } else if (infoIndex == "8") {
-          await UpdateVacation(-0.5, 55555);
+          await UpdateVacation(-0.5, vacation_EMP_INDEX.id);
         } else if (infoIndex == "9") {
-          await UpdateVacation(-0.5, 55555);
+          await UpdateVacation(-0.5, vacation_EMP_INDEX.id);
         }
 
-        dispatch(annualAxios(vacation_EMP_INDEX.current));
-        dispatch(empvacationAxios(vacation_EMP_INDEX.current));
+        dispatch(annualAxios(vacation_EMP_INDEX.index));
+        dispatch(empvacationAxios(vacation_EMP_INDEX.index));
 
         setInfo(!info);
       } else {
@@ -100,7 +105,7 @@ function AnnualModal({
         }}
         className="mr-1"
       >
-        추가
+        신청
       </CButton>
 
       <CModal show={info} onClose={() => setInfo(!info)} color="info">
@@ -158,4 +163,4 @@ function AnnualModal({
   );
 }
 
-export default AnnualModal;
+export default React.memo(AnnualModal);

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   CBadge,
   CButton,
@@ -207,4 +208,4 @@ const BusinessManage = ({
   );
 };
 
-export default BusinessManage;
+export default React.memo(BusinessManage);
