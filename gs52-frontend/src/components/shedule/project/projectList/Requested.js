@@ -93,13 +93,26 @@ function Requested() {
                 sorter
                 sorterValue={{ column: "번호", asc: "true" }}
                 pagination
-                onRowClick={(item) => {
+                // onRowClick={(item) => {
+                //     history.push({
+                //         pathname: `/schedule/project/detail`,
+                //     });
+                //     dispatch(projectNoChange({ index: item.번호 }));
+                // }}
+                scopedSlots={{
+                    프로젝트명: (item) => (
+                        <td onClick={(item) => {
                     history.push({
                         pathname: `/schedule/project/detail`,
                     });
                     dispatch(projectNoChange({ index: item.번호 }));
-                }}
-                scopedSlots={{
+                }}>
+                            
+                                {item.프로젝트명}
+                            
+                        </td>
+                    ),
+
                     상태: (item) => (
                         <td>
                             <CBadge color={getBadge(Done[item.상태])}>
