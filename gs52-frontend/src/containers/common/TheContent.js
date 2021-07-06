@@ -21,7 +21,7 @@ const TheContent = () => {
   // css 
   const contentStyle = {
     // backgroundColor : "purple"
-    background:" linear-gradient( 185deg, #48D2FE, #489CFF 45%, #fff 10% ) "
+    background:"linear-gradient( 185deg, #C6FFFF, #48E6FE, #489CFF 550px, #fff 10% )"
   }
 
   return (
