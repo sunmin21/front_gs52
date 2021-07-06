@@ -28,13 +28,13 @@ const TheLayout = (props) => {
   return (
     <>
       <div className="c-app c-default-layout">
-        <TheSidebar nav={nav} />
-        <div className="c-wrapper">
+        <TheSidebar nav={nav}/>
+        <div className="c-wrapper" >
           <TheHeader />
           <div className="c-body">
             <TheContent />
           </div>
-          <TheFooter />
+          {/* <TheFooter /> */}
         </div>
       </div>
     </>

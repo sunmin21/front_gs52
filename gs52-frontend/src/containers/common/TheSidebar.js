@@ -24,7 +24,7 @@ const TheSidebar = ({ nav }) => {
 
   return (
     <CSidebar
-      style={{backgroundColor:"gray"}}
+      style={{backgroundColor:""}}
       show={show}
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
@@ -35,7 +35,7 @@ const TheSidebar = ({ nav }) => {
           src="logo/mainLogo2.png"
           name="logo-negative"
           width={256}
-          height={100}
+          height={105}
         />
         <CIcon
           className="c-sidebar-brand-minimized"
@@ -44,12 +44,13 @@ const TheSidebar = ({ nav }) => {
         />
       </CSidebarBrand>
 
-      <CSidebarHeader>
+      <CSidebarHeader style={{backgroundColor:"D9E5FF"}}>
         <Sidebar_Header></Sidebar_Header>
       </CSidebarHeader>
 
       <CSidebarNav>
         <CCreateElement
+          // style={{backgroundColor:"red"}}
           items={nav}
           components={{
             CSidebarNavDivider,
@@ -59,7 +60,7 @@ const TheSidebar = ({ nav }) => {
           }}
         />
       </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none" />
+      <CSidebarMinimizer className="c-d-md-down-none"/>
     </CSidebar>
   );
 };

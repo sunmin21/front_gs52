@@ -11,7 +11,7 @@ const _nav = [
   // },
   {
     _tag: "CSidebarNavTitle",
-    _children: ["구성원스케줄"],
+    _children: ["구성원스케줄"],    
   },
   {
     _tag: "CSidebarNavItem",
