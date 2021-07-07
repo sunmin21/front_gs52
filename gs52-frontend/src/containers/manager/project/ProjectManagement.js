@@ -1,5 +1,6 @@
 import React from 'react'
 import { CCardBody, CCol, CRow } from '@coreui/react'
+import ProjectManage from 'src/components/manager/project/ProjectManage'
 
 const ProjectManagement = () => {
     
@@ -7,7 +8,7 @@ const ProjectManagement = () => {
         <CRow>
             <CCol>
                 <CCardBody>
-                    <h1>hi</h1>
+                    <ProjectManage />
                 </CCardBody>
             </CCol>
         </CRow>
