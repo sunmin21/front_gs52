@@ -28,8 +28,17 @@ const TaskRoute = [
     component: BusinessProgress,
     exact: true,
   },
-  { path: "/task/report", name: "주간업무보고", component: ReportManagement },
-  { path: "/task", name: "업무관리", component: Dashboard, exact: true },
+  {
+    path: "/task/report",
+    name: "주간업무보고",
+    component: ReportManagement
+  },
+  {
+    path: "/task",
+    name: "업무관리",
+    component: Dashboard,
+    exact: true
+  },
 ];
 
 export default TaskRoute;
