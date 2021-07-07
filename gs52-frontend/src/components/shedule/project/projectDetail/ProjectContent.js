@@ -24,12 +24,14 @@ import Modal from "src/containers/common/UserModal";
 import {
   projectAxios,
   projectFileAxios,
+  projectFileChange,
+  projectFileConcat,
   projectWithAxios,
 } from "src/modules/schedule/project/project";
 import Helpers from "./helpers";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const user = getCurrentUser();
-console.log(user);
+
 const ProjectContent = () => {
   const [no, setNo] = useState([]);
   const date = moment().format("YYYY-MM-DD");
@@ -47,7 +49,6 @@ const ProjectContent = () => {
     }
   );
   if (projectNo === 0) {
-    console.log("탓냐2");
     history.push("/schedule/project");
   }
   const [content, setContent] = useState({
@@ -65,6 +66,7 @@ const ProjectContent = () => {
         거절사유: projectWith.project_WITH_REJECT,
       },
     ],
+    추가할참여원: [],
     내용: projectContent.project_CONTENT,
     파일: projectFile,
     시작기간: projectContent.project_START,
@@ -148,7 +150,12 @@ const ProjectContent = () => {
 
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
-    formData.append("PROJECT_WITH_LEADER", 2);
+    formData.append(
+      "PROJECT_WITH_LEADER",
+      content.참여원.filter(
+        (item) => Number(item.리더) === Number(item.사원번호)
+      )
+    );
     formData.append("PROJECT_WITH_EMP", content.참여원);
 
     for (let key of Object.keys(content.파일)) {
@@ -157,6 +164,7 @@ const ProjectContent = () => {
       }
     }
   };
+  console.log(projectContent);
   return (
     <>
       {" "}
@@ -192,6 +200,9 @@ const ProjectContent = () => {
                     startInput.current.readOnly = true;
                     endInput.current.readOnly = true;
                     setUpdateCheck(false);
+                    dispatch(projectAxios(projectNo));
+                    dispatch(projectWithAxios(projectNo));
+                    dispatch(projectFileAxios(projectNo));
                   }}
                 >
                   <CIcon name="cil-ban" /> 취소
@@ -206,6 +217,7 @@ const ProjectContent = () => {
                     startInput.current.readOnly = true;
                     endInput.current.readOnly = true;
                     setUpdateCheck(false);
+                    handleSubmit();
                   }}
                 >
                   <CIcon name="cil-save" /> 저장
@@ -220,7 +232,18 @@ const ProjectContent = () => {
                 <CLabel>프로젝트 리더</CLabel>
               </CCol>
               <CCol xs="12" md="9">
-                <p className="form-control-static">Username</p>
+                <p className="form-control-static">
+                  {/* {console.log(content.참여원[0])} */}
+                  {content.참여원[0] === undefined
+                    ? ""
+                    : content.참여원.filter((item) => {
+                        return Number(item.리더) === Number(item.사원번호);
+                      })[0] !== undefined
+                    ? content.참여원.filter((item) => {
+                        return Number(item.리더) === Number(item.사원번호);
+                      })[0].이름
+                    : ""}
+                </p>
               </CCol>
             </CFormGroup>
             <CFormGroup row>
@@ -326,7 +349,29 @@ const ProjectContent = () => {
               <CCol xs="6" md="2">
                 {content.참여원.length !== 0 &&
                   content.참여원.map((part, key) => {
-                    if (key % 2 === 0) {
+                    console.log(part);
+                    if (Number(part.사원번호) === Number(part.리더)) {
+                      return (
+                        <CButton
+                          block
+                          variant="outline"
+                          color="dark"
+                          key={key}
+                          onClick={() => {
+                            if (updateCheck && window.confirm("리더입니다")) {
+                            }
+                          }}
+                          style={{
+                            background:
+                              "linear-gradient(#ff9a9e, #fad0c4, #fad0c4)",
+                          }}
+                          innerRef={withInput}
+                          readOnly
+                        >
+                          {part.부서} {part.팀} {part.이름}
+                        </CButton>
+                      );
+                    } else if (key % 2 === 0) {
                       return (
                         <CButton
                           block
@@ -405,11 +450,12 @@ const ProjectContent = () => {
                       block
                       variant="outline"
                       color="dark"
+                      name={item.PROJECT_FILE_INDEX}
                       key={key}
-                      onClick={() => {
+                      onClick={(e) => {
                         if (!updateCheck) {
                           Helpers.httpRequest(
-                            `http://192.168.20.17:30  00?upload=${item.project_FILE_NAME}`,
+                            `http://192.168.20.17:3000?upload=${item.project_FILE_NAME}`,
                             "get"
                           )
                             .then((response) => response.blob())
@@ -439,15 +485,23 @@ const ProjectContent = () => {
                               error.json().then((json) => {});
                             });
                         } else {
-                          // if (window.confirm("삭제하시겠습니까?")) {
-                          //   projectFile.filter((content) => {
-                          //     content.file
-                          //   });
-                          // }
+                          if (window.confirm("삭제하시겠습니까?")) {
+                            dispatch(
+                              projectFileChange(
+                                projectFile.filter(
+                                  (file) =>
+                                    (item.project_FILE_INDEX ||
+                                      item.lastModified) !==
+                                    (file.project_FILE_INDEX ||
+                                      file.lastModified)
+                                )
+                              )
+                            );
+                          }
                         }
                       }}
                     >
-                      {item.project_FILE_ORIGIN_NAME}
+                      {item.project_FILE_ORIGIN_NAME || item.name}
                     </CButton>
                   );
                 })}
@@ -472,10 +526,11 @@ const ProjectContent = () => {
                         }
                       }
 
-                      setContent((content) => ({
-                        ...content,
-                        파일: e.target.files,
-                      }));
+                      // setContent((content) => ({
+                      //   ...content,
+                      //   파일: e.target.files,
+                      // }));
+                      dispatch(projectFileConcat(e.target.files));
                     }}
                   ></CInputFile>
                   <CLabel htmlFor="file-multiple-input" variant="custom-file">

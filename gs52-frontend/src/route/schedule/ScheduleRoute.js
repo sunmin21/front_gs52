@@ -18,6 +18,24 @@ const PersonalSchedule = React.lazy(() =>
 
 const ScheduleRoute = [
   {
+    path: "/schedule/schedule",
+    name: "개인스케줄",
+    component: PersonalSchedule,
+    exact:true,
+  },
+  { path: "/schedule/confRoom", 
+    name: "회의실", 
+    component: confRoom,
+    exact:true,
+   },
+   {
+     path: "/schedule/project",
+     name: "프로젝트",
+     component: Project,
+     exact:true,
+   },
+   
+  {
     path: "/schedule/project/create",
     name: "프로젝트 생성",
     component: ProjectCreate,
@@ -29,23 +47,10 @@ const ScheduleRoute = [
     component: ProjectDetail,
     exact:true,
   },
-  {
-    path: "/schedule/schedule",
-    name: "개인스케줄",
-    component: PersonalSchedule,
-    exact:true,
-  },
-  { path: "/schedule/confRoom", name: "회의실", component: confRoom },
-  {
-    path: "/schedule/project",
-    name: "프로젝트",
-    component: Project,
-    exact:true,
-  },
   { path: "/schedule/insite", name: "팀별 인사이트", component: Dashboard,
   exact:true },
 
-  { path: "/schedule", name: "일정관리", component: Dashboard ,
+  { path: "/schedule", name: "일정관리", component: PersonalSchedule ,
   exact:true,},
 ];
 

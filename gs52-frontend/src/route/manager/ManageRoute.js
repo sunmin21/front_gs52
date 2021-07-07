@@ -21,21 +21,25 @@ const ManagerRoute = [
     path: "/manager/addOptions",
     name: "항목추가",
     component: addOptions,
+    exact:true,
   },
   {
     path: "/manager/HolidayManagement",
     name: "휴일관리",
     component: HolidayManagement,
+    exact:true,
   },
   {
     path: "/manager/addAccount",
     name: "계정등록",
     component: addAccount,
+    exact:true,
   },
   {
     path: "/manager/VacationManage",
     name: "연차/출장관리",
     component: vacationManage,
+    exact:true,
   },
 
   {

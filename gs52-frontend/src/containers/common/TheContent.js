@@ -31,29 +31,11 @@ const TheContent = () => {
       <CContainer fluid>
         <Suspense fallback={loading}>
           <Switch>
-          <Admin></Admin>
-                {/* { (user.roles=="ROLE_USER")?
+          {/* <Admin></Admin> */}
+                { (user.roles=="ROLE_USER")?
                   <User></User>: <Admin></Admin>
-               } */}
+               }
 
-            {/* {routes.map((route, idx) => {
-              return (
-                route.component && (
-                  <Route
-                    key={idx}
-                    path={route.path}
-                    exact={route.exact}
-                    name={route.name}
-                    render={(props) => (
-                      (user.roles=="ROLE_USER")?
-                      ( <CFade>
-                        <route.component {...props} />
-                      </CFade>):( alert("권한없음"))
-                    )}
-                  />
-                )
-              );
-            })} */}
             {/* <Redirect from="/" to="/dashboard" /> */}
             {/* 이부분이 다시 거기로돌아가게해주는.. 그런역할.. 확인.  */}
           </Switch>

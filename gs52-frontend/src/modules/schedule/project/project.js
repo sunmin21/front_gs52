@@ -8,6 +8,7 @@ import { takeLatest } from "redux-saga/effects";
 const PROJECTNO = "schedule/PROJECTNO";
 const PROJECTWITHCHANGE = "schedule/PROJECTWITHCHANGE";
 const PROJECTFILECHANGE = "schedule/PROJECTFILECHANGE";
+const PROJECTFILECONCAT = "schedule/PROJECTFILECONCAT";
 const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
   createRequestActionTypes("schedule/PROJECT"); //타입유형
 const [PROJECTWITH, PROJECTWITH_SUCCESS, PROJECTWITH_FAILURE] =
@@ -53,6 +54,14 @@ export const projectFileChange = createAction(
   (projectFile) => {
     return {
       projectFile,
+    };
+  }
+);
+export const projectFileConcat = createAction(
+  PROJECTFILECONCAT,
+  (projectFiles) => {
+    return {
+      projectFiles,
     };
   }
 );
@@ -159,6 +168,17 @@ const project = handleActions(
       return {
         ...state,
         projectFile,
+      };
+    },
+    [projectFileConcat]: (state, { payload: { projectFiles } }) => {
+      let temp = state.projectFile;
+      for (let key of Object.keys(projectFiles)) {
+        temp = temp.concat(projectFiles[key]);
+      }
+
+      return {
+        ...state,
+        projectFile: temp,
       };
     },
   },

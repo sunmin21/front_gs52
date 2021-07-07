@@ -18,11 +18,6 @@ const TaskRoute = [
   //   component: TodoBoard,
   // },
   {
-    path: "/task/schedule/create",
-    name: "요청보내기",
-    component: CreateTodo,
-  },
-  {
     path: "/task/schedule",
     name: "업무진행사항",
     component: BusinessProgress,
@@ -31,12 +26,19 @@ const TaskRoute = [
   {
     path: "/task/report",
     name: "주간업무보고",
-    component: ReportManagement
+    component: ReportManagement,
+    exact: true,
+  },
+  {
+    path: "/task/schedule/create",
+    name: "요청보내기",
+    component: CreateTodo,
+    exact: true,
   },
   {
     path: "/task",
     name: "업무관리",
-    component: Dashboard,
+    component: BusinessProgress,
     exact: true
   },
 ];
