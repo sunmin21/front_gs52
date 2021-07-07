@@ -23,6 +23,7 @@ import {
 import "antd/dist/antd.css";
 import { TimePicker, DatePicker } from "antd";
 import moment from "moment";
+import {getCurrentUser} from "src/lib/api/jwt/LoginAPI";
 
 import MemberDropdown from "./../../../components/attendance/MemberSchedule/MemberDropdown";
 
@@ -45,6 +46,8 @@ import {
   modalEndTime,
 } from "src/modules/schedule/conf";
 
+const user = getCurrentUser();
+
 export function ConfModal() {
   const dispatch = useDispatch();
   const { floor_list, room_list, conf_modal1, conf_date, conf_startTime, conf_endTime } =
@@ -60,19 +63,22 @@ export function ConfModal() {
         conf_endTime: state.conf_check.conf_endTime,
       };
     });
+
  //리덕스에서 team 가져옴
-  const { team,emp } = useSelector((state) => {
+  const { team,emp,treevalue } = useSelector((state) => {
     return {
       team: state.memberSchedule.team,
       emp: state.memberSchedule.emp,
+      treevalue: state.memberSchedule.treevalue,
     };
   });
-
-console.log(team);
 
   useEffect(() => {
     dispatch(RoomAxios(floor_list[0].conf_ROOM_FLOOR));
     dispatch(teamAxios());
+    dispatch(empAxios());
+    dispatch(attendAxios());
+    dispatch(ConfAxios());
   }, [dispatch]);
 
   const floor_data = floor_list.map((item) => ({
@@ -106,7 +112,7 @@ console.log(team);
   const [inputs, setInputs] = useState({
     title: null,
     floor:floor_data[0].conf_ROOM_FLOOR,
-	//room:null,
+	  room:floor_data[0].conf_ROOM_NUMBER,
   });
   const { title, floor, room} = inputs;
 
@@ -133,14 +139,11 @@ console.log(team);
     //setDate(dateString)
   }
   function onTime(timeString) {
-    dispatch(modalStartTime(moment(timeString[0]).format("hh:mm")));
-    dispatch(modalEndTime(moment(timeString[1]).format("hh:mm")));
-    console.log(moment(timeString[0]).format("hh:mm"));
-    console.log(moment(timeString[1]).format("hh:mm"));
-    console.log(timeString);
-    //setTime(timeString)
+    dispatch(modalStartTime(moment(timeString[0]).format("HH:mm")));
+    dispatch(modalEndTime(moment(timeString[1]).format("HH:mm")));
   }
 
+  
   //유저 추가 텍스트필드 클릭 이벤트 함수
   const onClick = (e) => {
     dispatch(modalCheck2());
@@ -158,9 +161,9 @@ console.log(team);
     } else {
       //roomIndex, title, date, startTime, endTime
 	  console.log("Registtttttttttttttt")
-	  console.log(room_data)
 	  console.log(inputs)
-      InsertConf(room_data[inputs.room].conf_ROOM_INDEX, inputs.title, conf_date, conf_startTime, conf_endTime);
+	  console.log(empList)
+      InsertConf(user.index, room_data[inputs.room].conf_ROOM_INDEX, inputs.title, conf_date, conf_startTime, conf_endTime, empList);
       dispatch(modalCheck1());
       dispatch(ConfAxios());
     }
@@ -168,6 +171,17 @@ console.log(team);
   const onCancle = (e) => {
     dispatch(modalCheck1());
   };
+
+  const empList = emp
+    .filter(
+      (item) =>
+        treevalue.includes(String(item.emp_TEAM_INDEX)) ||
+        treevalue.includes(item.emp_ID)
+    )
+    .map((item) => ({
+      id: item.emp_INDEX,
+    }));
+  
 
   return (
     <div>
@@ -186,17 +200,17 @@ console.log(team);
 
 
 
-			<CInput
-				id="title"
-				name="title"
-				placeholder="제목을 입력하세요."
-				onChange={onChange}
-			/>
+        <CInput
+          id="title"
+          name="title"
+          placeholder="제목을 입력하세요."
+          onChange={onChange}
+        />
 				
 				<CSelect id="floor" name="floor" onChange={onChange}>
 					{floor_data.map((floor, idx) => {
 					return (
-						<option key={idx} value={floor.conf_ROOM_FLOOR}>
+						<option key={idx} value={floor.conf_ROOM_FLOOR} defaultValue={floor.conf_ROOM_FLOOR[0]}>
 						{floor.conf_ROOM_FLOOR}층
 						</option>
 					);
@@ -206,7 +220,7 @@ console.log(team);
 			 <CSelect id="room" name="room" onChange={onChange}>
 					{room_data.map((room, idx) => {
 					return (
-						<option key={idx} value={idx}>
+						<option key={idx} value={idx} defaultValue={room.conf_ROOM_INDEX}>
 						{room.conf_ROOM_NUMBER}호
 						</option>
 					);
@@ -227,7 +241,8 @@ console.log(team);
 				/>
 
 				<div className="controls">
-					<MemberDropdown data={data}></MemberDropdown>
+					<MemberDropdown 
+              data={data}></MemberDropdown>
 
 				<p className="help-block">초대 인원 선택하세요</p>
 				</div>
