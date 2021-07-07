@@ -5,10 +5,12 @@ import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, C
 import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
 import { reportAxios, nextreportAxios } from 'src/modules/task/report';
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
-function AddReport({ showAllReport }) {
+function AddReport({ showAllReport }) {    
 
-    let [emp] = useState(1);
+    const user = getCurrentUser();
+    let [emp] = useState(user.index);
 
     const tdStyle = {
         textAlign: "left",
