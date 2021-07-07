@@ -100,7 +100,7 @@ const ProjectCreate = () => {
     let leader = userContents.filter((item) => {
       return Number(item.사원번호) === Number(user.index);
     });
-    console.log(leader[0]);
+
     setNo(data.map((item) => Number(item.사원번호)));
     setData(
       userContents.filter((item) => {
@@ -456,7 +456,26 @@ const ProjectCreate = () => {
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>
-              <CButton type="reset" size="sm" color="danger">
+              <CButton
+                type="reset"
+                size="sm"
+                color="danger"
+                onClick={() => {
+                  setData(
+                    userContents.filter((item) => {
+                      return Number(item.사원번호) === Number(user.index);
+                    })
+                  );
+                  setContent({
+                    타이틀: "",
+                    참여원: "",
+                    내용: "",
+                    파일: [],
+                    시작기간: date,
+                    종료기간: date,
+                  });
+                }}
+              >
                 <CIcon name="cil-ban" /> Reset
               </CButton>
             </CForm>

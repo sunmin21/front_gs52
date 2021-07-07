@@ -26,6 +26,7 @@ function Proceeding({ dispatch, proceeding }) {
       시작: item.project_START,
       종료: item.project_END,
       담당자: item.emp_NAME,
+      인덱스: item.project_INDEX,
     }));
 
   return (
@@ -52,7 +53,7 @@ function Proceeding({ dispatch, proceeding }) {
           history.push({
             pathname: `/schedule/project/detail`,
           });
-          dispatch(projectNoChange({ index: item.번호 }));
+          dispatch(projectNoChange({ index: item.인덱스 }));
         }}
       />
     </CCardBody>
