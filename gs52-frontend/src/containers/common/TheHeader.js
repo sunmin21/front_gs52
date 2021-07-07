@@ -14,7 +14,8 @@ import {
 import CIcon from "@coreui/icons-react";
 
 // routes config
-import routes from "../../route/routes";
+import User from "../../route/UserRoute";
+import Admin from "../../route/AdminRoute";
 
 import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
 
@@ -93,7 +94,9 @@ const TheHeader = () => {
       <CSubheader className="px-3 justify-content-between">
         <CBreadcrumbRouter
           className="border-0 c-subheader-nav m-0 px-0 px-md-3"
-          routes={routes}
+          routes= { (user.roles=="ROLE_USER")?
+          User: Admin
+          }
         />
         {/* <div className="d-md-down-none mfe-2 c-subheader-nav">
           <CLink className="c-subheader-nav-link" href="#">

@@ -13,11 +13,13 @@ const MainRoute = [
     path: "/notice/create",
     name: "공지사항추가",
     component: NoticeCreate,
+    exact:true,
   },
   {
     path: "/notice/detail/:id",
     name: "공지사항",
     component: NoticeDetail,
+    exact:true,
   },
   {
     path: "/",
