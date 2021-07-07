@@ -27,6 +27,8 @@ import {
   projectFileAxios,
   projectFileChange,
   projectFileConcat,
+  projectFileConcats,
+  projectUplodaFileDelete,
   projectWithAxios,
 } from "src/modules/schedule/project/project";
 import Helpers from "./helpers";
@@ -40,16 +42,16 @@ const ProjectContent = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const { projectNo, projectFile, projectContent, projectWith } = useSelector(
-    ({ project }) => {
+  const { projectNo, projectFile, projectContent, projectWith, uploadFile } =
+    useSelector(({ project }) => {
       return {
         projectNo: project.projectNo,
         projectContent: project.projectContent,
         projectFile: project.projectFile,
         projectWith: project.projectWith,
+        uploadFile: project.uploadFile,
       };
-    }
-  );
+    });
 
   const [content, setContent] = useState({
     타이틀: projectContent.project_TITLE,
@@ -77,13 +79,13 @@ const ProjectContent = () => {
       confirm: emp.searchConfirm,
     };
   });
-
+  const [deleteFile, setDeleteFile] = useState([]);
   useEffect(() => {
     dispatch(projectAxios(projectNo));
     dispatch(projectWithAxios(projectNo));
     dispatch(projectFileAxios(projectNo));
   }, [projectNo, dispatch]);
-
+  console.log(deleteFile);
   useEffect(() => {
     setNo(content.참여원.map((item) => Number(item.사원번호)));
     setContent({
@@ -147,7 +149,7 @@ const ProjectContent = () => {
     formData.append("PROJECT_TITLE", content.타이틀);
     formData.append("PROJECT_CONTENT", content.내용);
     formData.append("PROJECT_UPDATE", updatedate);
-
+    formData.append("PROJECT_DATE", updatedate);
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
     formData.append("PROJECT_WITH_LEADER", leader);
@@ -156,9 +158,10 @@ const ProjectContent = () => {
       "PROJECT_WITH_EMP_INDEXS",
       content.참여원.map((item) => item["사원번호"])
     );
-    for (let key of Object.keys(content.파일)) {
+    formData.append("PROJECT_DELETE_FILES", deleteFile);
+    for (let key of Object.keys(uploadFile)) {
       if (key !== "length") {
-        formData.append("FILES", content.파일[key]);
+        formData.append("FILES", uploadFile[key]);
       }
     }
     UpdateProject(formData);
@@ -176,7 +179,7 @@ const ProjectContent = () => {
   if (projectNo === 0) {
     return <Redirect to="/schedule/project" />;
   }
-  console.log(content.참여원);
+
   return (
     <>
       {" "}
@@ -214,6 +217,10 @@ const ProjectContent = () => {
                     startInput.current.readOnly = true;
                     endInput.current.readOnly = true;
                     setUpdateCheck(false);
+                    setDeleteFile([]);
+                    dispatch(projectUplodaFileDelete([]));
+                    dispatch(projectUplodaFileDelete([]));
+
                     dispatch(projectAxios(projectNo));
                     dispatch(projectWithAxios(projectNo));
                     dispatch(projectFileAxios(projectNo));
@@ -364,8 +371,6 @@ const ProjectContent = () => {
                   content.참여원
                     .filter((item) => item.사원번호 === item.리더)
                     .map((part, key) => {
-                      console.log(part);
-                      console.log("뭐지?");
                       return (
                         <CButton
                           block
@@ -519,6 +524,27 @@ const ProjectContent = () => {
                                 )
                               )
                             );
+
+                            if (item.project_FILE_INDEX !== undefined) {
+                              setDeleteFile((file) =>
+                                file.concat(
+                                  projectFile.filter(
+                                    (file) =>
+                                      item.project_FILE_INDEX ===
+                                      file.project_FILE_INDEX
+                                  )[0].project_FILE_PATH
+                                )
+                              );
+                            } else {
+                              dispatch(
+                                projectUplodaFileDelete(
+                                  uploadFile.filter(
+                                    (file) =>
+                                      item.lastModified !== file.lastModified
+                                  )
+                                )
+                              );
+                            }
                           }
                         }
                       }}
@@ -552,7 +578,7 @@ const ProjectContent = () => {
                       //   ...content,
                       //   파일: e.target.files,
                       // }));
-                      dispatch(projectFileConcat(e.target.files));
+                      dispatch(projectFileConcats(e.target.files));
                     }}
                   ></CInputFile>
                   <CLabel htmlFor="file-multiple-input" variant="custom-file">

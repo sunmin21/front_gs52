@@ -280,9 +280,9 @@ END;
 CREATE TABLE EMP
 (
     EMP_INDEX             NUMBER           NULL, 
-    EMP_ID                VARCHAR2(50)     NULL, 
+    EMP_ID                VARCHAR2(20)     NULL, 
     EMP_NAME              VARCHAR2(20)     NULL, 
-    EMP_PWD               VARCHAR2(150)    NULL, 
+    EMP_PWD               VARCHAR2(120)    NULL, 
     EMP_EMAIL             VARCHAR2(50)     NULL, 
     EMP_ADDRESS           VARCHAR2(50)     NULL, 
     EMP_PHONE             VARCHAR2(20)     NULL, 
@@ -326,8 +326,7 @@ CREATE TABLE PROJECT_WITH
     PROJECT_INDEX             NUMBER           NULL, 
     PROJECT_WITH_OKAY         NUMBER           NULL, 
     PROJECT_WITH_REJECT       VARCHAR2(200)    NULL, 
-    PROJECT_WITH_LEADER       NUMBER           NULL, 
-    PROJECT_WITH_COLOR        VARCHAR2(20)     NULL, 
+    PROJECT_WITH_READER       NUMBER           NULL, 
     CONSTRAINT PK_PROJECT_WITH PRIMARY KEY (PROJECT_WITH_INDEX, PROJECT_WITH_EMP_INDEX)
 )
 /
