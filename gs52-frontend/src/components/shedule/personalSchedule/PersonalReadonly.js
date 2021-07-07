@@ -237,6 +237,7 @@ const Readonly = withDragDropContext((props) => {
     forceUpdate();
   };
   const eventClicked = (schedulerData, event) => {
+    console.log(event);
     Modal.info({
       title: event.title,
       content: <div></div>,

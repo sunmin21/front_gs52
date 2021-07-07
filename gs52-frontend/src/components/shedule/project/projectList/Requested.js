@@ -45,7 +45,6 @@ function Requested({ dispatch }) {
     }
     
     const history = useHistory();
-   
     const { requested } = useSelector((state) => {
         return {
             requested: state.projectList.requested,
@@ -72,7 +71,8 @@ function Requested({ dispatch }) {
         종료: item.project_END,
         담당자: item.emp_NAME,
         상태: item.project_WITH_OKAY,
-        사유: item.project_WITH_REJECT
+        사유: item.project_WITH_REJECT,
+        인덱스:item.project_INDEX
     }))
 
     return (
@@ -100,11 +100,11 @@ function Requested({ dispatch }) {
                 pagination
                 scopedSlots={{
                     프로젝트명: (item) => (
-                        <td onClick={(item) => {
+                        <td onClick={() => {
                             history.push({
                                 pathname: `/schedule/project/detail`,
                             });
-                            dispatch(projectNoChange({ index: item.번호 }));
+                            dispatch(projectNoChange({ index: item.인덱스 }));
                             }}>{item.프로젝트명}</td>
                         ),
                     상태: (item) => (
@@ -119,10 +119,9 @@ function Requested({ dispatch }) {
                         <CButton
                                 onClick={async (e) => {
                                     console.log(item.pwindex)
-                                    
-                                await UpdateRequested(item.pwindex, 1, "null");
-                                await dispatch(requestedAxios(emp));
-                                await dispatch(proceedingAxios(emp));
+                                    await UpdateRequested(item.pwindex, 1, "null");
+                                    await dispatch(requestedAxios(emp));
+                                    await dispatch(proceedingAxios(emp));
                                 }}
                             >
                             <CBadge color={getBadge(Done[1])}>

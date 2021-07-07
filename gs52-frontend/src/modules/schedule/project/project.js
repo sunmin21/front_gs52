@@ -8,6 +8,8 @@ import { takeLatest } from "redux-saga/effects";
 const PROJECTNO = "schedule/PROJECTNO";
 const PROJECTWITHCHANGE = "schedule/PROJECTWITHCHANGE";
 const PROJECTFILECHANGE = "schedule/PROJECTFILECHANGE";
+const PROJECTFILECONCAT = "schedule/PROJECTFILECONCAT";
+const UPLODAFILEDELETE = "schedule/UPLODAFILEDELETE";
 const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
   createRequestActionTypes("schedule/PROJECT"); //타입유형
 const [PROJECTWITH, PROJECTWITH_SUCCESS, PROJECTWITH_FAILURE] =
@@ -56,6 +58,23 @@ export const projectFileChange = createAction(
     };
   }
 );
+export const projectFileConcats = createAction(
+  PROJECTFILECONCAT,
+  (projectFiles) => {
+    return {
+      projectFiles,
+    };
+  }
+);
+export const projectUplodaFileDelete = createAction(
+  UPLODAFILEDELETE,
+  (uploadFile) => {
+    return {
+      uploadFile,
+    };
+  }
+);
+
 const projectSelectSaga = createRequestSaga(PROJECT, API.SelectOneProject);
 
 const projectWithSelectSaga = createRequestSaga(PROJECTWITH, API.SelectOneWith);
@@ -90,6 +109,7 @@ const initialState = {
       PROJECT_FILE_DATE: "",
     },
   ],
+  uploadFile: [],
   projectWith: [
     {
       PROJECT_WITH_INDEX: "",
@@ -159,6 +179,27 @@ const project = handleActions(
       return {
         ...state,
         projectFile,
+      };
+    },
+    [PROJECTFILECONCAT]: (state, { payload: { projectFiles } }) => {
+      let temp = state.projectFile;
+      let temp2 = state.uploadFile;
+
+      for (let key of Object.keys(projectFiles)) {
+        temp = temp.concat(projectFiles[key]);
+        temp2 = temp2.concat(projectFiles[key]);
+      }
+
+      return {
+        ...state,
+        projectFile: temp,
+        uploadFile: temp2,
+      };
+    },
+    [UPLODAFILEDELETE]: (state, { payload: { uploadFile } }) => {
+      return {
+        ...state,
+        uploadFile,
       };
     },
   },

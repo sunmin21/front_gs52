@@ -61,7 +61,7 @@ const TheHeader = () => {
         onClick={toggleSidebar}
       />
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        <CIcon name="logo" height="48" alt="Logo" />
+        <img src="/logo/logom.png" height="48" alt="logom"></img>
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">

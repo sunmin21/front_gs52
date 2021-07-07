@@ -2,7 +2,7 @@ import client from "../client";
 
 const API_URL = "http://192.168.20.17:8081";
 export const InsertProject = async (regiInfo) => {
-  // console.log("test");
+  console.log("test");
   console.log(regiInfo);
   const project = await client.post(
     API_URL + "/schedule/project/insertproject",
@@ -17,7 +17,7 @@ export const InsertProject = async (regiInfo) => {
   return project;
 };
 
-export const updateProject = async (regiInfo) => {
+export const UpdateProject = async (regiInfo) => {
   // console.log("test");
   console.log(regiInfo);
   const project = await client.post(

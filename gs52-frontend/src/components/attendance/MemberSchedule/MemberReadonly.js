@@ -9,6 +9,7 @@ import "./style.css";
 
 import moment from "moment";
 import { Button } from "antd";
+import Modal from "antd/lib/modal/Modal";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 

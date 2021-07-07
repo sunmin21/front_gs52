@@ -48,6 +48,10 @@ const OthersList = ({ check }) => {
         // dispatch(reportAxios(emp, weekStart, weekEnd))
     }, [dispatch]);
 
+    useEffect(() => {
+        showAllReport(startDate)
+    }, [empid])
+    
     const fields = [
         { key: "이름", _style: { width: "20%", textAlign: "center" } },
         { key: "부서", _style: { width: "20%", textAlign: "center" } },
@@ -81,9 +85,11 @@ const OthersList = ({ check }) => {
         };
     });
 
-    const showAllReport = (weekStart) => {
+    const showAllReport = async (weekStart) => {
+        console.log(weekStart)
+        console.log(empid)
         setStartDate(weekStart);
-        dispatch(
+        await dispatch(
             othersreportAxios({
                 othersemp: empid,
                 weekStart: moment(weekStart).day(0).format("YYYY-MM-DD"),
@@ -91,7 +97,7 @@ const OthersList = ({ check }) => {
             })
         );
 
-        dispatch(
+       await  dispatch(
             nextothersreportAxios({
                 othersemp: empid,
                 weekStart: moment(weekStart).add(7, "d").day(0).format("YYYY-MM-DD"),
@@ -101,8 +107,12 @@ const OthersList = ({ check }) => {
     };
 
     const eventOnclick = (e) => {
-        alert("타인의 보고서는 삭제가 불가합니다")
+        alert("타인의 보고서는 조회만 가능합니다")
     };
+
+    const empOnclick = (item) => {
+        
+    }
 
     return (
         <CModalBody>
@@ -120,7 +130,7 @@ const OthersList = ({ check }) => {
                 pagination
                 border
                 clickableRows={true}
-                onRowClick={ (item) => {                  
+                onRowClick={ async (item) => {                  
                     setEmpName(item.이름);
                     setEmpId(item.사원번호);
                 }}
@@ -174,7 +184,7 @@ const OthersList = ({ check }) => {
             <br />
             <CHeader>보고서 조회</CHeader>
             <br />            
-            <h4 style={{color:"blue"}}>" {empname} "님의 주간보고서</h4>
+            <h4 style={{ color: "coral" }}>" {empname} "님의 주간보고서 {empid}</h4>
             <CCardGroup style={{ textAlign: "center" }}>
             <CCardBody>
                 <h5>원하는 일자를 선택하세요 </h5>
@@ -184,11 +194,11 @@ const OthersList = ({ check }) => {
                         showAllReport(date);
                     }}
                 />
-                </CCardBody>
-                <CCardBody>
+            </CCardBody>
+            <CCardBody>
                 <h5>선택된 주 : </h5>
                 <h4>{weekStart + " - " + weekEnd}</h4>
-                </CCardBody>
+            </CCardBody>
             </CCardGroup>
             <hr></hr>
             <CCardGroup style={{ textAlign: "center" }}>

@@ -22,7 +22,7 @@ export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
 
 export const SelectOthersReport = async ({ othersemp, weekStart, weekEnd }) => {
 
-  // console.log("other othersemp : " + othersemp + " weekStart : " + weekStart + " weekEnd : " + weekEnd)
+   console.log("other othersemp : " + othersemp + " weekStart : " + weekStart + " weekEnd : " + weekEnd)
 
   const othersreport = await client.post(API_URL + "/report/showReport", {
     report_EMP_INDEX: othersemp,
