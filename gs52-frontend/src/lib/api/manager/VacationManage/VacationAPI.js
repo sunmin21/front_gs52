@@ -2,7 +2,7 @@ import client from "../../client";
 
 const API_URL = "http://localhost:8081";
 export const SelectVacation = async (index) => {
-  const vacation = await client.post(API_URL + "/vacation/select", {
+  const vacation = await client.post(API_URL + "/manager/vacation/select", {
     //사원의 연차정보 전부 가져옴
   });
   return vacation;
@@ -15,7 +15,7 @@ export const UpdateVacationStatus = async (
   vacation_ATTEND_INFO_INDEX,
   vacation_EMP_INDEX
 ) => {
-  const upvacation = await client.post(API_URL + "/vacation/update", {
+  const upvacation = await client.post(API_URL + "/manager/vacation/update", {
     count: count,
     vacation_INDEX: vacation_INDEX,
     vacation_DATE: vacation_DATE,
