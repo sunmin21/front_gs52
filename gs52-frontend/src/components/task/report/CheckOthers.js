@@ -33,7 +33,6 @@ const CheckOthers = ({ Content }) => {
                 </CModalHeader>
                 <CModalBody>
                     <Content check={check} />
-                    {/* <OthersReport /> */}
                 </CModalBody>
                 <CModalFooter>
                     <CButton
