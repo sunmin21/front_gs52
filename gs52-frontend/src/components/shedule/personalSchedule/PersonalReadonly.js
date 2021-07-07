@@ -28,6 +28,7 @@ let schedulerData = new SchedulerData(now, ViewTypes.Day, false, false, {
   movable: false,
   calendarPopoverEnabled: false,
   resourceName: "개인 스케줄",
+  schedulerWidth: "78%",
   views: [],
 });
 schedulerData.localeMoment.locale("en");

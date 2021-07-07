@@ -57,15 +57,19 @@ const memberSchedule = handleActions(
       ...state,
       teamError: error,
     }),
-    [EMP_SUCCESS]: (state, { payload: emp }) => ({
-      ...state,
-      empError: null,
-      emp,
-    }),
-    [EMP_FAILURE]: (state, { payload: error }) => ({
-      ...state,
-      empError: error,
-    }),
+    [EMP_SUCCESS]: (state, { payload: emp }) => {
+      return {
+        ...state,
+        empError: null,
+        emp,
+      };
+    },
+    [EMP_FAILURE]: (state, { payload: error }) => {
+      return {
+        ...state,
+        empError: error,
+      };
+    },
     [ATTEND_SUCCESS]: (state, { payload: attend }) => ({
       ...state,
       attendError: null,

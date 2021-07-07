@@ -80,7 +80,7 @@ function WeeklyReport() {
       })
     );
   };
-
+  
   // 열 클릭시 삭제 기능
   const eventOnclick = (e) => {
     var msg = "삭제하시겠습니까?";

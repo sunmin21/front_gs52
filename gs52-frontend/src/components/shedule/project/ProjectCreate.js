@@ -23,7 +23,13 @@ import modalcontent from "src/components/task/BusinessProgress/Search";
 import Modal from "src/containers/common/UserModal";
 import { InsertProject } from "src/lib/api/schedule/Project";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { userList } from "src/lib/api/auth/auth";
+const user = getCurrentUser();
+console.log(user.index);
+
 const ProjectCreate = () => {
+  const [no, setNo] = useState([]);
   const date = moment().format("YYYY-MM-DD");
   const [content, setContent] = useState({
     타이틀: "",
@@ -39,21 +45,70 @@ const ProjectCreate = () => {
     dispatch(teamAxios());
     dispatch(empAxios());
   }, [dispatch]);
-  const [data, setData] = useState([]);
-  const { search } = useSelector(({ emp }) => {
+
+  const { search, confirm } = useSelector(({ emp }) => {
     return {
       search: emp.search,
+      confirm: emp.searchConfirm,
     };
   });
-  useEffect(() => {
-    setData(search);
-  }, [search]);
 
+  const [data, setData] = useState([
+    {
+      사원번호: user.index,
+    },
+  ]);
+
+  const [userContents, setUserContents] = useState([]);
   const updatedate = moment().format("YYYY-MM-DD HH:mm:ss");
   const [titlecheck, setTitlecheck] = useState(false);
   const [contentcheck, setContentCheck] = useState(false);
   const [empcheck, setEmpcheck] = useState(false);
   const [filecheck, setFilecheck] = useState(false);
+  useEffect(() => {
+    userList().then((data) => {
+      setUserContents(
+        data.map((item) => {
+          return {
+            사원번호: item.emp_INDEX,
+            사원아이디: item.emp_ID,
+            이름: item.emp_NAME,
+            부서: item.dept_NAME,
+            팀: item.team_NAME,
+            직책: item.position_NAME,
+            선택: false,
+          };
+        })
+      );
+    });
+  }, []);
+
+  useEffect(() => {
+    setNo(data.map((item) => Number(item.사원번호)));
+    setData((data) =>
+      data.concat(
+        Array.from(
+          new Set(confirm.filter((item) => !no.includes(Number(item.사원번호))))
+        )
+      )
+    );
+  }, [confirm]);
+  useEffect(() => {
+    setNo(data.map((item) => Number(item.사원번호)));
+  }, [data]);
+  useEffect(() => {
+    let leader = userContents.filter((item) => {
+      return Number(item.사원번호) === Number(user.index);
+    });
+
+    setNo(data.map((item) => Number(item.사원번호)));
+    setData(
+      userContents.filter((item) => {
+        return Number(item.사원번호) === Number(user.index);
+      })
+    );
+  }, [userContents]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -75,7 +130,8 @@ const ProjectCreate = () => {
     formData.append("PROJECT_DATE", updatedate);
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
-    formData.append("PROJECT_WITH_LEADER", 2);
+    formData.append("PROJECT_WITH_LEADER", user.index);
+
     formData.append(
       "PROJECT_WITH_EMP_INDEXS",
       data.map((item) => item["사원번호"])
@@ -118,7 +174,7 @@ const ProjectCreate = () => {
   }, [filename, content.파일]);
 
   let Filename = useRef("");
-
+  console.log(data);
   return (
     <>
       {" "}
@@ -138,7 +194,7 @@ const ProjectCreate = () => {
                   <CLabel>프로젝트 생성자</CLabel>
                 </CCol>
                 <CCol xs="12" md="9">
-                  <p className="form-control-static">Username</p>
+                  <p className="form-control-static">{user.username}</p>
                 </CCol>
               </CFormGroup>
               <CFormGroup row>
@@ -244,10 +300,12 @@ const ProjectCreate = () => {
                     value={content.종료기간 || date}
                     min={content.시작기간 || date}
                     onChange={(e) => {
-                      setContent((content) => ({
-                        ...content,
-                        종료기간: e.target.value,
-                      }));
+                      if (e.target.value > content.시작기간) {
+                        setContent((content) => ({
+                          ...content,
+                          종료기간: e.target.value,
+                        }));
+                      }
                     }}
                   />
                 </CCol>
@@ -259,7 +317,26 @@ const ProjectCreate = () => {
 
                 <CCol xs="6" md="2">
                   {data.map((content, key) => {
-                    if (key % 2 === 0) {
+                    console.log(key);
+                    if (key === 0) {
+                      return (
+                        <CButton
+                          block
+                          variant="outline"
+                          color="dark"
+                          key={key}
+                          style={{
+                            background:
+                              "linear-gradient(#ff9a9e, #fad0c4, #fad0c4)",
+                          }}
+                          onClick={() => {
+                            window.confirm("프로젝트생성자");
+                          }}
+                        >
+                          {content.부서} {content.팀} {content.이름}
+                        </CButton>
+                      );
+                    } else if (key % 2 === 0) {
                       return (
                         <CButton
                           block
@@ -309,7 +386,9 @@ const ProjectCreate = () => {
                 </CCol>
 
                 <CCol xs="12" md="2">
-                  <Modal Content={modalcontent}></Modal>
+                  <Modal Content={modalcontent} no={no}>
+                    {" "}
+                  </Modal>
                 </CCol>
                 {empcheck && (
                   <CCol xs="6" md="9" style={{ marginLeft: "230px" }}>
@@ -377,7 +456,26 @@ const ProjectCreate = () => {
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>
-              <CButton type="reset" size="sm" color="danger">
+              <CButton
+                type="reset"
+                size="sm"
+                color="danger"
+                onClick={() => {
+                  setData(
+                    userContents.filter((item) => {
+                      return Number(item.사원번호) === Number(user.index);
+                    })
+                  );
+                  setContent({
+                    타이틀: "",
+                    참여원: "",
+                    내용: "",
+                    파일: [],
+                    시작기간: date,
+                    종료기간: date,
+                  });
+                }}
+              >
                 <CIcon name="cil-ban" /> Reset
               </CButton>
             </CForm>

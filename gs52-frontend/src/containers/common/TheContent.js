@@ -20,8 +20,10 @@ const TheContent = () => {
 
   // css 
   const contentStyle = {
-    // backgroundColor : "purple"
-    background:" linear-gradient( 185deg, #48D2FE, #489CFF 45%, #fff 10% ) "
+    backgroundColor : "white",
+    margin: "35px 50px",
+    borderRadius: "20px",
+    boxShadow: "3px 3px 20px gray"
   }
 
   return (

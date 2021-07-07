@@ -22,7 +22,7 @@ const CheckOthers = ({ Content }) => {
         <CCol col="2" className="text-center mt-3">
             <CButton
                 color="danger"
-                onClick={() => (setDanger(!danger), setCheck(!check))} variant='outline'>
+                onClick={() => (setDanger(!danger), setCheck(!check))} >
                 <CIcon name="cil-user" /> 팀원 주간보고 조회하기
             </CButton>
             <CModal size="lg" show={danger} 
@@ -33,7 +33,6 @@ const CheckOthers = ({ Content }) => {
                 </CModalHeader>
                 <CModalBody>
                     <Content check={check} />
-                    {/* <OthersReport /> */}
                 </CModalBody>
                 <CModalFooter>
                     <CButton

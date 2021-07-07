@@ -13,12 +13,16 @@ import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const MemberScheduleManagement = () => {
   const dispatch = useDispatch();
-  const board = useSelector((state) => state.test.board);
   const vacation_EMP_INDEX = getCurrentUser();
+
+  useEffect(() => {
+    dispatch(teamAxios());
+    dispatch(empAxios());
+    dispatch(attendAxios());
+  }, [dispatch]);
 
   // const test = SelectTeam();
   // console.log(test);
-
   //리덕스에서 team 가져옴
   const { team } = useSelector((state) => {
     return {
@@ -29,6 +33,7 @@ const MemberScheduleManagement = () => {
   //리덕스에서 emp 가져옴
   const { emp } = useSelector((state) => {
     // console.log(state);
+
     return {
       emp: state.memberSchedule.emp,
     };
@@ -45,7 +50,7 @@ const MemberScheduleManagement = () => {
       attend: state.memberSchedule.attend,
     };
   });
-
+  console.log(vacation_EMP_INDEX);
   const nowEmpTeam = emp //현재 로그인한 사람의 팀 구하기
     .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.index)
     .map((item) =>
@@ -58,12 +63,6 @@ const MemberScheduleManagement = () => {
   });
 
   //console.log(test);
-
-  useEffect(() => {
-    dispatch(teamAxios());
-    dispatch(empAxios());
-    dispatch(attendAxios());
-  }, [dispatch]);
 
   const data = team.map((item) => ({
     title: item.dept_NAME + " : " + item.team_NAME,
@@ -83,11 +82,12 @@ const MemberScheduleManagement = () => {
     <>
       <div>
         <div class="row justify-content-end">
-          <div class="col-sm-4 mb-2">
+          <div class="col-sm-4 mb-2 mr-3">
             <MemberDropdown
               style={{ borderRadius: "40px 80px" }}
               data={data}
               nowEmpTeam={nowEmpTeam}
+              emp={vacation_EMP_INDEX.team}
             ></MemberDropdown>
           </div>
         </div>

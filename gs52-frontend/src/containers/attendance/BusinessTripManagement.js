@@ -11,7 +11,7 @@ const BusinessTripManageMent = () => {
   return (
     <div class="container">
       <div class="row">
-        <div class="col w-100">
+        <div class="col w-100 mt-3">
           <BusinessTable
             vacation_EMP_INDEX={vacation_EMP_INDEX}
           ></BusinessTable>
