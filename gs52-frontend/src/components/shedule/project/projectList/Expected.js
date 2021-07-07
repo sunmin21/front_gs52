@@ -18,9 +18,6 @@ function Expected({ dispatch, proceeding }) {
 
   const date = moment().format("YYYY-MM-DD");
 
-  console.log("DDWDD")
-  console.log(proceeding)
-
   const data = proceeding
     .filter((item) => item.project_START > date)
     .map((item, key) => ({
