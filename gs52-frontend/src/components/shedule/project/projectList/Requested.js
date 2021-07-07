@@ -45,7 +45,6 @@ function Requested({ dispatch }) {
     }
     
     const history = useHistory();
-   
     const { requested } = useSelector((state) => {
         return {
             requested: state.projectList.requested,
