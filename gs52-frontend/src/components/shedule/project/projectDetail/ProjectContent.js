@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import modalcontent from "src/components/task/BusinessProgress/Search";
 import Modal from "src/containers/common/UserModal";
+import { Redirect } from "react-router-dom";
 
 import {
   projectAxios,
@@ -30,6 +31,7 @@ import {
 } from "src/modules/schedule/project/project";
 import Helpers from "./helpers";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { UpdateProject } from "src/lib/api/schedule/Project";
 const user = getCurrentUser();
 
 const ProjectContent = () => {
@@ -48,9 +50,7 @@ const ProjectContent = () => {
       };
     }
   );
-  if (projectNo === 0) {
-    history.push("/schedule/project");
-  }
+
   const [content, setContent] = useState({
     타이틀: projectContent.project_TITLE,
     참여원: [
@@ -129,8 +129,6 @@ const ProjectContent = () => {
 
   const updatedate = moment().format("YYYY-MM-DD HH:mm:ss");
   const handleSubmit = (event) => {
-    event.preventDefault();
-
     // if (content.타이틀 === "") {
     //   setTitlecheck(true);
     //   return;
@@ -144,27 +142,41 @@ const ProjectContent = () => {
     //   return;
     // }
     const formData = new FormData();
+
+    formData.append("PROJECT_INDEX", projectContent.project_INDEX);
     formData.append("PROJECT_TITLE", content.타이틀);
     formData.append("PROJECT_CONTENT", content.내용);
     formData.append("PROJECT_UPDATE", updatedate);
 
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
-    formData.append(
-      "PROJECT_WITH_LEADER",
-      content.참여원.filter(
-        (item) => Number(item.리더) === Number(item.사원번호)
-      )
-    );
+    formData.append("PROJECT_WITH_LEADER", leader);
     formData.append("PROJECT_WITH_EMP", content.참여원);
-
+    formData.append(
+      "PROJECT_WITH_EMP_INDEXS",
+      content.참여원.map((item) => item["사원번호"])
+    );
     for (let key of Object.keys(content.파일)) {
       if (key !== "length") {
         formData.append("FILES", content.파일[key]);
       }
     }
+    UpdateProject(formData);
   };
-  console.log(projectContent);
+  let leader = 0;
+  if (
+    content.참여원.filter(
+      (item) => Number(item.리더) === Number(item.사원번호)
+    )[0] !== undefined
+  ) {
+    leader = content.참여원.filter(
+      (item) => Number(item.리더) === Number(item.사원번호)
+    )[0].리더;
+  }
+  if (projectNo === 0) {
+    return <Redirect to="/schedule/project" />;
+  }
+  console.log(content.참여원);
   return (
     <>
       {" "}
@@ -172,22 +184,24 @@ const ProjectContent = () => {
         <CCard>
           <CCardHeader>
             프로젝트 생성
-            {!updateCheck && (
-              <CButton
-                size="sm"
-                color="primary"
-                style={{ float: "right" }}
-                onClick={() => {
-                  titleInput.current.readOnly = false;
-                  contentInput.current.readOnly = false;
-                  startInput.current.readOnly = false;
-                  endInput.current.readOnly = false;
-                  setUpdateCheck(true);
-                }}
-              >
-                <CIcon name="cil-scrubber" /> 수정
-              </CButton>
-            )}
+            {!updateCheck &&
+              projectContent.project_OKAY === 0 &&
+              leader === user.index && (
+                <CButton
+                  size="sm"
+                  color="primary"
+                  style={{ float: "right" }}
+                  onClick={() => {
+                    titleInput.current.readOnly = false;
+                    contentInput.current.readOnly = false;
+                    startInput.current.readOnly = false;
+                    endInput.current.readOnly = false;
+                    setUpdateCheck(true);
+                  }}
+                >
+                  <CIcon name="cil-scrubber" /> 수정
+                </CButton>
+              )}
             {updateCheck && (
               <>
                 <CButton
@@ -233,16 +247,15 @@ const ProjectContent = () => {
               </CCol>
               <CCol xs="12" md="9">
                 <p className="form-control-static">
-                  {/* {console.log(content.참여원[0])} */}
                   {content.참여원[0] === undefined
-                    ? ""
+                    ? "ㄴㄴ"
                     : content.참여원.filter((item) => {
                         return Number(item.리더) === Number(item.사원번호);
                       })[0] !== undefined
                     ? content.참여원.filter((item) => {
                         return Number(item.리더) === Number(item.사원번호);
                       })[0].이름
-                    : ""}
+                    : "ㅁㅁ"}
                 </p>
               </CCol>
             </CFormGroup>
@@ -348,9 +361,11 @@ const ProjectContent = () => {
 
               <CCol xs="6" md="2">
                 {content.참여원.length !== 0 &&
-                  content.참여원.map((part, key) => {
-                    console.log(part);
-                    if (Number(part.사원번호) === Number(part.리더)) {
+                  content.참여원
+                    .filter((item) => item.사원번호 === item.리더)
+                    .map((part, key) => {
+                      console.log(part);
+                      console.log("뭐지?");
                       return (
                         <CButton
                           block
@@ -371,66 +386,73 @@ const ProjectContent = () => {
                           {part.부서} {part.팀} {part.이름}
                         </CButton>
                       );
-                    } else if (key % 2 === 0) {
-                      return (
-                        <CButton
-                          block
-                          variant="outline"
-                          color="dark"
-                          key={key}
-                          onClick={() => {
-                            if (
-                              updateCheck &&
-                              window.confirm("삭제하시겠습니까?")
-                            ) {
-                              setContent((item) => ({
-                                ...item,
-                                참여원: content.참여원.filter(
-                                  (item) => item.사원번호 !== part.사원번호
-                                ),
-                              }));
-                            }
-                          }}
-                          innerRef={withInput}
-                          readOnly
-                        >
-                          {part.부서} {part.팀} {part.이름}
-                        </CButton>
-                      );
-                    }
-                  })}
+                    })}
+                {content.참여원.length !== 0 &&
+                  content.참여원
+                    .filter((item) => item.사원번호 !== item.리더)
+                    .map((part, key) => {
+                      if (key % 2 === 1) {
+                        return (
+                          <CButton
+                            block
+                            variant="outline"
+                            color="dark"
+                            key={key}
+                            onClick={() => {
+                              if (
+                                updateCheck &&
+                                window.confirm("삭제하시겠습니까?")
+                              ) {
+                                setContent((item) => ({
+                                  ...item,
+                                  참여원: content.참여원.filter(
+                                    (item) => item.사원번호 !== part.사원번호
+                                  ),
+                                }));
+                              }
+                            }}
+                            innerRef={withInput}
+                            readOnly
+                          >
+                            {part.부서} {part.팀} {part.이름}
+                          </CButton>
+                        );
+                      }
+                    })}
               </CCol>
               <CCol xs="6" md="2">
                 {content.참여원.length !== 0 &&
-                  content.참여원.map((part, key) => {
-                    if (key % 2 === 1) {
-                      return (
-                        <CButton
-                          block
-                          variant="outline"
-                          color="dark"
-                          key={key}
-                          onClick={() => {
-                            if (
-                              updateCheck &&
-                              window.confirm("삭제하시겠습니까?")
-                            ) {
-                              setContent((item) => ({
-                                ...item,
-                                참여원: content.참여원.filter(
-                                  (item) => item.사원번호 !== part.사원번호
-                                ),
-                              }));
-                            }
-                          }}
-                          innerRef={with2Input}
-                          readOnly
-                        >
-                          {part.부서} {part.팀} {part.이름}
-                        </CButton>
-                      );
-                    }
-                  })}
+                  content.참여원
+                    .filter((item) => item.사원번호 !== item.리더)
+                    .map((part, key) => {
+                      if (key % 2 === 0) {
+                        return (
+                          <CButton
+                            block
+                            variant="outline"
+                            color="dark"
+                            key={key}
+                            onClick={() => {
+                              if (
+                                updateCheck &&
+                                window.confirm("삭제하시겠습니까?")
+                              ) {
+                                setContent((item) => ({
+                                  ...item,
+                                  참여원: content.참여원.filter(
+                                    (item) => item.사원번호 !== part.사원번호
+                                  ),
+                                }));
+                              }
+                            }}
+                            innerRef={with2Input}
+                            readOnly
+                          >
+                            {part.부서} {part.팀} {part.이름}
+                          </CButton>
+                        );
+                      }
+                    })}
               </CCol>
               {updateCheck && (
                 <CCol xs="12" md="2">

@@ -17,7 +17,7 @@ export const InsertProject = async (regiInfo) => {
   return project;
 };
 
-export const updateProject = async (regiInfo) => {
+export const UpdateProject = async (regiInfo) => {
   // console.log("test");
   console.log(regiInfo);
   const project = await client.post(
