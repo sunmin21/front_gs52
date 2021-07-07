@@ -97,6 +97,10 @@ const ProjectCreate = () => {
     setNo(data.map((item) => Number(item.사원번호)));
   }, [data]);
   useEffect(() => {
+    let leader = userContents.filter((item) => {
+      return Number(item.사원번호) === Number(user.index);
+    });
+
     setNo(data.map((item) => Number(item.사원번호)));
     setData(
       userContents.filter((item) => {
@@ -127,6 +131,7 @@ const ProjectCreate = () => {
     formData.append("PROJECT_START", content.시작기간);
     formData.append("PROJECT_END", content.종료기간);
     formData.append("PROJECT_WITH_LEADER", user.index);
+
     formData.append(
       "PROJECT_WITH_EMP_INDEXS",
       data.map((item) => item["사원번호"])
@@ -169,7 +174,7 @@ const ProjectCreate = () => {
   }, [filename, content.파일]);
 
   let Filename = useRef("");
-
+  console.log(data);
   return (
     <>
       {" "}
@@ -324,6 +329,9 @@ const ProjectCreate = () => {
                             background:
                               "linear-gradient(#ff9a9e, #fad0c4, #fad0c4)",
                           }}
+                          onClick={() => {
+                            window.confirm("프로젝트생성자");
+                          }}
                         >
                           {content.부서} {content.팀} {content.이름}
                         </CButton>
@@ -448,7 +456,26 @@ const ProjectCreate = () => {
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>
-              <CButton type="reset" size="sm" color="danger">
+              <CButton
+                type="reset"
+                size="sm"
+                color="danger"
+                onClick={() => {
+                  setData(
+                    userContents.filter((item) => {
+                      return Number(item.사원번호) === Number(user.index);
+                    })
+                  );
+                  setContent({
+                    타이틀: "",
+                    참여원: "",
+                    내용: "",
+                    파일: [],
+                    시작기간: date,
+                    종료기간: date,
+                  });
+                }}
+              >
                 <CIcon name="cil-ban" /> Reset
               </CButton>
             </CForm>
