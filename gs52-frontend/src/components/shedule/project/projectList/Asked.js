@@ -81,17 +81,12 @@ function Asked({ dispatch }) {
                 pagination
                 scopedSlots={{
                     프로젝트명: (sc) => {
-                      
                         return (
                             <td onClick={  () => {
-                        
-                                
-                            dispatch(projectNoChange({ index: sc.인덱스 }));
-                                  history.push({
+                                dispatch(projectNoChange({ index: sc.인덱스 }));
+                                history.push({
                                     pathname: `/schedule/project/detail`,
                                 });
-                            
-                                
                             }}>{sc.프로젝트명}</td>
                         )
                     },

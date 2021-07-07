@@ -101,7 +101,6 @@ function Requested({ dispatch }) {
                 scopedSlots={{
                     프로젝트명: (item) => (
                         <td onClick={() => {
-                             
                             history.push({
                                 pathname: `/schedule/project/detail`,
                             });
@@ -120,10 +119,9 @@ function Requested({ dispatch }) {
                         <CButton
                                 onClick={async (e) => {
                                     console.log(item.pwindex)
-                                    
-                                await UpdateRequested(item.pwindex, 1, "null");
-                                await dispatch(requestedAxios(emp));
-                                await dispatch(proceedingAxios(emp));
+                                    await UpdateRequested(item.pwindex, 1, "null");
+                                    await dispatch(requestedAxios(emp));
+                                    await dispatch(proceedingAxios(emp));
                                 }}
                             >
                             <CBadge color={getBadge(Done[1])}>
