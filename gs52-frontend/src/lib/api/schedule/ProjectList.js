@@ -28,3 +28,11 @@ export const UpdateRequested = async (pwindex, okay, reject) => {
 
   return uprequested;
 };
+
+export const SelectAsked = async (emp) => {
+  const asked = await client.post(API_URL + "/project/selectAsked", {
+    project_WITH_EMP_INDEX: emp,
+  });
+
+  return asked;
+};

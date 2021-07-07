@@ -4,6 +4,7 @@ import Requested from './projectList/Requested';
 import Proceeding from './projectList/Proceeding';
 import Completed from './projectList/Completed';
 import Expected from './projectList/Expected';
+import Asked from './projectList/Asked';
 import { useDispatch, useSelector } from "react-redux";
 import { proceedingAxios } from "src/modules/schedule/project/projectList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
@@ -49,6 +50,11 @@ function ShowProject() {
                             예정된 프로젝트
                         </CNavLink>
                     </CNavItem>
+                    <CNavItem>
+                        <CNavLink data-tab="asked">
+                            신청한 프로젝트
+                        </CNavLink>
+                    </CNavItem>
                 </CNav>
                 <CTabContent>
                     <CTabPane data-tab="requested">
@@ -62,6 +68,9 @@ function ShowProject() {
                     </CTabPane>
                     <CTabPane data-tab="expected">
                         <Expected dispatch={dispatch} proceeding={proceeding}/>
+                    </CTabPane>
+                    <CTabPane data-tab="asked">
+                        <Asked/>
                     </CTabPane>
                 </CTabContent>
             </CTabs>
