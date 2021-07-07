@@ -70,7 +70,7 @@ function ShowProject() {
                         <Expected dispatch={dispatch} proceeding={proceeding}/>
                     </CTabPane>
                     <CTabPane data-tab="asked">
-                        <Asked/>
+                        <Asked dispatch={dispatch}/>
                     </CTabPane>
                 </CTabContent>
             </CTabs>

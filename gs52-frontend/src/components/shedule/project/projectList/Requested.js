@@ -71,7 +71,8 @@ function Requested({ dispatch }) {
         종료: item.project_END,
         담당자: item.emp_NAME,
         상태: item.project_WITH_OKAY,
-        사유: item.project_WITH_REJECT
+        사유: item.project_WITH_REJECT,
+        인덱스:item.project_INDEX
     }))
 
     return (
@@ -103,7 +104,7 @@ function Requested({ dispatch }) {
                             history.push({
                                 pathname: `/schedule/project/detail`,
                             });
-                            dispatch(projectNoChange({ index: item.번호 }));
+                            dispatch(projectNoChange({ index: item.인덱스 }));
                             }}>{item.프로젝트명}</td>
                         ),
                     상태: (item) => (
