@@ -50,7 +50,7 @@ const MemberScheduleManagement = () => {
       attend: state.memberSchedule.attend,
     };
   });
-  console.log(vacation_EMP_INDEX);
+
   const nowEmpTeam = emp //현재 로그인한 사람의 팀 구하기
     .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.index)
     .map((item) =>
