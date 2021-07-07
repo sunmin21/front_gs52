@@ -100,7 +100,8 @@ function Requested({ dispatch }) {
                 pagination
                 scopedSlots={{
                     프로젝트명: (item) => (
-                        <td onClick={(item) => {
+                        <td onClick={() => {
+                             
                             history.push({
                                 pathname: `/schedule/project/detail`,
                             });

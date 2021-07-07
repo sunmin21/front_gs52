@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { askedAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const getBadge = (status) => {
     switch (status) {
@@ -26,7 +27,7 @@ function Asked({ dispatch }) {
     
     const history = useHistory();
     const { asked } = useSelector((state) => {
-        console.log(state)
+        
         return {
             asked: state.projectList.asked,
         };
@@ -41,16 +42,21 @@ function Asked({ dispatch }) {
         1: "승인",
         2: "거부",
     };
+    
+    const data = asked.map((item, key) => {
+       
+        return ({
+            번호: key + 1, // index를 1부터 세 주기 위해서
+            프로젝트명: item.project_TITLE,
+            시작: item.project_START,
+            종료: item.project_END,
+            담당자: item.emp_NAME,
+            상태: item.project_OKAY,
+            인덱스: item.project_INDEX,
+        })
+    }
+    )
 
-    const data = asked.map((item, key) => ({
-        번호: key + 1, // index를 1부터 세 주기 위해서
-        프로젝트명: item.project_TITLE,
-        시작: item.project_START,
-        종료: item.project_END,
-        담당자: item.emp_NAME,
-        상태: item.project_OKAY,
-        인덱스: item.project_INDEX
-    }))
 
     return (
         <CCardBody>
@@ -64,7 +70,7 @@ function Asked({ dispatch }) {
                     { key: "담당자", _style: { width: "10%" } },
                     { key: "상태", _style: { width: "10%" } },
                 ]}
-                columnFilter
+                columnFilter    
                 tableFilter
                 footer
                 itemsPerPageSelect
@@ -74,14 +80,21 @@ function Asked({ dispatch }) {
                 sorterValue={{ column: "번호", desc: "true" }}
                 pagination
                 scopedSlots={{
-                    프로젝트명: (item) => (
-                        <td onClick={(item) => {
-                            history.push({
-                                pathname: `/schedule/project/detail`,
-                            });
-                            dispatch(projectNoChange({ index: item.인덱스 }));
-                        }}>{item.프로젝트명}</td>
-                    ),
+                    프로젝트명: (sc) => {
+                      
+                        return (
+                            <td onClick={  () => {
+                        
+                                
+                            dispatch(projectNoChange({ index: sc.인덱스 }));
+                                  history.push({
+                                    pathname: `/schedule/project/detail`,
+                                });
+                            
+                                
+                            }}>{sc.프로젝트명}</td>
+                        )
+                    },
                     상태: (item) => (
                         <td>
                             <CBadge color={getBadge(Done[item.상태])}>
