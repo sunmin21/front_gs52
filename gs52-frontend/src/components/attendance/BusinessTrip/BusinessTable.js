@@ -8,6 +8,7 @@ import {
   CDataTable,
   CRow,
   CAlert,
+  CBadge,
 } from "@coreui/react";
 
 import axios from "axios";
@@ -16,6 +17,20 @@ import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
 const businessArr = ["날짜", "출장유형", "사유", "승인"];
+const getBadge = (status) => {
+  switch (status) {
+    case "완료":
+      return "success";
+    case "Inactive":
+      return "secondary";
+    case "대기":
+      return "warning";
+    case "거절":
+      return "danger";
+    default:
+      return "primary";
+  }
+};
 const BusinessTables = ({ vacation_EMP_INDEX }) => {
   var moment = require("moment");
   const [doubleCheck, setDoubleCheck] = useState(true);
@@ -142,6 +157,15 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
                 size="sm"
                 itemsPerPage={10}
                 pagination
+                scopedSlots={{
+                  승인: (item) => (
+                    <td>
+                      <h4>
+                        <CBadge color={getBadge(item.승인)}>{item.승인}</CBadge>
+                      </h4>
+                    </td>
+                  ),
+                }}
               />
               <RowDeleteModal
                 vacation_EMP_INDEX={vacation_EMP_INDEX}

@@ -9,6 +9,7 @@ import "./style.css";
 
 import moment from "moment";
 import { Button } from "antd";
+import Modal from "antd/lib/modal/Modal";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -68,7 +69,7 @@ const Readonly = withDragDropContext((props) => {
   const attendList = props.attend.map((item) => {
     var startdate = new Date(item.attend_DATE);
     startdate.setDate(startdate.getDate() + 1);
-
+    console.log(item);
     if (item.attend_TYPE_NAME == "연차") {
       return {
         id: item.attend_INDEX,
@@ -204,6 +205,14 @@ const Readonly = withDragDropContext((props) => {
     forceUpdate();
   };
 
+  const eventClicked = (schedulerData, event) => {
+    console.log(event);
+    Modal.info({
+      title: event.title,
+      content: <div></div>,
+      onOk() {},
+    });
+  };
   return (
     <div>
       <div>
@@ -219,6 +228,7 @@ const Readonly = withDragDropContext((props) => {
           onScrollTop={onScrollTop}
           onScrollBottom={onScrollBottom}
           toggleExpandFunc={toggleExpandFunc}
+          eventItemClick={eventClicked}
         />
       </div>
     </div>
