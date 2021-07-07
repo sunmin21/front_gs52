@@ -38,6 +38,7 @@ const CheckOthers = ({ Content }) => {
                     <CButton
                         color="info"
                         onClick={() => { return setDanger(!danger) }}>
+                        {/* 닫으면 보고서 비워주는 거 만들기 */}
                         닫기
                     </CButton>
                 </CModalFooter>

@@ -74,7 +74,7 @@ function OthersReport() {
     };
 
     const eventOnclick = (e) => {
-        alert("타인의 보고서는 삭제가 불가합니다")
+        alert("타인의 보고서는 조회만 가능합니다")
     };
     
     return (

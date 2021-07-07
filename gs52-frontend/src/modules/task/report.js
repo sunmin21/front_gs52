@@ -45,32 +45,36 @@ const initialState = {
 const report = handleActions(
     {
         [REPORT_SUCCESS]: (state, { payload: report }) => ({
-        ...state,
-        reportError: null,
-        report,
+            ...state,
+            reportError: null,
+            report,
         }),
 
         [REPORT_FAILURE]: (state, { payload: error }) => ({
-        ...state,
-        reportError: error,
+            ...state,
+            reportError: error,
         }),
 
         [NEXTREPORT_SUCCESS]: (state, { payload: nextreport }) => ({
-        ...state,
-        nextreportError: null,
-        nextreport,
+            ...state,
+            nextreportError: null,
+            nextreport,
         }),
 
         [NEXTREPORT_FAILURE]: (state, { payload: error }) => ({
-        ...state,
-        nextreportError: error,
+            ...state,
+            nextreportError: error,
         }),
 
-        [OTHERSREPORT_SUCCESS]: (state, { payload: othersreport }) => ({
-        ...state,
-        othersreportError: null,
-        othersreport,
-        }),
+        [OTHERSREPORT_SUCCESS]: (state, { payload: othersreport }) =>
+        {
+            console.log(othersreport)
+            return ({
+            ...state,
+            othersreportError: null,
+            othersreport,
+        })
+    },
 
         [OTHERSREPORT_FAILURE]: (state, { payload: error }) => ({
         ...state,
