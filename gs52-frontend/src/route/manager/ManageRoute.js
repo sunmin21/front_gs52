@@ -1,7 +1,4 @@
 import React from "react";
-const HolidayManagement = React.lazy(() =>
-  import("../../containers/manager/holiday/HolidayManagement")
-);
 const InformLayout = React.lazy(() =>
   import("../../containers/user/Inform_Layout")
 );
@@ -11,9 +8,14 @@ const addOptions = React.lazy(() =>
 const addAccount = React.lazy(() =>
   import("../../containers/manager/account/Account_Layout")
 );
-
 const vacationManage = React.lazy(() =>
   import("../../containers/manager/vacationManage/VacationManage")
+);
+const ProjectManagement = React.lazy(() =>
+  import("../../containers/manager/project/ProjectManagement")
+);
+const HolidayManagement = React.lazy(() =>
+  import("../../containers/manager/holiday/HolidayManagement")
 );
 
 const ManagerRoute = [
@@ -21,12 +23,6 @@ const ManagerRoute = [
     path: "/manager/addOptions",
     name: "항목추가",
     component: addOptions,
-    exact:true,
-  },
-  {
-    path: "/manager/HolidayManagement",
-    name: "휴일관리",
-    component: HolidayManagement,
     exact:true,
   },
   {
@@ -46,7 +42,19 @@ const ManagerRoute = [
     path: "/manager/",
     name: "관리자페이지",
     exact:true,
+    component: addAccount,
+  },
+  {
+    path: "/manager/ProjectManage",
+    name: "프로젝트관리",
+    component: ProjectManagement,
+    exact:true,
+  },
+  {
+    path: "/manager/HolidayManagement",
+    name: "휴일관리",
     component: HolidayManagement,
+    exact:true,
   },
 ];
 
