@@ -81,7 +81,7 @@ const TheHeader = () => {
             <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
           </CHeaderNavItem>
         ) : null}
-        {user !== null ? <CButton style={{marginLeft:"1000px"}} variant="ghost" color="dark" onClick={onLogout}>로그아웃</CButton> : null}
+        {user !== null ? <CButton style={{marginLeft:"610px"}} variant="ghost" color="dark" onClick={onLogout}>로그아웃</CButton> : null}
       </CHeaderNav>
 
       {/* <CHeaderNav className="px-3">
