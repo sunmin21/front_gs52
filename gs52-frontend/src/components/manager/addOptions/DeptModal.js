@@ -34,7 +34,6 @@ const Modal = ({
   });
   const [show2, setShow2] = useState(false);
   // const [content, setContent] = useState(부서이름);
-  const [doubleCheck, setDoubleCheck] = useState(true);
 
   return (
     <>
@@ -93,7 +92,6 @@ const Modal = ({
                 show: false,
               }));
               setShow2(false);
-              setDoubleCheck(true);
             }}
           >
             Close
@@ -101,32 +99,29 @@ const Modal = ({
           <CButton
             color="primary"
             onClick={async () => {
-              if (doubleCheck) {
-                if (
-                  부서이름 !== content &&
-                  (await (await SelectCheckDept(content)).data) !== 0
-                ) {
-                  setShow2(true);
-                  return;
-                }
-                if (content !== "") {
-                  UpdateDept(index, content);
-                  dispatch(axios());
-                  setContent(content);
-                  setVisible(false);
-                  setShow((content) => ({
-                    ...content,
-                    show: false,
-                  }));
-                  setShow2(false);
-                } else {
-                  setShow((content) => ({
-                    ...content,
-                    show: true,
-                  }));
-                  setShow2(false);
-                }
-                setDoubleCheck(false);
+              if (
+                부서이름 !== content &&
+                (await (await SelectCheckDept(content)).data) !== 0
+              ) {
+                setShow2(true);
+                return;
+              }
+              if (content !== "") {
+                await UpdateDept(index, content);
+                await dispatch(axios());
+                setContent(content);
+                setVisible(false);
+                setShow((content) => ({
+                  ...content,
+                  show: false,
+                }));
+                setShow2(false);
+              } else {
+                setShow((content) => ({
+                  ...content,
+                  show: true,
+                }));
+                setShow2(false);
               }
             }}
           >

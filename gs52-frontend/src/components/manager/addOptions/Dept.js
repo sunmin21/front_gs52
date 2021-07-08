@@ -17,6 +17,7 @@ const Dept = () => {
   const [visible, setVisible] = useState(false);
   const [visible2, setVisible2] = useState(false);
   const [doubleCheck, setDoubleCheck] = useState(true);
+
   const dispatch = useDispatch();
   let { dept } = useSelector(({ manager }) => ({
     dept: manager.dept,
@@ -47,7 +48,7 @@ const Dept = () => {
     }
     setDetails(newDetails);
   };
-
+  console.log(dept);
   const fields = [
     { key: "인덱스", _style: { width: "20%" } },
     { key: "부서이름", _style: { width: "40%" } },
@@ -126,7 +127,7 @@ const Dept = () => {
                   <CButton
                     size="sm"
                     color="info"
-                    onClick={() => {
+                    onClick={async () => {
                       setVisible(!visible);
                       setContent(item.부서이름 || "");
                     }}

@@ -234,9 +234,9 @@ const DeptInsertModal = ({
                   setShow2(true);
                   return;
                 }
-                InsertWorkRule(content);
+                await InsertWorkRule(content);
 
-                dispatch(axios());
+                await dispatch(axios());
                 setContent({
                   work_type_index: 1,
                   index: "",

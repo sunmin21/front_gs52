@@ -166,8 +166,8 @@ const DeptInsertModal = ({
                   setShow(true);
                   return;
                 }
-                InsertTeam(content);
-                dispatch(axios());
+                await InsertTeam(content);
+                await dispatch(axios());
                 setContent({
                   부서인덱스: 1,
                   팀이름: "",

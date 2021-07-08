@@ -234,8 +234,8 @@ const Modal = ({
                 return;
               }
 
-              UpdateWorkRule(content);
-              dispatch(axios());
+              await UpdateWorkRule(content);
+              await dispatch(axios());
               setContent({
                 work_type_index: work_TYPE_INDEX,
                 index: index,

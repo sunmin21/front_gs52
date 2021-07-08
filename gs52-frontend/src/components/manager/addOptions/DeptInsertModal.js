@@ -104,8 +104,8 @@ const DeptInsertModal = ({
                     show: true,
                   }));
                 } else {
-                  InsertDept(content);
-                  dispatch(axios());
+                  await InsertDept(content);
+                  await dispatch(axios());
                   setContent("");
                   setVisible(false);
                 }
