@@ -9,7 +9,7 @@ import {
   CHeaderNavItem,
   CHeaderNavLink,
   CSubheader,
-  CBreadcrumbRouter,
+  CBreadcrumbRouter,CButton
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
@@ -18,6 +18,7 @@ import User from "../../route/UserRoute";
 import Admin from "../../route/AdminRoute";
 
 import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
+import { RightCircleFilled } from "@ant-design/icons";
 
 const TheHeader = () => {
   const history = useHistory();
@@ -80,8 +81,7 @@ const TheHeader = () => {
             <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
           </CHeaderNavItem>
         ) : null}
-
-        {user !== null ? <button onClick={onLogout}>로그아웃</button> : null}
+        {user !== null ? <CButton style={{marginLeft:"610px"}} variant="ghost" color="dark" onClick={onLogout}>로그아웃</CButton> : null}
       </CHeaderNav>
 
       {/* <CHeaderNav className="px-3">

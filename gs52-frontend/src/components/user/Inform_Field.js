@@ -5,11 +5,6 @@ import {
   CCardHeader,
   CInput,
   CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect,
-  CModal,
-  CModalBody,
-  CModalFooter,
-  CModalHeader,
-  CModalTitle,
 } from '@coreui/react';
 import { useHistory   } from "react-router-dom";
 
@@ -35,7 +30,12 @@ export function InformField() {
 	const [addr, setAddr] = useState("");
 
 	const {first_pwd, second_pwd, tel, address, birth, photo, bank_name, account_number} = inputs;
-	
+	// const onChange(e: React.ChangeEvent<HTMLInputElement>) {
+	// 	const { value } = e.target
+	// 	// value의 값이 숫자가 아닐경우 빈문자열로 replace 해버림.
+	// 	const onlyNumber = value.replace(/[^0-9]/g, '')
+	// 	setInputs(onlyNumber)
+	//   }
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
 		const { name, value } = e.target   
@@ -48,6 +48,7 @@ export function InformField() {
 			}
 		//만든 변수를 seInput으로 변경해준다.
 			setInputs(nextInputs)       
+
 
 			// 비밀번호 썼다가 지웠을 때, 같다고 나오는 경우 해결
 			if(e.target.id === 'first_pwd'){
@@ -94,7 +95,7 @@ export function InformField() {
 		}
 		else{
 			const user = getCurrentUser();
-			{update(user.id, first_pwd, address, tel, birth, photo, bank_name, account_number).then(
+			{update(user.id, first_pwd, addr, tel, birth, photo, bank_name, account_number).then(
 				() => {
 					console.log("성공")
 					  history.push('/');
@@ -104,9 +105,7 @@ export function InformField() {
 					console.log(error)
 				}
 			  );}
-			//password, address, phone, birth, photo, bank_name, account_number
 		}
-
 	}
 
 	const [isDaumPost,setIsDaumPost]=useState(false);
@@ -178,7 +177,7 @@ export function InformField() {
                     <CLabel htmlFor="tel">연락처</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="tel" name="tel" placeholder="tel" 
+                    <CInput id="tel" name="tel" placeholder="'-'을 제외한 숫자만 입력하시오" 
 					onChange={onChange} value={tel||''}/>
                   </CCol>
                 </CFormGroup>

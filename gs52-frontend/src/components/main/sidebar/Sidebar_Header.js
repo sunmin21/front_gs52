@@ -18,7 +18,7 @@ function Sidebar_Header(){
         <br />
         <h2>{user.id}</h2><br/>
         {user.username}님, 접속하였습니다.<br/>
-        여기에다가 유저정보넣자아아</div>
+        </div>
     )
 }
 
