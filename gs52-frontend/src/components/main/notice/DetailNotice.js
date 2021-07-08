@@ -29,8 +29,9 @@ import { useHistory } from "react-router-dom";
 import { DeleteNotice, UpdateNotice } from "src/lib/api/main/Main";
 
 import { noticeAxios } from "src/modules/main/main";
-
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const DetailNotice = (e) => {
+  const user = getCurrentUser();
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -190,7 +191,7 @@ const DetailNotice = (e) => {
                 />
               </CCol>
             </CFormGroup>
-            {notice.notice_EMP_INDEX === 2 && (
+            {notice.notice_EMP_INDEX === user.index && (
               <>
                 {" "}
                 <CButton
