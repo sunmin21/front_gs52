@@ -72,7 +72,6 @@ const BusinessManage = ({
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            연차/반차
             <small className="text-muted"> </small>
           </CCardHeader>
           <CCardBody>
@@ -94,7 +93,7 @@ const BusinessManage = ({
                   _style: { width: "10%", textAlign: "center" },
                 },
                 {
-                  key: "완료",
+                  key: "승인",
                   _style: { width: "10%", textAlign: "center" },
                 },
                 {
@@ -151,7 +150,7 @@ const BusinessManage = ({
                     </h4>
                   </td>
                 ),
-                완료: (item) => (
+                승인: (item) => (
                   <td>
                     <CButton
                       active
@@ -171,7 +170,7 @@ const BusinessManage = ({
                       value={item.vacation_INDEX}
                       name={2}
                     >
-                      완료
+                      승인
                     </CButton>
                   </td>
                 ),

@@ -64,7 +64,6 @@ const CompleteManage = ({
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            연차/반차
             <small className="text-muted"> </small>
           </CCardHeader>
           <CCardBody>

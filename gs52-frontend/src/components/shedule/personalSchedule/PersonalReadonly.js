@@ -126,6 +126,7 @@ const Readonly = withDragDropContext((props) => {
     end: item.conf_DATE + " " + item.conf_END,
     resourceId: item.emp_ID,
     title: item.conf_TITLE,
+    room: item.conf_ROOM_NUMBER + "호",
   }));
 
   const confPerson = props.person.map((item) => ({
@@ -134,6 +135,7 @@ const Readonly = withDragDropContext((props) => {
     end: item.conf_DATE + " " + item.conf_END,
     resourceId: item.emp_ID,
     title: item.conf_TITLE,
+    room: item.conf_ROOM_NUMBER + "호",
   }));
 
   //직원, 팀 부서 리스트
@@ -240,7 +242,7 @@ const Readonly = withDragDropContext((props) => {
     console.log(event);
     Modal.info({
       title: event.title,
-      content: <div></div>,
+      content: <div>{event.room}</div>,
       onOk() {},
     });
   };
