@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { CCardBody, CDataTable, CBadge, CButton, CCollapse, CInput, CCardGroup, CCard } from "@coreui/react";
+import { CCardBody, CDataTable, CBadge } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { askedAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const getBadge = (status) => {
     switch (status) {
@@ -44,7 +43,6 @@ function Asked({ dispatch }) {
     };
     
     const data = asked.map((item, key) => {
-       
         return ({
             번호: key + 1, // index를 1부터 세 주기 위해서
             프로젝트명: item.project_TITLE,
@@ -54,9 +52,7 @@ function Asked({ dispatch }) {
             상태: item.project_OKAY,
             인덱스: item.project_INDEX,
         })
-    }
-    )
-
+    })
 
     return (
         <CCardBody>
@@ -80,14 +76,14 @@ function Asked({ dispatch }) {
                 sorterValue={{ column: "번호", desc: "true" }}
                 pagination
                 scopedSlots={{
-                    프로젝트명: (sc) => {
+                    프로젝트명: (item) => {
                         return (
                             <td onClick={  () => {
-                                dispatch(projectNoChange({ index: sc.인덱스 }));
+                                dispatch(projectNoChange({ index: item.인덱스 }));
                                 history.push({
                                     pathname: `/schedule/project/detail`,
                                 });
-                            }}>{sc.프로젝트명}</td>
+                            }}>{item.프로젝트명}</td>
                         )
                     },
                     상태: (item) => (
