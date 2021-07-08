@@ -15,7 +15,7 @@ export function* okaySaga2() {
 }
 
 const initialState = {
-  //초기값을 정의
+    //초기값을 정의
     okay: [],
     okayError: null,
 };

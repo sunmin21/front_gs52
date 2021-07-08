@@ -78,7 +78,7 @@ function Asked({ dispatch }) {
                 scopedSlots={{
                     프로젝트명: (item) => {
                         return (
-                            <td onClick={  () => {
+                            <td onClick={ () => {
                                 dispatch(projectNoChange({ index: item.인덱스 }));
                                 history.push({
                                     pathname: `/schedule/project/detail`,

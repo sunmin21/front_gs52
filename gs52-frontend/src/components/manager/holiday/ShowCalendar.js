@@ -40,7 +40,7 @@ function ShowCalendar() {
       alert("국가 공휴일은 삭제할 수 없습니다.");
     }
   };
-  // console.log(holiday)
+  
   const data = holiday.map((item) => {
     return {
       id: item.holiday_INDEX,
