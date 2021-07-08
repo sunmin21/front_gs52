@@ -26,7 +26,6 @@ function ProjectManage() {
 
     const history = useHistory();
     const { okay } = useSelector((state) => {
-        console.log(state)
         return {
             okay: state.projectOkay.okay,
         };
@@ -44,7 +43,7 @@ function ProjectManage() {
 
     const data = okay.map((item, key) => {
         return ({
-            index: item.project_INDEX,
+            pindex: item.project_INDEX,
             번호: key + 1, // index를 1부터 세 주기 위해서
             프로젝트명: item.project_TITLE,
             시작: item.project_START,
@@ -79,7 +78,7 @@ function ProjectManage() {
                     itemsPerPage={5}
                     hover
                     sorter
-                    sorterValue={{ column: "번호", desc: "true" }}
+                    sorterValue={{ column: "번호", asc: "true" }}
                     pagination
                     scopedSlots={{
                         프로젝트명: (item) => {
