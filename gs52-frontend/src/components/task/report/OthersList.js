@@ -175,7 +175,7 @@ const OthersList = ({ check }) => {
                 }}
             />
             <br />            
-            <h4 style={{ color: "coral" }}>" {empname} "님의 주간보고서</h4>
+            <h4 style={{ color: "coral" }}>" {empname} "님의 주간보고서 {empid}</h4>
             <CCardGroup style={{ textAlign: "center" }}>
             <CCardBody>
                 <h5>원하는 일자를 선택하세요 </h5>
