@@ -77,10 +77,11 @@ export function AccountField() {
       RegistAccount(id, name, email, num, position, rank, dept, 1).then(
         
         response => {
-          console.log("성공")
+          alert("회원등록 되었습니다.");
         },
         error => {
-          console.log("실패")
+          alert("회원등록 실패하였습니다.");
+          console.log(error)
         }
       );
             console.log(inputs)

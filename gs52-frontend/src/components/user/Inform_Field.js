@@ -218,7 +218,7 @@ export function InformField() {
                 </CFormGroup>
 
 				
-                <CFormGroup row>
+                {/* <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="account_number">급여계좌</CLabel>
                   </CCol>
@@ -229,7 +229,7 @@ export function InformField() {
                     <CInput id="account_number" name="account_number" placeholder="계좌번호 ('-'를 제외한 숫자만 입력하시오)" autoComplete="account_number" 
 					onChange={onChange} value={account_number||''} type="number"/>
 				  </CCol>
-                </CFormGroup>
+                </CFormGroup> */}
 
                 </CCardBody>
 

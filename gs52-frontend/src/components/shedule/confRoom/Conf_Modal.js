@@ -73,12 +73,12 @@ export function ConfModal() {
     };
   });
 
-  useEffect(() => {
-    dispatch(RoomAxios(floor_list[0].conf_ROOM_FLOOR));
-    dispatch(teamAxios());
-    dispatch(empAxios());
-    dispatch(attendAxios());
-    dispatch(ConfAxios());
+  useEffect(async() => {
+    await dispatch(RoomAxios(floor_list[0].conf_ROOM_FLOOR));
+    await dispatch(teamAxios());
+    await dispatch(empAxios());
+    await dispatch(attendAxios());
+    await dispatch(ConfAxios());
   }, [dispatch]);
 
   const floor_data = floor_list.map((item) => ({
@@ -150,7 +150,7 @@ export function ConfModal() {
   };
 
   //등록 버튼 클릭 이벤트 함수
-  const onRegist = () => {
+  const onRegist = async() => {
     if (inputs.title === null) {
       {
         alert("제목입력해라")
@@ -164,8 +164,8 @@ export function ConfModal() {
 	  console.log(inputs)
 	  console.log(empList)
       InsertConf(user.index, room_data[inputs.room].conf_ROOM_INDEX, inputs.title, conf_date, conf_startTime, conf_endTime, empList);
-      dispatch(modalCheck1());
-      dispatch(ConfAxios());
+      await dispatch(modalCheck1());
+      await dispatch(ConfAxios());
     }
   };
   const onCancle = (e) => {

@@ -28,9 +28,9 @@ import {
 const ConfLayout = () => {
     
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(FloorAxios());
-        dispatch(ConfAxios())
+    useEffect(async() => {
+        await dispatch(FloorAxios());
+        await dispatch(ConfAxios())
       }, [dispatch]);
 
   const { conf_list, floor_list,conf_modal1, conf_modal2 } = useSelector((state) => {
