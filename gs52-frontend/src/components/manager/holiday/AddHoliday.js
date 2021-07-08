@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-import {
-    CButton,
-    CSwitch,
-    CInput,
-    CModal,
-    CModalBody,
-    CModalFooter,
-    CModalHeader,
-    CModalTitle,
-    CFormGroup
-} from '@coreui/react'
+import { CButton, CSwitch, CInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup } from '@coreui/react'
 import { InsertHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
 import { holidayAxios } from 'src/modules/manager/holiday';
 import { useDispatch } from 'react-redux';
@@ -22,13 +12,14 @@ function AddHoliday() {
         textAlign: "left",
         padding: "20px"
     }
+
     const dispatch = useDispatch();
     
     useEffect(() => {
         dispatch(holidayAxios())
     }, [dispatch])
 
-    let changed = 0;
+    const [flag, setFlag] = useState(false);
     const [info, setInfo] = useState(false);
     const [title, setTitle] = useState("");
     const [startDate, setStartDate] = useState();
@@ -36,46 +27,48 @@ function AddHoliday() {
 
     const handleTitle = e => {
         setTitle(e.target.value);
-        console.log(title)
     };
 
     const handleAnnual = e => {
-        changed++;
-        console.log(changed)
-        if (changed%2==1 ) {
+        
+        if (flag == true) {
+            console.log(flag)
             console.log("on");
             alert("이 설정은 내년에도 적용됩니다 !")
-            changed = 1;
             annual = 1;
-            // useState.annual
         }
         else
             console.log("off");
     };
-    
+    console.log("flag : " + flag)
+
     const cancel = () => {
         console.log("취소했다!")
         setInfo(!info);
-        window.location.reload();
-        // dispatch(holidayAxios());
+        dispatch(holidayAxios());
         // 자동 rendering
+        setFlag(false)
     }
 
     const submit = () => {
         if (title == "") {
-            console.log("null이당")
             alert("휴일명을 입력해주세요 !")
         }
         else {
-            if (changed == 1) {
-                console.log(startDate)
+            console.log(flag)
+            if (flag == true) {
                 InsertHoliday(title, startDate, annual);
                 startDate.setYear(startDate.getFullYear() + 1)
+                InsertHoliday(title, startDate, annual);
+                startDate.setYear(startDate.getFullYear()-1)
             }
-            console.log(title, startDate, annual)
-            InsertHoliday(title, startDate, annual);
+            else if (flag == false) {
+                InsertHoliday(title, startDate, annual);
+            }
+            console.log("등록성공")
             setInfo(!info);
             dispatch(holidayAxios());
+            setFlag(false)
             // 자동 rendering
         }
     }
@@ -116,16 +109,17 @@ function AddHoliday() {
                             <tr>
                                 <td style={tdStyle}>반복 설정</td>
                                 <td style={tdStyle}>
-                                        <CSwitch
-                                            className={'mx-1'} variant={'3d'} color={'info'}
-                                            onChange={handleAnnual}
-                                        defaultChecked={false}
+                                    <CSwitch
+                                        className={'mx-1'} variant={'3d'} color={'info'}
+                                        onChange={handleAnnual}
+                                        onClick={() => {setFlag(!flag)}}
+                                        checked={flag}
                                     />
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    </CFormGroup>
+                </CFormGroup>
                 <CModalFooter>
                     <CButton color="secondary" onClick={cancel}>취소</CButton>
                     <CButton color="info" onClick={submit}>확인</CButton>
