@@ -110,7 +110,6 @@ const OthersList = ({ check }) => {
 
     return (
         <CModalBody>
-            <CHeader>팀원 선택</CHeader>
             <CDataTable
                 items={userContents}
                 fields={fields}
@@ -175,8 +174,6 @@ const OthersList = ({ check }) => {
                     ),
                 }}
             />
-            <br />
-            <CHeader>보고서 조회</CHeader>
             <br />            
             <h4 style={{ color: "coral" }}>" {empname} "님의 주간보고서</h4>
             <CCardGroup style={{ textAlign: "center" }}>
