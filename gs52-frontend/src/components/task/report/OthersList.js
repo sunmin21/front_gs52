@@ -86,8 +86,6 @@ const OthersList = ({ check }) => {
     });
 
     const showAllReport = async (weekStart) => {
-        console.log(weekStart)
-        console.log(empid)
         setStartDate(weekStart);
         await dispatch(
             othersreportAxios({
@@ -97,7 +95,7 @@ const OthersList = ({ check }) => {
             })
         );
 
-       await  dispatch(
+        await  dispatch(
             nextothersreportAxios({
                 othersemp: empid,
                 weekStart: moment(weekStart).add(7, "d").day(0).format("YYYY-MM-DD"),
@@ -109,10 +107,6 @@ const OthersList = ({ check }) => {
     const eventOnclick = (e) => {
         alert("타인의 보고서는 조회만 가능합니다")
     };
-
-    const empOnclick = (item) => {
-        
-    }
 
     return (
         <CModalBody>
