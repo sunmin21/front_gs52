@@ -4,6 +4,7 @@ const API_URL = "http://localhost:8081";
 export const SelectHoliday = async () => {
     // console.log("test");
 
+  client.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem("accessToken").replace(/\"/gi, "")}`;
   const holiday = await client.get(API_URL + "/manager/holiday/showHoliday");
 
   return holiday;

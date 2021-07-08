@@ -1,5 +1,6 @@
 import client from "../../client";
 
+client.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem("accessToken").replace(/\"/gi, "")}`;
 const API_URL = "http://localhost:8081";
 export const SelectVacation = async (index) => {
   const vacation = await client.post(API_URL + "/manager/vacation/select", {

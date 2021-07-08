@@ -1,5 +1,6 @@
 import client from "../../client";
 
+client.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem("accessToken").replace(/\"/gi, "")}`;
 const API_URL = "http://localhost:8081";
 export const SelectDept = async () => {
   const Dept = await client.get(API_URL + "/manager/addoptions/dept");

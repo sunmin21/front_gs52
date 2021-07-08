@@ -34,7 +34,8 @@ export const LoginAPI = async  (username, password) => {
           .then(response => {
             if (response.data.accessToken) {
               localStorage.setItem("user", JSON.stringify(response.data));
-              //registerSuccessfulLoginForJwt(id, response.data.token)
+              localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken));
+              console.log(localStorage.getItem("accessToken"))
             }
 
             const {accessToken} = response.data;

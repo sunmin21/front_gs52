@@ -3,24 +3,15 @@ import AccountField from "../../../components/manager/account/Account_Regist"
 import Search from "../../../components/task/BusinessProgress/Search"
 
 import {logout, getCurrentUser} from "../../../lib/api/jwt/LoginAPI"
-
 export function InformLayout(){
 
     useEffect(() => {
         const user = getCurrentUser();
-        console.log("user")
         console.log(user)
-        if (user) {
-        //   this.setState({
-        //     currentUser: user,
-        //     showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
-        //     showAdminBoard: user.roles.includes("ROLE_ADMIN"),
-        //   });
-        }
       },[]);
 
 const onClick = () =>{
-  const user = getCurrentUser();
+  const user = localStorage.getItem("accessToken");
   console.log("user")
   console.log(user)
 }

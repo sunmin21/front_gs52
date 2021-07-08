@@ -2,10 +2,44 @@ import client from "../../client";
 
 import React,{useState} from "react";
 
+// const request = options => {
+//   const token = localStorage.getItem("accessToken")
+//   const headers = new Headers({
+//     "Content-Type":"application/json"
+//   });
+
+//   if(localStorage.getItem("accessToken")){
+//     headers.append(
+//       "Authorization",
+//       "Bearer "+localStorage.getItem("accessToken")
+//     );
+//   }
+
+//   const defaults = {headers:headers};
+//   options = Object.assign({}, defaults, options);
+
+//   return fetch(options.url, options).then(response=>
+//     response.json().then(json=>{
+//       if(!response.ok){
+//         return Promise.reject(json);
+//       }
+//       return json;
+//     }))
+// }
+const token = localStorage.getItem("accessToken")
+const config={
+  headers:{Authorization:`Bearer ${token}`}
+};
+
+client.defaults.headers.common.Authorization = `Bearer ${localStorage.getItem("accessToken").replace(/\"/gi, "")}`;
+console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@token")
+console.log(token)
+
 const API_URL = "http://localhost:8081";
 //부서
 export const SelectDept = async () => {
   const dept = await client.post(API_URL +"/manager/select_dept");
+
   console.log("SelectDept API inserrrrrr");
   console.log(dept.data);
   return dept;
@@ -23,7 +57,8 @@ export const SelectRank = async () => {
 
 //직책
 export const SelectPosition = async () => {
-  const position = await client.post(API_URL +"/manager/select_position");
+  const position = await client.post(API_URL +"/manager/select_position"
+  );
   console.log("SelectPosition API inserrrrrr");
   console.log(position.data);
   return position;
@@ -48,7 +83,10 @@ export const RegistAccount = async (id, username, email, password, position, ran
   // console.log(role)
   const regist = await client.post(API_URL + "/api/auth/signup",{
     id, username, email, password, position, rank, team, first_login
-  });
+  }).then(()=>{
+    client.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+  );
 }
 
 // export const SelectEmp = async () => {
