@@ -137,8 +137,8 @@ const Modal = ({
                 return;
               }
               if (content["teamname"] !== "" && content["teamname"] !== null) {
-                UpdateTeam(content);
-                dispatch(axios());
+                await UpdateTeam(content);
+                await dispatch(axios());
                 setContent({
                   teamname: teamName,
                   work_RULE_INDEX: work_RULE_INDEX,
