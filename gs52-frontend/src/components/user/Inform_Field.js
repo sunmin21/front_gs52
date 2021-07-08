@@ -11,6 +11,7 @@ import { useHistory   } from "react-router-dom";
 import { update } from "../../lib/api/jwt/LoginAPI";
 import {getCurrentUser} from "../../lib/api/jwt/LoginAPI";
 import DaumPostCode from 'react-daum-postcode';
+import { greatestDurationDenominator } from '@fullcalendar/react';
 
 export function InformField() {
 	const history = useHistory();
@@ -27,6 +28,7 @@ export function InformField() {
 	
 	const [pwd_message, setPwd_message] = useState(null);
 	const [pwd_check, setPwd_check] = useState(false);
+	const [pwd_reg, setPwd_reg] = useState(null);
 	const [addr, setAddr] = useState("");
 
 	const {first_pwd, second_pwd, tel, address, birth, photo, bank_name, account_number} = inputs;
@@ -36,6 +38,10 @@ export function InformField() {
 	// 	const onlyNumber = value.replace(/[^0-9]/g, '')
 	// 	setInputs(onlyNumber)
 	//   }
+		var regex_PW = /^.*(?=^.{6,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+		//특수문자, 문자, 숫자 포함 형태의 8~15자리 이내의 암호 정규식
+
+		
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
 		const { name, value } = e.target   
@@ -47,11 +53,21 @@ export function InformField() {
 				[name]: value,
 			}
 		//만든 변수를 seInput으로 변경해준다.
-			setInputs(nextInputs)       
+			setInputs(nextInputs)      
 
-
+			
 			// 비밀번호 썼다가 지웠을 때, 같다고 나오는 경우 해결
 			if(e.target.id === 'first_pwd'){
+				if(!regex_PW.test(e.target.value)){
+					console.log(e.target.value)
+					setPwd_check(false);
+					setPwd_reg('비밀번호 형식이 맞지 않습니다.');
+				}
+				else{
+					setPwd_check(true);
+					setPwd_reg('');
+				}
+
 				if(inputs.second_pwd === null){
 					setPwd_message('')
 					setPwd_check(false);
@@ -90,6 +106,7 @@ export function InformField() {
 	}
 
 	const onRegist=()=>{
+
 		if(pwd_check===false){
 			alert("비밀번호를 확인하세요.")
 		}
@@ -101,6 +118,7 @@ export function InformField() {
 					  history.push('/');
 				},
 				error => {
+					alert("다시 입력 하십시오.");
 					console.log("error")
 					console.log(error)
 				}
@@ -132,7 +150,6 @@ export function InformField() {
             }
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
-
         //fullAddress -> 전체 주소반환
         setAddr(fullAddress);
     }
@@ -149,7 +166,7 @@ export function InformField() {
                     <CLabel htmlFor="first_pwd">비밀번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="Password" autoComplete="first_pwd" 
+                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="특수문자, 문자, 숫자 포함 8~15자리" autoComplete="first_pwd" 
 					onChange={onChange} value={first_pwd||''}/>
                   </CCol>
                 </CFormGroup>
@@ -158,16 +175,17 @@ export function InformField() {
                     <CLabel htmlFor="second_pwd">비밀번호 확인</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="second_pwd" name="second_pwd" placeholder="Password" autoComplete="second_pwd"
+                    <CInput type="password" id="second_pwd" name="second_pwd" placeholder="특수문자, 문자, 숫자 포함 8~15자리" autoComplete="second_pwd"
 					onChange={onChange} value={second_pwd||''}/>
                   </CCol>
-                </CFormGroup>                
+                </CFormGroup>               
 				
 				<CFormGroup row>
                   <CCol md="3">
                   </CCol>
                   <CCol xs="12" md="9" >
 						{pwd_message}
+						{pwd_reg}
                   </CCol>
                 </CFormGroup>  
 				
@@ -177,8 +195,8 @@ export function InformField() {
                     <CLabel htmlFor="tel">연락처</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="tel" name="tel" placeholder="'-'을 제외한 숫자만 입력하시오" 
-					onChange={onChange} value={tel||''}/>
+                    <CInput id="tel" name="tel" placeholder="연락처 ('-'을 제외한 숫자만 입력하시오)" 
+					onChange={onChange} value={tel||''} type="number"/>
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
@@ -208,8 +226,8 @@ export function InformField() {
 				  	<CSelect id="bank_name" name="bank_name" onChange={onChange}>
 				
 					</CSelect>
-                    <CInput id="account_number" name="account_number" placeholder="계좌" autoComplete="account_number" 
-					onChange={onChange} value={account_number||''}/>
+                    <CInput id="account_number" name="account_number" placeholder="계좌번호 ('-'를 제외한 숫자만 입력하시오)" autoComplete="account_number" 
+					onChange={onChange} value={account_number||''} type="number"/>
 				  </CCol>
                 </CFormGroup>
 
