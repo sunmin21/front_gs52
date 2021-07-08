@@ -1,7 +1,6 @@
 const Helpers = {
   // Main wrapper for Fetch API
   httpRequest: (url, method, payload, headers) => {
-    console.log(url);
     // Configuration to accept json as a default
     const config = {
       method,
@@ -28,9 +27,10 @@ const Helpers = {
     ) {
       config.headers = headers;
     }
-    console.log(config);
+
     return fetch(url, config).then((response) => {
       // Check if the request is 200
+
       if (response.ok) {
         let data = response;
         // console.log("안녕");
