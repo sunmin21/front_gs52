@@ -37,6 +37,10 @@ function WeeklyReport() {
     // dispatch(reportAxios(emp, weekStart, weekEnd))
   }, [dispatch]);
 
+  useEffect(() => {
+    showAllReport(startDate)
+  }, [emp])
+  
   const fields = ["contents", "date"];
   const [startDate, setStartDate] = useState(new Date());
 

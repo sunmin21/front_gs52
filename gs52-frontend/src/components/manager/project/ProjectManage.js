@@ -58,7 +58,7 @@ function ProjectManage() {
         <CRow>
             <CCol>
                 <h5>프로젝트 목록</h5>
-                <CCardBody>
+                <CCardBody style={{textAlign:"center"}}>
                     <CDataTable
                     items={data}
                     fields={[
@@ -67,7 +67,6 @@ function ProjectManage() {
                         "시작",
                         "종료",
                         { key: "담당자", _style: { width: "10%" } },
-                        { key: "상태", _style: { width: "10%" } },
                         '수락',
                         '거부'
                     ]}
@@ -91,13 +90,38 @@ function ProjectManage() {
                                 }}>{item.프로젝트명}</td>
                             )
                         },
-                        상태: (item) => (
-                            <td>
-                                <CBadge color={getBadge(Done[item.상태])}>
-                                    {Done[item.상태]}
-                                </CBadge>
-                            </td>
-                        ),
+                        // 수락: (item) => (
+                        //     <td>
+                        //         <CButton
+                        //                 onClick={async (e) => {
+                        //                     console.log(item.pwindex)
+                        //                     await UpdateRequested(item.pwindex, 1, "null");
+                        //                     await dispatch(requestedAxios(emp));
+                        //                     await dispatch(proceedingAxios(emp));
+                        //                 }}
+                        //             >
+                        //             <CBadge color={getBadge(Done[1])}>
+                        //                 {Done[1]}
+                        //             </CBadge>
+                        //         </CButton>
+                        //     </td>
+                        // ),
+                        // 거절:
+                        // (item, index)=>{
+                        //     return (
+                        //     <td className="py-2">
+                        //         <CButton onClick={()=>{toggleDetails(index)}}>
+                        //             {details.includes(index)
+                        //             ? <CBadge color={getBadge(Done[3])}>
+                        //                 {Done[3]}
+                        //             </CBadge>
+                        //             : <CBadge color={getBadge(Done[2])}>
+                        //                 {Done[2]}
+                        //             </CBadge>}
+                        //         </CButton>
+                        //     </td>
+                        //     )
+                        // },
                     }}
                 />
                 </CCardBody>
