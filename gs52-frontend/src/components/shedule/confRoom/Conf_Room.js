@@ -5,26 +5,28 @@ import timegrid from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; 
 import moment from 'moment';
 
-import { SelectConf } from "../../../lib/api/conf/ConfAPI";
-
 import { useDispatch, useSelector } from 'react-redux';
 import { ConfAxios, modalCheck1, modalDate, modalStartTime, modalEndTime } from 'src/modules/schedule/conf';
 
 export function ConfRoom(props) {
 
-
 	const dispatch = useDispatch();
-	const { conf_list } = useSelector((state) => {
+	const { conf_list,conf_modal1 } = useSelector((state) => {
 		//console.log(state)
 		return ({   
-			conf_list: state.conf_check.conf_list
+			conf_list: state.conf_check.conf_list,
+			conf_modal1: state.conf_check.conf_modal1,
 		})
 	});
+
+	useEffect(()=>{
+		console.log("rendering")
+	},[conf_list])
 
 	const handleDateClick = (arg) => { 
 		dispatch(modalDate(moment(arg.dateStr).format('YYYY/MM/DD')))
 		dispatch(modalStartTime(moment(arg.dateStr).format('HH:mm')))
-		dispatch(modalEndTime(moment(arg.dateStr).add(10,'m').format('HH:mm')))
+		dispatch(modalEndTime(moment(arg.dateStr).add(30,'m').format('HH:mm')))
 		dispatch(modalCheck1())
 	  }
 
@@ -35,10 +37,6 @@ export function ConfRoom(props) {
 		date: moment(item.conf_DATE).format("YYYY-MM-DD"),
 		start: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_START,
 		end: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_END,
-		//end: item.conf_END,
-		//conf_ROOM_INDEX: item.conf_ROOM_INDEX,
-		//conf_EMP_INDEX_SEND: item.conf_EMP_INDEX_SEND,
-		
 						// //'2021-06-22T15:30'	
     }
 	  }

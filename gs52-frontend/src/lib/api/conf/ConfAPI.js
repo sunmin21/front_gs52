@@ -5,11 +5,13 @@ import React, { useState } from "react";
 const API_URL = "http://localhost:8081";
 //export const InsertConf = async (floor, room, index, title, date, startTime, endTime) => {
 export const InsertConf = async (
+  held_empIndex,
   roomIndex,
   title,
   date,
   startTime,
-  endTime
+  endTime,
+  empList
 ) => {
   // console.log("Conf API inserrrrrr");
   console.log("roomIndex " + roomIndex);
@@ -17,6 +19,7 @@ export const InsertConf = async (
   console.log("date " + date);
   console.log("startTime " + startTime);
   console.log("endTime " + endTime);
+  console.log("empList " + empList);
 
   const conf = await client
     .post(API_URL + "/schedule/confRoom/insert", {
@@ -25,7 +28,8 @@ export const InsertConf = async (
       conf_DATE: date,
       conf_START: startTime,
       conf_END: endTime,
-      conf_EMP_INDEX_SEND: 1,
+      conf_EMP_INDEX_SEND: held_empIndex,
+      person:empList
     })
     .then(function (response) {
       //response
@@ -37,6 +41,11 @@ export const InsertConf = async (
     .then(function () {
       //항상실행
     });
+
+    // const confRe = await client.post(API_URL+"/schedule/confRoom/empInsert",{
+    //     conf_RE_EMP_INDEX:,
+    //     conf_RE_CONF_INDEX:empList,
+    // })
 };
 
 export const SelectConf = async () => {

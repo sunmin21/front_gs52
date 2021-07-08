@@ -85,10 +85,11 @@ const ProjectContent = () => {
     dispatch(projectWithAxios(projectNo));
     dispatch(projectFileAxios(projectNo));
   }, [projectNo, dispatch]);
-  console.log(deleteFile);
+
   useEffect(() => {
     setNo(content.참여원.map((item) => Number(item.사원번호)));
-    setContent({
+    setContent((content) => ({
+      ...content,
       타이틀: projectContent.project_TITLE,
       참여원: projectWith.map((item) => ({
         부서: item.dept_NAME,
@@ -102,11 +103,17 @@ const ProjectContent = () => {
       })),
 
       내용: projectContent.project_CONTENT,
-      파일: projectFile,
+
       시작기간: projectContent.project_START,
       종료기간: projectContent.project_END,
-    });
-  }, [projectContent, projectWith, projectFile]);
+    }));
+  }, [projectContent, projectWith]);
+  useEffect(() => {
+    setContent((content) => ({
+      ...content,
+      파일: projectFile,
+    }));
+  }, [projectFile]);
   useEffect(() => {
     setContent((content) => ({
       ...content,
@@ -130,7 +137,7 @@ const ProjectContent = () => {
   const [filecheck, setFilecheck] = useState(false);
 
   const updatedate = moment().format("YYYY-MM-DD HH:mm:ss");
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     // if (content.타이틀 === "") {
     //   setTitlecheck(true);
     //   return;
@@ -164,7 +171,7 @@ const ProjectContent = () => {
         formData.append("FILES", uploadFile[key]);
       }
     }
-    UpdateProject(formData);
+    await UpdateProject(formData);
   };
   let leader = 0;
   if (
@@ -232,13 +239,16 @@ const ProjectContent = () => {
                   size="sm"
                   color="success"
                   style={{ float: "right" }}
-                  onClick={() => {
+                  onClick={async () => {
                     titleInput.current.readOnly = true;
                     contentInput.current.readOnly = true;
                     startInput.current.readOnly = true;
                     endInput.current.readOnly = true;
                     setUpdateCheck(false);
-                    handleSubmit();
+
+                    await handleSubmit();
+
+                    await dispatch(projectFileAxios(projectNo));
                   }}
                 >
                   <CIcon name="cil-save" /> 저장
@@ -481,8 +491,9 @@ const ProjectContent = () => {
                       key={key}
                       onClick={(e) => {
                         if (!updateCheck) {
+                          console.log(item);
                           Helpers.httpRequest(
-                            `http://192.168.20.17:3000?upload=${item.project_FILE_NAME}`,
+                            `http://192.168.20.17:3000${item.project_REACT_PATH}`,
                             "get"
                           )
                             .then((response) => response.blob())
@@ -566,7 +577,7 @@ const ProjectContent = () => {
                     name="file-multiple-input"
                     multiple
                     custom
-                    onChange={(e) => {
+                    onChange={async (e) => {
                       for (let key of Object.keys(e.target.files)) {
                         if (e.target.files[key].size > 102400000) {
                           setFilecheck(true);
@@ -578,7 +589,7 @@ const ProjectContent = () => {
                       //   ...content,
                       //   파일: e.target.files,
                       // }));
-                      dispatch(projectFileConcats(e.target.files));
+                      await dispatch(projectFileConcats(e.target.files));
                     }}
                   ></CInputFile>
                   <CLabel htmlFor="file-multiple-input" variant="custom-file">

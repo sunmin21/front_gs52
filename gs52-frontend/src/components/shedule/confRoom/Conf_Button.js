@@ -3,13 +3,19 @@ import {
   CButton
 } from "@coreui/react";
 import 'antd/dist/antd.css';
+import moment from 'moment';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { modalCheck1 } from 'src/modules/schedule/conf';
+import { modalCheck1, modalStartTime, modalEndTime} from 'src/modules/schedule/conf';
 
 
 export function ConfButton() {
 
+const onClick = () => {
+  dispatch(modalCheck1())
+  dispatch(modalStartTime(moment().format('HH:mm')))
+  dispatch(modalEndTime(moment().add(30,'m').format('HH:mm')))
+}
 
 const dispatch = useDispatch();
 const { conf_modal1,conf_date } = useSelector((state) => {
@@ -23,7 +29,7 @@ const { conf_modal1,conf_date } = useSelector((state) => {
   return (
     <div>              
         <CButton color="primary"
-    onClick={() =>  dispatch(modalCheck1())}
+    onClick={onClick}
   >
     추가
   </CButton>
