@@ -31,7 +31,6 @@ const Search = ({ check, no }) => {
               });
           } else {
             return data.map((item) => {
-              console.log("여기냐");
               return {
                 사원번호: item.emp_INDEX,
                 사원아이디: item.emp_ID,
