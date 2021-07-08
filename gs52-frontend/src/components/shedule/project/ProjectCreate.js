@@ -25,10 +25,12 @@ import { InsertProject } from "src/lib/api/schedule/Project";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { userList } from "src/lib/api/auth/auth";
-const user = getCurrentUser();
-console.log(user.index);
 
 const ProjectCreate = () => {
+  let user = getCurrentUser();
+
+  console.log("Project user");
+  console.log(user);
   const [no, setNo] = useState([]);
   const date = moment().format("YYYY-MM-DD");
   const [content, setContent] = useState({

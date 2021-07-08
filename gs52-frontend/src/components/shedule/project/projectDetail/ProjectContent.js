@@ -34,9 +34,9 @@ import {
 import Helpers from "./helpers";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { UpdateProject } from "src/lib/api/schedule/Project";
-const user = getCurrentUser();
 
 const ProjectContent = () => {
+  const user = getCurrentUser();
   const [no, setNo] = useState([]);
   const date = moment().format("YYYY-MM-DD");
 
@@ -414,6 +414,7 @@ const ProjectContent = () => {
                             color="dark"
                             key={key}
                             onClick={() => {
+                              console.log(part.수락);
                               if (
                                 updateCheck &&
                                 window.confirm("삭제하시겠습니까?")
@@ -425,7 +426,17 @@ const ProjectContent = () => {
                                   ),
                                 }));
                               }
+                              if (Number(part.수락) === 2) {
+                                alert("거절 사유\n" + part.거절사유);
+                              }
                             }}
+                            style={
+                              Number(part.수락) === 1
+                                ? { background: "#A4C3FF" }
+                                : Number(part.수락) === 2
+                                ? { background: "#FFCFDA" }
+                                : { background: "white" }
+                            }
                             innerRef={withInput}
                             readOnly
                           >
@@ -448,6 +459,7 @@ const ProjectContent = () => {
                             color="dark"
                             key={key}
                             onClick={() => {
+                              console.log(part);
                               if (
                                 updateCheck &&
                                 window.confirm("삭제하시겠습니까?")
@@ -459,7 +471,17 @@ const ProjectContent = () => {
                                   ),
                                 }));
                               }
+                              if (Number(part.수락) === 2) {
+                                alert("거절 사유\n" + part.거절사유);
+                              }
                             }}
+                            style={
+                              Number(part.수락) === 1
+                                ? { background: "#A4C3FF" }
+                                : Number(part.수락) === 2
+                                ? { background: "#FFCFDA" }
+                                : { background: "white" }
+                            }
                             innerRef={with2Input}
                             readOnly
                           >

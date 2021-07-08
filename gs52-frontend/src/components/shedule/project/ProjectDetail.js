@@ -14,6 +14,7 @@ import {
 } from "@coreui/react";
 
 import ProjectContent from "./projectDetail/ProjectContent";
+import ProjectTask from "./projectDetail/ProjectTask";
 
 function ShowProject() {
   return (
@@ -28,7 +29,7 @@ function ShowProject() {
                   <CNavLink>프로젝트 개요</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink>보낸 요청</CNavLink>
+                  <CNavLink>업무</CNavLink>
                 </CNavItem>
                 <CNavItem>
                   <CNavLink>완료한 요청</CNavLink>
@@ -38,7 +39,9 @@ function ShowProject() {
                 <CTabPane>
                   <ProjectContent />
                 </CTabPane>
-                <CTabPane></CTabPane>
+                <CTabPane>
+                  <ProjectTask></ProjectTask>
+                </CTabPane>
                 <CTabPane></CTabPane>
               </CTabContent>
             </CTabs>

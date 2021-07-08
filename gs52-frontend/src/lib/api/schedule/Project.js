@@ -1,6 +1,6 @@
 import client from "../client";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 export const InsertProject = async (regiInfo) => {
   console.log("test");
   console.log(regiInfo);
@@ -27,6 +27,18 @@ export const UpdateProject = async (regiInfo) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
+    }
+  );
+
+  return project;
+};
+export const UpdateProjectWith = async ({ color, withIndex }) => {
+  console.log("이거타냐?");
+  const project = await client.post(
+    API_URL + "/schedule/project/updateprojectWith",
+    {
+      project_WITH_INDEX: withIndex,
+      project_WITH_COLOR: color,
     }
   );
 
