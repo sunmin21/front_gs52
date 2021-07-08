@@ -34,8 +34,7 @@ export const LoginAPI = async  (username, password) => {
           .then(response => {
             if (response.data.accessToken) {
               localStorage.setItem("user", JSON.stringify(response.data));
-              localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken));
-              console.log(localStorage.getItem("accessToken"))
+              localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken).replace(/\"/gi, ""));
             }
 
             const {accessToken} = response.data;
