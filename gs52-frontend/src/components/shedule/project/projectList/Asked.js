@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { askedAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { useDispatch } from "react-redux";
 
 const getBadge = (status) => {
     switch (status) {
@@ -19,14 +20,14 @@ const getBadge = (status) => {
     }
 };
     
-function Asked({ dispatch }) {
-
+function Asked() {
+    const dispatch = useDispatch();
     const user = getCurrentUser();
     let [emp] = useState(user.index);
     
     const history = useHistory();
     const { asked } = useSelector((state) => {
-        
+        console.log(state)
         return {
             asked: state.projectList.asked,
         };
@@ -53,7 +54,7 @@ function Asked({ dispatch }) {
             인덱스: item.project_INDEX,
         })
     })
-
+console.log(asked)
     return (
         <CCardBody>
             <CDataTable

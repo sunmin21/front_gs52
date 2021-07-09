@@ -15,10 +15,19 @@ if (localStorage.getItem("accessToken") != null) {
 // };
 
 export const SelectOkay = async (index) => {
-  console.log(index)
   const okay = await client.post(API_URL + "/manager/project/selectOkay", {
     project_INDEX: index,
   });
 
   return okay;
 };
+
+export const UpdateOKay = async (index, okay) => {
+  console.log("index : " + index + "okay : " + okay)
+  const upokay = await client.post(API_URL + "/manager/project/updateOkay", {
+    project_INDEX: index,
+    project_OKAY: okay
+  })
+
+  return upokay;
+}

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { CCol, CRow, CBadge, CDataTable, CCardBody } from "@coreui/react";
+import { CCol, CRow, CBadge, CDataTable, CCardBody, CButton } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { okayAxios } from "src/modules/manager/Project";
+import { UpdateOKay } from "src/lib/api/manager/project/ProjectAPI";
+import { proceedingAxios, askedAxios } from "src/modules/schedule/project/projectList";
 
 const getBadge = (status) => {
     switch (status) {
-        case "수락":
+        case "승인":
             return "success";
-        case "거절":
+        case "거부":
             return "danger";
         default:
         return "primary";
@@ -90,39 +92,36 @@ function ProjectManage() {
                                 }}>{item.프로젝트명}</td>
                             )
                         },
-                        // 수락: (item) => (
-                        //     <td>
-                        //         <CButton
-                        //                 onClick={async (e) => {
-                        //                     console.log(item.pwindex)
-                        //                     await UpdateRequested(item.pwindex, 1, "null");
-                        //                     await dispatch(requestedAxios(emp));
-                        //                     await dispatch(proceedingAxios(emp));
-                        //                 }}
-                        //             >
-                        //             <CBadge color={getBadge(Done[1])}>
-                        //                 {Done[1]}
-                        //             </CBadge>
-                        //         </CButton>
-                        //     </td>
-                        // ),
-                        // 거절:
-                        // (item, index)=>{
-                        //     return (
-                        //     <td className="py-2">
-                        //         <CButton onClick={()=>{toggleDetails(index)}}>
-                        //             {details.includes(index)
-                        //             ? <CBadge color={getBadge(Done[3])}>
-                        //                 {Done[3]}
-                        //             </CBadge>
-                        //             : <CBadge color={getBadge(Done[2])}>
-                        //                 {Done[2]}
-                        //             </CBadge>}
-                        //         </CButton>
-                        //     </td>
-                        //     )
-                        // },
-                    }}
+                        수락: (item) => (
+                            <td>
+                                <CButton
+                                    onClick={async (e) => {
+                                        console.log(item.pindex + "번 승인")
+                                        await UpdateOKay(item.pindex, 1);
+                                        await dispatch(okayAxios());
+                                    }}
+                                >
+                                <CBadge color={getBadge(Done[1])}>
+                                    {Done[1]}
+                                </CBadge>
+                            </CButton>
+                        </td>
+                        ),
+                        거부: (item) => (
+                            <td>
+                                <CButton
+                                    onClick={async (e) => {
+                                        console.log(item.pindex + "번 거부") 
+                                        await UpdateOKay(item.pindex, 2);
+                                        await dispatch(okayAxios());
+                                    }}
+                                >
+                                <CBadge color={getBadge(Done[2])}>
+                                    {Done[2]}
+                                </CBadge>
+                            </CButton>
+                        </td>
+                    )}}
                 />
                 </CCardBody>
             </CCol>
