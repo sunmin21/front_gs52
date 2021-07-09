@@ -31,7 +31,9 @@ import {
   todoAxios,
 } from "src/modules/task/task";
 import modalcontent from "../../components/task/BusinessProgress/Search";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const CreateTodo = () => {
+  const [user, setUser] = useState(getCurrentUser());
   const { search } = useSelector(({ emp }) => ({
     search: emp.search,
   }));
@@ -159,12 +161,12 @@ const CreateTodo = () => {
                 return;
               }
               if (doubleCheck) {
-                await BoardSend({ no, board, sendId: 2 });
+                await BoardSend({ no, board, sendId: user.index });
                 dispatch(searchInit());
                 dispatch(boardInit());
-                await dispatch(todoAxios(2));
-                await dispatch(sendAxios(2));
-                await dispatch(succssAxios(2));
+                await dispatch(todoAxios(user.index));
+                await dispatch(sendAxios(user.index));
+                await dispatch(succssAxios(user.index));
                 history.goBack();
                 setDoubleCheck(false);
               }

@@ -21,15 +21,16 @@ import { useHistory, useLocation } from "react-router-dom";
 import { setContext } from "redux-saga/effects";
 
 import { InsertNotice } from "src/lib/api/main/Main";
-
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const DetailNotice = (e) => {
   const history = useHistory();
 
+  const user = getCurrentUser();
   const [content, setContent] = useState({
     인덱스: "",
     제목: "",
     내용: "",
-    작성자INDEX: "",
+    작성자INDEX: user.index,
     작성자: "",
     등록날짜: "",
   });
@@ -72,7 +73,7 @@ const DetailNotice = (e) => {
                   id="textarea-input"
                   rows="9"
                   placeholder="작성자"
-                  value={content.작성자}
+                  value={user.username}
                   readOnly
                 />
               </CCol>

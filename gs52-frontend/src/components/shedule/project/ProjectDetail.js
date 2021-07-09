@@ -40,7 +40,7 @@ function ShowProject() {
                   <ProjectContent />
                 </CTabPane>
                 <CTabPane>
-                  <ProjectTask></ProjectTask>
+                  <ProjectTask />
                 </CTabPane>
                 <CTabPane></CTabPane>
               </CTabContent>

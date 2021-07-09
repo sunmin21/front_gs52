@@ -30,8 +30,10 @@ import { DeleteNotice, UpdateNotice } from "src/lib/api/main/Main";
 
 import { noticeAxios } from "src/modules/main/main";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+
 const DetailNotice = (e) => {
   const user = getCurrentUser();
+
   const history = useHistory();
   const dispatch = useDispatch();
 

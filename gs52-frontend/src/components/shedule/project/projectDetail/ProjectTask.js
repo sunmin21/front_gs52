@@ -4,13 +4,17 @@ import {
   CCardBody,
   CCardHeader,
   CCol,
+  CCollapse,
   CFormGroup,
   CLabel,
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userList } from "src/lib/api/auth/auth";
-import { projectWithAxios } from "src/modules/schedule/project/project";
+import {
+  projectTodoAxios,
+  projectWithAxios,
+} from "src/modules/schedule/project/project";
 import ColorModal from "./ProjectTaskColorModal";
 import ProjectTaskTodo from "./ProjectTaskTodo";
 
@@ -21,29 +25,39 @@ const ProjectTask = () => {
     empColor: "",
     withIndex: "",
   });
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState();
 
-  const { projectNo, projectWith } = useSelector(({ project }) => {
+  const { projectNo, projectWith, projectTodo } = useSelector(({ project }) => {
     return {
       projectNo: project.projectNo,
-      projectContent: project.projectContent,
-      projectFile: project.projectFile,
       projectWith:
         project.projectWith.filter((item) => item.project_WITH_OKAY === 1) ||
         [],
-      uploadFile: project.uploadFile,
+      projectTodo: project.projectTodo,
     };
   });
+  const [click, setClick] = useState(false);
+  useEffect(() => {}, []);
   useEffect(() => {
+    let isComponentMounted = true;
+    const fetchData = async () => {
+      const response = await userList();
+
+      if (isComponentMounted) {
+        setUserData(response);
+      }
+    };
+    fetchData();
+    // userList().then((data) => setUserData(data));
     dispatch(projectWithAxios(projectNo));
-    userList().then((data) => setUserData(data));
+    dispatch(projectTodoAxios(projectNo));
+    return () => {
+      isComponentMounted = false;
+    };
   }, [projectNo, dispatch]);
-  console.log(userData);
-  console.log(projectWith);
+
   // console.log(confirm.filter());
-
-  console.log(projectWith);
-
+  console.log(projectTodo);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -58,6 +72,7 @@ const ProjectTask = () => {
 
               <CCol xs="6" md="2">
                 <ColorModal
+                  key={projectNo}
                   visible={visible}
                   setVisible={setVisible}
                   axios={projectWithAxios}
@@ -212,9 +227,36 @@ const ProjectTask = () => {
               <CCol md="3">
                 <CLabel htmlFor="date-input">프로젝트 할일</CLabel>
               </CCol>
-
+              <CCol xs="6" md="6">
+                {projectTodo.map((item, key) => {
+                  return (
+                    <CCard className="mb-0">
+                      <CCardHeader>
+                        <CButton
+                          block
+                          color="link"
+                          className="text-left m-0 p-0"
+                          onClick={() => setClick(!click)}
+                          key={key}
+                        >
+                          <h5 className="m-0 p-0">
+                            {item.project_TASK_CONTENT}
+                          </h5>
+                        </CButton>
+                      </CCardHeader>
+                      <CCollapse show={click}>
+                        <CCardBody>ss</CCardBody>
+                      </CCollapse>
+                    </CCard>
+                  );
+                })}
+              </CCol>
               <CCol xs="6" md="2">
-                <ProjectTaskTodo></ProjectTaskTodo>
+                <ProjectTaskTodo
+                  projectNo={projectNo}
+                  axios={projectTodoAxios}
+                  dispatch={dispatch}
+                ></ProjectTaskTodo>
               </CCol>
             </CFormGroup>
           </CCardBody>

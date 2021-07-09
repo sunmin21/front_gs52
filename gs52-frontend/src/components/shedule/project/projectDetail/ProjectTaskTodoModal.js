@@ -2,7 +2,11 @@ import React, { useState } from "react";
 
 import "antd/dist/antd.css";
 
-import { UpdateProjectWith } from "src/lib/api/schedule/Project";
+import {
+  InsertProjecTodo,
+  UpdateProjectWith,
+} from "src/lib/api/schedule/Project";
+import { SelectCheckDept } from "src/lib/api/manager/addOptions/addOptions";
 
 const {
   CButton,
@@ -21,6 +25,7 @@ const {
   CDropdownMenu,
   CDropdownItem,
   CDropdownDivider,
+  CAlert,
 } = require("@coreui/react");
 
 const ProjectTaskColorModal = ({
@@ -50,11 +55,13 @@ const ProjectTaskColorModal = ({
   for (let i = 5; i <= 100; i += 5) {
     array.push(i);
   }
-  console.log(array);
+
   const [content, setContent] = useState({
+    인덱스: projectNo,
     내용: "",
-    진행도: "",
+    진행도: 5,
   });
+  const [check, setCheck] = useState(false);
   return (
     <>
       <CModal show={visible}>
@@ -80,6 +87,17 @@ const ProjectTaskColorModal = ({
                   }));
                 }}
               />
+              {check && (
+                <CAlert
+                  color="danger"
+                  closeButton
+                  onClick={() => {
+                    setCheck(false);
+                  }}
+                >
+                  내용을입력하세요
+                </CAlert>
+              )}
             </CCol>
           </CFormGroup>
           <CFormGroup row>
@@ -93,23 +111,26 @@ const ProjectTaskColorModal = ({
                 rows="6"
                 placeholder="Content..."
               /> */}
-              <CDropdown dark>
+              <CDropdown>
                 <CDropdownToggle color="secondary">
-                  Dropdown button
+                  {content.진행도 + "%"}
                 </CDropdownToggle>
                 <CDropdownMenu>
-                  {array.map((item) => {
-                    <CDropdownItem
-                      onClick={(e) => {
-                        console.log(e);
-                        setContent((cont) => ({
-                          ...cont,
-                          진행도: e.target.value,
-                        }));
-                      }}
-                    >
-                      {item}%
-                    </CDropdownItem>;
+                  {array.map((item, key) => {
+                    return (
+                      <CDropdownItem
+                        name={item}
+                        key={key}
+                        onClick={(e) => {
+                          setContent((cont) => ({
+                            ...cont,
+                            진행도: e.target.name,
+                          }));
+                        }}
+                      >
+                        {item}%
+                      </CDropdownItem>
+                    );
                   })}
                 </CDropdownMenu>
               </CDropdown>
@@ -121,6 +142,8 @@ const ProjectTaskColorModal = ({
             color="secondary"
             onClick={() => {
               setVisible(false);
+              setCheck(false);
+              setContent({ 내용: "", 진행도: 0 });
             }}
           >
             취소
@@ -129,10 +152,15 @@ const ProjectTaskColorModal = ({
           <CButton
             color="primary"
             onClick={async () => {
-              await UpdateProjectWith({ color, withIndex });
+              if (content.내용 === "") {
+                setCheck(true);
+                return;
+              }
+              await InsertProjecTodo(content);
 
               await dispatch(axios(projectNo));
-
+              setContent({ 내용: "", 진행도: 0 });
+              setCheck(false);
               setVisible(false);
             }}
           >

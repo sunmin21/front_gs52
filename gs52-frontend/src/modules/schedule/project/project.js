@@ -17,6 +17,8 @@ const [PROJECTWITH, PROJECTWITH_SUCCESS, PROJECTWITH_FAILURE] =
 
 const [PROJECTFILE, PROJECTFILE_SUCCESS, PROJECTFILE_FAILURE] =
   createRequestActionTypes("schedule/PROJECTFILE"); //타입유형
+const [PROJECTTODO, PROJECTTODO_SUCCESS, PROJECTTODO_FAILURE] =
+  createRequestActionTypes("schedule/PROJECTTODO"); //타입유형
 
 export const projectAxios = createAction(PROJECT, (index) => {
   return {
@@ -34,7 +36,11 @@ export const projectFileAxios = createAction(PROJECTFILE, (index) => {
     index,
   };
 });
-
+export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
+  return {
+    index,
+  };
+});
 export const projectNoChange = createAction(PROJECTNO, ({ index }) => {
   return {
     index,
@@ -81,10 +87,12 @@ const projectWithSelectSaga = createRequestSaga(PROJECTWITH, API.SelectOneWith);
 
 const projectFileSelectSaga = createRequestSaga(PROJECTFILE, API.SelectOneFile);
 
+const projectTodoSelectSaga = createRequestSaga(PROJECTTODO, API.SelectTask);
 export function* projectSaga2() {
   yield takeLatest(PROJECT, projectSelectSaga);
   yield takeLatest(PROJECTWITH, projectWithSelectSaga);
   yield takeLatest(PROJECTFILE, projectFileSelectSaga);
+  yield takeLatest(PROJECTTODO, projectTodoSelectSaga);
 }
 
 const initialState = {
@@ -124,6 +132,16 @@ const initialState = {
       dept_NAME: "",
     },
   ],
+  projectTodo: [
+    {
+      PROJECT_TASK_INDEX: "",
+      PROJECT_INDEX: "",
+      PROJECT_TASK_SUCCESS: "",
+      PROJECT_TASK_PERCENT: "",
+      PROJECT_TASK_CONTENT: "",
+    },
+  ],
+  projectTodoError: null,
   projectError: null,
   projectWithError: null,
   projectFileError: null,
@@ -161,6 +179,16 @@ const project = handleActions(
     [PROJECTFILE_FAILURE]: (state, { payload: error }) => ({
       ...state,
       projectFileError: error,
+    }),
+    [PROJECTTODO_SUCCESS]: (state, { payload: projectTodo }) => ({
+      ...state,
+      projectTodoError: null,
+      projectTodo,
+    }),
+
+    [PROJECTTODO_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      projectTodoError: error,
     }),
     [PROJECTNO]: (state, { payload: { index } }) => {
       return {

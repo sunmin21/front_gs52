@@ -26,7 +26,7 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const Send = ({ content, pageCount, setSendContents }) => {
+const Send = ({ content }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 

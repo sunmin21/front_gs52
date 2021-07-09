@@ -28,7 +28,10 @@ import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const BusinessProgress = () => {
   //임의로 userid 정해줌
-  const user = getCurrentUser();
+
+  const [user, setUser] = useState(getCurrentUser());
+  console.log(user);
+  console.log("@#@#@#@!@!#@!#@!#@#@#!@!#!@#!@#");
   const todo_EMP_ID_RECEIVCE = useRef(user.index); //유저아이디
 
   //////////////////////////////////////////////
@@ -53,7 +56,9 @@ const BusinessProgress = () => {
     1: "거절",
     2: "완료",
   };
-
+  useEffect(() => {
+    setUser(getCurrentUser());
+  }, []);
   useEffect(() => {
     dispatch(todoAxios(todo_EMP_ID_RECEIVCE.current));
     // todo(todo_EMP_ID_RECEIVCE.current).then((data) => {
@@ -191,6 +196,7 @@ const BusinessProgress = () => {
                       content={send}
                       pageCount={Math.floor(sendCount)}
                       setSendContents={setSendContents}
+                      user={user}
                     ></Send>
                   </CTabPane>
                   <CTabPane>

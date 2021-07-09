@@ -12,11 +12,12 @@ import {
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const Notice = ({ content }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
-
+  const user = getCurrentUser();
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
 
@@ -50,18 +51,21 @@ const Notice = ({ content }) => {
             >
               공지사항
             </div>
-            <CButton
-              active
-              block
-              color="dark"
-              aria-pressed="true"
-              style={{ textAlign: "center", width: "10%", float: "right" }}
-              onClick={() => {
-                history.push("/notice/create");
-              }}
-            >
-              등록하기
-            </CButton>
+
+            {user.roles[0] === "ROLE_ADMIN" && (
+              <CButton
+                active
+                block
+                color="dark"
+                aria-pressed="true"
+                style={{ textAlign: "center", width: "10%", float: "right" }}
+                onClick={() => {
+                  history.push("/notice/create");
+                }}
+              >
+                등록하기
+              </CButton>
+            )}
           </CCardHeader>
           <CCardBody>
             {/* <Modal info={info} setInfo={setInfo}></Modal> */}
