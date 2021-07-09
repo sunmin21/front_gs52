@@ -23,11 +23,11 @@ export const SelectOkay = async (index) => {
 };
 
 export const UpdateOKay = async (index, okay) => {
-  console.log("index : " + index + "okay : " + okay)
+  console.log("index : " + index + "okay : " + okay);
   const upokay = await client.post(API_URL + "/manager/project/updateOkay", {
     project_INDEX: index,
-    project_OKAY: okay
-  })
+    project_OKAY: okay,
+  });
 
   return upokay;
-}
+};

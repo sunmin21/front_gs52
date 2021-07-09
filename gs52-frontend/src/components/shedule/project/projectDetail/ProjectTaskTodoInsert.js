@@ -2,7 +2,6 @@ import { CButton } from "@coreui/react";
 import { useState } from "react";
 import TaskTodoModal from "./ProjectTaskTodoModal";
 const ProjectTaskTodo = ({ projectNo, axios, dispatch }) => {
-  console.log(projectNo);
   const [visible, setVisible] = useState(false);
   return (
     <>

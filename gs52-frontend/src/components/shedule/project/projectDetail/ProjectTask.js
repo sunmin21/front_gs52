@@ -16,7 +16,7 @@ import {
   projectWithAxios,
 } from "src/modules/schedule/project/project";
 import ColorModal from "./ProjectTaskColorModal";
-import ProjectTaskTodo from "./ProjectTaskTodo";
+import ProjectTaskTodoInsert from "./ProjectTaskTodoInsert";
 
 const ProjectTask = () => {
   const [visible, setVisible] = useState(false);
@@ -57,7 +57,7 @@ const ProjectTask = () => {
   }, [projectNo, dispatch]);
 
   // console.log(confirm.filter());
-  console.log(projectTodo);
+  console.log(userData);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -243,20 +243,31 @@ const ProjectTask = () => {
                             {item.project_TASK_CONTENT}
                           </h5>
                         </CButton>
+                        <CButton
+                          active
+                          color="dark"
+                          aria-pressed="true"
+                          style={{ textAlign: "center", float: "right" }}
+                          onClick={() => {
+                            setVisible(true);
+                          }}
+                        >
+                          할일 등록
+                        </CButton>
                       </CCardHeader>
                       <CCollapse show={click}>
-                        <CCardBody>ss</CCardBody>
+                        <CCardBody></CCardBody>
                       </CCollapse>
                     </CCard>
                   );
                 })}
               </CCol>
               <CCol xs="6" md="2">
-                <ProjectTaskTodo
+                <ProjectTaskTodoInsert
                   projectNo={projectNo}
                   axios={projectTodoAxios}
                   dispatch={dispatch}
-                ></ProjectTaskTodo>
+                ></ProjectTaskTodoInsert>
               </CCol>
             </CFormGroup>
           </CCardBody>

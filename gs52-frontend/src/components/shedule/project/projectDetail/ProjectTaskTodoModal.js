@@ -2,10 +2,7 @@ import React, { useState } from "react";
 
 import "antd/dist/antd.css";
 
-import {
-  InsertProjecTodo,
-  UpdateProjectWith,
-} from "src/lib/api/schedule/Project";
+import { InsertProjecTask } from "src/lib/api/schedule/Project";
 import { SelectCheckDept } from "src/lib/api/manager/addOptions/addOptions";
 
 const {
@@ -28,7 +25,7 @@ const {
   CAlert,
 } = require("@coreui/react");
 
-const ProjectTaskColorModal = ({
+const ProjectTaskTodoModal = ({
   visible,
   setVisible,
   dispatch,
@@ -38,19 +35,6 @@ const ProjectTaskColorModal = ({
   empcolor,
   withIndex,
 }) => {
-  const [color, setColor] = useState(empcolor);
-  const colors = [
-    "red",
-    "orange",
-    "yellow",
-    "green",
-    "blue",
-    "indigo",
-    "violet",
-    "Black",
-    "Chartreuse",
-    "CornflowerBlue",
-  ];
   const array = [];
   for (let i = 5; i <= 100; i += 5) {
     array.push(i);
@@ -143,7 +127,7 @@ const ProjectTaskColorModal = ({
             onClick={() => {
               setVisible(false);
               setCheck(false);
-              setContent({ 내용: "", 진행도: 0 });
+              setContent({ 인덱스: projectNo, 내용: "", 진행도: 0 });
             }}
           >
             취소
@@ -156,10 +140,10 @@ const ProjectTaskColorModal = ({
                 setCheck(true);
                 return;
               }
-              await InsertProjecTodo(content);
+              await InsertProjecTask(content);
 
               await dispatch(axios(projectNo));
-              setContent({ 내용: "", 진행도: 0 });
+              setContent({ 인덱스: projectNo, 내용: "", 진행도: 0 });
               setCheck(false);
               setVisible(false);
             }}
@@ -172,4 +156,4 @@ const ProjectTaskColorModal = ({
   );
 };
 
-export default React.memo(ProjectTaskColorModal);
+export default React.memo(ProjectTaskTodoModal);
