@@ -220,6 +220,7 @@ const Readonly = withDragDropContext((props) => {
           onScrollTop={onScrollTop}
           onScrollBottom={onScrollBottom}
           toggleExpandFunc={toggleExpandFunc}
+          onViewChange={onScrollTop}
         />
       </div>
     </div>

@@ -12,6 +12,10 @@ const BusinessTrip = React.lazy(() =>
   import("../../containers/attendance/BusinessTripManagement")
 );
 
+const PersonInsightList = React.lazy(() =>
+  import("../../containers/attendance/PersonInsightManagement")
+);
+
 const AttendanceRoute = [
   {
     path: "/attendance/schedule",
@@ -31,7 +35,11 @@ const AttendanceRoute = [
     component: BusinessTrip,
     exact: true,
   },
-  { path: "/attendance/insite", name: "인사이트", component: Dashboard },
+  {
+    path: "/attendance/insite",
+    name: "인사이트",
+    component: PersonInsightList,
+  },
   {
     path: "/attendance",
     name: "근태관리",
