@@ -1,10 +1,8 @@
 import {getCurrentUser} from "../../../lib/api/jwt/LoginAPI"
+import WorkTime from "../worktime/WorkTime"
 
 import moment from 'moment';
 
-const onWork = () =>{
-    console.log(moment().format('YYYY/MM/DD HH:mm'));
-}
 
 // 퇴근가능시간 이후에는 퇴근 버튼 활성화
 
@@ -14,7 +12,7 @@ function Sidebar_Header(){
 
     return(
         <div>
-        <button onClick={onWork}><h2>출근</h2></button><br/>
+        <WorkTime></WorkTime>
         <br />
         <h2>{user.id}</h2><br/>
         {user.username}님, 접속하였습니다.<br/>
