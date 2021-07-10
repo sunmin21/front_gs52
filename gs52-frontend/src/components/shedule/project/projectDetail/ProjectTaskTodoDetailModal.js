@@ -33,7 +33,6 @@ const ProjectTaskTodoModal = ({
   setVisible,
   dispatch,
   axios,
-  projectNo,
   taskIndex,
   item,
 }) => {
@@ -44,7 +43,7 @@ const ProjectTaskTodoModal = ({
 
   const [content, setContent] = useState({
     task인덱스: taskIndex,
-    인덱스: projectNo,
+
     내용: item ? item.project_TASK_CONTENT : "",
     진행도: item ? item.project_TASK_PERCENT : 5,
   });
@@ -67,7 +66,7 @@ const ProjectTaskTodoModal = ({
                 rows="6"
                 placeholder="Content..."
                 value={content.내용}
-                key={content.taskIndex || projectNo}
+                key={content.taskIndex || taskIndex}
                 onChange={(e) => {
                   setContent((cont) => ({
                     ...cont,
@@ -128,13 +127,13 @@ const ProjectTaskTodoModal = ({
         <CModalFooter>
           <CButton
             color="secondary"
-            key={content.taskIndex || projectNo}
+            key={content.taskIndex || taskIndex}
             onClick={() => {
               setVisible(false);
               setCheck(false);
               setContent({
                 task인덱스: taskIndex,
-                인덱스: projectNo,
+
                 내용: "",
                 진행도: 5,
               });
@@ -156,10 +155,10 @@ const ProjectTaskTodoModal = ({
                 await UpdateProjecTask(content);
               }
 
-              await dispatch(axios(projectNo));
+              await dispatch(axios(taskIndex));
               setContent({
                 task인덱스: taskIndex,
-                인덱스: projectNo,
+
                 내용: "",
                 진행도: 5,
               });

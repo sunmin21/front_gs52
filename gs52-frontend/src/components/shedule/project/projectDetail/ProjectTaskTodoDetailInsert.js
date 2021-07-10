@@ -1,18 +1,17 @@
 import { CButton } from "@coreui/react";
 import { useState } from "react";
-import TaskTodoModal from "./ProjectTaskTodoModal";
-const ProjectTaskTodo = ({ projectNo, axios, dispatch, taskIndex, item }) => {
+import TaskTodoDetailModal from "./ProjectTaskTodoDetailModal";
+const ProjectTaskTodoDetailInsert = ({ axios, dispatch, taskIndex, item }) => {
   const [visible, setVisible] = useState(false);
 
   return (
     <>
-      <TaskTodoModal
+      <TaskTodoDetailModal
         visible={visible}
         setVisible={setVisible}
-        projectNo={projectNo}
+        taskIndex={taskIndex}
         axios={axios}
         dispatch={dispatch}
-        taskIndex={taskIndex}
         item={item}
       />
       <CButton
@@ -32,4 +31,4 @@ const ProjectTaskTodo = ({ projectNo, axios, dispatch, taskIndex, item }) => {
   );
 };
 
-export default ProjectTaskTodo;
+export default ProjectTaskTodoDetailInsert;
