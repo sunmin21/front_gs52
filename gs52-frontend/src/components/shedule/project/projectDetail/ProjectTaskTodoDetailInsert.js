@@ -1,26 +1,26 @@
 import { CButton } from "@coreui/react";
-import { useEffect, useRef, useState } from "react";
-import TaskTodoModal from "./ProjectTaskTodoModal";
-const ProjectTaskTodo = ({
-  projectNo,
+import { useState } from "react";
+import TaskTodoDetailModal from "./ProjectTaskTodoDetailModal";
+const ProjectTaskTodoDetailInsert = ({
   axios,
   dispatch,
   taskIndex,
   item,
-  sum,
+  projectNo,
+  projectWith,
 }) => {
   const [visible, setVisible] = useState(false);
-
+  console.log(projectWith);
   return (
     <>
-      <TaskTodoModal
+      <TaskTodoDetailModal
+        projectNo={projectNo}
         visible={visible}
         setVisible={setVisible}
-        projectNo={projectNo}
+        taskIndex={taskIndex}
+        projectWith={projectWith}
         axios={axios}
         dispatch={dispatch}
-        taskIndex={taskIndex}
-        sum={sum}
         item={item}
       />
       <CButton
@@ -28,18 +28,15 @@ const ProjectTaskTodo = ({
         color="dark"
         aria-pressed="true"
         style={{ textAlign: "center", float: "right" }}
-        onClick={async () => {
-          await setVisible(false);
-
-          await setVisible(true);
+        onClick={() => {
+          setVisible(true);
         }}
         key={taskIndex}
       >
-        {taskIndex === undefined && "할일 등록"}
-        {taskIndex !== undefined && "수정"}
+        {"등록"}
       </CButton>
     </>
   );
 };
 
-export default ProjectTaskTodo;
+export default ProjectTaskTodoDetailInsert;

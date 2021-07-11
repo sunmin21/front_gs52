@@ -1,3 +1,4 @@
+import { CodeSandboxCircleFilled } from "@ant-design/icons";
 import {
   CButton,
   CCard,
@@ -13,11 +14,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { userList } from "src/lib/api/auth/auth";
 import {
   projectTodoAxios,
+  projectTodoDetailAxios,
   projectWithAxios,
 } from "src/modules/schedule/project/project";
 import ColorModal from "./ProjectTaskColorModal";
 import ProjectTaskTodoInsert from "./ProjectTaskTodoInsert";
-
+import ProjectTaskTodoInsertDetail from "./ProjectTaskTodoDetailInsert";
 const ProjectTask = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
@@ -27,17 +29,20 @@ const ProjectTask = () => {
   });
   const [userData, setUserData] = useState();
 
-  const { projectNo, projectWith, projectTodo } = useSelector(({ project }) => {
-    return {
-      projectNo: project.projectNo,
-      projectWith:
-        project.projectWith.filter((item) => item.project_WITH_OKAY === 1) ||
-        [],
-      projectTodo: project.projectTodo,
-    };
-  });
+  const { projectNo, projectWith, projectTodo, projectTodoDetail } =
+    useSelector(({ project }) => {
+      return {
+        projectNo: project.projectNo,
+        projectWith:
+          project.projectWith.filter((item) => item.project_WITH_OKAY === 1) ||
+          [],
+        projectTodo: project.projectTodo,
+        projectTodoDetail: project.projectTodoDetail,
+      };
+    });
   const [click, setClick] = useState(false);
-  useEffect(() => {}, []);
+  const [clickContent, setClickContent] = useState("");
+
   useEffect(() => {
     let isComponentMounted = true;
     const fetchData = async () => {
@@ -51,13 +56,13 @@ const ProjectTask = () => {
     // userList().then((data) => setUserData(data));
     dispatch(projectWithAxios(projectNo));
     dispatch(projectTodoAxios(projectNo));
+    dispatch(projectTodoDetailAxios(projectNo));
+
     return () => {
       isComponentMounted = false;
     };
   }, [projectNo, dispatch]);
-
-  // console.log(confirm.filter());
-  console.log(userData);
+  console.log(projectTodo[0]);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -72,7 +77,7 @@ const ProjectTask = () => {
 
               <CCol xs="6" md="2">
                 <ColorModal
-                  key={projectNo}
+                  key={"zxcbqw" + projectNo}
                   visible={visible}
                   setVisible={setVisible}
                   axios={projectWithAxios}
@@ -91,7 +96,7 @@ const ProjectTask = () => {
                             variant="outline"
                             color="dark"
                             readOnly
-                            key={key}
+                            key={"acxzcsdasw" + key}
                             onClick={() => {
                               setVisible(true);
                               setContent({
@@ -106,14 +111,14 @@ const ProjectTask = () => {
                                 "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
                             }}
                           >
-                            {userData !== "" &&
+                            {userData !== undefined &&
                               userData.filter(
                                 (data) =>
                                   Number(data.emp_INDEX) ===
                                   item.project_WITH_EMP_INDEX
                               )[0].dept_NAME + "  "}
 
-                            {userData !== "" &&
+                            {userData !== undefined &&
                               userData.filter(
                                 (data) =>
                                   Number(data.emp_INDEX) ===
@@ -132,13 +137,13 @@ const ProjectTask = () => {
                   projectWith.map((item, key) => {
                     if (key % 3 === 1)
                       return (
-                        <div key={key}>
+                        <div key={"zxczcwes" + key}>
                           <CButton
                             block
                             variant="outline"
                             color="dark"
                             readOnly
-                            key={key}
+                            key={"Aszcxcsa" + key}
                             onClick={() => {
                               setVisible(true);
                               setContent({
@@ -154,13 +159,13 @@ const ProjectTask = () => {
                             }}
                           >
                             {" "}
-                            {userData !== "" &&
+                            {userData !== undefined &&
                               userData.filter(
                                 (data) =>
                                   Number(data.emp_INDEX) ===
                                   item.project_WITH_EMP_INDEX
                               )[0].dept_NAME + "  "}
-                            {userData !== "" &&
+                            {userData !== undefined &&
                               userData.filter(
                                 (data) =>
                                   Number(data.emp_INDEX) ===
@@ -179,13 +184,13 @@ const ProjectTask = () => {
                   projectWith.map((item, key) => {
                     if (key % 3 === 2) {
                       return (
-                        <div key={key}>
+                        <div key={"ssdds" + key}>
                           <CButton
                             block
                             variant="outline"
                             color="dark"
                             readOnly
-                            key={key}
+                            key={"axsed" + key}
                             onClick={() => {
                               setVisible(true);
                               setContent({
@@ -201,13 +206,13 @@ const ProjectTask = () => {
                             }}
                           >
                             {" "}
-                            {userData !== "" &&
+                            {userData !== undefined &&
                               userData.filter(
                                 (data) =>
                                   Number(data.emp_INDEX) ===
                                   item.project_WITH_EMP_INDEX
                               )[0].dept_NAME + "  "}
-                            {userData !== "" &&
+                            {userData !== undefined &&
                               userData.filter(
                                 (data) =>
                                   Number(data.emp_INDEX) ===
@@ -230,32 +235,66 @@ const ProjectTask = () => {
               <CCol xs="6" md="6">
                 {projectTodo.map((item, key) => {
                   return (
-                    <CCard className="mb-0">
-                      <CCardHeader>
+                    <CCard
+                      className="mb-0"
+                      key={
+                        "cczxcs" +
+                        item.project_TASK_PERCENT +
+                        item.project_TASK_CONTENT
+                      }
+                    >
+                      <CCardHeader key={key + item.project_TASK_CONTENT}>
                         <CButton
                           block
                           color="link"
                           className="text-left m-0 p-0"
-                          onClick={() => setClick(!click)}
-                          key={key}
+                          onClick={(e) => {
+                            setClickContent(
+                              e.target.innerHTML + item.project_TASK_INDEX
+                            );
+                            setClick(!click);
+                          }}
+                          id={key}
+                          key={"bbxzcv" + key}
                         >
-                          <h5 className="m-0 p-0">
-                            {item.project_TASK_CONTENT}
+                          <h5 className="m-0 p-0" name={key}>
+                            {item.project_TASK_CONTENT +
+                              "(" +
+                              item.project_TASK_PERCENT +
+                              "%)"}
                           </h5>
                         </CButton>
-                        <CButton
-                          active
-                          color="dark"
-                          aria-pressed="true"
-                          style={{ textAlign: "center", float: "right" }}
-                          onClick={() => {
-                            setVisible(true);
-                          }}
-                        >
-                          할일 등록
-                        </CButton>
+                        <ProjectTaskTodoInsert //업데이트
+                          projectNo={projectNo}
+                          axios={projectTodoAxios}
+                          dispatch={dispatch}
+                          taskIndex={item.project_TASK_INDEX}
+                          item={item}
+                          sum={
+                            projectTodo.length !== 0
+                              ? projectTodo[0].percent_SUM
+                              : 0
+                          }
+                        ></ProjectTaskTodoInsert>
+                        <ProjectTaskTodoInsertDetail
+                          projectNo={projectNo}
+                          projectWith={projectWith}
+                          taskIndex={item.project_TASK_INDEX}
+                          axios={projectTodoAxios}
+                          dispatch={dispatch}
+                        ></ProjectTaskTodoInsertDetail>
                       </CCardHeader>
-                      <CCollapse show={click}>
+                      <CCollapse
+                        show={
+                          clickContent ===
+                            item.project_TASK_CONTENT +
+                              "(" +
+                              item.project_TASK_PERCENT +
+                              "%)" +
+                              item.project_TASK_INDEX && click
+                        }
+                        key={key + "zxczvsdwe2"}
+                      >
                         <CCardBody></CCardBody>
                       </CCollapse>
                     </CCard>
@@ -267,6 +306,9 @@ const ProjectTask = () => {
                   projectNo={projectNo}
                   axios={projectTodoAxios}
                   dispatch={dispatch}
+                  sum={
+                    projectTodo.length !== 0 ? projectTodo[0].percent_SUM : 0
+                  }
                 ></ProjectTaskTodoInsert>
               </CCol>
             </CFormGroup>

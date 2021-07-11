@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "antd/dist/antd.css";
 
 import {
-  InsertProjecTask,
+  InsertProjecTaskDetail,
   UpdateProjecTask,
 } from "src/lib/api/schedule/Project";
 import { SelectCheckDept } from "src/lib/api/manager/addOptions/addOptions";
@@ -33,51 +33,38 @@ const ProjectTaskTodoModal = ({
   setVisible,
   dispatch,
   axios,
-  projectNo,
   taskIndex,
   item,
-  sum,
+  projectWith,
 }) => {
   const array = [];
-  console.log(sum);
-
-  if (item) {
-    //업데이트시
-    console.log(item);
-    console.log(sum);
-    for (let i = 5; i <= item.project_TASK_PERCENT + 100 - sum; i += 5) {
-      array.push(i);
-    }
-  } else {
-    for (let i = 5; i <= 100 - sum; i += 5) {
-      array.push(i);
-    }
-    if (sum === 100) {
-      array.push(0);
-    }
+  for (let i = 5; i <= 100; i += 5) {
+    array.push(i);
   }
+  console.log(taskIndex);
   const [content, setContent] = useState({
     task인덱스: taskIndex,
-    인덱스: projectNo,
+
     내용: item ? item.project_TASK_CONTENT : "",
-    진행도: item ? item.project_TASK_PERCENT : sum === 100 ? 0 : 5,
+    진행도: item ? item.project_TASK_PERCENT : 5,
+    담당자:
+      projectWith.length !== 0 ? projectWith[0].project_WITH_EMP_INDEX : "",
+    담당자이름:
+      projectWith.length !== 0
+        ? projectWith[0].dept_NAME +
+          " " +
+          projectWith[0].team_NAME +
+          " " +
+          projectWith[0].emp_NAME
+        : "",
   });
   const [check, setCheck] = useState(false);
-  const [check2, setCheck2] = useState(false);
 
-  useEffect(() => {
-    if (sum === 100) {
-      setContent((content) => ({
-        ...content,
-        진행도: 0,
-      }));
-    }
-  }, [visible]);
   return (
     <>
       <CModal show={visible}>
         <CModalHeader>
-          <CModalTitle>할일 추가 </CModalTitle>
+          <CModalTitle>할일 디테일 추가</CModalTitle>
         </CModalHeader>
         <CModalBody>
           <CFormGroup row>
@@ -91,7 +78,7 @@ const ProjectTaskTodoModal = ({
                 rows="6"
                 placeholder="Content..."
                 value={content.내용}
-                key={content.taskIndex || projectNo}
+                key={content.taskIndex || taskIndex}
                 onChange={(e) => {
                   setContent((cont) => ({
                     ...cont,
@@ -117,12 +104,6 @@ const ProjectTaskTodoModal = ({
               <CLabel htmlFor="textarea-input">진행도</CLabel>
             </CCol>
             <CCol xs="12" md="9">
-              {/* <CInput
-                name="요청사항"
-                id="textarea-input"
-                rows="6"
-                placeholder="Content..."
-              /> */}
               <CDropdown>
                 <CDropdownToggle color="secondary">
                   {content.진행도 + "%"}
@@ -148,30 +129,73 @@ const ProjectTaskTodoModal = ({
               </CDropdown>
             </CCol>
           </CFormGroup>
+          <CFormGroup row>
+            <CCol md="3">
+              <CLabel htmlFor="textarea-input">담당자</CLabel>
+            </CCol>
+            <CCol xs="12" md="9">
+              <CDropdown>
+                <CDropdownToggle color="secondary">
+                  {content.담당자이름}
+                </CDropdownToggle>
+                <CDropdownMenu>
+                  {projectWith.length !== 0 &&
+                    projectWith.map((item, key) => {
+                      return (
+                        <CDropdownItem
+                          name={item.project_WITH_EMP_INDEX}
+                          key={key}
+                          onClick={(e) => {
+                            setContent((cont) => ({
+                              ...cont,
+                              담당자: e.target.name,
+                              담당자이름:
+                                item.dept_NAME +
+                                " " +
+                                item.team_NAME +
+                                " " +
+                                item.emp_NAME,
+                            }));
+                          }}
+                        >
+                          {" "}
+                          {item.dept_NAME +
+                            " " +
+                            item.team_NAME +
+                            " " +
+                            item.emp_NAME}
+                        </CDropdownItem>
+                      );
+                    })}
+                </CDropdownMenu>
+              </CDropdown>
+            </CCol>
+          </CFormGroup>
         </CModalBody>
         <CModalFooter>
-          {check2 && (
-            <CAlert
-              color="danger"
-              closeButton
-              onClick={() => {
-                setCheck2(false);
-              }}
-            >
-              진행도 수정하세요
-            </CAlert>
-          )}
           <CButton
             color="secondary"
-            key={content.taskIndex || projectNo}
+            key={content.taskIndex || taskIndex}
             onClick={() => {
               setVisible(false);
               setCheck(false);
               setContent({
                 task인덱스: taskIndex,
-                인덱스: projectNo,
+
                 내용: "",
                 진행도: 5,
+                담당자:
+                  projectWith.length !== 0
+                    ? projectWith[0].project_WITH_EMP_INDEX
+                    : "",
+                담당자이름:
+                  projectWith.length !== 0
+                    ? projectWith[0].dept_NAME +
+                      " " +
+                      projectWith[0].team_NAME +
+                      " " +
+                      projectWith[0].emp_NAME
+                    : "",
               });
             }}
           >
@@ -185,23 +209,27 @@ const ProjectTaskTodoModal = ({
                 setCheck(true);
                 return;
               }
-              if (sum === 100) {
-                setCheck2(true);
-                return;
-              }
-              if (taskIndex === undefined) {
-                await InsertProjecTask(content);
-                await dispatch(axios(projectNo));
-              } else {
-                await UpdateProjecTask(content);
-                await dispatch(axios(projectNo));
-              }
 
+              await InsertProjecTaskDetail(content);
+
+              await dispatch(axios(taskIndex));
               setContent({
                 task인덱스: taskIndex,
-                인덱스: projectNo,
+
                 내용: "",
                 진행도: 5,
+                담당자:
+                  projectWith.length !== 0
+                    ? projectWith[0].project_WITH_EMP_INDEX
+                    : "",
+                담당자이름:
+                  projectWith.length !== 0
+                    ? projectWith[0].dept_NAME +
+                      " " +
+                      projectWith[0].team_NAME +
+                      " " +
+                      projectWith[0].emp_NAME
+                    : "",
               });
               setCheck(false);
               setVisible(false);
