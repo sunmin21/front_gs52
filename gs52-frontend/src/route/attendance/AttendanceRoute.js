@@ -36,7 +36,7 @@ const AttendanceRoute = [
     exact: true,
   },
   {
-    path: "/attendance/insite",
+    path: "/attendance/Insight",
     name: "인사이트",
     component: PersonInsightList,
   },

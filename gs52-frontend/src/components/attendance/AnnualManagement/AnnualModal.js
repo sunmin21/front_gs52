@@ -64,7 +64,7 @@ function AnnualModal({
           sameCount++;
         }
       });
-      console.log(vacation_EMP_INDEX);
+
       if (sameCount == 0) {
         await InserVacation(
           vacation_EMP_INDEX.index,

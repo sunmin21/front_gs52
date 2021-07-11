@@ -22,7 +22,7 @@ const PersonInsightList = (props) => {
       <CRow style={{ marginTop: "30px" }}>
         <CCol xs="12" xl="4">
           <CCard
-            accentColor="info"
+            accentColor="success"
             style={{ maxWidth: "30rem", maxHeight: "30rem" }}
           >
             <CCardHeader>
@@ -39,10 +39,8 @@ const PersonInsightList = (props) => {
             <CCardBody>
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
-                  입사일 : {props.entrydate[0].emp_ENTRY_DATE}
-                </h3>
-                <h3 style={{ textAlign: "right" }}>
-                  {props.entrydate[0].emp_ENTRY_COUNT}일
+                  {" "}
+                  {props.entrydate[0].team_ENTRY_COUNT}일
                 </h3>
               </CCardText>
             </CCardBody>
@@ -50,7 +48,7 @@ const PersonInsightList = (props) => {
         </CCol>
         <CCol xs="12" xl="4">
           <CCard
-            accentColor="info"
+            accentColor="success"
             style={{ maxWidth: "30rem", maxHeight: "30rem" }}
           >
             <CCardHeader>
@@ -73,7 +71,7 @@ const PersonInsightList = (props) => {
           </CCard>
         </CCol>
         <CCol xs="18" xl="4">
-          <CCard accentColor="info" style={{ Width: "30rem" }}>
+          <CCard accentColor="success" style={{ Width: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -87,9 +85,7 @@ const PersonInsightList = (props) => {
             </CCardHeader>
             <CCardBody>
               <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {props.projectcount[0].emp_PROJECT_COUNT}개
-                </h3>
+                <h3 style={{ textAlign: "right" }}>개</h3>
               </CCardText>
             </CCardBody>
           </CCard>
@@ -97,7 +93,7 @@ const PersonInsightList = (props) => {
       </CRow>
       <CRow style={{ marginTop: "30px" }}>
         <CCol xs="18" xl="4">
-          <CCard accentColor="info" style={{ Width: "30rem" }}>
+          <CCard accentColor="success" style={{ Width: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -111,16 +107,14 @@ const PersonInsightList = (props) => {
             </CCardHeader>
             <CCardBody>
               <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {props.todocount[0].emp_TODO_COUNT}개
-                </h3>
+                <h3 style={{ textAlign: "right" }}>개</h3>
               </CCardText>
             </CCardBody>
           </CCard>
         </CCol>
         <CCol xs="18" xl="4">
           {" "}
-          <CCard accentColor="info" style={{ maxWidth: "30rem" }}>
+          <CCard accentColor="success" style={{ maxWidth: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -134,16 +128,14 @@ const PersonInsightList = (props) => {
             </CCardHeader>
             <CCardBody>
               <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {props.businesscount[0].emp_BUSINESS_COUNT}회
-                </h3>
+                <h3 style={{ textAlign: "right" }}>회</h3>
               </CCardText>
             </CCardBody>
           </CCard>
         </CCol>
         <CCol xs="18" xl="4">
           {" "}
-          <CCard accentColor="info" style={{ maxWidth: "30rem" }}>
+          <CCard accentColor="success" style={{ maxWidth: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -157,9 +149,7 @@ const PersonInsightList = (props) => {
             </CCardHeader>
             <CCardBody>
               <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {props.reportcount[0].emp_REPORT_COUNT}회
-                </h3>
+                <h3 style={{ textAlign: "right" }}>회</h3>
               </CCardText>
             </CCardBody>
           </CCard>
