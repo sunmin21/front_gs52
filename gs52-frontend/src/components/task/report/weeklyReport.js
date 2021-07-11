@@ -38,9 +38,9 @@ function WeeklyReport() {
   }, [dispatch]);
 
   useEffect(() => {
-    showAllReport(startDate)
-  }, [emp])
-  
+    showAllReport(startDate);
+  }, [emp]);
+
   const fields = ["contents", "date"];
   const [startDate, setStartDate] = useState(new Date());
 

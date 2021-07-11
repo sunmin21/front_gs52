@@ -20,9 +20,12 @@ const PersonInsightList = () => {
             accentColor="info"
             style={{ maxWidth: "30rem", maxHeight: "30rem" }}
           >
-            <CCardHeader>Header</CCardHeader>
+            <CCardHeader>
+              <CCardTitle>
+                <h3> 근속 일수 </h3>
+              </CCardTitle>
+            </CCardHeader>
             <CCardBody>
-              <CCardTitle> card title</CCardTitle>
               <CCardText>
                 Some quick example text to build on the card title and make up
                 the bulk of the card's content.
@@ -33,7 +36,7 @@ const PersonInsightList = () => {
         <CCol xs="18" xl="4">
           {" "}
           <CCard accentColor="info" style={{ maxWidth: "30rem" }}>
-            <CCardHeader>Header</CCardHeader>
+            <CCardHeader>vud</CCardHeader>
             <CCardBody>
               <CCardTitle> card title</CCardTitle>
               <CCardText>
