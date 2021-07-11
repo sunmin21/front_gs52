@@ -20,6 +20,12 @@ const [PROJECTFILE, PROJECTFILE_SUCCESS, PROJECTFILE_FAILURE] =
 const [PROJECTTODO, PROJECTTODO_SUCCESS, PROJECTTODO_FAILURE] =
   createRequestActionTypes("schedule/PROJECTTODO"); //타입유형
 
+const [
+  PROJECTTODODETAIL,
+  PROJECTTODODETAIL_SUCCESS,
+  PROJECTTODODETAIL_FAILURE,
+] = createRequestActionTypes("schedule/PROJECTTODODETAIL"); //타입유형
+
 export const projectAxios = createAction(PROJECT, (index) => {
   return {
     index,
@@ -41,6 +47,15 @@ export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
     index,
   };
 });
+export const projectTodoDetailAxios = createAction(
+  PROJECTTODODETAIL,
+  (index) => {
+    return {
+      index,
+    };
+  }
+);
+
 export const projectNoChange = createAction(PROJECTNO, ({ index }) => {
   return {
     index,
@@ -88,11 +103,17 @@ const projectWithSelectSaga = createRequestSaga(PROJECTWITH, API.SelectOneWith);
 const projectFileSelectSaga = createRequestSaga(PROJECTFILE, API.SelectOneFile);
 
 const projectTodoSelectSaga = createRequestSaga(PROJECTTODO, API.SelectTask);
+const projectTodoDetailSelectSaga = createRequestSaga(
+  PROJECTTODODETAIL,
+  API.SelectTaskDetail
+);
+
 export function* projectSaga2() {
   yield takeLatest(PROJECT, projectSelectSaga);
   yield takeLatest(PROJECTWITH, projectWithSelectSaga);
   yield takeLatest(PROJECTFILE, projectFileSelectSaga);
   yield takeLatest(PROJECTTODO, projectTodoSelectSaga);
+  yield takeLatest(PROJECTTODODETAIL, projectTodoDetailSelectSaga);
 }
 
 const initialState = {
@@ -134,17 +155,29 @@ const initialState = {
   ],
   projectTodo: [
     {
+      project_TASK_INDEX: "",
+      project_INDEX: "",
+      project_TASK_SUCCESS: "",
+      project_TASK_PERCENT: "",
+      project_TASK_CONTENT: "",
+      percent_SUM: 0,
+    },
+  ],
+  projectTodoDetail: [
+    {
+      PROJECT_TASK_DETAIL_INDEX: "",
       PROJECT_TASK_INDEX: "",
+      PROJECT_TASK_DETAIL_CONTENT: "",
+      PROJECT_TASK_DETAIL_PERCENT: "",
+      PROJECT_TASK_DETAIL_EMP: "",
       PROJECT_INDEX: "",
-      PROJECT_TASK_SUCCESS: "",
-      PROJECT_TASK_PERCENT: "",
-      PROJECT_TASK_CONTENT: "",
     },
   ],
   projectTodoError: null,
   projectError: null,
   projectWithError: null,
   projectFileError: null,
+  projectTodoDetailError: null,
 };
 
 // 리듀서 선언부분
@@ -190,6 +223,17 @@ const project = handleActions(
       ...state,
       projectTodoError: error,
     }),
+    [PROJECTTODODETAIL_SUCCESS]: (state, { payload: projectTodoDetail }) => ({
+      ...state,
+      projectTodoDetailError: null,
+      projectTodoDetail,
+    }),
+
+    [PROJECTTODODETAIL_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      projectTodoDetailError: error,
+    }),
+
     [PROJECTNO]: (state, { payload: { index } }) => {
       return {
         ...state,

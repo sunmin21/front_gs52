@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import "antd/dist/antd.css";
 
@@ -36,19 +36,43 @@ const ProjectTaskTodoModal = ({
   projectNo,
   taskIndex,
   item,
+  sum,
 }) => {
   const array = [];
-  for (let i = 5; i <= 100; i += 5) {
-    array.push(i);
-  }
+  console.log(sum);
 
+  if (item) {
+    //업데이트시
+    console.log(item);
+    console.log(sum);
+    for (let i = 5; i <= item.project_TASK_PERCENT + 100 - sum; i += 5) {
+      array.push(i);
+    }
+  } else {
+    for (let i = 5; i <= 100 - sum; i += 5) {
+      array.push(i);
+    }
+    if (sum === 100) {
+      array.push(0);
+    }
+  }
   const [content, setContent] = useState({
     task인덱스: taskIndex,
     인덱스: projectNo,
     내용: item ? item.project_TASK_CONTENT : "",
-    진행도: item ? item.project_TASK_PERCENT : 5,
+    진행도: item ? item.project_TASK_PERCENT : sum === 100 ? 0 : 5,
   });
   const [check, setCheck] = useState(false);
+  const [check2, setCheck2] = useState(false);
+
+  useEffect(() => {
+    if (sum === 100) {
+      setContent((content) => ({
+        ...content,
+        진행도: 0,
+      }));
+    }
+  }, [visible]);
   return (
     <>
       <CModal show={visible}>
@@ -126,6 +150,17 @@ const ProjectTaskTodoModal = ({
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
+          {check2 && (
+            <CAlert
+              color="danger"
+              closeButton
+              onClick={() => {
+                setCheck2(false);
+              }}
+            >
+              진행도 수정하세요
+            </CAlert>
+          )}
           <CButton
             color="secondary"
             key={content.taskIndex || projectNo}
@@ -150,13 +185,18 @@ const ProjectTaskTodoModal = ({
                 setCheck(true);
                 return;
               }
+              if (sum === 100) {
+                setCheck2(true);
+                return;
+              }
               if (taskIndex === undefined) {
                 await InsertProjecTask(content);
+                await dispatch(axios(projectNo));
               } else {
                 await UpdateProjecTask(content);
+                await dispatch(axios(projectNo));
               }
 
-              await dispatch(axios(projectNo));
               setContent({
                 task인덱스: taskIndex,
                 인덱스: projectNo,

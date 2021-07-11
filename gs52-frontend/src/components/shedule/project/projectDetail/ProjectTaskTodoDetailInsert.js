@@ -1,15 +1,24 @@
 import { CButton } from "@coreui/react";
 import { useState } from "react";
 import TaskTodoDetailModal from "./ProjectTaskTodoDetailModal";
-const ProjectTaskTodoDetailInsert = ({ axios, dispatch, taskIndex, item }) => {
+const ProjectTaskTodoDetailInsert = ({
+  axios,
+  dispatch,
+  taskIndex,
+  item,
+  projectNo,
+  projectWith,
+}) => {
   const [visible, setVisible] = useState(false);
-
+  console.log(projectWith);
   return (
     <>
       <TaskTodoDetailModal
+        projectNo={projectNo}
         visible={visible}
         setVisible={setVisible}
         taskIndex={taskIndex}
+        projectWith={projectWith}
         axios={axios}
         dispatch={dispatch}
         item={item}
@@ -24,8 +33,7 @@ const ProjectTaskTodoDetailInsert = ({ axios, dispatch, taskIndex, item }) => {
         }}
         key={taskIndex}
       >
-        {taskIndex === undefined && "할일 등록"}
-        {taskIndex !== undefined && "수정"}
+        {"등록"}
       </CButton>
     </>
   );

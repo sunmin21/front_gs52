@@ -49,6 +49,17 @@ export const SelectTask = async ({ index }) => {
 
   return project;
 };
+
+export const SelectTaskDetail = async ({ index }) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/selectTaskDetail",
+    {
+      project_INDEX: index,
+    }
+  );
+
+  return project;
+};
 export const InsertProjecTask = async ({ 인덱스, 내용, 진행도 }) => {
   const project = await client.post(
     API_URL + "/schedule/project/insertProjectTodo",
@@ -67,7 +78,6 @@ export const UpdateProjecTask = async ({
   내용,
   진행도,
 }) => {
-  console.log(인덱스, 내용, 진행도);
   const project = await client.post(
     API_URL + "/schedule/project/updateProjectTodo",
     {
@@ -75,6 +85,24 @@ export const UpdateProjecTask = async ({
       project_TASK_INDEX: task인덱스,
       project_TASK_CONTENT: 내용,
       project_TASK_PERCENT: 진행도,
+    }
+  );
+
+  return project;
+};
+export const InsertProjecTaskDetail = async ({
+  task인덱스,
+  담당자,
+  내용,
+  진행도,
+}) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/insertprojectTaskDetail",
+    {
+      project_TASK_INDEX: task인덱스,
+      project_TASK_CONTENT: 내용,
+      project_TASK_PERCENT: 진행도,
+      project_TASK_DETAIL_EMP: 담당자,
     }
   );
 
