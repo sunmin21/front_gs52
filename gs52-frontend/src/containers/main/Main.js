@@ -7,6 +7,7 @@ import { noticeAxios } from "src/modules/main/main";
 import AnnualCard from "src/components/main/annual/annual";
 import { empvacationAxios } from "src/modules/annual/annual";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import TimeProgress from "src/components/main/worktime/TimeProgress";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -34,30 +35,7 @@ const Main = () => {
               <CCardBody>
                 <CRow>
                   <CCol sm="8">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                    quis nostrud exerci tation ullamcorper suscipit lobortis
-                    nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor
-                    sit amet, consectetuer adipiscing elit, sed diam nonummy
-                    nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                    volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-                    tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-                    commodo consequat. Lorem ipsum dolor sit amet, consectetuer
-                    adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                    laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad
-                    minim veniam, quis nostrud exerci tation ullamcorper
-                    suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                    sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                    magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                    quis nostrud exerci tation ullamcorper suscipit lobortis
-                    nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor
-                    sit amet, consectetuer adipiscing elit, sed diam nonummy
-                    nibh euismod tincidunt ut laoreet dolore magna aliquam erat
-                    volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci
-                    tation ullamcorper suscipit lobortis nisl ut aliquip ex ea
-                    commodo consequat.
+                    <TimeProgress></TimeProgress>
                   </CCol>
                   <CCol sm="4">
                     <AnnualCard empvacation={empvacation}></AnnualCard>
