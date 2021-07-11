@@ -11,7 +11,7 @@ const _nav = [
   // },
   {
     _tag: "CSidebarNavTitle",
-    _children: ["구성원스케줄"],    
+    _children: ["구성원스케줄"],
   },
   {
     _tag: "CSidebarNavItem",
@@ -34,7 +34,7 @@ const _nav = [
   {
     _tag: "CSidebarNavItem",
     name: "인사이트",
-    to: "/attendance/insite",
+    to: "/attendance/insight",
     icon: "cil-chart-pie",
   },
 ];

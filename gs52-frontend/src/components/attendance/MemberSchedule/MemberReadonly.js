@@ -35,6 +35,7 @@ schedulerData.localeMoment.locale("en");
 
 const Readonly = withDragDropContext((props) => {
   ////////////////////////////팀, 직원 목록
+  console.log(props);
   const empList = props.emp
     .filter(
       (item) =>
