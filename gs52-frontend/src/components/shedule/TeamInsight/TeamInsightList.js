@@ -11,9 +11,6 @@ import {
 } from "@coreui/react";
 import React, { useEffect } from "react";
 import CIcon from "@coreui/icons-react";
-import { useDispatch, useSelector } from "react-redux";
-import { SelectEmpEntryDate } from "src/lib/api/attendance/PersonInsightAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const PersonInsightList = (props) => {
   console.log(props);

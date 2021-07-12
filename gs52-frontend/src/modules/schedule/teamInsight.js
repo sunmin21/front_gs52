@@ -17,6 +17,8 @@ const [REPORT, REPORT_SUCCESS, REPORT_FAILURE] =
   createRequestActionTypes("schedule/REPORT"); //타입유형
 const [WORKTIME, WORKTIME_SUCCESS, WORKTIME_FAILURE] =
   createRequestActionTypes("schedule/WORKTIME"); //타입유형
+const [LIST, LIST_SUCCESS, LIST_FAILURE] =
+  createRequestActionTypes("schedule/LIST"); //타입유형
 
 export const entrydateAxios = createAction(ENTRYDATE); //리덕스의 액션함수
 export const projectAxios = createAction(PROJECT); //리덕스의 액션함수
@@ -24,6 +26,7 @@ export const todoAxios = createAction(TODO); //리덕스의 액션함수
 export const businessAxios = createAction(BUSINESS); //리덕스의 액션함수
 export const reportAxios = createAction(REPORT); //리덕스의 액션함수
 export const worktimeAxios = createAction(WORKTIME); //리덕스의 액션함수
+export const listAxios = createAction(LIST); //리덕스의 액션함수
 
 const entrydateSaga = createRequestSaga(ENTRYDATE, API.SelectTeamEntryDate);
 const projectSaga = createRequestSaga(PROJECT, API.SelectTeamProject);
@@ -31,6 +34,7 @@ const todoSaga = createRequestSaga(TODO, API.SelectTeamTodo);
 const businessSaga = createRequestSaga(BUSINESS, API.SelectTeamBusiness);
 const reportSaga = createRequestSaga(REPORT, API.SelectTeamReport);
 const worktimeSaga = createRequestSaga(WORKTIME, API.SelectTeamWorkTime);
+const listSaga = createRequestSaga(LIST, API.SelectTeamList);
 
 export function* TeamInsightSaga2() {
   yield takeLatest(ENTRYDATE, entrydateSaga);
@@ -39,6 +43,7 @@ export function* TeamInsightSaga2() {
   yield takeLatest(BUSINESS, businessSaga);
   yield takeLatest(REPORT, reportSaga);
   yield takeLatest(WORKTIME, worktimeSaga);
+  yield takeLatest(LIST, listSaga);
 }
 const initialState = {
   //초기값을 정의
@@ -59,6 +64,9 @@ const initialState = {
 
   worktime: [],
   worktimeError: null,
+
+  list: [],
+  listError: null,
 };
 
 const teamInsight = handleActions(
@@ -122,6 +130,16 @@ const teamInsight = handleActions(
     [WORKTIME_FAILURE]: (state, { payload: error }) => ({
       ...state,
       worktimeError: error,
+    }),
+    [LIST_SUCCESS]: (state, { payload: list }) => ({
+      ...state,
+      listError: null,
+      list,
+    }),
+
+    [LIST_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      listError: error,
     }),
   },
   initialState
