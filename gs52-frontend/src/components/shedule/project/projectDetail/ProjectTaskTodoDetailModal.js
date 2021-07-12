@@ -5,6 +5,7 @@ import "antd/dist/antd.css";
 import {
   InsertProjecTaskDetail,
   UpdateProjecTask,
+  UpdateProjecTaskDetail,
 } from "src/lib/api/schedule/Project";
 import { SelectCheckDept } from "src/lib/api/manager/addOptions/addOptions";
 
@@ -33,35 +34,87 @@ const ProjectTaskTodoModal = ({
   setVisible,
   dispatch,
   axios,
+  axios2,
   taskIndex,
   item,
   projectWith,
   projectNo,
+  sum,
+  detailIndex,
 }) => {
+  // console.log(item);
   const array = [];
-  for (let i = 5; i <= 100; i += 5) {
-    array.push(i);
-  }
+  if (item) {
+    //업데이트시
 
+    for (let i = 5; i <= item.project_TASK_DETAIL_PERCENT + 100 - sum; i += 5) {
+      array.push(i);
+    }
+  } else {
+    for (let i = 5; i <= 100 - sum; i += 5) {
+      array.push(i);
+    }
+    if (sum === 100) {
+      array.push(0);
+    }
+  }
+  // if (item) {
+  //   console.log(
+  //     projectWith.filter(
+  //       (filt) => filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
+  //     )[0].dept_NAME
+  //   );
+  // }
   const [content, setContent] = useState({
     인덱스: projectNo,
     task인덱스: taskIndex,
-
-    내용: item ? item.project_TASK_CONTENT : "",
+    detail인덱스: detailIndex,
+    내용: item ? item.project_TASK_DETAIL_CONTENT : "",
     진행도: item ? item.project_TASK_PERCENT : 5,
-    담당자:
-      projectWith.length !== 0 ? projectWith[0].project_WITH_EMP_INDEX : "",
-    담당자이름:
-      projectWith.length !== 0
-        ? projectWith[0].dept_NAME +
-          " " +
-          projectWith[0].team_NAME +
-          " " +
-          projectWith[0].emp_NAME
-        : "",
+    담당자: item
+      ? item.project_TASK_DETAIL_EMP
+      : projectWith.length !== 0
+      ? projectWith[0].project_WITH_EMP_INDEX
+      : "",
+    담당자이름: item
+      ? projectWith.filter(
+          (filt) => filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
+        )[0].dept_NAME +
+        " " +
+        projectWith.filter(
+          (filt) => filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
+        )[0].team_NAME +
+        " " +
+        projectWith.filter(
+          (filt) => filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
+        )[0].emp_NAME
+      : projectWith.length !== 0
+      ? projectWith[0].dept_NAME +
+        " " +
+        projectWith[0].team_NAME +
+        " " +
+        projectWith[0].emp_NAME
+      : "",
   });
   const [check, setCheck] = useState(false);
 
+  const [check2, setCheck2] = useState(false);
+
+  useEffect(() => {
+    if (!item && sum === 100) {
+      setContent((content) => ({
+        ...content,
+        진행도: 0,
+      }));
+    } else {
+      setContent((content) => ({
+        ...content,
+        내용: item ? item.project_TASK_DETAIL_CONTENT : "",
+        진행도: item ? item.project_TASK_DETAIL_PERCENT : sum === 100 ? 0 : 5,
+      }));
+    }
+  }, [visible]);
+  // console.log(content.담당자);
   return (
     <>
       <CModal show={visible}>
@@ -175,6 +228,17 @@ const ProjectTaskTodoModal = ({
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
+          {check2 && (
+            <CAlert
+              color="danger"
+              closeButton
+              onClick={() => {
+                setCheck2(false);
+              }}
+            >
+              진행도 수정하세요
+            </CAlert>
+          )}
           <CButton
             color="secondary"
             key={content.taskIndex || taskIndex}
@@ -184,7 +248,7 @@ const ProjectTaskTodoModal = ({
               setContent({
                 인덱스: projectNo,
                 task인덱스: taskIndex,
-
+                detail인덱스: detailIndex,
                 내용: "",
                 진행도: 5,
                 담당자:
@@ -212,14 +276,27 @@ const ProjectTaskTodoModal = ({
                 setCheck(true);
                 return;
               }
+              if (!item && sum === 100) {
+                setCheck2(true);
+                return;
+              }
 
-              await InsertProjecTaskDetail(content);
+              if (detailIndex === undefined) {
+                console.log("넣는중?");
+                await InsertProjecTaskDetail(content);
+                await dispatch(axios(projectNo));
+                await dispatch(axios2(projectNo));
+              } else {
+                console.log("업데이트하는중?");
+                await UpdateProjecTaskDetail(content);
+                await dispatch(axios(projectNo));
+                await dispatch(axios2(projectNo));
+              }
 
-              await dispatch(axios(projectNo));
               setContent({
                 인덱스: projectNo,
                 task인덱스: taskIndex,
-
+                detail인덱스: detailIndex,
                 내용: "",
                 진행도: 5,
                 담당자:

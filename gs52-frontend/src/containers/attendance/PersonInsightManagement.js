@@ -9,22 +9,30 @@ import {
   projectcountAxios,
   reportcountAxios,
   todocountAxios,
+  worktimeAxios,
 } from "src/modules/annual/personInsight";
 
 const PersonInsight = () => {
   const EMP_INDEX = getCurrentUser();
 
-  const { entrydate, projectcount, todocount, businesscount, reportcount } =
-    useSelector((state) => {
-      console.log(state);
-      return {
-        entrydate: state.personInsight.entrydate,
-        projectcount: state.personInsight.projectcount,
-        todocount: state.personInsight.todocount,
-        businesscount: state.personInsight.businesscount,
-        reportcount: state.personInsight.reportcount,
-      };
-    });
+  const {
+    entrydate,
+    projectcount,
+    todocount,
+    businesscount,
+    reportcount,
+    worktime,
+  } = useSelector((state) => {
+    console.log(state);
+    return {
+      entrydate: state.personInsight.entrydate,
+      projectcount: state.personInsight.projectcount,
+      todocount: state.personInsight.todocount,
+      businesscount: state.personInsight.businesscount,
+      reportcount: state.personInsight.reportcount,
+      worktime: state.personInsight.worktime,
+    };
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,8 +41,10 @@ const PersonInsight = () => {
     dispatch(todocountAxios(EMP_INDEX.index));
     dispatch(businesscountAxios(EMP_INDEX.index));
     dispatch(reportcountAxios(EMP_INDEX.index));
+    dispatch(worktimeAxios(EMP_INDEX.index));
   }, [dispatch, EMP_INDEX.index]);
-  console.log(reportcount);
+  console.log(worktime);
+
   return (
     <div class="container">
       <div class="row">
@@ -43,7 +53,8 @@ const PersonInsight = () => {
           projectcount.length !== 0 &&
           todocount.length !== 0 &&
           businesscount.length !== 0 &&
-          reportcount.length !== 0 ? (
+          reportcount.length !== 0 &&
+          worktime.length !== 0 ? (
             <PersonInsightList
               EMP_INDEX={EMP_INDEX.index}
               entrydate={entrydate}
@@ -51,6 +62,7 @@ const PersonInsight = () => {
               todocount={todocount}
               businesscount={businesscount}
               reportcount={reportcount}
+              worktime={worktime}
             ></PersonInsightList>
           ) : null}
         </div>

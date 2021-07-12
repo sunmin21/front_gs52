@@ -18,11 +18,11 @@ import { ConsoleSqlOutlined } from "@ant-design/icons";
 const PersonInsightList = (props) => {
   console.log(props);
   return (
-    <div style={{ textAlign: "center", padding: "50px" }}>
-      <CRow>
+    <div style={{ textAlign: "center", padding: "70px" }}>
+      <CRow style={{ marginTop: "50px" }}>
         <CCol xs="12" xl="4">
           <CCard
-            accentColor="success"
+            accentColor="warning"
             style={{
               maxWidth: "30rem",
               maxHeight: "30rem",
@@ -51,7 +51,7 @@ const PersonInsightList = (props) => {
         </CCol>
         <CCol xs="12" xl="4">
           <CCard
-            accentColor="success"
+            accentColor="warning"
             style={{ maxWidth: "30rem", maxHeight: "30rem" }}
           >
             <CCardHeader>
@@ -76,7 +76,7 @@ const PersonInsightList = (props) => {
           </CCard>
         </CCol>
         <CCol xs="18" xl="4">
-          <CCard accentColor="success" style={{ Width: "30rem" }}>
+          <CCard accentColor="warning" style={{ Width: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -100,7 +100,7 @@ const PersonInsightList = (props) => {
       </CRow>
       <CRow style={{ marginTop: "30px" }}>
         <CCol xs="18" xl="4">
-          <CCard accentColor="success" style={{ Width: "30rem" }}>
+          <CCard accentColor="warning" style={{ Width: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -123,7 +123,7 @@ const PersonInsightList = (props) => {
         </CCol>
         <CCol xs="18" xl="4">
           {" "}
-          <CCard accentColor="success" style={{ maxWidth: "30rem" }}>
+          <CCard accentColor="warning" style={{ maxWidth: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">
@@ -147,7 +147,7 @@ const PersonInsightList = (props) => {
         </CCol>
         <CCol xs="18" xl="4">
           {" "}
-          <CCard accentColor="success" style={{ maxWidth: "30rem" }}>
+          <CCard accentColor="warning" style={{ maxWidth: "30rem" }}>
             <CCardHeader>
               <CRow>
                 <CCol xl="2">

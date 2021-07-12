@@ -3,11 +3,14 @@ import { useState } from "react";
 import TaskTodoDetailModal from "./ProjectTaskTodoDetailModal";
 const ProjectTaskTodoDetailInsert = ({
   axios,
+  axios2,
   dispatch,
   taskIndex,
   item,
   projectNo,
   projectWith,
+  sum,
+  detailIndex,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -20,8 +23,11 @@ const ProjectTaskTodoDetailInsert = ({
         taskIndex={taskIndex}
         projectWith={projectWith}
         axios={axios}
+        axios2={axios2}
         dispatch={dispatch}
         item={item}
+        sum={sum}
+        detailIndex={detailIndex}
       />
       <CButton
         active
@@ -35,7 +41,8 @@ const ProjectTaskTodoDetailInsert = ({
         }}
         key={taskIndex}
       >
-        {"등록"}
+        {detailIndex === undefined && "할일 등록"}
+        {detailIndex !== undefined && "수정"}
       </CButton>
     </>
   );

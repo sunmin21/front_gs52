@@ -47,6 +47,15 @@ export const SelectReportCount = async (index) => {
   return report;
 };
 
+export const SelectWorkTime = async (index) => {
+  const time = await client.post(API_URL + "/insight/selectworktime", {
+    //사원의 근속일수
+    emp_INDEX: index,
+  });
+
+  return time;
+};
+
 // post로 값넘기기
 
 // const login = ({ username, password }) =>

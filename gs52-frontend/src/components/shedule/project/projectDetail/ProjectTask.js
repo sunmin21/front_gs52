@@ -10,9 +10,10 @@ import {
   CLabel,
   CListGroup,
   CListGroupItem,
+  CProgress,
   CSwitch,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userList } from "src/lib/api/auth/auth";
 import {
@@ -49,9 +50,14 @@ const ProjectTask = () => {
         projectTodoDetail: project.projectTodoDetail,
       };
     });
+
   const [click, setClick] = useState(false);
   const [clickContent, setClickContent] = useState("");
 
+  const [check, setCheck] = useState([]);
+  useEffect(() => {
+    setCheck(projectTodoDetail.map((a, key) => a.project_TASK_DETAIL_SUCCESS));
+  }, [projectTodoDetail]);
   useEffect(() => {
     let isComponentMounted = true;
     const fetchData = async () => {
@@ -71,10 +77,10 @@ const ProjectTask = () => {
       isComponentMounted = false;
     };
   }, [projectNo, dispatch]);
-  const [check, setCheck] = useState([
-    ...projectTodoDetail.map((a, key) => key),
-  ]);
 
+  // console.log(...projectTodoDetail.map((a, key) => key));
+  // console.log("에에");
+  console.log(projectTodo);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -93,6 +99,7 @@ const ProjectTask = () => {
                   visible={visible}
                   setVisible={setVisible}
                   axios={projectWithAxios}
+                  axios2={projectTodoDetailAxios}
                   dispatch={dispatch}
                   projectNo={projectNo}
                   empColor={content.empColor}
@@ -109,8 +116,9 @@ const ProjectTask = () => {
                             color="dark"
                             readOnly
                             key={"acxzcsdasw" + key}
-                            onClick={() => {
-                              setVisible(true);
+                            onClick={async () => {
+                              await setVisible(false);
+                              await setVisible(true);
                               setContent({
                                 empColor: item.project_WITH_COLOR,
                                 withIndex: item.project_WITH_INDEX,
@@ -156,8 +164,9 @@ const ProjectTask = () => {
                             color="dark"
                             readOnly
                             key={"Aszcxcsa" + key}
-                            onClick={() => {
-                              setVisible(true);
+                            onClick={async () => {
+                              await setVisible(false);
+                              await setVisible(true);
                               setContent({
                                 empColor: item.project_WITH_COLOR,
                                 withIndex: item.project_WITH_INDEX,
@@ -246,6 +255,7 @@ const ProjectTask = () => {
               </CCol>
               <CCol xs="6" md="6">
                 {projectTodo.map((item, key) => {
+                  // console.log(item);
                   return (
                     <CCard
                       className="mb-0"
@@ -307,9 +317,17 @@ const ProjectTask = () => {
                           projectNo={projectNo}
                           projectWith={projectWith}
                           taskIndex={item.project_TASK_INDEX}
-                          axios={projectTodoDetailAxios}
+                          axios={projectTodoAxios}
+                          axios2={projectTodoDetailAxios}
                           dispatch={dispatch}
+                          sum={item.detail_SUM}
                         ></ProjectTaskTodoInsertDetail>
+                        <CProgress
+                          value={item.detail_SUCCESS_SUM}
+                          showPercentage
+                          precision={2}
+                          className="mb-3"
+                        />
                       </CCardHeader>
                       <CCollapse
                         show={
@@ -323,80 +341,96 @@ const ProjectTask = () => {
                         key={key + "zxczvsdwe2"}
                       >
                         <CCardBody>
-                          {projectTodoDetail.map((item, key) => {
-                            return (
-                              <div key={key + "aczcse=234"}>
-                                <CSwitch
-                                  className={"mx-1"}
-                                  shape={"pill"}
-                                  color={"success"}
-                                  labelOn={"\u2713"}
-                                  labelOff={"\u2715"}
-                                  value="asdf"
-                                  name={item.project_TASK_DETAIL_CONTENT}
-                                  key={"@#!$@!$!" + key + "!@4"}
-                                  onChange={async (e) => {
-                                    console.log(check);
-                                    if (
-                                      check[key] ===
-                                      item.project_TASK_DETAIL_INDEX +
-                                        item.project_TASK_DETAIL_CONTENT +
-                                        "(" +
-                                        item.project_TASK_DETAIL_PERCENT +
-                                        "%)"
-                                    ) {
-                                      await UpdateProjecTaskDetailSuccess({
-                                        index: item.project_TASK_DETAIL_INDEX,
-                                        success: 0,
-                                      });
-                                      await projectTodoDetailAxios(projectNo);
-                                    } else {
-                                      setCheck((cont) => {
-                                        return cont.map((cn, ky) => {
-                                          console.log("key");
-                                          console.log(key);
-                                          console.log("ky");
-                                          console.log(ky);
-                                          if ((key = ky)) {
-                                            return (
-                                              item.project_TASK_DETAIL_INDEX +
-                                              item.project_TASK_DETAIL_CONTENT +
-                                              "(" +
-                                              item.project_TASK_DETAIL_PERCENT +
-                                              "%)"
-                                            );
-                                          } else {
-                                            return cn;
-                                          }
+                          {projectTodoDetail.map((item2, key) => {
+                            // console.log(item2);
+                            // console.log(key);
+                            if (
+                              item2.project_TASK_INDEX ===
+                              item.project_TASK_INDEX
+                            )
+                              return (
+                                <div key={key + "aczcse=234"}>
+                                  <CSwitch
+                                    className={"mx-1"}
+                                    shape={"pill"}
+                                    color={"success"}
+                                    labelOn={"\u2713"}
+                                    labelOff={"\u2715"}
+                                    value="asdf"
+                                    name={item2.project_TASK_DETAIL_CONTENT}
+                                    key={"@#!$@!$!" + key + "!@4"}
+                                    onChange={async (e) => {
+                                      if (check[key] === 1) {
+                                        setCheck((con) => {
+                                          return con.map((c, ky) => {
+                                            if (key === ky) {
+                                              return 0;
+                                            } else {
+                                              return c;
+                                            }
+                                          });
                                         });
-                                      });
-                                      await UpdateProjecTaskDetailSuccess({
-                                        index: item.project_TASK_DETAIL_INDEX,
-                                        success: 1,
-                                      });
-                                      await projectTodoDetailAxios(projectNo);
+                                        await UpdateProjecTaskDetailSuccess({
+                                          index:
+                                            item2.project_TASK_DETAIL_INDEX,
+                                          success: 0,
+                                        });
+                                        await projectTodoAxios(projectNo);
+                                        await projectTodoDetailAxios(projectNo);
+                                        console.log("너타냐?1232324");
+                                      } else {
+                                        setCheck((con) => {
+                                          return con.map((c, ky) => {
+                                            if (key === ky) {
+                                              return 1;
+                                            } else {
+                                              return c;
+                                            }
+                                          });
+                                        });
+
+                                        await UpdateProjecTaskDetailSuccess({
+                                          index:
+                                            item2.project_TASK_DETAIL_INDEX,
+                                          success: 1,
+                                        });
+                                        console.log("너타니??1232324");
+                                        await projectTodoAxios(projectNo);
+                                        console.log("왜안되는거야?");
+                                        await projectTodoDetailAxios(projectNo);
+                                      }
+                                    }}
+                                    checked={check[key] === 1}
+                                  />
+                                  <ProjectTaskTodoInsertDetail //업데이트
+                                    projectNo={projectNo}
+                                    projectWith={projectWith}
+                                    axios={projectTodoAxios}
+                                    axios2={projectTodoDetailAxios}
+                                    dispatch={dispatch}
+                                    taskIndex={item.project_TASK_INDEX}
+                                    detailIndex={
+                                      item2.project_TASK_DETAIL_INDEX
                                     }
-                                  }}
-                                  checked={
-                                    item.project_TASK_DETAIL_SUCCESS === 1 ||
-                                    check ===
-                                      item.project_TASK_DETAIL_INDEX +
-                                        item.project_TASK_DETAIL_CONTENT +
+                                    item={item2}
+                                    sum={item.detail_SUM}
+                                  ></ProjectTaskTodoInsertDetail>
+                                  <CListGroup accent key={key + "Asxzcxsa32"}>
+                                    <CListGroupItem
+                                      accent={"dark"}
+                                      style={{
+                                        background: item2.project_WITH_COLOR,
+                                        color: "dark",
+                                      }}
+                                    >
+                                      {item2.project_TASK_DETAIL_CONTENT +
                                         "(" +
-                                        item.project_TASK_DETAIL_PERCENT +
-                                        "%)"
-                                  }
-                                />
-                                <CListGroup accent key={key + "Asxzcxsa32"}>
-                                  <CListGroupItem accent="dark" color="dark">
-                                    {item.project_TASK_DETAIL_CONTENT +
-                                      "(" +
-                                      item.project_TASK_DETAIL_PERCENT +
-                                      "%)"}
-                                  </CListGroupItem>
-                                </CListGroup>
-                              </div>
-                            );
+                                        item2.project_TASK_DETAIL_PERCENT +
+                                        "%)"}
+                                    </CListGroupItem>
+                                  </CListGroup>
+                                </div>
+                              );
                           })}
                         </CCardBody>
                       </CCollapse>
