@@ -22,35 +22,32 @@ const Project = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <CContainer>
-        <CRow className="align-items-start">
-          <CCol>
-            <CCardGroup>
-              <CCardBody>
-                <CButton
-                  color="danger"
-                  size="lg"
-                  className="m-2"
-                  onClick={() => {
-                    history.push("/schedule/project/create");
-                  }}
-                  >
-                  프로젝트 생성
-                </CButton>
-              </CCardBody>
-            </CCardGroup>
-          </CCol>
-        </CRow>
+    <CContainer>
+      <CCardGroup>
+        <CCardBody>
+          <h3>프로젝트 목록</h3>
+        </CCardBody>
+        <CCardBody style={{ textAlign: "right", margin: "auto" }}>
+          <CButton
+            color="danger"
+            size="lg"
+            className="m-2"
+            onClick={() => {
+              history.push("/schedule/project/create");
+            }}
+            >
+              프로젝트 생성
+          </CButton>
+        </CCardBody>            
         <CRow className="align-items-center">
           <CCol>
-            <CCard style={{textAlign:"center"}}>
+            <CCardBody style={{ textAlign: "center" }}>
               <ShowProject />
-            </CCard>
+            </CCardBody>
           </CCol>
         </CRow>
-      </CContainer>
-    </>
+      </CCardGroup>
+    </CContainer>
   );
 };
 

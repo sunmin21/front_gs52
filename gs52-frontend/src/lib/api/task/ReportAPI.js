@@ -29,13 +29,13 @@ export const SelectOthersReport = async ({ othersemp, weekStart, weekEnd }) => {
       weekEnd
   );
 
-  const othersreport = await client.post(API_URL + "/report/showReport", {
+  const othersreport = await client.post(API_URL + "/report/showOthersReport", {
     report_EMP_INDEX: othersemp,
     weekstart: weekStart,
     weekend: weekEnd,
   });
 
-  const nextothersreport = await client.post(API_URL + "/report/showReport", {
+  const nextothersreport = await client.post(API_URL + "/report/showNextOthersReport", {
     report_EMP_INDEX: othersemp,
     weekstart: weekStart,
     weekend: weekEnd,

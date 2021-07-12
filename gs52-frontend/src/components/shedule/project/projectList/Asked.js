@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { CCardBody, CDataTable, CBadge } from "@coreui/react";
+import { CCardBody, CDataTable } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { askedAxios } from "src/modules/schedule/project/projectList";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { useDispatch } from "react-redux";
+import { Badge } from 'antd';
+import 'antd/dist/antd.css';
 
 const getBadge = (status) => {
     switch (status) {
@@ -14,7 +16,7 @@ const getBadge = (status) => {
         case "승인":
             return "success";
         case "거부":
-            return "danger";
+            return "error";
         default:
         return "primary";
     }
@@ -54,7 +56,7 @@ function Asked() {
             인덱스: item.project_INDEX,
         })
     })
-console.log(asked)
+
     return (
         <CCardBody>
             <CDataTable
@@ -89,9 +91,7 @@ console.log(asked)
                     },
                     상태: (item) => (
                         <td>
-                            <CBadge color={getBadge(Done[item.상태])}>
-                                {Done[item.상태]}
-                            </CBadge>
+                            <Badge status={getBadge(Done[item.상태])} text={Done[item.상태]}></Badge>
                         </td>
                     ),
                 }}
