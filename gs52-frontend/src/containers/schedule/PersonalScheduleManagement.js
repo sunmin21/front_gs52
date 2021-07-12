@@ -20,7 +20,7 @@ import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const PersonalScheduleManagement = () => {
   const dispatch = useDispatch();
-  const board = useSelector((state) => state.test.board);
+
   const vacation_EMP_INDEX = getCurrentUser();
 
   // const test = SelectTeam();

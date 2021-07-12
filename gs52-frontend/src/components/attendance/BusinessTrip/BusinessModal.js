@@ -110,8 +110,8 @@ function BusinessModal({
           <h2>종류</h2>
           <select onChange={infoIndexHandle}>
             <option value="0">선택</option>
-            <option value="5">출장</option>
-            <option value="6">외근</option>
+            <option value="5">외근</option>
+            <option value="6">출장</option>
           </select>
           <hr />
           <h2>사유</h2>
