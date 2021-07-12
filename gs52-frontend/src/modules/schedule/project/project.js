@@ -3,7 +3,7 @@ import createRequestSaga, {
   createRequestActionTypes,
 } from "../../../lib/createRequestSaga";
 import * as API from "../../../lib/api/schedule/Project";
-import { takeLatest } from "redux-saga/effects";
+import { takeEvery, takeLatest } from "redux-saga/effects";
 
 const PROJECTNO = "schedule/PROJECTNO";
 const PROJECTWITHCHANGE = "schedule/PROJECTWITHCHANGE";
@@ -116,8 +116,8 @@ export function* projectSaga2() {
   yield takeLatest(PROJECT, projectSelectSaga);
   yield takeLatest(PROJECTWITH, projectWithSelectSaga);
   yield takeLatest(PROJECTFILE, projectFileSelectSaga);
-  yield takeLatest(PROJECTTODO, projectTodoSelectSaga);
-  yield takeLatest(PROJECTTODODETAIL, projectTodoDetailSelectSaga);
+  yield takeEvery(PROJECTTODO, projectTodoSelectSaga);
+  yield takeEvery(PROJECTTODODETAIL, projectTodoDetailSelectSaga);
 }
 
 const initialState = {

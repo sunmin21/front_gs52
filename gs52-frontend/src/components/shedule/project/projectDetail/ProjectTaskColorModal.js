@@ -44,7 +44,7 @@ const ProjectTaskColorModal = ({
     "blue",
     "indigo",
     "violet",
-    "Black",
+
     "Chartreuse",
     "CornflowerBlue",
   ];
