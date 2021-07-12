@@ -9,11 +9,21 @@ import { takeLatest } from "redux-saga/effects";
 const [TEAM_lIST, TEAM_lIST_SUCCESS, TEAM_lIST_FAILURE] = createRequestActionTypes("manager/account/team_list"); //타입유형
 const [RANK_lIST, RANK_lIST_SUCCESS, RANK_lIST_FAILURE] = createRequestActionTypes("manager/account/rank_list"); //타입유형
 const [POSITION_lIST, POSITION_lIST_SUCCESS, POSITION_lIST_FAILURE] = createRequestActionTypes("manager/account/position_list"); //타입유형
+const PROJECTFILECONCAT = "manager/account/PROJECTFILECONCAT";
   //const CHECK1 = 'schedule/confRoom_book';
 
   export const TeamAxios = createAction(TEAM_lIST);
   export const RankAxios = createAction(RANK_lIST);
   export const PositionAxios = createAction(POSITION_lIST);
+
+  export const projectFileConcats = createAction(
+    PROJECTFILECONCAT,
+    (projectFiles) => {
+      return {
+        projectFiles,
+      };
+    }
+  );
 
   //export const modalCheck1 = createAction(CHECK1);
 
@@ -35,7 +45,18 @@ const initialState = {
     rank_list_error: null,
     position_list: [],
     position_list_error: null,
-
+    
+    projectFile: [
+      {
+        PROJECT_FILE_INDEX: "",
+        PROJECT_FILE_PROJECT_INDEX: "",
+        PROJECT_FILE_ORIGIN_NAME: "",
+        PROJECT_FILE_NAME: "",
+        PROJECT_FILE_PATH: "",
+        PROJECT_FILE_DATE: "",
+      },
+    ],
+    uploadFile: [],
     
     //conf_modal1: false,
 };
@@ -76,10 +97,21 @@ const account = handleActions(
             position_list_error: error,
           }),
 
-        // [CHECK1] : (state) => ({
-        //     ...state,
-        //     conf_modal1: !state.conf_modal1,
-        // }),
+          [PROJECTFILECONCAT]: (state, { payload: { projectFiles } }) => {
+            let temp = state.projectFile;
+            let temp2 = state.uploadFile;
+      
+            for (let key of Object.keys(projectFiles)) {
+              temp = temp.concat(projectFiles[key]);
+              temp2 = temp2.concat(projectFiles[key]);
+            }
+      
+            return {
+              ...state,
+              projectFile: temp,
+              uploadFile: temp2,
+            };
+          },
     },
     initialState
 );

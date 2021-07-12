@@ -22,7 +22,6 @@ function ShowProject() {
     });
     
     useEffect(() => {
-        console.log("너돌아가니?")
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
     

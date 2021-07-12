@@ -13,7 +13,6 @@ import { Alert } from 'antd';
 import 'antd/dist/antd.css';
 
 function ShowCalendar() {
-  const [events, setEvents] = useState([]);
   const dispatch = useDispatch();
 
   const { holiday } = useSelector((state) => {

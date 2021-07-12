@@ -30,8 +30,9 @@ import {
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
 } from "src/lib/api/schedule/Project";
+import { CChartPie } from "@coreui/react-chartjs";
 
-const ProjectTask = () => {
+const ProjectInsite = () => {
   const [visible, setVisible] = useState(false);
 
   const dispatch = useDispatch();
@@ -88,168 +89,34 @@ const ProjectTask = () => {
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
         <CCard>
-          <CCardHeader>업무 </CCardHeader>
+          <CCardHeader>인사이트 </CCardHeader>
 
           <CCardBody>
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="date-input">프로젝트 인원</CLabel>
+                <CLabel htmlFor="date-input">프로젝트 기여도</CLabel>
               </CCol>
 
-              <CCol xs="6" md="2">
-                <ColorModal
-                  key={"zxcbqw" + projectNo}
-                  visible={visible}
-                  setVisible={setVisible}
-                  axios={projectWithAxios}
-                  axios2={projectTodoDetailAxios}
-                  dispatch={dispatch}
-                  projectNo={projectNo}
-                  empColor={content.empColor}
-                  withIndex={content.withIndex}
-                ></ColorModal>
-                {projectWith &&
-                  projectWith.map((item, key) => {
-                    if (key % 3 === 0)
-                      return (
-                        <div key={key}>
-                          <CButton
-                            block
-                            variant="outline"
-                            color="dark"
-                            readOnly
-                            key={"acxzcsdasw" + key}
-                            onClick={async () => {
-                              await setVisible(false);
-                              await setVisible(true);
-                              setContent({
-                                empColor: item.project_WITH_COLOR,
-                                withIndex: item.project_WITH_INDEX,
-                              });
-                            }}
-                            style={{
-                              background: item.project_WITH_COLOR,
-                              color: "white",
-                              textShadow:
-                                "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-                            }}
-                          >
-                            {userData !== undefined &&
-                              userData.filter(
-                                (data) =>
-                                  Number(data.emp_INDEX) ===
-                                  item.project_WITH_EMP_INDEX
-                              )[0].dept_NAME + "  "}
-
-                            {userData !== undefined &&
-                              userData.filter(
-                                (data) =>
-                                  Number(data.emp_INDEX) ===
-                                  item.project_WITH_EMP_INDEX
-                              )[0].team_NAME + "\n"}
-                            {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
-                            {item.emp_NAME}
-                          </CButton>
-                        </div>
-                      );
-                  })}
-              </CCol>
-              <CCol xs="6" md="2">
-                {projectWith &&
-                  projectWith.map((item, key) => {
-                    if (key % 3 === 1)
-                      return (
-                        <div key={"zxczcwes" + key}>
-                          <CButton
-                            block
-                            variant="outline"
-                            color="dark"
-                            readOnly
-                            key={"Aszcxcsa" + key}
-                            onClick={async () => {
-                              await setVisible(false);
-                              await setVisible(true);
-                              setContent({
-                                empColor: item.project_WITH_COLOR,
-                                withIndex: item.project_WITH_INDEX,
-                              });
-                            }}
-                            style={{
-                              background: item.project_WITH_COLOR,
-                              color: "white",
-                              textShadow:
-                                "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-                            }}
-                          >
-                            {" "}
-                            {userData !== undefined &&
-                              userData.filter(
-                                (data) =>
-                                  Number(data.emp_INDEX) ===
-                                  item.project_WITH_EMP_INDEX
-                              )[0].dept_NAME + "  "}
-                            {userData !== undefined &&
-                              userData.filter(
-                                (data) =>
-                                  Number(data.emp_INDEX) ===
-                                  item.project_WITH_EMP_INDEX
-                              )[0].team_NAME + "\n"}
-                            {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
-                            {item.emp_NAME}
-                          </CButton>
-                        </div>
-                      );
-                  })}
-              </CCol>
-              <CCol xs="6" md="2">
-                {projectWith &&
-                  projectWith.map((item, key) => {
-                    if (key % 3 === 2) {
-                      return (
-                        <div key={"ssdds" + key}>
-                          <CButton
-                            block
-                            variant="outline"
-                            color="dark"
-                            readOnly
-                            key={"axsed" + key}
-                            onClick={() => {
-                              setVisible(true);
-                              setContent({
-                                empColor: item.project_WITH_COLOR,
-                                withIndex: item.project_WITH_INDEX,
-                              });
-                            }}
-                            style={{
-                              background: item.project_WITH_COLOR,
-                              color: "white",
-                              textShadow:
-                                "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black",
-                            }}
-                          >
-                            {" "}
-                            {userData !== undefined &&
-                              userData.filter(
-                                (data) =>
-                                  Number(data.emp_INDEX) ===
-                                  item.project_WITH_EMP_INDEX
-                              )[0].dept_NAME + "  "}
-                            {userData !== undefined &&
-                              userData.filter(
-                                (data) =>
-                                  Number(data.emp_INDEX) ===
-                                  item.project_WITH_EMP_INDEX
-                              )[0].team_NAME + "\n"}
-                            {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
-                            {item.emp_NAME}
-                          </CButton>
-                        </div>
-                      );
-                    }
-                  })}
+              <CCol xs="6" md="6">
+                <CChartPie
+                  datasets={[
+                    {
+                      backgroundColor: [
+                        "#41B883",
+                        "#E46651",
+                        "#00D8FF",
+                        "#DD1B16",
+                      ],
+                      data: [40, 20, 80, 10],
+                    },
+                  ]}
+                  labels={["VueJs", "EmberJs", "ReactJs", "AngularJs"]}
+                  options={{
+                    tooltips: {
+                      enabled: true,
+                    },
+                  }}
+                />
               </CCol>
             </CFormGroup>
             <CFormGroup row>
@@ -491,4 +358,4 @@ const ProjectTask = () => {
   );
 };
 
-export default ProjectTask;
+export default ProjectInsite;

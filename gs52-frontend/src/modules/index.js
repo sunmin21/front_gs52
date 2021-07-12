@@ -11,6 +11,7 @@ import changeState, { changeStore } from "./changeStore";
 import annual, { annualSaga2 } from "./annual/annual";
 import account, { AccountSaga } from "./manager/Account";
 import main, { MainSaga } from "./main/main";
+import myCalendar, { CalendarSaga2 } from "./main/Calendar"
 import memberSchedule, { memberScheduleSaga2 } from "./annual/memberSchedule";
 import vacation, { vacationSaga2 } from "./manager/vacation";
 import project, { projectSaga2 } from "./schedule/project/project";
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   memberSchedule,
   report,
   main,
+  myCalendar,
   vacation,
   project,
   personSchedule,
@@ -55,6 +57,7 @@ export function* rootSaga() {
     AccountSaga(),
     memberScheduleSaga2(),
     MainSaga(),
+    CalendarSaga2(),
     vacationSaga2(),
     projectSaga2(),
     personScheduleSaga2(),
