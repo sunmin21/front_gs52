@@ -41,12 +41,12 @@ console.log(token);
 
 const API_URL = "http://localhost:8081";
 //부서
-export const SelectDept = async () => {
-  const dept = await client.post(API_URL + "/manager/select_dept");
+export const SelectTeam = async () => {
+  const team = await client.post(API_URL + "/manager/select_team");
 
-  console.log("SelectDept API inserrrrrr");
-  console.log(dept.data);
-  return dept;
+  console.log("SelectTeam API inserrrrrr");
+  console.log(team.data);
+  return team;
 };
 
 //직급

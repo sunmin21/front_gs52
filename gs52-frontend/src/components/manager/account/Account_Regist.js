@@ -10,12 +10,9 @@ import { DatePicker } from "antd";
 import "antd/dist/antd.css";
 import moment from "moment";
 
-import { SelectDept, InsertAccount } from "../../../lib/api/manager/Account/AccountRegistAPI";
-import { all } from 'redux-saga/effects';
-
 import { useDispatch, useSelector } from "react-redux";
 import {
-  DeptAxios,RankAxios,PositionAxios
+  TeamAxios,RankAxios,PositionAxios
 } from "src/modules/manager/Account";
 
 import {RegistAccount
@@ -26,15 +23,15 @@ export function AccountField() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(DeptAxios());
+    dispatch(TeamAxios());
     dispatch(RankAxios());
     dispatch(PositionAxios());
   }, [dispatch]);
 
-  const  {dept_list, rank_list,position_list } =
+  const  {team_list, rank_list,position_list } =
     useSelector((state) => {
       return {
-        dept_list: state.account.dept_list,
+        team_list: state.account.team_list,
         rank_list: state.account.rank_list,
         position_list: state.account.position_list,
       };
@@ -43,14 +40,14 @@ export function AccountField() {
 
 	const [inputs, setInputs] = useState({
     name:null,
-		dept:null,
+		team:null,
 		rank:null,
 		position:null,
 		num:null,
 		date:null,
     email:null
 	  })
-	const { name, dept, rank, position, num, date, email} = inputs;
+	const { name, team, rank, position, num, date, email} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -74,7 +71,7 @@ export function AccountField() {
       console.log(id)   //사원번호
       console.log(name)   //sunmin
       console.log(num)    //사원번호
-      RegistAccount(id, name, email, num, position, rank, dept, 1).then(
+      RegistAccount(id, name, email, num, position, rank, team, 1).then(
         
         response => {
           alert("회원등록 되었습니다.");
@@ -121,14 +118,14 @@ export function AccountField() {
 
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="dept">부서</CLabel>
+                    <CLabel htmlFor="team">부서</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CSelect onChange={onChange} id="dept" name="dept" defaultValue={dept_list[0]}>
-                    {dept_list.map((dept, idx) => {
+                    <CSelect onChange={onChange} id="team" name="team" defaultValue={team_list[0]}>
+                    {team_list.map((team, idx) => {
                         return (
-                        <option key={idx} value={dept.dept_INDEX} >
-                            {dept.dept_NAME}
+                        <option key={idx} value={team.team_INDEX} >
+                            {team.team_NAME}
                         </option>
                         );
                     })}
