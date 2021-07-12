@@ -58,6 +58,7 @@ export const logout = () =>{
 	localStorage.removeItem("user");
     localStorage.removeItem("token");
     localStorage.removeItem("authenticatedUser")
+    localStorage.removeItem("w_state")
 }
 
 export const register = async({username, email, password, position, rank, team}) => {

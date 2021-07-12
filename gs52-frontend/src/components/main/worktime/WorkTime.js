@@ -19,17 +19,26 @@ function WorkTime(){
 
     useEffect(async() => {
           await SelectWorkCheck(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
+            console.log("item.data[0]")
+            console.log(item.data[0])
             if(item.data[0]==null){
                 setWorkCheck(false)
                 setWorkState("출근")
             }
             else{
-                setWorkCheck(true)
-                if(localStorage.getItem("breakIndex")==null){
-                    setWorkState("휴식")
+                console.log("else")
+                if(item.data[0].attend_END!=null){
+                    console.log("퇴근")
+                    setWorkState("퇴근")
                 }
                 else{
-                    setWorkState("휴식종료")
+                    setWorkCheck(true)
+                    if(localStorage.getItem("breakIndex")==null){
+                        setWorkState("휴식")
+                    }
+                    else{
+                        setWorkState("휴식종료")
+                    }
                 }
             }
         });
@@ -101,7 +110,7 @@ function WorkTime(){
             
             {
                 //moment('18:01').format('HH:mm')>ruleEnd?
-                moment().format('HH:mm')>ruleEnd?
+                moment().format('HH:mm')>ruleEnd && workState!="퇴근"?
                 <button onClick={onOffWork}>퇴근</button>
                 :
                 null

@@ -7,6 +7,9 @@ const NoticeDetail = React.lazy(() =>
 const NoticeCreate = React.lazy(() =>
   import("src/components/main/notice/CreateNotice")
 );
+const myPage = React.lazy(() =>
+  import("src/components/main/myPage/MyPage")
+);
 
 const MainRoute = [
   {
@@ -19,6 +22,12 @@ const MainRoute = [
     path: "/notice/detail/:id",
     name: "공지사항",
     component: NoticeDetail,
+    exact:true,
+  },  
+  {
+    path: "/myPage",
+    name: "마이페이지",
+    component: myPage,
     exact:true,
   },
   {
