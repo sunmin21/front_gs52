@@ -4,7 +4,7 @@ import {
   CCardBody,
   CCardHeader,
   CInput,
-  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect
+  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect, CInputFile, CAlert
 } from '@coreui/react';
 import { DatePicker } from "antd";
 import "antd/dist/antd.css";
@@ -20,6 +20,8 @@ import {RegistAccount,mail
 
 export function AccountField() {
 
+  const [filecheck, setFilecheck] = useState(false);  
+  const [filename, setFileName] = useState("");
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -27,6 +29,8 @@ export function AccountField() {
     dispatch(RankAxios());
     dispatch(PositionAxios());
   }, [dispatch]);
+
+
 
   const  {team_list, rank_list,position_list } =
     useSelector((state) => {
@@ -44,9 +48,12 @@ export function AccountField() {
 		rank:1,
 		position:1,
 		num:null,
-    email:null
+    email:null,
+    file:[]
 	  })
-	const { name, team, rank, position, num , email} = inputs;
+
+
+	const { name, team, rank, position, num , email,file} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -100,7 +107,6 @@ export function AccountField() {
   function onDate(dateString) {
     setDate(moment(dateString).format("YYYY/MM/DD"))
   }
-
     return (
         <div>
             <CCard>
@@ -203,7 +209,55 @@ export function AccountField() {
                   </CCol>
                 </CFormGroup>
 
-                
+                <CFormGroup row>
+                <CCol md="3">
+                  <CLabel>파일첨부</CLabel>
+                </CCol>
+                <CCol xs="12" md="9">
+                  <CInputFile
+                    id="file-multiple-input"
+                    name="file-multiple-input"
+                    multiple
+                    custom
+                    onChange={(e) => {
+                      console.log(e.target.files);
+                      console.log(e.target.files[0].type);
+                        if (e.target.files.size > 102400000) {
+                          setFilecheck(true);
+                          return;
+                        }
+                      
+
+                      setInputs((inputs) => ({
+                        ...inputs,
+                        file: e.target.files,
+                      }));
+                      setFileName(e.target.files[0].name)
+                    }}
+                  ></CInputFile>
+                  {filecheck && (
+                    <CAlert
+                      color="danger"
+                      closeButton
+                      onClick={() => {
+                        setFilecheck(false);
+                      }}
+                    >
+                      1024KB를 초과하였습니다.
+                    </CAlert>
+                  )}
+                  {file.length === 0 && (
+                    <CLabel htmlFor="file-multiple-input" variant="custom-file">
+                      File Upload..
+                    </CLabel>
+                  )}
+                  {file.length !== 0 && (
+                    <CLabel htmlFor="file-multiple-input" variant="custom-file">
+                      {filename}
+                    </CLabel>
+                  )}
+                </CCol>
+              </CFormGroup>
                 </CCardBody>
 
 
