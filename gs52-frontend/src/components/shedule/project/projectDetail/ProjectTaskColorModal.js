@@ -34,7 +34,6 @@ const ProjectTaskColorModal = ({
   empcolor,
   withIndex,
 }) => {
-  console.log(withIndex);
   const [color, setColor] = useState(empcolor);
   const colors = [
     "red",

@@ -10,7 +10,7 @@ const ProjectTaskTodoDetailInsert = ({
   projectWith,
 }) => {
   const [visible, setVisible] = useState(false);
-  console.log(projectWith);
+
   return (
     <>
       <TaskTodoDetailModal
@@ -28,8 +28,10 @@ const ProjectTaskTodoDetailInsert = ({
         color="dark"
         aria-pressed="true"
         style={{ textAlign: "center", float: "right" }}
-        onClick={() => {
-          setVisible(true);
+        onClick={async () => {
+          await setVisible(false);
+
+          await setVisible(true);
         }}
         key={taskIndex}
       >

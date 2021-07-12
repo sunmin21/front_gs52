@@ -90,25 +90,51 @@ export const UpdateProjecTask = async ({
 
   return project;
 };
-export const InsertProjecTaskDetail = async ({
-  task인덱스,
-  담당자,
-  내용,
-  진행도,
-}) => {
+export const DeleteProjecTask = async (인덱스) => {
+  console.log(인덱스);
   const project = await client.post(
-    API_URL + "/schedule/project/insertprojectTaskDetail",
+    API_URL + "/schedule/project/deleteProjectTask",
     {
-      project_TASK_INDEX: task인덱스,
-      project_TASK_CONTENT: 내용,
-      project_TASK_PERCENT: 진행도,
-      project_TASK_DETAIL_EMP: 담당자,
+      project_TASK_INDEX: 인덱스,
     }
   );
 
   return project;
 };
+export const InsertProjecTaskDetail = async ({
+  task인덱스,
+  담당자,
+  내용,
+  진행도,
+  인덱스,
+}) => {
+  console.log(task인덱스 + "  " + 담당자 + "  " + 내용 + "  " + 진행도);
+  const project = await client.post(
+    API_URL + "/schedule/project/insertprojectTaskDetail",
+    {
+      project_TASK_INDEX: task인덱스,
+      project_TASK_DETAIL_CONTENT: 내용,
+      project_TASK_DETAIL_PERCENT: 진행도,
+      project_TASK_DETAIL_EMP: 담당자,
+      project_INDEX: 인덱스,
+    }
+  );
 
+  return project;
+};
+export const UpdateProjecTaskDetailSuccess = async ({ index, success }) => {
+  console.log(success);
+  console.log("타냐");
+  const project = await client.post(
+    API_URL + "/schedule/project/updateProjecTaskDetailSuccess",
+    {
+      project_TASK_DETAIL_INDEX: index,
+      project_TASK_DETAIL_SUCCESS: success,
+    }
+  );
+
+  return project;
+};
 export const SelectOneProject = async ({ index }) => {
   const project = await client.post(
     API_URL + "/schedule/project/selectOneProject",
@@ -138,24 +164,4 @@ export const SelectOneWith = async ({ index }) => {
   );
 
   return project;
-};
-
-export const DeleteHoliday = async (id) => {
-  id = parseInt(id);
-  // console.log("id : " + id);
-  // console.log(typeof (id));
-
-  const holiday = await client
-    .post(API_URL + "/holiday/delHoliday", {
-      holiday_INDEX: id,
-    })
-    .then(function (response) {
-      // return response.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-    .then(function () {
-      // 항상 실행되는 부분
-    });
 };

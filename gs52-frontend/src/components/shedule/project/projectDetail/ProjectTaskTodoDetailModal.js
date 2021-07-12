@@ -36,13 +36,15 @@ const ProjectTaskTodoModal = ({
   taskIndex,
   item,
   projectWith,
+  projectNo,
 }) => {
   const array = [];
   for (let i = 5; i <= 100; i += 5) {
     array.push(i);
   }
-  console.log(taskIndex);
+
   const [content, setContent] = useState({
+    인덱스: projectNo,
     task인덱스: taskIndex,
 
     내용: item ? item.project_TASK_CONTENT : "",
@@ -180,6 +182,7 @@ const ProjectTaskTodoModal = ({
               setVisible(false);
               setCheck(false);
               setContent({
+                인덱스: projectNo,
                 task인덱스: taskIndex,
 
                 내용: "",
@@ -212,8 +215,9 @@ const ProjectTaskTodoModal = ({
 
               await InsertProjecTaskDetail(content);
 
-              await dispatch(axios(taskIndex));
+              await dispatch(axios(projectNo));
               setContent({
+                인덱스: projectNo,
                 task인덱스: taskIndex,
 
                 내용: "",

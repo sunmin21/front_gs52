@@ -8,6 +8,9 @@ import {
   CCollapse,
   CFormGroup,
   CLabel,
+  CListGroup,
+  CListGroupItem,
+  CSwitch,
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,8 +23,14 @@ import {
 import ColorModal from "./ProjectTaskColorModal";
 import ProjectTaskTodoInsert from "./ProjectTaskTodoInsert";
 import ProjectTaskTodoInsertDetail from "./ProjectTaskTodoDetailInsert";
+import {
+  DeleteProjecTask,
+  UpdateProjecTaskDetailSuccess,
+} from "src/lib/api/schedule/Project";
+
 const ProjectTask = () => {
   const [visible, setVisible] = useState(false);
+
   const dispatch = useDispatch();
   const [content, setContent] = useState({
     empColor: "",
@@ -62,7 +71,10 @@ const ProjectTask = () => {
       isComponentMounted = false;
     };
   }, [projectNo, dispatch]);
-  console.log(projectTodo[0]);
+  const [check, setCheck] = useState([
+    ...projectTodoDetail.map((a, key) => key),
+  ]);
+
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -264,6 +276,21 @@ const ProjectTask = () => {
                               "%)"}
                           </h5>
                         </CButton>
+                        <CButton //삭제
+                          active
+                          color="danger"
+                          aria-pressed="true"
+                          style={{ textAlign: "center", float: "right" }}
+                          onClick={async () => {
+                            // console.log(item.project_TASK_INDEX);
+                            await DeleteProjecTask(item.project_TASK_INDEX);
+
+                            await dispatch(projectTodoAxios(projectNo));
+                          }}
+                          key={"bb23@@xzcv" + key}
+                        >
+                          삭제
+                        </CButton>
                         <ProjectTaskTodoInsert //업데이트
                           projectNo={projectNo}
                           axios={projectTodoAxios}
@@ -276,11 +303,11 @@ const ProjectTask = () => {
                               : 0
                           }
                         ></ProjectTaskTodoInsert>
-                        <ProjectTaskTodoInsertDetail
+                        <ProjectTaskTodoInsertDetail //디테일등록
                           projectNo={projectNo}
                           projectWith={projectWith}
                           taskIndex={item.project_TASK_INDEX}
-                          axios={projectTodoAxios}
+                          axios={projectTodoDetailAxios}
                           dispatch={dispatch}
                         ></ProjectTaskTodoInsertDetail>
                       </CCardHeader>
@@ -295,7 +322,83 @@ const ProjectTask = () => {
                         }
                         key={key + "zxczvsdwe2"}
                       >
-                        <CCardBody></CCardBody>
+                        <CCardBody>
+                          {projectTodoDetail.map((item, key) => {
+                            return (
+                              <div key={key + "aczcse=234"}>
+                                <CSwitch
+                                  className={"mx-1"}
+                                  shape={"pill"}
+                                  color={"success"}
+                                  labelOn={"\u2713"}
+                                  labelOff={"\u2715"}
+                                  value="asdf"
+                                  name={item.project_TASK_DETAIL_CONTENT}
+                                  key={"@#!$@!$!" + key + "!@4"}
+                                  onChange={async (e) => {
+                                    console.log(check);
+                                    if (
+                                      check[key] ===
+                                      item.project_TASK_DETAIL_INDEX +
+                                        item.project_TASK_DETAIL_CONTENT +
+                                        "(" +
+                                        item.project_TASK_DETAIL_PERCENT +
+                                        "%)"
+                                    ) {
+                                      await UpdateProjecTaskDetailSuccess({
+                                        index: item.project_TASK_DETAIL_INDEX,
+                                        success: 0,
+                                      });
+                                      await projectTodoDetailAxios(projectNo);
+                                    } else {
+                                      setCheck((cont) => {
+                                        return cont.map((cn, ky) => {
+                                          console.log("key");
+                                          console.log(key);
+                                          console.log("ky");
+                                          console.log(ky);
+                                          if ((key = ky)) {
+                                            return (
+                                              item.project_TASK_DETAIL_INDEX +
+                                              item.project_TASK_DETAIL_CONTENT +
+                                              "(" +
+                                              item.project_TASK_DETAIL_PERCENT +
+                                              "%)"
+                                            );
+                                          } else {
+                                            return cn;
+                                          }
+                                        });
+                                      });
+                                      await UpdateProjecTaskDetailSuccess({
+                                        index: item.project_TASK_DETAIL_INDEX,
+                                        success: 1,
+                                      });
+                                      await projectTodoDetailAxios(projectNo);
+                                    }
+                                  }}
+                                  checked={
+                                    item.project_TASK_DETAIL_SUCCESS === 1 ||
+                                    check ===
+                                      item.project_TASK_DETAIL_INDEX +
+                                        item.project_TASK_DETAIL_CONTENT +
+                                        "(" +
+                                        item.project_TASK_DETAIL_PERCENT +
+                                        "%)"
+                                  }
+                                />
+                                <CListGroup accent key={key + "Asxzcxsa32"}>
+                                  <CListGroupItem accent="dark" color="dark">
+                                    {item.project_TASK_DETAIL_CONTENT +
+                                      "(" +
+                                      item.project_TASK_DETAIL_PERCENT +
+                                      "%)"}
+                                  </CListGroupItem>
+                                </CListGroup>
+                              </div>
+                            );
+                          })}
+                        </CCardBody>
                       </CCollapse>
                     </CCard>
                   );
