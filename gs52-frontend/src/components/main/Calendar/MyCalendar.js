@@ -68,6 +68,8 @@ function DetailCalendar() {
           plugins={[daygridPlugin]}
           // events={data2}
           eventSources={[data, data2, data3]}
+          eventColor="#2e88ff"
+          eventTextColor="white"
           eventDisplay="title"
         />
       </CCardBody>
