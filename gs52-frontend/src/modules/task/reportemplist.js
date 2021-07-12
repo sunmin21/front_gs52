@@ -53,6 +53,7 @@ const initialState = {
         }),
     ],
 };
+
 const emp = handleActions(
     {
         [SEARCH_CHANGE_FIELD]: (state, { payload: { form, key } }) => {
