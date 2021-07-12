@@ -32,6 +32,8 @@ import {
 
 export function AccountField() {
   const [filecheck, setFilecheck] = useState(false);
+  const [imgCheck, setImageCheck] = useState(false);
+
   const [filename, setFileName] = useState("");
 
   const dispatch = useDispatch();
@@ -76,7 +78,7 @@ export function AccountField() {
     setInputs(nextInputs);
   };
 
-  const onRegist = () => {
+  const onRegist = async () => {
     //{InsertAccount(dept, rank, position, num, date)}
     //    username, email, password, position, rank, team
 
@@ -93,7 +95,7 @@ export function AccountField() {
       console.log(id); //사원번호
       console.log(name); //sunmin
       console.log(num); //사원번호
-      RegistAccount(id, name, email, num, position, rank, team, 1).then(
+      await RegistAccount(id, name, email, num, position, rank, team, 1).then(
         (response) => {
           mail(email, name, id).then(console.log("메일전송완료"));
         },
@@ -104,12 +106,12 @@ export function AccountField() {
       console.log(inputs);
     }
   };
-  const imgUpload = () => {
+  const imgUpload = async () => {
     console.log(file);
     const formData = new FormData();
     formData.append("EMP_ID", Number(num));
     formData.append("FILES", file[0]);
-    updateEmpImg(formData);
+    await updateEmpImg(formData);
   };
   function onDate(dateString) {
     setDate(moment(dateString).format("YYYY/MM/DD"));
@@ -255,12 +257,15 @@ export function AccountField() {
                 custom
                 onChange={(e) => {
                   console.log(e.target.files);
-                  console.log(e.target.files[0].type);
+                  console.log(e.target.files[0].type.substring(0, 5));
                   if (e.target.files.size > 102400000) {
                     setFilecheck(true);
                     return;
                   }
-
+                  if (e.target.files[0].type.substring(0, 5) !== "image") {
+                    setImageCheck(true);
+                    return;
+                  }
                   setInputs((inputs) => ({
                     ...inputs,
                     file: e.target.files,
@@ -277,6 +282,17 @@ export function AccountField() {
                   }}
                 >
                   1024KB를 초과하였습니다.
+                </CAlert>
+              )}
+              {imgCheck && (
+                <CAlert
+                  color="danger"
+                  closeButton
+                  onClick={() => {
+                    setFilecheck(false);
+                  }}
+                >
+                  이미지파일만 등록가능합니다.
                 </CAlert>
               )}
               {file.length === 0 && (
@@ -300,6 +316,8 @@ export function AccountField() {
             color="primary"
             onClick={async () => {
               await onRegist();
+
+              await imgUpload();
             }}
           >
             Submit
@@ -307,18 +325,6 @@ export function AccountField() {
           <CButton type="reset" size="sm" color="danger">
             {" "}
             Reset
-          </CButton>
-
-          <CButton
-            type="reset"
-            size="sm"
-            color="danger"
-            onClick={async () => {
-              await imgUpload();
-            }}
-          >
-            {" "}
-            연습
           </CButton>
         </CCardFooter>
       </CCard>
