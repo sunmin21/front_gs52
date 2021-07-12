@@ -56,6 +56,16 @@ export const SelectTeamWorkTime = async (index) => {
   return worktime;
 };
 
+export const SelectTeamList = async (index) => {
+  const list = await client.post(API_URL + "/insight/selectteamlist", {
+    //사원의 근속일수
+    emp_TEAM_INDEX: index,
+  });
+  console.log(list);
+
+  return list;
+};
+
 // post로 값넘기기
 
 // const login = ({ username, password }) =>
