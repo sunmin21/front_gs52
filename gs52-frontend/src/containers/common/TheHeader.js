@@ -28,6 +28,9 @@ const TheHeader = () => {
   const onLogout = () => {
     logout();
     history.push("/");
+  };  
+  const onMypage = () => {
+    history.push("/Mypage");
   };
 
   const dispatch = useDispatch();
@@ -81,7 +84,7 @@ const TheHeader = () => {
         ) : null}
       </CHeaderNav>
       <CHeaderNav>
-      <CButton style={{ textAlign: "right", margin:"auto"}} variant="ghost" color="dark" onClick={onLogout}>마이페이지</CButton>
+      <CButton style={{ textAlign: "right", margin:"auto"}} variant="ghost" color="dark" onClick={onMypage}>마이페이지</CButton>
         {user !== null ? <CButton style={{ textAlign: "right", margin:"auto", marginRight:"30px"}} variant="ghost" color="dark" onClick={onLogout}>로그아웃</CButton> : null}
       </CHeaderNav>
 
