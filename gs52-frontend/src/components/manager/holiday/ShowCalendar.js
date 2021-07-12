@@ -41,7 +41,6 @@ function ShowCalendar() {
         console.log("삭제취소");
       }
     } else {
-      // console.log("먀우먀우")
       return (
         <Alert message="국가공휴일은 삭제할 수 없습니다" type="warning" showIcon closable />
       )

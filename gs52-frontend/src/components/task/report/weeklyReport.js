@@ -108,9 +108,6 @@ function WeeklyReport() {
   // 없으면 오늘 날자로 타겟팅 !_!
   // lastDate => 추가할때 달력에서 골랐던 마지막 값
   //          => 삭제할때 달력에서 타겟됐던 마지막 값
-  window.onload = function () {
-    showAllReport(new Date());
-  };
   return (
     <CCard>
       <CCardHeader>주간 보고서</CCardHeader>

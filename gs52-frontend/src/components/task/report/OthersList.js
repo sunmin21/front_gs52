@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { CModalBody, CHeader, CCardGroup, CCardBody, CDataTable } from "@coreui/react";
+import { CModalBody, CCardGroup, CCardBody, CDataTable } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { othersreportAxios, nextothersreportAxios } from "src/modules/task/report";
 import { EmpList } from "src/lib/api/task/ReportAPI";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 // 팀원 리스트 불러오기 + 팀원 주간보고 띄우기
 
 const OthersList = ({ check }) => {
     let [empid, setEmpId] = useState();
     let [empname, setEmpName] = useState();
+
+    const user = getCurrentUser();
+    let [emp] = useState(user.index);
 
     const [userContents, setUserContents] = useState([]);
 
@@ -27,7 +31,7 @@ const OthersList = ({ check }) => {
     });
 
     useEffect(() => {
-        EmpList().then((data) => {
+        EmpList(emp).then((data) => {
             setUserContents(
                 data.map((item) => {
                     return {
