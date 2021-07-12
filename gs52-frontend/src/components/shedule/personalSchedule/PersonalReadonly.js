@@ -81,11 +81,20 @@ const Readonly = withDragDropContext((props) => {
         title: item.attend_TYPE_NAME,
         bgColor: "#FA9E95",
       };
-    } else if (item.attend_TYPE_NAME.includes("반차")) {
+    } else if (item.attend_TYPE_NAME.includes("오전반차")) {
       return {
         id: item.attend_INDEX,
-        start: item.attend_DATE,
-        end: moment(startdate).format("YYYY-MM-DD"),
+        start: item.attend_DATE + " 09:00",
+        end: item.attend_DATE + " 13:00",
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+        bgColor: "#DC143C",
+      };
+    } else if (item.attend_TYPE_NAME.includes("오후반차")) {
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE + " 14:00",
+        end: item.attend_DATE + " 19:00",
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
         bgColor: "#DC143C",
@@ -118,7 +127,6 @@ const Readonly = withDragDropContext((props) => {
       };
     }
   });
-
   ///직원 별 회의실 목록
   const confLeader = props.leader.map((item) => ({
     id: item.conf_INDEX,
@@ -239,7 +247,6 @@ const Readonly = withDragDropContext((props) => {
     forceUpdate();
   };
   const eventClicked = (schedulerData, event) => {
-    console.log(event);
     Modal.info({
       title: event.title,
       content: <div>{event.room}</div>,

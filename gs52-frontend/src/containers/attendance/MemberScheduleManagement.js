@@ -77,7 +77,6 @@ const MemberScheduleManagement = () => {
         team: String(data.emp_TEAM_INDEX),
       })),
   }));
-  console.log(data);
   return (
     <>
       <div>

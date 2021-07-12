@@ -18,43 +18,54 @@ const HolidayManagement = React.lazy(() =>
   import("../../containers/manager/holiday/HolidayManagement")
 );
 
+const empInsight = React.lazy(() =>
+  import("../../containers/manager/empInsight/EmpInsightManagement")
+);
+
 const ManagerRoute = [
   {
     path: "/manager/addOptions",
     name: "항목추가",
     component: addOptions,
-    exact:true,
+    exact: true,
   },
   {
     path: "/manager/addAccount",
     name: "계정등록",
     component: addAccount,
-    exact:true,
+    exact: true,
   },
   {
     path: "/manager/VacationManage",
     name: "연차/출장관리",
     component: vacationManage,
-    exact:true,
+    exact: true,
   },
 
   {
     path: "/manager/",
     name: "관리자페이지",
-    exact:true,
+    exact: true,
     component: addAccount,
   },
   {
     path: "/manager/ProjectManage",
     name: "프로젝트관리",
     component: ProjectManagement,
-    exact:true,
+    exact: true,
   },
   {
     path: "/manager/HolidayManagement",
     name: "휴일관리",
     component: HolidayManagement,
-    exact:true,
+    exact: true,
+  },
+
+  {
+    path: "/manager/insight",
+    name: "인사이트",
+    component: empInsight,
+    exact: true,
   },
 ];
 

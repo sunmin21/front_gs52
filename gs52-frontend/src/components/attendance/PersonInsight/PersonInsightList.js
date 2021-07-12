@@ -17,6 +17,10 @@ import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const PersonInsightList = (props) => {
   console.log(props);
+  console.log(Math.floor(192 / 60));
+
+  console.log(192 % 60);
+
   return (
     <>
       <CRow style={{ marginTop: "30px" }}>
@@ -66,8 +70,10 @@ const PersonInsightList = (props) => {
             </CCardHeader>
             <CCardBody>
               <CCardText>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
+                <h3 style={{ textAlign: "right" }}>
+                  {Math.floor(props.worktime[0].emp_WORK_TIME / 60)}시간{" "}
+                  {props.worktime[0].emp_WORK_TIME % 60}분
+                </h3>
               </CCardText>
             </CCardBody>
           </CCard>

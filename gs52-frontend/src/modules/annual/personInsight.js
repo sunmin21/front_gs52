@@ -15,12 +15,15 @@ const [BUSINESS, BUSINESS_SUCCESS, BUSINESS_FAILURE] =
   createRequestActionTypes("annual/BUSINESS"); //타입유형
 const [REPORT, REPORT_SUCCESS, REPORT_FAILURE] =
   createRequestActionTypes("annual/REPORT"); //타입유형
+const [TIME, TIME_SUCCESS, TIME_FAILURE] =
+  createRequestActionTypes("annual/TIME"); //타입유형
 
 export const entrydateAxios = createAction(ENTRYDATE); //리덕스의 액션함수
 export const projectcountAxios = createAction(PROJECTCOUNT); //리덕스의 액션함수
 export const todocountAxios = createAction(TODOCOUNT); //리덕스의 액션함수
 export const businesscountAxios = createAction(BUSINESS); //리덕스의 액션함수
 export const reportcountAxios = createAction(REPORT); //리덕스의 액션함수
+export const worktimeAxios = createAction(TIME); //리덕스의 액션함수
 
 const entrydateSaga = createRequestSaga(ENTRYDATE, API.SelectEmpEntryDate);
 const projectcountSaga = createRequestSaga(
@@ -33,12 +36,15 @@ const businesscountSaga = createRequestSaga(BUSINESS, API.SelectBusinessCount);
 
 const reportcountSaga = createRequestSaga(REPORT, API.SelectReportCount);
 
+const worktimeSaga = createRequestSaga(TIME, API.SelectWorkTime);
+
 export function* PersonInsightSaga2() {
   yield takeLatest(ENTRYDATE, entrydateSaga);
   yield takeLatest(PROJECTCOUNT, projectcountSaga);
   yield takeLatest(TODOCOUNT, todocountSaga);
   yield takeLatest(BUSINESS, businesscountSaga);
   yield takeLatest(REPORT, reportcountSaga);
+  yield takeLatest(TIME, worktimeSaga);
 }
 const initialState = {
   //초기값을 정의
@@ -56,6 +62,9 @@ const initialState = {
 
   reportcount: [],
   reportcountError: null,
+
+  worktime: [],
+  worktimeError: null,
 };
 
 const personInsight = handleActions(
@@ -111,6 +120,17 @@ const personInsight = handleActions(
     [REPORT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       reportcountError: error,
+    }),
+
+    [TIME_SUCCESS]: (state, { payload: worktime }) => ({
+      ...state,
+      worktimeError: null,
+      worktime,
+    }),
+
+    [TIME_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      worktimeError: error,
     }),
   },
   initialState

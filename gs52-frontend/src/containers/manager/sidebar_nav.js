@@ -46,6 +46,13 @@ const _nav = [
     to: "/manager/HolidayManagement",
     icon: "cil-description",
   },
+
+  {
+    _tag: "CSidebarNavItem",
+    name: "인사이트",
+    to: "/manager/insight",
+    icon: "cil-description",
+  },
 ];
 
 export default _nav;

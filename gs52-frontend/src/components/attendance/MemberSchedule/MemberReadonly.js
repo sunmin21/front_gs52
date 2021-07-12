@@ -78,7 +78,7 @@ const Readonly = withDragDropContext((props) => {
         end: moment(startdate).format("YYYY-MM-DD"),
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
-        bgColor: "#FA9E95",
+        //bgColor: "#FA9E95",
       };
     } else if (item.attend_TYPE_NAME.includes("반차")) {
       return {
@@ -111,7 +111,7 @@ const Readonly = withDragDropContext((props) => {
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE,
-        end: moment(startdate).format("YYYY-MM-DD"),
+        end: item.attend_DATE,
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
       };
@@ -127,6 +127,7 @@ const Readonly = withDragDropContext((props) => {
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(selectList.events);
 
+  console.log(selectList);
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {
