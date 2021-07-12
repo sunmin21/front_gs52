@@ -31,7 +31,7 @@ const ProjectTaskTodoDetailInsert = ({
       />
       <CButton
         active
-        color="dark"
+        color={detailIndex === undefined ? "dark" : "info"}
         aria-pressed="true"
         style={{ textAlign: "center", float: "right" }}
         onClick={async () => {

@@ -13,19 +13,9 @@ const ProjectTaskTodo = ({
 
   return (
     <>
-      <TaskTodoModal
-        visible={visible}
-        setVisible={setVisible}
-        projectNo={projectNo}
-        axios={axios}
-        dispatch={dispatch}
-        taskIndex={taskIndex}
-        sum={sum}
-        item={item}
-      />
       <CButton
         active
-        color="dark"
+        color={taskIndex === undefined ? "dark" : "info"}
         aria-pressed="true"
         style={{ textAlign: "center", float: "right" }}
         onClick={async () => {
@@ -38,6 +28,16 @@ const ProjectTaskTodo = ({
         {taskIndex === undefined && "할일 등록"}
         {taskIndex !== undefined && "수정"}
       </CButton>
+      <TaskTodoModal
+        visible={visible}
+        setVisible={setVisible}
+        projectNo={projectNo}
+        axios={axios}
+        dispatch={dispatch}
+        taskIndex={taskIndex}
+        sum={sum}
+        item={item}
+      />
     </>
   );
 };

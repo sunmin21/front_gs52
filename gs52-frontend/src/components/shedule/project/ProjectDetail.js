@@ -15,6 +15,7 @@ import {
 
 import ProjectContent from "./projectDetail/ProjectContent";
 import ProjectTask from "./projectDetail/ProjectTask";
+import ProjectInsite from "./projectDetail/ProjectInsite";
 
 function ShowProject() {
   return (
@@ -32,7 +33,7 @@ function ShowProject() {
                   <CNavLink>업무</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink>완료한 요청</CNavLink>
+                  <CNavLink>인사이트</CNavLink>
                 </CNavItem>
               </CNav>
               <CTabContent>
@@ -42,7 +43,9 @@ function ShowProject() {
                 <CTabPane>
                   <ProjectTask />
                 </CTabPane>
-                <CTabPane></CTabPane>
+                <CTabPane>
+                  <ProjectInsite />
+                </CTabPane>
               </CTabContent>
             </CTabs>
           </CCardBody>
