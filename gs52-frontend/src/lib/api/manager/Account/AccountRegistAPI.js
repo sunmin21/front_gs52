@@ -102,36 +102,44 @@ export const RegistAccount = async (
       first_login,
     })
     .then(() => {
-          alert("회원등록 되었습니다.");
+      alert("회원등록 되었습니다.");
       client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }).catch(function(error){
-      console.log("error")
-      if(error.response){
-        console.log(error.response.data.message)
-        if(error.reponse.data.message=="Error: Email is already in use!"){
-          console.log("이미등록된메일")
+    })
+    .catch(function (error) {
+      console.log("error");
+      if (error.response) {
+        console.log(error.response.data.message);
+        if (error.reponse.data.message == "Error: Email is already in use!") {
+          console.log("이미등록된메일");
           alert("이미 등록된 이메일입니다.");
         }
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log("Error", error.message);
       }
-      else if(error.request){
-        console.log(error.request)
-      }
-      else{
-        console.log('Error', error.message);
-      }
-      console.log(error.config)
-    }
-
-    );
+      console.log(error.config);
+    });
 };
 
-export const mail = async(email, name, id) =>{
-  const title = "[GS52] " + name +"님의 계정정보입니다."
-  const message = "id : "+id+"   pwd:"+id;
-  const regist = await client.post(API_URL + "/mail",{address:email, title:title, message:message}).then(()=>{
-    console.log("전송되었다아아아")
-  })
-}
+export const updateEmpImg = async (file) => {
+  const project = await client.post(API_URL + "/api/auth/updateEmpImg", file, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return project;
+};
+export const mail = async (email, name, id) => {
+  const title = "[GS52] " + name + "님의 계정정보입니다.";
+  const message = "id : " + id + "   pwd:" + id;
+  const regist = await client
+    .post(API_URL + "/mail", { address: email, title: title, message: message })
+    .then(() => {
+      console.log("전송되었다아아아");
+    });
+};
 
 // export const SelectEmp = async () => {
 //   const position = await client.post(API_URL +"/manager/select_emp");
