@@ -52,7 +52,7 @@ function AddHoliday() {
 
     const submit = () => {
         if (title == "") {
-            alert("휴일명을 입력해주세요 !")
+            return "warning"
         }
         else {
             console.log(flag)

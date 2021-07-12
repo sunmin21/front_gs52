@@ -11,14 +11,12 @@ import {
   CSubheader,
   CBreadcrumbRouter,CButton
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 
 // routes config
 import User from "../../route/UserRoute";
 import Admin from "../../route/AdminRoute";
 
 import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
-import { RightCircleFilled } from "@ant-design/icons";
 
 const TheHeader = () => {
   const history = useHistory();
@@ -85,13 +83,6 @@ const TheHeader = () => {
       <CHeaderNav>
         {user !== null ? <CButton style={{ textAlign: "right", margin:"auto", marginRight:"30px"}} variant="ghost" color="dark" onClick={onLogout}>로그아웃</CButton> : null}
       </CHeaderNav>
-      
-      {/* <CHeaderNav className="px-3">
-        <TheHeaderDropdownNotif />
-        <TheHeaderDropdownTasks />
-        <TheHeaderDropdownMssg />
-        <TheHeaderDropdown />
-      </CHeaderNav> */}
 
       <CSubheader className="px-3 justify-content-between">
         <CBreadcrumbRouter
@@ -100,23 +91,6 @@ const TheHeader = () => {
           User: Admin
           }
         />
-        {/* <div className="d-md-down-none mfe-2 c-subheader-nav">
-          <CLink className="c-subheader-nav-link" href="#">
-            <CIcon name="cil-speech" alt="Settings" />
-          </CLink>
-          <CLink
-            className="c-subheader-nav-link"
-            aria-current="page"
-            to="/dashboard"
-          >
-            <CIcon name="cil-graph" alt="Dashboard" />
-            &nbsp;Dashboard
-          </CLink>
-          <CLink className="c-subheader-nav-link" href="#">
-            <CIcon name="cil-settings" alt="Settings" />
-            &nbsp;Settings
-          </CLink>
-        </div> */}
       </CSubheader>
     </CHeader>
   );
