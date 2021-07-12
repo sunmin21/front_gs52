@@ -10,15 +10,12 @@ import { DatePicker } from "antd";
 import "antd/dist/antd.css";
 import moment from "moment";
 
-import { SelectDept, InsertAccount } from "../../../lib/api/manager/Account/AccountRegistAPI";
-import { all } from 'redux-saga/effects';
-
 import { useDispatch, useSelector } from "react-redux";
 import {
-  DeptAxios,RankAxios,PositionAxios
+  TeamAxios,RankAxios,PositionAxios
 } from "src/modules/manager/Account";
 
-import {RegistAccount
+import {RegistAccount,mail
 } from "../../../lib/api/manager/Account/AccountRegistAPI";
 
 export function AccountField() {
@@ -26,31 +23,30 @@ export function AccountField() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(DeptAxios());
+    dispatch(TeamAxios());
     dispatch(RankAxios());
     dispatch(PositionAxios());
   }, [dispatch]);
 
-  const  {dept_list, rank_list,position_list } =
+  const  {team_list, rank_list,position_list } =
     useSelector((state) => {
       return {
-        dept_list: state.account.dept_list,
+        team_list: state.account.team_list,
         rank_list: state.account.rank_list,
         position_list: state.account.position_list,
       };
     });
 
-
+    const [date, setDate] = useState(null);
 	const [inputs, setInputs] = useState({
     name:null,
-		dept:null,
-		rank:null,
-		position:null,
+		team:1,
+		rank:1,
+		position:1,
 		num:null,
-		date:null,
     email:null
 	  })
-	const { name, dept, rank, position, num, date, email} = inputs;
+	const { name, team, rank, position, num , email} = inputs;
 	
 	const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -70,26 +66,39 @@ export function AccountField() {
 	const onRegist=()=>{
 			//{InsertAccount(dept, rank, position, num, date)}
       //    username, email, password, position, rank, team
-      const id = num;
-      console.log(id)   //사원번호
-      console.log(name)   //sunmin
-      console.log(num)    //사원번호
-      RegistAccount(id, name, email, num, position, rank, dept, 1).then(
-        
-        response => {
-          alert("회원등록 되었습니다.");
-        },
-        error => {
-          alert("회원등록 실패하였습니다.");
-          console.log(error)
-        }
-      );
-            console.log(inputs)
 
+      if( num==null){
+        alert("사원번호를 입력하세요")
+      }else if(name==null){
+        alert("이름을 입력하세요")
+      }else if( date==null){
+        alert("입사일을 입력하세요")
+      }else if( email==null){
+        alert("이메일을 입력하세요")
+      }
+      else{
+
+        const id = num;
+        console.log(id)   //사원번호
+        console.log(name)   //sunmin
+        console.log(num)    //사원번호
+        RegistAccount(id, name, email, num, position, rank, team, 1).then(
+          
+          response => {
+            mail(email, name, id).then(
+                console.log("메일전송완료")
+            );
+          },
+          error => {
+            console.log(error)
+          }
+        );
+              console.log(inputs)
+      }
 	}
 
   function onDate(dateString) {
-    console.log(moment(dateString).format("YYYY/MM/DD"))
+    setDate(moment(dateString).format("YYYY/MM/DD"))
   }
 
     return (
@@ -104,7 +113,7 @@ export function AccountField() {
                     <CLabel htmlFor="num">사원번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput id="num" name="num" placeholder="사원 번호 (초기 비밀번호로 설정됩니다.)" 
+                    <CInput id="num" name="num" placeholder="사원 번호 6자리 이상 숫자 (초기 비밀번호로 설정됩니다.)" 
 					            onChange={onChange} value={num||''}/>
                   </CCol>
                 </CFormGroup>
@@ -121,14 +130,14 @@ export function AccountField() {
 
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="dept">부서</CLabel>
+                    <CLabel htmlFor="team">부서</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CSelect onChange={onChange} id="dept" name="dept" defaultValue={dept_list[0]}>
-                    {dept_list.map((dept, idx) => {
+                    <CSelect onChange={onChange} id="team" name="team" defaultValue={team_list[0]}>
+                    {team_list.map((team, idx) => {
                         return (
-                        <option key={idx} value={dept.dept_INDEX} >
-                            {dept.dept_NAME}
+                        <option key={idx} value={team.team_INDEX} defaultValue={team.team_INDEX}>
+                            {team.team_NAME}
                         </option>
                         );
                     })}
@@ -145,7 +154,7 @@ export function AccountField() {
                  <CSelect onChange={onChange} id="rank" name="rank">
                     {rank_list.map((rank, idx) => {
                         return (
-                        <option key={idx} value={rank.rank_INDEX} >
+                        <option key={idx} value={rank.rank_INDEX} defaultValue={rank.rank_INDEX} >
                             {rank.rank_NAME}
                         </option>
                         );
@@ -162,7 +171,7 @@ export function AccountField() {
                  <CSelect onChange={onChange}  id="position" name="position">
                     {position_list.map((position, idx) => {
                         return (
-                        <option key={idx} value={position.position_INDEX} >
+                        <option key={idx} value={position.position_INDEX} defaultValue={position.position_INDEX}>
                             {position.position_NAME}
                         </option>
                         );

@@ -68,7 +68,6 @@ const report = handleActions(
 
         [OTHERSREPORT_SUCCESS]: (state, { payload: othersreport }) =>
         {
-            console.log(othersreport)
             return ({
             ...state,
             othersreportError: null,

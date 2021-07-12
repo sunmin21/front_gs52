@@ -39,12 +39,10 @@ const ProjectTaskTodoModal = ({
   sum,
 }) => {
   const array = [];
-  console.log(sum);
 
   if (item) {
     //업데이트시
-    console.log(item);
-    console.log(sum);
+
     for (let i = 5; i <= item.project_TASK_PERCENT + 100 - sum; i += 5) {
       array.push(i);
     }
@@ -66,10 +64,16 @@ const ProjectTaskTodoModal = ({
   const [check2, setCheck2] = useState(false);
 
   useEffect(() => {
-    if (sum === 100) {
+    if (!item && sum === 100) {
       setContent((content) => ({
         ...content,
         진행도: 0,
+      }));
+    } else {
+      setContent((content) => ({
+        ...content,
+        내용: item ? item.project_TASK_CONTENT : "",
+        진행도: item ? item.project_TASK_PERCENT : sum === 100 ? 0 : 5,
       }));
     }
   }, [visible]);
@@ -185,13 +189,15 @@ const ProjectTaskTodoModal = ({
                 setCheck(true);
                 return;
               }
-              if (sum === 100) {
+              if (!item && sum === 100) {
                 setCheck2(true);
                 return;
               }
               if (taskIndex === undefined) {
+                console.log(projectNo);
                 await InsertProjecTask(content);
                 await dispatch(axios(projectNo));
+                console.log("이거왜안됨?");
               } else {
                 await UpdateProjecTask(content);
                 await dispatch(axios(projectNo));

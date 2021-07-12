@@ -6,21 +6,8 @@ import { proceedingAxios, requestedAxios } from "src/modules/schedule/project/pr
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { UpdateRequested } from "src/lib/api/schedule/ProjectList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-
-const getBadge = (status) => {
-    switch (status) {
-        case "대기중":
-            return "warning";
-        case "수락":
-            return "success";
-        case "거절":
-            return "danger";
-        case "닫기":
-            return "secondary";
-        default:
-        return "primary";
-    }
-};
+import { Button, Badge } from 'antd';
+import 'antd/dist/antd.css';
     
 function Requested({ dispatch }) {
 
@@ -55,13 +42,6 @@ function Requested({ dispatch }) {
         dispatch(requestedAxios(emp));
         dispatch(proceedingAxios(emp));
     }, [dispatch]);
-
-    const Done = {
-        0: "대기중",
-        1: "수락",
-        2: "거절",
-        3: "닫기"
-    };
 
     const data = requested.map((item, key) => ({
         pwindex: item.project_WITH_INDEX,
@@ -109,40 +89,31 @@ function Requested({ dispatch }) {
                         ),
                     상태: (item) => (
                         <td>
-                            <CBadge color={getBadge(Done[item.상태])}>
-                                {Done[item.상태]}
-                            </CBadge>
+                            <Badge status="warning" text="대기중" />
                         </td>
                     ),
                     수락: (item) => (
-                    <td>
-                        <CButton
-                                onClick={async (e) => {
-                                    console.log(item.pwindex)
-                                    await UpdateRequested(item.pwindex, 1, "null");
-                                    await dispatch(requestedAxios(emp));
-                                    await dispatch(proceedingAxios(emp));
-                                }}
-                            >
-                            <CBadge color={getBadge(Done[1])}>
-                                {Done[1]}
-                            </CBadge>
-                        </CButton>
+                    <td className="py-2">
+                        <Button type="primary"
+                            onClick={async (e) => {
+                                console.log(item.pwindex)
+                                await UpdateRequested(item.pwindex, 1, "null");
+                                await dispatch(requestedAxios(emp));
+                                await dispatch(proceedingAxios(emp));
+                            }}
+                        >수락
+                        </Button>
                     </td>
                     ),
-                    거절:
-                    (item, index)=>{
+                    거절: (item, index)=>{
                         return (
                         <td className="py-2">
-                            <CButton onClick={()=>{toggleDetails(index)}}>
-                                {details.includes(index)
-                                ? <CBadge color={getBadge(Done[3])}>
-                                    {Done[3]}
-                                </CBadge>
-                                : <CBadge color={getBadge(Done[2])}>
-                                    {Done[2]}
-                                </CBadge>}
-                            </CButton>
+                            <Button type="primary" danger onClick={()=>{toggleDetails(index)}}>
+                            {details.includes(index)
+                                ? "닫기"
+                                : "거절"
+                            }
+                            </Button>
                         </td>
                         )
                     },
@@ -152,16 +123,16 @@ function Requested({ dispatch }) {
                         <CCollapse show={details.includes(index)}>
                             <CCard>
                                 <CCardBody>
-                                        <CInput placeholder="거절 사유를 적어주세요"
-                                            onChange={handleChange}/>
+                                    <CInput placeholder="거절 사유를 적어주세요"
+                                        onChange={handleChange}/>
                                     <br />
-                                    <CButton size="sm" color="danger" className="ml-1"
+                                    <Button type="primary" danger
                                         onClick={async (e) => {
                                             await UpdateRequested(item.pwindex, 2, text );
                                             await dispatch(requestedAxios(emp));
                                         }}>
                                         거절
-                                    </CButton>
+                                    </Button>
                                 </CCardBody>
                             </CCard>
                         </CCollapse>

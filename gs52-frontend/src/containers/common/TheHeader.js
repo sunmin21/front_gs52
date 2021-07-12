@@ -11,14 +11,12 @@ import {
   CSubheader,
   CBreadcrumbRouter,CButton
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 
 // routes config
 import User from "../../route/UserRoute";
 import Admin from "../../route/AdminRoute";
 
 import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
-import { RightCircleFilled } from "@ant-design/icons";
 
 const TheHeader = () => {
   const history = useHistory();
@@ -76,22 +74,16 @@ const TheHeader = () => {
           <CHeaderNavLink to="/task">업무관리</CHeaderNavLink>
         </CHeaderNavItem>
 
-        {user.roles == "ROLE_ADMIN" ? (
+        {user.roles == "ROLE_ADMIN" || user.roles=="ROLE_TEAMLEADER" ? (
           <CHeaderNavItem className="px-3">
             <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
           </CHeaderNavItem>
         ) : null}
       </CHeaderNav>
       <CHeaderNav>
+      <CButton style={{ textAlign: "right", margin:"auto"}} variant="ghost" color="dark" onClick={onLogout}>마이페이지</CButton>
         {user !== null ? <CButton style={{ textAlign: "right", margin:"auto", marginRight:"30px"}} variant="ghost" color="dark" onClick={onLogout}>로그아웃</CButton> : null}
       </CHeaderNav>
-      
-      {/* <CHeaderNav className="px-3">
-        <TheHeaderDropdownNotif />
-        <TheHeaderDropdownTasks />
-        <TheHeaderDropdownMssg />
-        <TheHeaderDropdown />
-      </CHeaderNav> */}
 
       <CSubheader className="px-3 justify-content-between">
         <CBreadcrumbRouter
@@ -100,23 +92,6 @@ const TheHeader = () => {
           User: Admin
           }
         />
-        {/* <div className="d-md-down-none mfe-2 c-subheader-nav">
-          <CLink className="c-subheader-nav-link" href="#">
-            <CIcon name="cil-speech" alt="Settings" />
-          </CLink>
-          <CLink
-            className="c-subheader-nav-link"
-            aria-current="page"
-            to="/dashboard"
-          >
-            <CIcon name="cil-graph" alt="Dashboard" />
-            &nbsp;Dashboard
-          </CLink>
-          <CLink className="c-subheader-nav-link" href="#">
-            <CIcon name="cil-settings" alt="Settings" />
-            &nbsp;Settings
-          </CLink>
-        </div> */}
       </CSubheader>
     </CHeader>
   );

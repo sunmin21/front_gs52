@@ -41,12 +41,12 @@ console.log(token);
 
 const API_URL = "http://localhost:8081";
 //부서
-export const SelectDept = async () => {
-  const dept = await client.post(API_URL + "/manager/select_dept");
+export const SelectTeam = async () => {
+  const team = await client.post(API_URL + "/manager/select_team");
 
-  console.log("SelectDept API inserrrrrr");
-  console.log(dept.data);
-  return dept;
+  console.log("SelectTeam API inserrrrrr");
+  console.log(team.data);
+  return team;
 };
 
 //직급
@@ -102,13 +102,16 @@ export const RegistAccount = async (
       first_login,
     })
     .then(() => {
+          alert("회원등록 되었습니다.");
       client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }).catch(function(error){
       console.log("error")
       if(error.response){
-        console.log(error.response.data)
-        console.log(error.response.status)
-        console.log(error.response.headers)
+        console.log(error.response.data.message)
+        if(error.reponse.data.message=="Error: Email is already in use!"){
+          console.log("이미등록된메일")
+          alert("이미 등록된 이메일입니다.");
+        }
       }
       else if(error.request){
         console.log(error.request)
@@ -121,6 +124,14 @@ export const RegistAccount = async (
 
     );
 };
+
+export const mail = async(email, name, id) =>{
+  const title = "[GS52] " + name +"님의 계정정보입니다."
+  const message = "id : "+id+"   pwd:"+id;
+  const regist = await client.post(API_URL + "/mail",{address:email, title:title, message:message}).then(()=>{
+    console.log("전송되었다아아아")
+  })
+}
 
 // export const SelectEmp = async () => {
 //   const position = await client.post(API_URL +"/manager/select_emp");

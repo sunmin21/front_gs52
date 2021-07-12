@@ -29,12 +29,12 @@ const ProjectTaskColorModal = ({
   setVisible,
   dispatch,
   axios,
+  axios2,
   projectNo,
   empIndex,
   empcolor,
   withIndex,
 }) => {
-  console.log(withIndex);
   const [color, setColor] = useState(empcolor);
   const colors = [
     "red",
@@ -96,6 +96,8 @@ const ProjectTaskColorModal = ({
             await UpdateProjectWith({ color, withIndex });
 
             await dispatch(axios(projectNo));
+
+            await dispatch(axios2(projectNo));
 
             setVisible(false);
           }}

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
-import { CCard, CCardBody, CCardHeader } from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CAlert } from "@coreui/react";
 import { DeleteHoliday } from "src/lib/api/manager/holiday/HolidayAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { holidayAxios } from "src/modules/manager/holiday";
+
+import styles from './ShowCalendar.module.css';///////////////////////////////////////////////////////////////
 // 국가공휴일 담는 js파일
 import holidaydata from "./HolidayData";
+import { Alert } from 'antd';
+import 'antd/dist/antd.css';
 
 function ShowCalendar() {
   const [events, setEvents] = useState([]);
@@ -37,7 +41,9 @@ function ShowCalendar() {
         console.log("삭제취소");
       }
     } else {
-      alert("국가 공휴일은 삭제할 수 없습니다.");
+      return (
+        <Alert message="국가공휴일은 삭제할 수 없습니다" type="warning" showIcon closable />
+      )
     }
   };
   
@@ -53,22 +59,27 @@ function ShowCalendar() {
   return (
     <CCard>
       <CCardHeader>휴일 설정</CCardHeader>
-      <CCardBody>
+      {/* ------------------------------------------------------------------------------------------- */}
+      <CCardBody className={styles.a}> 
         <div className="calendarBox">
           <FullCalendar
-            // height="600px"
             contentHeight="500px"
             defaultView="dayGridMonth"
             plugins={[daygridPlugin]}
             eventSources={[data, holidaydata]}
-            // events={data}
-            // events={holidaydata}
             eventClick={eventOnclick}
             eventColor="red"
             eventTextColor="white"
             eventDisplay="title"
           />
         </div>
+        {/* <Alert
+          message="Warning"
+          description="This is a warning notice about copywriting."
+          type="warning"
+          showIcon
+          closable
+        /> */}
       </CCardBody>
     </CCard>
   );

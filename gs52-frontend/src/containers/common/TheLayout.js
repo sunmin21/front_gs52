@@ -13,7 +13,7 @@ const TheLayout = (props) => {
   console.log("↓↓↓↓ 현재 로그인한 유저 정보 ↓↓↓↓")
   console.log(user)
 
-  if (location.pathname === "/manager" && user.roles=="ROLE_ADMIN") {
+  if (location.pathname === "/manager" && (user.roles=="ROLE_ADMIN" || user.roles=="ROLE_TEAMLEADER")) {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname === "/schedule") {
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));
