@@ -43,6 +43,9 @@ export const projectFileAxios = createAction(PROJECTFILE, (index) => {
   };
 });
 export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
+  console.log("projectTodoAxios");
+  console.log(index);
+  console.log("??");
   return {
     index,
   };
@@ -50,6 +53,7 @@ export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
 export const projectTodoDetailAxios = createAction(
   PROJECTTODODETAIL,
   (index) => {
+    console.log("projectTodoDetailAxios");
     return {
       index,
     };

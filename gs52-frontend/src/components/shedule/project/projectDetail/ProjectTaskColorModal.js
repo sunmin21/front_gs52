@@ -29,6 +29,7 @@ const ProjectTaskColorModal = ({
   setVisible,
   dispatch,
   axios,
+  axios2,
   projectNo,
   empIndex,
   empcolor,
@@ -95,6 +96,8 @@ const ProjectTaskColorModal = ({
             await UpdateProjectWith({ color, withIndex });
 
             await dispatch(axios(projectNo));
+
+            await dispatch(axios2(projectNo));
 
             setVisible(false);
           }}

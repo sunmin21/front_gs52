@@ -194,8 +194,10 @@ const ProjectTaskTodoModal = ({
                 return;
               }
               if (taskIndex === undefined) {
+                console.log(projectNo);
                 await InsertProjecTask(content);
                 await dispatch(axios(projectNo));
+                console.log("이거왜안됨?");
               } else {
                 await UpdateProjecTask(content);
                 await dispatch(axios(projectNo));

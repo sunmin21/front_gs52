@@ -43,6 +43,9 @@ export const UpdateProjectWith = async ({ color, withIndex }) => {
 };
 
 export const SelectTask = async ({ index }) => {
+  console.log("이거안가?@?");
+  console.log("무슨차이야 ㅡㅡ");
+
   const project = await client.post(API_URL + "/schedule/project/selectTask", {
     project_INDEX: index,
   });
@@ -122,6 +125,30 @@ export const InsertProjecTaskDetail = async ({
 
   return project;
 };
+export const UpdateProjecTaskDetail = async ({
+  task인덱스,
+  detail인덱스,
+  담당자,
+  내용,
+  진행도,
+  인덱스,
+}) => {
+  console.log(task인덱스 + "  " + 담당자 + "  " + 내용 + "  " + 진행도);
+  const project = await client.post(
+    API_URL + "/schedule/project/updateprojectTaskDetail",
+    {
+      project_TASK_DETAIL_INDEX: detail인덱스,
+      project_TASK_INDEX: task인덱스,
+      project_TASK_DETAIL_CONTENT: 내용,
+      project_TASK_DETAIL_PERCENT: 진행도,
+      project_TASK_DETAIL_EMP: 담당자,
+      project_INDEX: 인덱스,
+    }
+  );
+
+  return project;
+};
+
 export const UpdateProjecTaskDetailSuccess = async ({ index, success }) => {
   console.log(success);
   console.log("타냐");
