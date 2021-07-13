@@ -65,8 +65,6 @@ const ProjectTaskTodoModal = ({
   //     )[0].dept_NAME
   //   );
   // }
-  console.log(item);
-  console.log(projectWith);
   const [content, setContent] = useState({
     인덱스: projectNo,
     task인덱스: taskIndex,
@@ -288,12 +286,10 @@ const ProjectTaskTodoModal = ({
               }
 
               if (detailIndex === undefined) {
-                console.log("넣는중?");
                 await InsertProjecTaskDetail(content);
                 await dispatch(axios(projectNo));
                 await dispatch(axios2(projectNo));
               } else {
-                console.log("업데이트하는중?");
                 await UpdateProjecTaskDetail(content);
                 await dispatch(axios(projectNo));
                 await dispatch(axios2(projectNo));

@@ -29,6 +29,7 @@ import {
   DeleteProjecTaskAll,
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
+  UpdateProjectWithScore,
 } from "src/lib/api/schedule/Project";
 
 const ProjectTask = () => {
@@ -82,8 +83,7 @@ const ProjectTask = () => {
 
   // console.log(...projectTodoDetail.map((a, key) => key));
   // console.log("에에");
-  console.log(projectTodo);
-  console.log(check);
+
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -96,7 +96,7 @@ const ProjectTask = () => {
                 <CLabel htmlFor="date-input">프로젝트 인원</CLabel>
               </CCol>
 
-              <CCol xs="6" md="2">
+              <CCol xs="6" md="3">
                 <ColorModal
                   key={"zxcbqw" + projectNo}
                   visible={visible}
@@ -148,14 +148,14 @@ const ProjectTask = () => {
                                   item.project_WITH_EMP_INDEX
                               )[0].team_NAME + "\n"}
                             {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
+                              item.project_WITH_EMP_INDEX && "리더 "}
                             {item.emp_NAME}
                           </CButton>
                         </div>
                       );
                   })}
               </CCol>
-              <CCol xs="6" md="2">
+              <CCol xs="6" md="3">
                 {projectWith &&
                   projectWith.map((item, key) => {
                     if (key % 3 === 1)
@@ -196,14 +196,14 @@ const ProjectTask = () => {
                                   item.project_WITH_EMP_INDEX
                               )[0].team_NAME + "\n"}
                             {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
+                              item.project_WITH_EMP_INDEX && "리더 "}
                             {item.emp_NAME}
                           </CButton>
                         </div>
                       );
                   })}
               </CCol>
-              <CCol xs="6" md="2">
+              <CCol xs="6" md="3">
                 {projectWith &&
                   projectWith.map((item, key) => {
                     if (key % 3 === 2) {
@@ -243,7 +243,7 @@ const ProjectTask = () => {
                                   item.project_WITH_EMP_INDEX
                               )[0].team_NAME + "\n"}
                             {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
+                              item.project_WITH_EMP_INDEX && "리더 "}
                             {item.emp_NAME}
                           </CButton>
                         </div>
@@ -364,6 +364,9 @@ const ProjectTask = () => {
                                     name={item2.project_TASK_DETAIL_CONTENT}
                                     key={"@#!$@!$!" + key + "!@4"}
                                     onChange={async (e) => {
+                                      console.log(item2);
+                                      console.log(item);
+                                      console.log();
                                       if (check[key] === 1) {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {
@@ -379,13 +382,27 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 0,
                                         });
+
+                                        await UpdateProjectWithScore({
+                                          index: item2.project_TASK_DETAIL_EMP,
+                                          projectIndex: item2.project_INDEX,
+                                          score:
+                                            projectWith.filter(
+                                              (person) =>
+                                                person.project_WITH_EMP_INDEX ===
+                                                item2.project_TASK_DETAIL_EMP
+                                            )[0].project_WITH_SCORE -
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100,
+                                        });
                                         await dispatch(
                                           projectTodoAxios(projectNo)
                                         );
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
                                         );
-                                        console.log("너타냐?1232324");
+                                        dispatch(projectWithAxios(projectNo));
                                       } else {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {
@@ -402,12 +419,27 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 1,
                                         });
+
+                                        await UpdateProjectWithScore({
+                                          index: item2.project_TASK_DETAIL_EMP,
+                                          projectIndex: item2.project_INDEX,
+                                          score:
+                                            projectWith.filter(
+                                              (person) =>
+                                                person.project_WITH_EMP_INDEX ===
+                                                item2.project_TASK_DETAIL_EMP
+                                            )[0].project_WITH_SCORE +
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100,
+                                        });
                                         await dispatch(
                                           projectTodoAxios(projectNo)
                                         );
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
                                         );
+                                        dispatch(projectWithAxios(projectNo));
                                       }
                                     }}
                                     checked={check[key] === 1}

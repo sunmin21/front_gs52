@@ -10,13 +10,14 @@ import {
   CCarouselItem,
 } from "@coreui/react";
 import { Carousel } from "antd";
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PersonInsightList from "src/components/attendance/PersonInsight/PersonInsightList";
 
 import TeamInsightList from "src/components/shedule/TeamInsight/TeamInsightList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { personinsightAxios } from "src/modules/annual/personInsight";
 
 import {
   businessAxios,
@@ -46,10 +47,11 @@ const PersonInsight = () => {
 
   const dispatch = useDispatch();
 
+  //const teamlist0 = teamlist.map((item) => item.emp_INDEX);
   const teamlist0 = teamlist.map((item) => ({
     emp_INDEX: item.emp_INDEX,
+    emp_NAME: item.emp_NAME,
   }));
-
   useEffect(() => {
     dispatch(entrydateAxios(EMP_INDEX.team));
     dispatch(projectAxios(EMP_INDEX.team));
@@ -58,7 +60,19 @@ const PersonInsight = () => {
     dispatch(reportAxios(EMP_INDEX.team));
     dispatch(worktimeAxios(EMP_INDEX.team));
     dispatch(listAxios(EMP_INDEX.team));
+    dispatch(personinsightAxios());
   }, [dispatch, EMP_INDEX.team]);
+
+  console.log(teamlist0);
+  //////////////////////////////////////////////////////////////personInsight
+
+  const { personinsight } = useSelector((state) => {
+    console.log(state);
+    return {
+      personinsight: state.personInsight.personinsight,
+    };
+  });
+
   return (
     <div>
       <div class="row">
@@ -92,20 +106,24 @@ const PersonInsight = () => {
               <CCarousel animate autoSlide={3000}>
                 <CCarouselIndicators />
                 <CCarouselInner>
-                  {teamlist0.map((item) => {
-                    return (
-                      <CCarouselItem>
-                        <CCarouselCaption>
-                          <h3>Slide {item.emp_INDEX}</h3>
-                          <p>Slide {item.emp_INDEX}</p>
-                        </CCarouselCaption>
-                        <PersonInsightList
-                          EMP_INDEX={item.emp_INDEX}
-                          key={item}
-                        ></PersonInsightList>
-                      </CCarouselItem>
-                    );
-                  })}
+                  {personinsight.length !== 0
+                    ? teamlist0.map((item) => (
+                        <CCarouselItem>
+                          <PersonInsightList
+                            EMP_INDEX={item.emp_INDEX}
+                            personinsight={personinsight}
+                          ></PersonInsightList>
+                          <hr />
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                          <CCarouselCaption>
+                            <h2>{item.emp_NAME}</h2>
+                          </CCarouselCaption>
+                        </CCarouselItem>
+                      ))
+                    : null}
                 </CCarouselInner>
                 <CCarouselControl direction="prev" />
                 <CCarouselControl direction="next" />

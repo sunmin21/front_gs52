@@ -16,8 +16,6 @@ import {
 import CIcon from "@coreui/icons-react";
 import Sidebar_Header from "../../components/main/sidebar/Sidebar_Header";
 
-// sidebar nav config
-
 const TheSidebar = ({ nav }) => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.changeState.sidebarShow);
