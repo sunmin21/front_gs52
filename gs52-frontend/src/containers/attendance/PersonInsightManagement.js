@@ -17,8 +17,8 @@ const PersonInsight = (props) => {
   });
 
   useEffect(() => {
-    dispatch(personinsightAxios(EMP_INDEX.index));
-  }, [dispatch, EMP_INDEX.index]);
+    dispatch(personinsightAxios());
+  }, [dispatch]);
 
   return (
     <div class="container">
