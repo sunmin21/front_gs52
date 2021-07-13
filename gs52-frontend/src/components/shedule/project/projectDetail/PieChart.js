@@ -1,6 +1,6 @@
 import React from "react";
 import { Pie, measureTextWidth } from "@ant-design/charts";
-const PieChart = () => {
+const PieChart = ({ projectWith }) => {
   function renderStatistic(containerWidth, text, style) {
     var _measureTextWidth = (0, measureTextWidth)(text, style),
       textWidth = _measureTextWidth.width,
@@ -25,31 +25,12 @@ const PieChart = () => {
       .concat(scale < 1 ? 1 : "inherit", ';">')
       .concat(text, "</div>");
   }
+
   var data = [
-    {
-      type: "分类一",
-      value: 27,
-    },
-    {
-      type: "分类二",
-      value: 25,
-    },
-    {
-      type: "分类三",
-      value: 18,
-    },
-    {
-      type: "分类四",
-      value: 15,
-    },
-    {
-      type: "分类五",
-      value: 10,
-    },
-    {
-      type: "其他",
-      value: 5,
-    },
+    ...projectWith.map((item) => ({
+      type: item.emp_NAME,
+      value: item.project_WITH_SCORE,
+    })),
   ];
   var config = {
     appendPadding: 10,
@@ -61,7 +42,7 @@ const PieChart = () => {
     meta: {
       value: {
         formatter: function formatter(v) {
-          return "".concat(v, " \xA5");
+          return "".concat(v, "\xA5");
         },
       },
     },
@@ -80,7 +61,7 @@ const PieChart = () => {
             width = _container$getBoundin.width,
             height = _container$getBoundin.height;
           var d = Math.sqrt(Math.pow(width / 2, 2) + Math.pow(height / 2, 2));
-          var text = datum ? datum.type : "总计";
+          var text = datum ? datum.type : "전체";
           return renderStatistic(d, text, { fontSize: 28 });
         },
       },

@@ -1,19 +1,18 @@
 import React, { useEffect, useRef } from "react";
 import { CCard, CCardBody, CCol, CContainer, CRow } from "@coreui/react";
-
-import Calendar from "src/components/main/Calendar/MyCalendar";
+import MyCalendar from "src/components/main/Calendar/MyCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 import AnnualCard from "src/components/main/annual/annual";
 import { empvacationAxios } from "src/modules/annual/annual";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import TimeProgress from "src/components/main/worktime/TimeProgress";
+import Notice from "src/components/main/notice/Notice";
 
 const Main = () => {
   const dispatch = useDispatch();
   const vacation_EMP_INDEX = getCurrentUser();
-
-  const Notice = React.lazy(() => import("src/components/main/notice/Notice"));
+  // const Notice = React.lazy(() => import("src/components/main/notice/Notice"));
   const notice = useSelector((state) => state.main.notice);
   useEffect(() => {
     dispatch(noticeAxios());
@@ -50,7 +49,7 @@ const Main = () => {
             <Notice content={notice} />
           </CCol>
           <CCol>
-            <Calendar />
+            <MyCalendar/>
           </CCol>
         </CRow>
       </CContainer>

@@ -6,13 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { calendarAxios, calendarAxios2, calendarAxios3 } from "src/modules/main/Calendar";
 
-function DetailCalendar() {
+function MyCalendar() {
 
   const user = getCurrentUser();
   let [emp] = useState(user.index);
   
   const dispatch = useDispatch();
-
   const { mycalendar } = useSelector((state) => {
     return {
       mycalendar: state.myCalendar.calendar,
@@ -20,7 +19,6 @@ function DetailCalendar() {
   })
 
   const { mycalendar2 } = useSelector((state) => {
-    console.log(state)
     return {
       mycalendar2: state.myCalendar.calendar2,
     }
@@ -62,17 +60,19 @@ function DetailCalendar() {
   return (
     <CCard>
       <CCardBody>
-        <FullCalendar
-          contentHeight="385px"
-          plugins={[daygridPlugin]}
-          defaultView="dayGridMonth"
-          eventSources={[data, data2, data3]}
-          eventColor="#2e88ff"
-          eventTextColor="white"
-          eventDisplay="title"
-        />
+        <div className="calendarBox">
+          <FullCalendar
+            contentHeight="385px"
+            plugins={[daygridPlugin]}
+            defaultView="dayGridMonth"
+            eventSources={[data, data2, data3]}
+            eventColor="#2e88ff"
+            eventTextColor="white"
+            eventDisplay="title"
+          />
+        </div>
       </CCardBody>
     </CCard>
   );
 }
-export default DetailCalendar;
+export default MyCalendar;
