@@ -64,10 +64,11 @@ function DetailCalendar() {
       <CCardBody>
         <FullCalendar
           contentHeight="385px"
-          defaultView="dayGridMonth"
           plugins={[daygridPlugin]}
-          // events={data2}
+          defaultView="dayGridMonth"
           eventSources={[data, data2, data3]}
+          eventColor="#2e88ff"
+          eventTextColor="white"
           eventDisplay="title"
         />
       </CCardBody>

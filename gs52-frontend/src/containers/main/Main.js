@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { CCard, CCardBody, CCol, CContainer, CRow } from "@coreui/react";
 
-import TabCalendar from "src/components/main/Calendar/MyCalendar";
+import Calendar from "src/components/main/Calendar/MyCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 import AnnualCard from "src/components/main/annual/annual";
@@ -50,7 +50,7 @@ const Main = () => {
             <Notice content={notice} />
           </CCol>
           <CCol>
-            <TabCalendar />
+            <Calendar />
           </CCol>
         </CRow>
       </CContainer>
