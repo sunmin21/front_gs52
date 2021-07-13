@@ -30,7 +30,7 @@ import {
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
 } from "src/lib/api/schedule/Project";
-import PieChart from "./PieChart";
+//import PieChart from "./PieChart"
 
 const ProjectInsite = () => {
   const dispatch = useDispatch();
@@ -118,7 +118,7 @@ const ProjectInsite = () => {
                     },
                   }}
                 /> */}
-                <PieChart />
+                {/* <PieChart />*/}
               </CCol>
             </CFormGroup>
             <CFormGroup row>
