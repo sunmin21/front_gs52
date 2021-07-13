@@ -96,7 +96,7 @@ const ProjectTask = () => {
                 <CLabel htmlFor="date-input">프로젝트 인원</CLabel>
               </CCol>
 
-              <CCol xs="6" md="2">
+              <CCol xs="6" md="3">
                 <ColorModal
                   key={"zxcbqw" + projectNo}
                   visible={visible}
@@ -155,7 +155,7 @@ const ProjectTask = () => {
                       );
                   })}
               </CCol>
-              <CCol xs="6" md="2">
+              <CCol xs="6" md="3">
                 {projectWith &&
                   projectWith.map((item, key) => {
                     if (key % 3 === 1)
@@ -203,7 +203,7 @@ const ProjectTask = () => {
                       );
                   })}
               </CCol>
-              <CCol xs="6" md="2">
+              <CCol xs="6" md="3">
                 {projectWith &&
                   projectWith.map((item, key) => {
                     if (key % 3 === 2) {
@@ -382,16 +382,7 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 0,
                                         });
-                                        console.log(
-                                          projectWith.filter(
-                                            (person) =>
-                                              person.project_WITH_EMP_INDEX ===
-                                              item2.project_TASK_DETAIL_EMP
-                                          )[0].project_WITH_SCORE -
-                                            (item.project_TASK_PERCENT *
-                                              item2.project_TASK_DETAIL_PERCENT) /
-                                              100
-                                        );
+
                                         await UpdateProjectWithScore({
                                           index: item2.project_TASK_DETAIL_EMP,
                                           projectIndex: item2.project_INDEX,
@@ -411,6 +402,7 @@ const ProjectTask = () => {
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
                                         );
+                                        dispatch(projectWithAxios(projectNo));
                                       } else {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {
@@ -427,16 +419,7 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 1,
                                         });
-                                        console.log(
-                                          projectWith.filter(
-                                            (person) =>
-                                              person.project_WITH_EMP_INDEX ===
-                                              item2.project_TASK_DETAIL_EMP
-                                          )[0].project_WITH_SCORE +
-                                            (item.project_TASK_PERCENT *
-                                              item2.project_TASK_DETAIL_PERCENT) /
-                                              100
-                                        );
+
                                         await UpdateProjectWithScore({
                                           index: item2.project_TASK_DETAIL_EMP,
                                           projectIndex: item2.project_INDEX,
@@ -456,6 +439,7 @@ const ProjectTask = () => {
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
                                         );
+                                        dispatch(projectWithAxios(projectNo));
                                       }
                                     }}
                                     checked={check[key] === 1}
