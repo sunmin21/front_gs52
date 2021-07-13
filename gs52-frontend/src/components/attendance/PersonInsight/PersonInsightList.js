@@ -14,13 +14,19 @@ import CIcon from "@coreui/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 
 const PersonInsightList = (props) => {
-  // console.log(props.personinsight[0].emp_ENTRY_COUNT);
-  // console.log(props.personinsight[0].emp_ENTRY_DATE);
-  // console.log(props.personinsight[0].emp_PROJECT_COUNT);
-  // console.log(props.personinsight[0].emp_REPORT_COUNT);
-  // console.log(props.personinsight[0].emp_TODO_COUNT);
-  // console.log(props.personinsight[0].emp_BUSINESS_COUNT);
-  // console.log(props.personinsight[0].emp_WORK_TIME);
+  const data = props.personinsight
+    .filter((item) => props.EMP_INDEX === item.emp_INDEX)
+    .map((item) => ({
+      emp_BUSINESS_COUNT: item.emp_BUSINESS_COUNT,
+      emp_ENTRY_COUNT: item.emp_ENTRY_COUNT,
+      emp_ENTRY_DATE: item.emp_ENTRY_DATE,
+      emp_INDEX: item.emp_INDEX,
+      emp_PROJECT_COUNT: item.emp_PROJECT_COUNT,
+      emp_REPORT_COUNT: item.emp_REPORT_COUNT,
+      emp_TODO_COUNT: item.emp_TODO_COUNT,
+      emp_WORK_TIME: item.emp_WORK_TIME,
+      emp_NAME: item.emp_NAME,
+    }));
 
   return (
     <>
@@ -45,10 +51,10 @@ const PersonInsightList = (props) => {
               {
                 <CCardText>
                   <h3 style={{ textAlign: "right" }}>
-                    입사일 : {props.personinsight[0].emp_ENTRY_DATE}
+                    입사일 : {data[0].emp_ENTRY_DATE}
                   </h3>
                   <h3 style={{ textAlign: "right" }}>
-                    {props.personinsight[0].emp_ENTRY_COUNT}일
+                    {data[0].emp_ENTRY_COUNT}일
                   </h3>
                 </CCardText>
               }
@@ -74,8 +80,8 @@ const PersonInsightList = (props) => {
             <CCardBody>
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
-                  {Math.floor(props.personinsight[0].emp_WORK_TIME / 60)}시간{" "}
-                  {Math.floor(props.personinsight[0].emp_WORK_TIME % 60)}분
+                  {Math.floor(data[0].emp_WORK_TIME / 60)}시간{" "}
+                  {Math.floor(data[0].emp_WORK_TIME % 60)}분
                 </h3>
               </CCardText>
             </CCardBody>
@@ -97,7 +103,7 @@ const PersonInsightList = (props) => {
             <CCardBody>
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
-                  {props.personinsight[0].emp_PROJECT_COUNT}개
+                  {data[0].emp_PROJECT_COUNT}개
                 </h3>
               </CCardText>
             </CCardBody>
@@ -121,7 +127,7 @@ const PersonInsightList = (props) => {
             <CCardBody>
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
-                  {props.personinsight[0].emp_TODO_COUNT}개
+                  {data[0].emp_TODO_COUNT}개
                 </h3>
               </CCardText>
             </CCardBody>
@@ -144,7 +150,7 @@ const PersonInsightList = (props) => {
             <CCardBody>
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
-                  {props.personinsight[0].emp_BUSINESS_COUNT}회
+                  {data[0].emp_BUSINESS_COUNT}회
                 </h3>
               </CCardText>
             </CCardBody>
@@ -167,7 +173,7 @@ const PersonInsightList = (props) => {
             <CCardBody>
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
-                  {props.personinsight[0].emp_REPORT_COUNT}회
+                  {data[0].emp_REPORT_COUNT}회
                 </h3>
               </CCardText>
             </CCardBody>

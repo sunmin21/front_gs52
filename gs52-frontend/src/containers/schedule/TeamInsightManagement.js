@@ -47,10 +47,11 @@ const PersonInsight = () => {
 
   const dispatch = useDispatch();
 
+  //const teamlist0 = teamlist.map((item) => item.emp_INDEX);
   const teamlist0 = teamlist.map((item) => ({
     emp_INDEX: item.emp_INDEX,
+    emp_NAME: item.emp_NAME,
   }));
-
   useEffect(() => {
     dispatch(entrydateAxios(EMP_INDEX.team));
     dispatch(projectAxios(EMP_INDEX.team));
@@ -59,8 +60,10 @@ const PersonInsight = () => {
     dispatch(reportAxios(EMP_INDEX.team));
     dispatch(worktimeAxios(EMP_INDEX.team));
     dispatch(listAxios(EMP_INDEX.team));
+    dispatch(personinsightAxios());
   }, [dispatch, EMP_INDEX.team]);
 
+  console.log(teamlist0);
   //////////////////////////////////////////////////////////////personInsight
 
   const { personinsight } = useSelector((state) => {
@@ -68,11 +71,6 @@ const PersonInsight = () => {
     return {
       personinsight: state.personInsight.personinsight,
     };
-  });
-
-  const date = teamlist0.map((item) => {
-    //dispatch(personinsightAxios(item.emp_INDEX));
-    console.log(personinsight);
   });
 
   return (
@@ -108,18 +106,24 @@ const PersonInsight = () => {
               <CCarousel animate autoSlide={3000}>
                 <CCarouselIndicators />
                 <CCarouselInner>
-                  <CCarouselItem>
-                    <CCarouselCaption>
-                      <h3>Slide</h3>
-                      <p>Slide </p>
-                    </CCarouselCaption>
-                    {personinsight.length !== 0 ? (
-                      <PersonInsightList
-                        EMP_INDEX={EMP_INDEX.index}
-                        personinsight={personinsight}
-                      ></PersonInsightList>
-                    ) : null}
-                  </CCarouselItem>
+                  {personinsight.length !== 0
+                    ? teamlist0.map((item) => (
+                        <CCarouselItem>
+                          <PersonInsightList
+                            EMP_INDEX={item.emp_INDEX}
+                            personinsight={personinsight}
+                          ></PersonInsightList>
+                          <hr />
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                          <CCarouselCaption>
+                            <h2>{item.emp_NAME}</h2>
+                          </CCarouselCaption>
+                        </CCarouselItem>
+                      ))
+                    : null}
                 </CCarouselInner>
                 <CCarouselControl direction="prev" />
                 <CCarouselControl direction="next" />

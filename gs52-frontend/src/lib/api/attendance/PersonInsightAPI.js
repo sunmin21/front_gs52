@@ -56,10 +56,9 @@ export const SelectWorkTime = async (index) => {
   return time;
 };
 
-export const SelectPersonInsight = async (index) => {
+export const SelectPersonInsight = async () => {
   const insight = await client.post(API_URL + "/insight/selectpersoninsight", {
     //사원의 근속일수
-    emp_INDEX: index,
   });
 
   return insight;
