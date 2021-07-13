@@ -317,7 +317,7 @@ const ProjectCreate = () => {
                   <CLabel htmlFor="date-input">참여원 선택</CLabel>
                 </CCol>
 
-                <CCol xs="6" md="2">
+                <CCol xs="6" md="3">
                   {data.map((content, key) => {
                     console.log(key);
                     if (key === 0) {
@@ -361,7 +361,7 @@ const ProjectCreate = () => {
                     }
                   })}
                 </CCol>
-                <CCol xs="6" md="2">
+                <CCol xs="6" md="3">
                   {data.map((content, key) => {
                     if (key % 2 === 1) {
                       return (

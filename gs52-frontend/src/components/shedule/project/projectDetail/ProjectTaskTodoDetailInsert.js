@@ -11,6 +11,7 @@ const ProjectTaskTodoDetailInsert = ({
   projectWith,
   sum,
   detailIndex,
+  todo,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -26,6 +27,7 @@ const ProjectTaskTodoDetailInsert = ({
         axios2={axios2}
         dispatch={dispatch}
         item={item}
+        todo={todo}
         sum={sum}
         detailIndex={detailIndex}
       />

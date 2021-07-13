@@ -92,7 +92,7 @@ const ProjectTask = () => {
 
           <CCardBody>
             <CFormGroup row>
-              <CCol md="3">
+              <CCol md="2">
                 <CLabel htmlFor="date-input">프로젝트 인원</CLabel>
               </CCol>
 
@@ -289,6 +289,24 @@ const ProjectTask = () => {
                               "%)"}
                           </h5>
                         </CButton>
+                        <ProjectTaskTodoInsert //업데이트
+                          projectNo={projectNo}
+                          axios={projectTodoAxios}
+                          dispatch={dispatch}
+                          taskIndex={item.project_TASK_INDEX}
+                          detail={projectTodoDetail.filter(
+                            (item2) =>
+                              item2.project_TASK_INDEX ===
+                              item.project_TASK_INDEX
+                          )}
+                          item={item}
+                          sum={
+                            projectTodo.length !== 0
+                              ? projectTodo[0].percent_SUM
+                              : 0
+                          }
+                          projectWith={projectWith}
+                        ></ProjectTaskTodoInsert>
                         <CButton //삭제
                           active
                           color="danger"
@@ -305,18 +323,7 @@ const ProjectTask = () => {
                         >
                           삭제
                         </CButton>
-                        <ProjectTaskTodoInsert //업데이트
-                          projectNo={projectNo}
-                          axios={projectTodoAxios}
-                          dispatch={dispatch}
-                          taskIndex={item.project_TASK_INDEX}
-                          item={item}
-                          sum={
-                            projectTodo.length !== 0
-                              ? projectTodo[0].percent_SUM
-                              : 0
-                          }
-                        ></ProjectTaskTodoInsert>
+
                         <ProjectTaskTodoInsertDetail //디테일등록
                           projectNo={projectNo}
                           projectWith={projectWith}
@@ -364,9 +371,6 @@ const ProjectTask = () => {
                                     name={item2.project_TASK_DETAIL_CONTENT}
                                     key={"@#!$@!$!" + key + "!@4"}
                                     onChange={async (e) => {
-                                      console.log(item2);
-                                      console.log(item);
-                                      console.log();
                                       if (check[key] === 1) {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {
@@ -419,7 +423,27 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 1,
                                         });
-
+                                        console.log(
+                                          projectWith.filter(
+                                            (person) =>
+                                              person.project_WITH_EMP_INDEX ===
+                                              item2.project_TASK_DETAIL_EMP
+                                          )[0].project_WITH_SCORE
+                                        );
+                                        console.log(item.project_TASK_PERCENT);
+                                        console.log(
+                                          item2.project_TASK_DETAIL_PERCENT
+                                        );
+                                        console.log(
+                                          projectWith.filter(
+                                            (person) =>
+                                              person.project_WITH_EMP_INDEX ===
+                                              item2.project_TASK_DETAIL_EMP
+                                          )[0].project_WITH_SCORE +
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100
+                                        );
                                         await UpdateProjectWithScore({
                                           index: item2.project_TASK_DETAIL_EMP,
                                           projectIndex: item2.project_INDEX,
@@ -456,6 +480,7 @@ const ProjectTask = () => {
                                       item2.project_TASK_DETAIL_INDEX
                                     }
                                     item={item2}
+                                    todo={item}
                                     sum={item.detail_SUM}
                                   ></ProjectTaskTodoInsertDetail>
                                   <CButton //삭제
