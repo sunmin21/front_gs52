@@ -30,16 +30,12 @@ import {
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
 } from "src/lib/api/schedule/Project";
-import { CChartPie } from "@coreui/react-chartjs";
+import PieChart from "./PieChart";
 
 const ProjectInsite = () => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
-  const dispatch = useDispatch();
-  const [content, setContent] = useState({
-    empColor: "",
-    withIndex: "",
-  });
   const [userData, setUserData] = useState();
 
   const { projectNo, projectWith, projectTodo, projectTodoDetail } =
@@ -54,6 +50,10 @@ const ProjectInsite = () => {
       };
     });
 
+  const [content, setContent] = useState({
+    empColors: [...projectWith.map((item) => item.project_WITH_COLOR)],
+    withIndex: "",
+  });
   const [click, setClick] = useState(false);
   const [clickContent, setClickContent] = useState("");
 
@@ -83,7 +83,9 @@ const ProjectInsite = () => {
 
   // console.log(...projectTodoDetail.map((a, key) => key));
   // console.log("에에");
+  console.log(projectWith);
   console.log(projectTodo);
+
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -96,26 +98,27 @@ const ProjectInsite = () => {
                 <CLabel htmlFor="date-input">프로젝트 기여도</CLabel>
               </CCol>
 
-              <CCol xs="6" md="6">
-                <CChartPie
+              <CCol xs="6" md="8">
+                {/* <CChartPie
                   datasets={[
                     {
                       backgroundColor: [
-                        "#41B883",
-                        "#E46651",
-                        "#00D8FF",
-                        "#DD1B16",
+                        ...projectWith.map((item) => item.project_WITH_COLOR),
                       ],
-                      data: [40, 20, 80, 10],
+                      data: [
+                        ...projectWith.map((item) => item.project_WITH_SCORE),
+                      ],
                     },
-                  ]}
-                  labels={["VueJs", "EmberJs", "ReactJs", "AngularJs"]}
+                  ]}   
+                  labels={[...projectWith.map((item) => item.emp_NAME)]}
                   options={{
                     tooltips: {
                       enabled: true,
+
                     },
                   }}
-                />
+                /> */}
+                <PieChart />
               </CCol>
             </CFormGroup>
             <CFormGroup row>

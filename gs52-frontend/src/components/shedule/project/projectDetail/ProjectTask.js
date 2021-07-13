@@ -29,6 +29,7 @@ import {
   DeleteProjecTaskAll,
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
+  UpdateProjectWithScore,
 } from "src/lib/api/schedule/Project";
 
 const ProjectTask = () => {
@@ -363,6 +364,9 @@ const ProjectTask = () => {
                                     name={item2.project_TASK_DETAIL_CONTENT}
                                     key={"@#!$@!$!" + key + "!@4"}
                                     onChange={async (e) => {
+                                      console.log(item2);
+                                      console.log(item);
+                                      console.log();
                                       if (check[key] === 1) {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {
@@ -377,6 +381,19 @@ const ProjectTask = () => {
                                           index:
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 0,
+                                        });
+                                        await UpdateProjectWithScore({
+                                          index: item2.project_TASK_DETAIL_EMP,
+                                          projectIndex: item2.project_INDEX,
+                                          score:
+                                            projectWith.filter(
+                                              (person) =>
+                                                person.project_WITH_EMP_INDEX ===
+                                                item2.project_TASK_DETAIL_EMP
+                                            )[0].project_WITH_SCORE -
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100,
                                         });
                                         await dispatch(
                                           projectTodoAxios(projectNo)
@@ -399,6 +416,19 @@ const ProjectTask = () => {
                                           index:
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 1,
+                                        });
+                                        await UpdateProjectWithScore({
+                                          index: item2.project_TASK_DETAIL_EMP,
+                                          projectIndex: item2.project_INDEX,
+                                          score:
+                                            projectWith.filter(
+                                              (person) =>
+                                                person.project_WITH_EMP_INDEX ===
+                                                item2.project_TASK_DETAIL_EMP
+                                            )[0].project_WITH_SCORE +
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100,
                                         });
                                         await dispatch(
                                           projectTodoAxios(projectNo)

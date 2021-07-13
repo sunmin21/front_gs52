@@ -186,6 +186,25 @@ export const UpdateProjecTaskDetailSuccess = async ({ index, success }) => {
 
   return project;
 };
+
+export const UpdateProjectWithScore = async ({
+  index,
+  score,
+  projectIndex,
+}) => {
+  console.log("타냐");
+  const project = await client.post(
+    API_URL + "/schedule/project/updateProjectWithScore",
+    {
+      project_WITH_EMP_INDEX: index,
+      project_WITH_SCORE: score,
+      project_INDEX: projectIndex,
+    }
+  );
+
+  return project;
+};
+
 export const SelectOneProject = async ({ index }) => {
   const project = await client.post(
     API_URL + "/schedule/project/selectOneProject",
