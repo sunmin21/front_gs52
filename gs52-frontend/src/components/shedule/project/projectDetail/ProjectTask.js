@@ -82,8 +82,7 @@ const ProjectTask = () => {
 
   // console.log(...projectTodoDetail.map((a, key) => key));
   // console.log("에에");
-  console.log(projectTodo);
-  console.log(check);
+
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -148,7 +147,7 @@ const ProjectTask = () => {
                                   item.project_WITH_EMP_INDEX
                               )[0].team_NAME + "\n"}
                             {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
+                              item.project_WITH_EMP_INDEX && "리더 "}
                             {item.emp_NAME}
                           </CButton>
                         </div>
@@ -196,7 +195,7 @@ const ProjectTask = () => {
                                   item.project_WITH_EMP_INDEX
                               )[0].team_NAME + "\n"}
                             {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
+                              item.project_WITH_EMP_INDEX && "리더 "}
                             {item.emp_NAME}
                           </CButton>
                         </div>
@@ -243,7 +242,7 @@ const ProjectTask = () => {
                                   item.project_WITH_EMP_INDEX
                               )[0].team_NAME + "\n"}
                             {item.project_WITH_LEADER ===
-                              item.project_WITH_EMP_INDEX && "프로젝트장 "}
+                              item.project_WITH_EMP_INDEX && "리더 "}
                             {item.emp_NAME}
                           </CButton>
                         </div>
@@ -385,7 +384,6 @@ const ProjectTask = () => {
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
                                         );
-                                        console.log("너타냐?1232324");
                                       } else {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {

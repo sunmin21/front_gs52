@@ -37,14 +37,10 @@ const ProjectTaskColorModal = ({
 }) => {
   const [color, setColor] = useState(empcolor);
   const colors = [
-    "red",
+    "paleturquoise",
     "orange",
     "yellow",
-    "green",
-    "blue",
-    "indigo",
-    "violet",
-
+    "peachpuff",
     "Chartreuse",
     "CornflowerBlue",
   ];

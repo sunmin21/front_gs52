@@ -84,7 +84,6 @@ const ProjectInsite = () => {
   // console.log(...projectTodoDetail.map((a, key) => key));
   // console.log("에에");
   console.log(projectTodo);
-  console.log(check);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
