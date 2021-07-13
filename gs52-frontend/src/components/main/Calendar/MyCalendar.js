@@ -11,6 +11,8 @@ function MyCalendar() {
   const user = getCurrentUser();
   let [emp] = useState(user.index);
   
+  var moment = require("moment");
+
   const dispatch = useDispatch();
   const { mycalendar } = useSelector((state) => {
     return {
@@ -44,19 +46,23 @@ function MyCalendar() {
   })
 
   const data2 = mycalendar2.map((item2) => {
-    return {     
+    return {
       title: item2.conf_TITLE,
-      start: item2.conf_DATE + " " + item2.conf_START,
+      start: item2.conf_DATE
+      // start: item2.conf_DATE + " " + item2.conf_START,
+      // end: item2.conf_DATE + " " + item2.conf_END
     }
   })
 
   const data3 = mycalendar3.map((item3) => {
-    return {     
+    return {
       title: item3.conf_TITLE,
-      start: item3.conf_DATE + " " + item3.conf_START,
+      start: item3.conf_DATE
+      // start: item3.conf_DATE + " " + item3.conf_START,
+      // end: item3.conf_DATE + " " + item3.conf_END
     }
   })
-  
+
   return (
     <CCard>
       <CCardBody>
@@ -66,8 +72,8 @@ function MyCalendar() {
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
             eventSources={[data, data2, data3]}
-            eventColor="#2e88ff"
-            eventTextColor="white"
+            // eventColor="#2e88ff"
+            // eventTextColor="white"
             eventDisplay="title"
           />
         </div>
