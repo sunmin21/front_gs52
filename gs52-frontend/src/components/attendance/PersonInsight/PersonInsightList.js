@@ -12,47 +12,16 @@ import {
 import React, { useEffect } from "react";
 import CIcon from "@coreui/icons-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  businesscountAxios,
-  entrydateAxios,
-  worktimeAxios,
-  projectcountAxios,
-  reportcountAxios,
-  todocountAxios,
-} from "src/modules/annual/personInsight";
 
 const PersonInsightList = (props) => {
-  console.log(props.EMP_INDEX);
-  const dispatch = useDispatch();
-  const {
-    entrydate,
-    projectcount,
-    todocount,
-    businesscount,
-    reportcount,
-    worktime,
-  } = useSelector((state) => {
-    return {
-      entrydate: state.personInsight.entrydate,
-      projectcount: state.personInsight.projectcount,
-      todocount: state.personInsight.todocount,
-      businesscount: state.personInsight.businesscount,
-      reportcount: state.personInsight.reportcount,
-      worktime: state.personInsight.worktime,
-    };
-  });
+  // console.log(props.personinsight[0].emp_ENTRY_COUNT);
+  // console.log(props.personinsight[0].emp_ENTRY_DATE);
+  // console.log(props.personinsight[0].emp_PROJECT_COUNT);
+  // console.log(props.personinsight[0].emp_REPORT_COUNT);
+  // console.log(props.personinsight[0].emp_TODO_COUNT);
+  // console.log(props.personinsight[0].emp_BUSINESS_COUNT);
+  // console.log(props.personinsight[0].emp_WORK_TIME);
 
-  useEffect(() => {
-    dispatch(entrydateAxios(props.EMP_INDEX));
-
-    dispatch(projectcountAxios(props.EMP_INDEX));
-    dispatch(todocountAxios(props.EMP_INDEX));
-    dispatch(businesscountAxios(props.EMP_INDEX));
-    dispatch(reportcountAxios(props.EMP_INDEX));
-    dispatch(worktimeAxios(props.EMP_INDEX));
-  }, [dispatch, props.EMP_INDEX]);
-
-  console.log(projectcount);
   return (
     <>
       <CRow style={{ marginTop: "30px" }}>
@@ -73,16 +42,16 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {entrydate.length !== 0 ? (
+              {
                 <CCardText>
                   <h3 style={{ textAlign: "right" }}>
-                    입사일 : {entrydate[0].emp_ENTRY_DATE}
+                    입사일 : {props.personinsight[0].emp_ENTRY_DATE}
                   </h3>
                   <h3 style={{ textAlign: "right" }}>
-                    {entrydate[0].emp_ENTRY_COUNT}일
+                    {props.personinsight[0].emp_ENTRY_COUNT}일
                   </h3>
                 </CCardText>
-              ) : null}
+              }
             </CCardBody>
           </CCard>
         </CCol>
@@ -103,14 +72,12 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {worktime.length !== 0 ? (
-                <CCardText>
-                  <h3 style={{ textAlign: "right" }}>
-                    {Math.floor(worktime[0].emp_WORK_TIME / 60)}시간{" "}
-                    {worktime[0].emp_WORK_TIME % 60}분
-                  </h3>
-                </CCardText>
-              ) : null}
+              <CCardText>
+                <h3 style={{ textAlign: "right" }}>
+                  {Math.floor(props.personinsight[0].emp_WORK_TIME / 60)}시간{" "}
+                  {Math.floor(props.personinsight[0].emp_WORK_TIME % 60)}분
+                </h3>
+              </CCardText>
             </CCardBody>
           </CCard>
         </CCol>
@@ -128,13 +95,11 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {projectcount.length !== 0 ? (
-                <CCardText>
-                  <h3 style={{ textAlign: "right" }}>
-                    {projectcount[0].emp_PROJECT_COUNT}개
-                  </h3>
-                </CCardText>
-              ) : null}
+              <CCardText>
+                <h3 style={{ textAlign: "right" }}>
+                  {props.personinsight[0].emp_PROJECT_COUNT}개
+                </h3>
+              </CCardText>
             </CCardBody>
           </CCard>
         </CCol>
@@ -154,13 +119,11 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {todocount.length !== 0 ? (
-                <CCardText>
-                  <h3 style={{ textAlign: "right" }}>
-                    {todocount[0].emp_TODO_COUNT}개
-                  </h3>
-                </CCardText>
-              ) : null}
+              <CCardText>
+                <h3 style={{ textAlign: "right" }}>
+                  {props.personinsight[0].emp_TODO_COUNT}개
+                </h3>
+              </CCardText>
             </CCardBody>
           </CCard>
         </CCol>
@@ -179,13 +142,11 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {businesscount.length !== 0 ? (
-                <CCardText>
-                  <h3 style={{ textAlign: "right" }}>
-                    {businesscount[0].emp_BUSINESS_COUNT}회
-                  </h3>
-                </CCardText>
-              ) : null}
+              <CCardText>
+                <h3 style={{ textAlign: "right" }}>
+                  {props.personinsight[0].emp_BUSINESS_COUNT}회
+                </h3>
+              </CCardText>
             </CCardBody>
           </CCard>
         </CCol>
@@ -204,13 +165,11 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {reportcount.length !== 0 ? (
-                <CCardText>
-                  <h3 style={{ textAlign: "right" }}>
-                    {reportcount[0].emp_REPORT_COUNT}회
-                  </h3>
-                </CCardText>
-              ) : null}
+              <CCardText>
+                <h3 style={{ textAlign: "right" }}>
+                  {props.personinsight[0].emp_REPORT_COUNT}회
+                </h3>
+              </CCardText>
             </CCardBody>
           </CCard>
         </CCol>

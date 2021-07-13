@@ -17,13 +17,16 @@ const [REPORT, REPORT_SUCCESS, REPORT_FAILURE] =
   createRequestActionTypes("annual/REPORT"); //타입유형
 const [TIME, TIME_SUCCESS, TIME_FAILURE] =
   createRequestActionTypes("annual/TIME"); //타입유형
+const [INSIGHT, INSIGHT_SUCCESS, INSIGHT_FAILURE] =
+  createRequestActionTypes("annual/INSIGHT"); //타입유형
 
-export const entrydateAxios = createAction(ENTRYDATE); //리덕스의 액션함수
+export const personentrydateAxios = createAction(ENTRYDATE); //리덕스의 액션함수
 export const projectcountAxios = createAction(PROJECTCOUNT); //리덕스의 액션함수
 export const todocountAxios = createAction(TODOCOUNT); //리덕스의 액션함수
 export const businesscountAxios = createAction(BUSINESS); //리덕스의 액션함수
 export const reportcountAxios = createAction(REPORT); //리덕스의 액션함수
-export const worktimeAxios = createAction(TIME); //리덕스의 액션함수
+export const personworktimeAxios = createAction(TIME); //리덕스의 액션함수
+export const personinsightAxios = createAction(INSIGHT); //리덕스의 액션함수
 
 const entrydateSaga = createRequestSaga(ENTRYDATE, API.SelectEmpEntryDate);
 const projectcountSaga = createRequestSaga(
@@ -38,6 +41,8 @@ const reportcountSaga = createRequestSaga(REPORT, API.SelectReportCount);
 
 const worktimeSaga = createRequestSaga(TIME, API.SelectWorkTime);
 
+const personinsightSaga = createRequestSaga(INSIGHT, API.SelectPersonInsight);
+
 export function* PersonInsightSaga2() {
   yield takeLatest(ENTRYDATE, entrydateSaga);
   yield takeLatest(PROJECTCOUNT, projectcountSaga);
@@ -45,6 +50,7 @@ export function* PersonInsightSaga2() {
   yield takeLatest(BUSINESS, businesscountSaga);
   yield takeLatest(REPORT, reportcountSaga);
   yield takeLatest(TIME, worktimeSaga);
+  yield takeLatest(INSIGHT, personinsightSaga);
 }
 const initialState = {
   //초기값을 정의
@@ -65,6 +71,9 @@ const initialState = {
 
   worktime: [],
   worktimeError: null,
+
+  personinsight: [],
+  personinsightError: null,
 };
 
 const personInsight = handleActions(
@@ -131,6 +140,16 @@ const personInsight = handleActions(
     [TIME_FAILURE]: (state, { payload: error }) => ({
       ...state,
       worktimeError: error,
+    }),
+    [INSIGHT_SUCCESS]: (state, { payload: personinsight }) => ({
+      ...state,
+      personinsightError: null,
+      personinsight,
+    }),
+
+    [INSIGHT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      personinsightError: error,
     }),
   },
   initialState

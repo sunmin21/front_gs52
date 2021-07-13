@@ -66,7 +66,7 @@ const PersonInsightList = (props) => {
               <CCardText>
                 <h3 style={{ textAlign: "right" }}>
                   {Math.floor(props.worktime[0].team_WORK_TIME / 60)}시간{" "}
-                  {props.worktime[0].team_WORK_TIME % 60}분
+                  {Math.floor(props.worktime[0].team_WORK_TIME % 60)}분
                 </h3>
               </CCardText>
             </CCardBody>

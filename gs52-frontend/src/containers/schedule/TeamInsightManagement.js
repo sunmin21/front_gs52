@@ -10,13 +10,14 @@ import {
   CCarouselItem,
 } from "@coreui/react";
 import { Carousel } from "antd";
-import React from "react";
+import React, { useCallback } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PersonInsightList from "src/components/attendance/PersonInsight/PersonInsightList";
 
 import TeamInsightList from "src/components/shedule/TeamInsight/TeamInsightList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { personinsightAxios } from "src/modules/annual/personInsight";
 
 import {
   businessAxios,
@@ -59,6 +60,21 @@ const PersonInsight = () => {
     dispatch(worktimeAxios(EMP_INDEX.team));
     dispatch(listAxios(EMP_INDEX.team));
   }, [dispatch, EMP_INDEX.team]);
+
+  //////////////////////////////////////////////////////////////personInsight
+
+  const { personinsight } = useSelector((state) => {
+    console.log(state);
+    return {
+      personinsight: state.personInsight.personinsight,
+    };
+  });
+
+  const date = teamlist0.map((item) => {
+    //dispatch(personinsightAxios(item.emp_INDEX));
+    console.log(personinsight);
+  });
+
   return (
     <div>
       <div class="row">
@@ -92,20 +108,18 @@ const PersonInsight = () => {
               <CCarousel animate autoSlide={3000}>
                 <CCarouselIndicators />
                 <CCarouselInner>
-                  {teamlist0.map((item) => {
-                    return (
-                      <CCarouselItem>
-                        <CCarouselCaption>
-                          <h3>Slide {item.emp_INDEX}</h3>
-                          <p>Slide {item.emp_INDEX}</p>
-                        </CCarouselCaption>
-                        <PersonInsightList
-                          EMP_INDEX={item.emp_INDEX}
-                          key={item}
-                        ></PersonInsightList>
-                      </CCarouselItem>
-                    );
-                  })}
+                  <CCarouselItem>
+                    <CCarouselCaption>
+                      <h3>Slide</h3>
+                      <p>Slide </p>
+                    </CCarouselCaption>
+                    {personinsight.length !== 0 ? (
+                      <PersonInsightList
+                        EMP_INDEX={EMP_INDEX.index}
+                        personinsight={personinsight}
+                      ></PersonInsightList>
+                    ) : null}
+                  </CCarouselItem>
                 </CCarouselInner>
                 <CCarouselControl direction="prev" />
                 <CCarouselControl direction="next" />
