@@ -30,14 +30,14 @@ function Sidebar_Header(){
 
     return(
         <div>
-        <WorkTime></WorkTime>
         <br />
         <img src={img} style={{ width: "150px",
                                 height: "150px", 
                                 borderRadius: '5px!important',
                                 overflow: "hidden"}}/> 
-        <h2>{user.id}</h2><br/>
-        {user.username}님, 접속하였습니다.<br/>
+        <h2>{user.id}</h2>
+        {user.username}님, 접속하였습니다.<br/><br/>
+        <WorkTime></WorkTime><br/><br/>
         </div>
     )
 }
