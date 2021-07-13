@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { CCard, CCardBody, CCol, CContainer, CRow } from "@coreui/react";
-
 import Calendar from "src/components/main/Calendar/MyCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
@@ -50,7 +49,7 @@ const Main = () => {
             <Notice content={notice} />
           </CCol>
           <CCol>
-            <Calendar />
+            <Calendar/>
           </CCol>
         </CRow>
       </CContainer>

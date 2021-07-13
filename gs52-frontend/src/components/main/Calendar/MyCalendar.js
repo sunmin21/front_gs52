@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
+import interaction from "@fullcalendar/interaction";
 import { CCard, CCardBody } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
@@ -8,11 +9,13 @@ import { calendarAxios, calendarAxios2, calendarAxios3 } from "src/modules/main/
 
 function DetailCalendar() {
 
+  window.onload = function () {
+    
+  }
   const user = getCurrentUser();
   let [emp] = useState(user.index);
   
   const dispatch = useDispatch();
-
   const { mycalendar } = useSelector((state) => {
     return {
       mycalendar: state.myCalendar.calendar,
@@ -62,15 +65,17 @@ function DetailCalendar() {
   return (
     <CCard>
       <CCardBody>
-        <FullCalendar
-          contentHeight="385px"
-          plugins={[daygridPlugin]}
-          defaultView="dayGridMonth"
-          eventSources={[data, data2, data3]}
-          eventColor="#2e88ff"
-          eventTextColor="white"
-          eventDisplay="title"
-        />
+        <div className="calendarBox">
+          <FullCalendar
+            contentHeight="385px"
+            plugins={[daygridPlugin, interaction]}
+            defaultView="dayGridMonth"
+            eventSources={[data, data2, data3]}
+            eventColor="#2e88ff"
+            eventTextColor="white"
+            eventDisplay="title"
+          />
+        </div>
       </CCardBody>
     </CCard>
   );
