@@ -4,6 +4,13 @@ import React, { useState } from "react";
 
 const API_URL = "http://localhost:8081/main/WorkTime";
 
+
+export const SelectEmpImg = async (index)=>{
+  console.log("SelectEmpImg")
+  const EmpImg =  await client.post(API_URL + "/empImg", { emp_INDEX: index });
+  return EmpImg;
+}
+
 export const SelectWorkRule = async (team) => {
     console.log("SelectWorkRule");
     console.log(team);

@@ -22,6 +22,7 @@ import projectList, { proceedingSaga2 } from "./schedule/project/projectList";
 import projectOkay, { okaySaga2 } from "./manager/Project";
 import personInsight, { PersonInsightSaga2 } from "./annual/personInsight";
 import TeamInsight, { TeamInsightSaga2 } from "./schedule/teamInsight";
+import mypage, {mypageSaga2} from "./main/mypage"
 
 const rootReducer = combineReducers({
   test,
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
   projectOkay,
   personInsight,
   TeamInsight,
+  mypage
 });
 
 export function* rootSaga() {
@@ -65,6 +67,7 @@ export function* rootSaga() {
     okaySaga2(),
     PersonInsightSaga2(),
     TeamInsightSaga2(),
+    mypageSaga2()
   ]);
 }
 export default rootReducer;

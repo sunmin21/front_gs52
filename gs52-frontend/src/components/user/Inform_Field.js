@@ -166,7 +166,7 @@ export function InformField() {
                     <CLabel htmlFor="first_pwd">비밀번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="특수문자, 문자, 숫자 포함 8~15자리" autoComplete="first_pwd" 
+                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="first_pwd" 
 					onChange={onChange} value={first_pwd||''}/>
                   </CCol>
                 </CFormGroup>
@@ -175,7 +175,7 @@ export function InformField() {
                     <CLabel htmlFor="second_pwd">비밀번호 확인</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="second_pwd" name="second_pwd" placeholder="특수문자, 문자, 숫자 포함 8~15자리" autoComplete="second_pwd"
+                    <CInput type="password" id="second_pwd" name="second_pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="second_pwd"
 					onChange={onChange} value={second_pwd||''}/>
                   </CCol>
                 </CFormGroup>               
@@ -209,8 +209,9 @@ export function InformField() {
 							onClick={onModal} 
 							className="mr-1"
 							>우편번호찾기</CButton>
-							{console.log(isDaumPost)}
+							<>
 							{isDaumPost?(<DaumPostCode onComplete={handleComplete} style={modalStyle} autoClose={true} isDaumPost={isDaumPost} className="post-code" />):null}
+							</>
 						<p>{addr}</p>
 						<CInput id="address" name="address" placeholder="상세주소를 입력하세요"
 					onChange={onChange} value={address||''}/>

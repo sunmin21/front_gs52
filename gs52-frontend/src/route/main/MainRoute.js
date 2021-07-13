@@ -10,6 +10,12 @@ const NoticeCreate = React.lazy(() =>
 const myPage = React.lazy(() =>
   import("src/components/main/myPage/MyPage")
 );
+const InformChange = React.lazy(() =>
+  import("src/components/main/myPage/InformChange")
+);
+const PwdChange = React.lazy(() =>
+  import("src/components/main/myPage/PwdChange")
+);
 
 const MainRoute = [
   {
@@ -28,6 +34,18 @@ const MainRoute = [
     path: "/myPage",
     name: "마이페이지",
     component: myPage,
+    exact:true,
+  },
+  {
+    path: "/InformChange",
+    name: "회원정보수정",
+    component: InformChange,
+    exact:true,
+  },
+  {
+    path: "/PwdChange",
+    name: "비밀번호수정",
+    component: PwdChange,
     exact:true,
   },
   {
