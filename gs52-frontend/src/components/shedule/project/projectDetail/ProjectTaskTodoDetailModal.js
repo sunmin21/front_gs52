@@ -65,7 +65,6 @@ const ProjectTaskTodoModal = ({
   //     )[0].dept_NAME
   //   );
   // }
-
   const [content, setContent] = useState({
     인덱스: projectNo,
     task인덱스: taskIndex,

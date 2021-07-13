@@ -382,6 +382,16 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 0,
                                         });
+                                        console.log(
+                                          projectWith.filter(
+                                            (person) =>
+                                              person.project_WITH_EMP_INDEX ===
+                                              item2.project_TASK_DETAIL_EMP
+                                          )[0].project_WITH_SCORE -
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100
+                                        );
                                         await UpdateProjectWithScore({
                                           index: item2.project_TASK_DETAIL_EMP,
                                           projectIndex: item2.project_INDEX,
@@ -417,6 +427,16 @@ const ProjectTask = () => {
                                             item2.project_TASK_DETAIL_INDEX,
                                           success: 1,
                                         });
+                                        console.log(
+                                          projectWith.filter(
+                                            (person) =>
+                                              person.project_WITH_EMP_INDEX ===
+                                              item2.project_TASK_DETAIL_EMP
+                                          )[0].project_WITH_SCORE +
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100
+                                        );
                                         await UpdateProjectWithScore({
                                           index: item2.project_TASK_DETAIL_EMP,
                                           projectIndex: item2.project_INDEX,

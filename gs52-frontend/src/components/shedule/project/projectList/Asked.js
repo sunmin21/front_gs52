@@ -29,7 +29,7 @@ function Asked() {
     
     const history = useHistory();
     const { asked } = useSelector((state) => {
-        console.log(state)
+       
         return {
             asked: state.projectList.asked,
         };
