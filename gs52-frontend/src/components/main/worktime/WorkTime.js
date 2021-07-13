@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {getCurrentUser} from "src/lib/api/jwt/LoginAPI"
-import {SelectWorkRule, SelectWorkStart, UpdateWorkEnd, SelectWorkCheck,InsertBreakStart,UpdateBreakEnd}from "src/lib/api/main/WorkRule"
-
+import {SelectWorkRule, SelectWorkStart, UpdateWorkEnd, SelectWorkCheck,InsertBreakStart,UpdateBreakEnd}from "src/lib/api/main/SideBar"
+import {
+    CButton,
+  } from '@coreui/react'
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 
@@ -99,8 +101,7 @@ function WorkTime(){
 
     return(
         <div>
-            
-            <button onClick={onWork}><h2>{workState}</h2></button>
+            <CButton block variant="outline" color="secondary" onClick={onWork}>{workState}</CButton>
             {/* {
                 workCheck===false?
                 <button onClick={onWork}><h2>{workState}</h2></button>

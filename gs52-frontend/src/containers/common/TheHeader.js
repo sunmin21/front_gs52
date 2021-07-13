@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -17,13 +17,12 @@ import User from "../../route/UserRoute";
 import Admin from "../../route/AdminRoute";
 
 import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
+import {EmpAxios} from "src/modules/main/mypage";
 
 const TheHeader = () => {
   const history = useHistory();
 
   const user = getCurrentUser();
-  // console.log("user")
-  // console.log(user)
 
   const onLogout = () => {
     logout();
@@ -35,6 +34,15 @@ const TheHeader = () => {
 
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
+  const { emp_list } = useSelector((state) => {
+    return {
+      emp_list: state.mypage.emp_list,
+    };
+  });
+
+  useEffect(async() => {
+    await dispatch(EmpAxios(user.index));
+  }, [dispatch]);
 
   const toggleSidebar = () => {
     const val = [true, "responsive"].includes(sidebarShow)

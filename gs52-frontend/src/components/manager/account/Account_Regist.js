@@ -16,6 +16,7 @@ import {
 import { DatePicker } from "antd";
 import "antd/dist/antd.css";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -31,6 +32,7 @@ import {
 } from "../../../lib/api/manager/Account/AccountRegistAPI";
 
 export function AccountField() {
+  const history = useHistory();
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
 
@@ -95,9 +97,13 @@ export function AccountField() {
       console.log(id); //사원번호
       console.log(name); //sunmin
       console.log(num); //사원번호
+
+      vacationCal();
+
       await RegistAccount(id, name, email, num, position, rank, team, 1).then(
         (response) => {
           mail(email, name, id).then(console.log("메일전송완료"));
+           history.push("/manager/addAccount");
         },
         (error) => {
           console.log(error);
@@ -106,6 +112,13 @@ export function AccountField() {
       console.log(inputs);
     }
   };
+
+  const vacationCal = () =>{
+    console.log(vacationCal)
+    console.log("date")
+  }
+
+
   const imgUpload = async () => {
     console.log(file);
     const formData = new FormData();
@@ -113,10 +126,11 @@ export function AccountField() {
     formData.append("FILES", file[0]);
     await updateEmpImg(formData);
   };
+
   function onDate(dateString) {
     setDate(moment(dateString).format("YYYY/MM/DD"));
   }
-  console.log(filename);
+
   return (
     <div>
       <CCard>

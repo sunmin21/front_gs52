@@ -17,10 +17,8 @@ const onClick = () =>{
 }
       return(
         <div>
-        <button onClick = {onClick}>토큰</button>
-            <button onClick = {logout}>로그아웃</button>
             <Search></Search>
-            <AccountField>sdfsdf</AccountField>
+            <AccountField></AccountField>
         </div>
       );
 }

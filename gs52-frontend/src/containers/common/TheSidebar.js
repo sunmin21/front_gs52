@@ -22,7 +22,7 @@ const TheSidebar = ({ nav }) => {
 
   return (
     <CSidebar
-      style={{color:"red"}}
+      // style={{color:"green"}}
       show={show}
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
@@ -49,7 +49,7 @@ const TheSidebar = ({ nav }) => {
       <CSidebarNav>
         <CCreateElement
           // style={{backgroundColor:"red"}}
-          style={{color:"red"}}
+          style={{color:"blue"}}
           items={nav}
           components={{
             CSidebarNavDivider,
