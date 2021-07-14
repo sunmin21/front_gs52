@@ -110,6 +110,7 @@ function WeeklyReport() {
   //          => 삭제할때 달력에서 타겟됐던 마지막 값
   return (
     <CCard>
+      <div style={{height:"50px"}} />
       <CCardGroup style={{ textAlign: "center" }}>
         <CCardBody>
           <h5>원하는 일자를 선택하세요 </h5>

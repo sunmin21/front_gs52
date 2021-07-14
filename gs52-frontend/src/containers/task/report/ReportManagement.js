@@ -1,7 +1,7 @@
 import React from "react";
 import { CRow, CCol, CCardBody, CCard } from "@coreui/react";
 import CheckOthers from "src/components/task/report/CheckOthers";
-import WeeklyReport from "src/components/task/report/weeklyReport";
+import WeeklyReport from "src/components/task/report/WeeklyReport";
 import EMPREPORT from "src/components/task/report/OthersList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
