@@ -30,8 +30,7 @@ import {
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
 } from "src/lib/api/schedule/Project";
-import PieChart from "./PieChart";
-import Liquid from "./Liquid";
+// import Liquid from "./Liquid";
 import LiquidInsite from "./Liquid";
 //import PieChart from "./PieChart"
 
@@ -122,7 +121,7 @@ const ProjectInsite = () => {
               </CCol>
 
               <CCol xs="6" md="8">
-                <PieChart projectWith={projectWith} />
+                {/* <PieChart projectWith={projectWith} /> */}
               </CCol>
             </CFormGroup>
             <CFormGroup
