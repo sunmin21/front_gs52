@@ -8,6 +8,8 @@ const ProjectTaskTodo = ({
   taskIndex,
   item,
   sum,
+  detail,
+  projectWith,
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -37,6 +39,8 @@ const ProjectTaskTodo = ({
         taskIndex={taskIndex}
         sum={sum}
         item={item}
+        detail={detail}
+        projectWith={projectWith}
       />
     </>
   );

@@ -376,7 +376,7 @@ const ProjectContent = () => {
                 <CLabel htmlFor="date-input">참여원 선택</CLabel>
               </CCol>
 
-              <CCol xs="6" md="3">
+              <CCol xs="6" md="4">
                 {content.참여원.length !== 0 &&
                   content.참여원
                     .filter((item) => item.사원번호 === item.리더)
@@ -446,7 +446,7 @@ const ProjectContent = () => {
                       }
                     })}
               </CCol>
-              <CCol xs="6" md="3">
+              <CCol xs="6" md="4">
                 {content.참여원.length !== 0 &&
                   content.참여원
                     .filter((item) => item.사원번호 !== item.리더)

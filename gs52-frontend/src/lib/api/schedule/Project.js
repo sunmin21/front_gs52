@@ -193,6 +193,8 @@ export const UpdateProjectWithScore = async ({
   projectIndex,
 }) => {
   console.log("타냐");
+  console.log(score);
+  console.log("뭐지이거");
   const project = await client.post(
     API_URL + "/schedule/project/updateProjectWithScore",
     {

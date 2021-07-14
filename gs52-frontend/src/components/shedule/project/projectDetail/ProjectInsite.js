@@ -30,7 +30,8 @@ import {
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
 } from "src/lib/api/schedule/Project";
-// import PieChart from "./PieChart";
+import PieChart from "./PieChart";
+//import PieChart from "./PieChart"
 
 const ProjectInsite = () => {
   const dispatch = useDispatch();
@@ -83,8 +84,8 @@ const ProjectInsite = () => {
 
   // console.log(...projectTodoDetail.map((a, key) => key));
   // console.log("에에");
-  console.log(projectWith);
-  console.log(projectTodo);
+  // console.log(projectWith);
+  // console.log(projectTodo);
 
   return (
     <>
@@ -118,7 +119,7 @@ const ProjectInsite = () => {
                     },
                   }}
                 /> */}
-                {/* <PieChart projectWith={projectWith} /> */}
+                <PieChart projectWith={projectWith} />
               </CCol>
             </CFormGroup>
             <CFormGroup row>
@@ -254,7 +255,9 @@ const ProjectInsite = () => {
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
                                         );
-                                        console.log("너타냐?1232324");
+                                        await dispatch(
+                                          projectWithAxios(projectNo)
+                                        );
                                       } else {
                                         setCheck((con) => {
                                           return con.map((c, ky) => {
@@ -276,6 +279,9 @@ const ProjectInsite = () => {
                                         );
                                         await dispatch(
                                           projectTodoDetailAxios(projectNo)
+                                        );
+                                        await dispatch(
+                                          projectWithAxios(projectNo)
                                         );
                                       }
                                     }}

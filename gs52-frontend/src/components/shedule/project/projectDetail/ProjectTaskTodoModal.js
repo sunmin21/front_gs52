@@ -5,8 +5,14 @@ import "antd/dist/antd.css";
 import {
   InsertProjecTask,
   UpdateProjecTask,
+  UpdateProjectWithScore,
 } from "src/lib/api/schedule/Project";
 import { SelectCheckDept } from "src/lib/api/manager/addOptions/addOptions";
+import {
+  projectTodoAxios,
+  projectTodoDetailAxios,
+  projectWithAxios,
+} from "src/modules/schedule/project/project";
 
 const {
   CButton,
@@ -37,9 +43,12 @@ const ProjectTaskTodoModal = ({
   taskIndex,
   item,
   sum,
+  detail,
+  projectWith,
 }) => {
   const array = [];
-
+  console.log(detail);
+  console.log(projectWith);
   if (item) {
     //업데이트시
 
@@ -197,10 +206,115 @@ const ProjectTaskTodoModal = ({
                 await InsertProjecTask(content);
                 await dispatch(axios(projectNo));
               } else {
-                await UpdateProjecTask(content);
-                await dispatch(axios(projectNo));
-              }
+                if (item.project_TASK_PERCENT !== content.진행도) {
+                  // console.log(projectWith);
+                  // console.log("여기탓냐1");
+                  detail.map(async (item2) => {
+                    console.log(item2);
+                    if (item2.project_TASK_DETAIL_SUCCESS === 1) {
+                      // console.log("여기탓냐2");
+                      // console.log(projectNo);
+                      // console.log(
+                      //   projectWith.filter(
+                      //     (person) =>
+                      //       person.project_WITH_EMP_INDEX ===
+                      //       item2.project_TASK_DETAIL_EMP
+                      //   )[0].project_WITH_SCORE
+                      // );
+                      // console.log(item.project_TASK_PERCENT);
+                      // console.log(item2.project_TASK_DETAIL_PERCENT);
+                      // console.log(
+                      //   Math.abs(
+                      //     projectWith.filter(
+                      //       (person) =>
+                      //         person.project_WITH_EMP_INDEX ===
+                      //         item2.project_TASK_DETAIL_EMP
+                      //     )[0].project_WITH_SCORE -
+                      //       (item.project_TASK_PERCENT *
+                      //         item2.project_TASK_DETAIL_PERCENT) /
+                      //         100
+                      //   )
+                      // );
+                      await UpdateProjectWithScore({
+                        index: item2.project_TASK_DETAIL_EMP,
+                        projectIndex: projectNo,
+                        score: Math.abs(
+                          projectWith.filter(
+                            (person) =>
+                              person.project_WITH_EMP_INDEX ===
+                              item2.project_TASK_DETAIL_EMP
+                          )[0].project_WITH_SCORE -
+                            (item.project_TASK_PERCENT *
+                              item2.project_TASK_DETAIL_PERCENT) /
+                              100
+                        ),
+                      });
+                      // console.log("여기탓냐3");
+                      // console.log(
+                      //   Math.abs(
+                      //     projectWith.filter(
+                      //       (person) =>
+                      //         person.project_WITH_EMP_INDEX ===
+                      //         item2.project_TASK_DETAIL_EMP
+                      //     )[0].project_WITH_SCORE -
+                      //       (item.project_TASK_PERCENT *
+                      //         item2.project_TASK_DETAIL_PERCENT) /
+                      //         100
+                      //   )
+                      // );
+                      // console.log(projectNo);
+                      // console.log(
+                      //   projectWith.filter(
+                      //     (person) =>
+                      //       person.project_WITH_EMP_INDEX ===
+                      //       item2.project_TASK_DETAIL_EMP
+                      //   )[0].project_WITH_SCORE -
+                      //     (item.project_TASK_PERCENT *
+                      //       item2.project_TASK_DETAIL_PERCENT) /
+                      //       100
+                      // );
+                      // console.log(content.진행도);
+                      // console.log(item2.project_TASK_DETAIL_PERCENT);
+                      // console.log(
+                      //   Math.abs(
+                      //     projectWith.filter(
+                      //       (person) =>
+                      //         person.project_WITH_EMP_INDEX ===
+                      //         item2.project_TASK_DETAIL_EMP
+                      //     )[0].project_WITH_SCORE -
+                      //       (item.project_TASK_PERCENT *
+                      //         item2.project_TASK_DETAIL_PERCENT) /
+                      //         100
+                      //   ) +
+                      //     (content.진행도 * item2.project_TASK_DETAIL_PERCENT) /
+                      //       100
+                      // );
+                      await UpdateProjectWithScore({
+                        index: item2.project_TASK_DETAIL_EMP,
+                        projectIndex: projectNo,
+                        score:
+                          Math.abs(
+                            projectWith.filter(
+                              (person) =>
+                                person.project_WITH_EMP_INDEX ===
+                                item2.project_TASK_DETAIL_EMP
+                            )[0].project_WITH_SCORE -
+                              (item.project_TASK_PERCENT *
+                                item2.project_TASK_DETAIL_PERCENT) /
+                                100
+                          ) +
+                          (content.진행도 * item2.project_TASK_DETAIL_PERCENT) /
+                            100,
+                      });
+                    }
+                  });
 
+                  await UpdateProjecTask(content);
+                  await dispatch(projectWithAxios(projectNo));
+                  await dispatch(projectTodoAxios(projectNo));
+                  await dispatch(projectTodoDetailAxios(projectNo));
+                }
+              }
               setContent({
                 task인덱스: taskIndex,
                 인덱스: projectNo,
