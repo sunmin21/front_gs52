@@ -100,13 +100,6 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
       };
     });
 
-  console.log(
-    Math.ceil((new Date("2021-09-17") - new Date()) / (1000 * 3600 * 24))
-  );
-  const diffdata = annual.map((item) => {
-    console.log(item);
-  });
-
   const data2 = empvacation.map((item) => {
     return item.emp_VACATION;
   });

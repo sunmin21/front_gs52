@@ -1,9 +1,16 @@
 import client from "../client";
 
 const API_URL = "http://localhost:8081";
+export const SelectNear = async (index) => {
+  const near = await client.post(API_URL + "/annual/near", {
+    //사원의 연차정보 전부 가져옴
+    vacation_EMP_INDEX: index,
+  });
+
+  return near;
+};
+
 export const SelectVacation = async (index) => {
-  console.log(index);
-  console.log("ssdadsadassadsd");
   const annual = await client.post(API_URL + "/annual/select", {
     //사원의 연차정보 전부 가져옴
     vacation_EMP_INDEX: index,

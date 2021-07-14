@@ -4,7 +4,7 @@ import MyCalendar from "src/components/main/Calendar/MyCalendar";
 import { useDispatch, useSelector } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 import AnnualCard from "src/components/main/annual/annual";
-import { empvacationAxios } from "src/modules/annual/annual";
+import { empvacationAxios, nearAxios } from "src/modules/annual/annual";
 
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import TimeProgress from "src/components/main/worktime/TimeProgress";
@@ -18,14 +18,18 @@ const Main = () => {
   useEffect(() => {
     dispatch(noticeAxios());
     dispatch(empvacationAxios(vacation_EMP_INDEX.index));
-  }, [dispatch]);
+    dispatch(nearAxios(vacation_EMP_INDEX.index));
+  }, [dispatch, vacation_EMP_INDEX.index]);
 
-  const { empvacation } = useSelector((state) => {
+  const { empvacation, near } = useSelector((state) => {
+    console.log(state);
     return {
       empvacation: state.annual.empvacation,
+      near: state.annual.near,
     };
   });
 
+  console.log(near);
   return (
     <>
       <CContainer>
@@ -38,7 +42,10 @@ const Main = () => {
                     <TimeProgress></TimeProgress>
                   </CCol>
                   <CCol sm="4">
-                    <AnnualCard empvacation={empvacation}></AnnualCard>
+                    <AnnualCard
+                      empvacation={empvacation}
+                      near={near}
+                    ></AnnualCard>
                   </CCol>
                 </CRow>
               </CCardBody>
