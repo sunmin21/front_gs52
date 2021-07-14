@@ -97,9 +97,7 @@ export function AccountField() {
       console.log(name); //sunmin
       console.log(num); //사원번호
 
-      vacationCal();
-
-      await RegistAccount(id, name, email, num, position, rank, team, 1).then(
+      await RegistAccount(id, name, email, num, position, rank, team, 1, date).then(
         (response) => {
           mail(email, name, id).then(console.log("메일전송완료"));
            history.push("/manager/addAccount");
@@ -112,10 +110,6 @@ export function AccountField() {
     }
   };
 
-  const vacationCal = () =>{
-    console.log(vacationCal)
-    console.log("date")
-  }
 
 
   const imgUpload = async () => {
@@ -123,7 +117,10 @@ export function AccountField() {
     const formData = new FormData();
     formData.append("EMP_ID", Number(num));
     formData.append("FILES", file[0]);
-    await updateEmpImg(formData);
+
+    if(file!=null){
+      await updateEmpImg(formData);
+    }
   };
 
   function onDate(dateString) {
@@ -240,8 +237,8 @@ export function AccountField() {
               <CLabel htmlFor="date">입사일</CLabel>
             </CCol>
             <CCol xs="12" md="9">
-            <CInput type="date" id="date" name="date" placeholder="date" onChange={onDate}/>
-              {/* <DatePicker id="date" name="date" onChange={onDate} /> */}
+             {/*<CInput type="date" id="date" name="date" placeholder="date" onChange={onDate}/> */}
+              <DatePicker id="date" name="date" onChange={onDate} />
             </CCol>
           </CFormGroup>
 
@@ -264,7 +261,7 @@ export function AccountField() {
             <CCol md="3">
               <CLabel>파일첨부</CLabel>
             </CCol>
-            <CCol xs="12" md="9">
+            <CCol xs="12" md="5" style={{marginLeft:"15px"}}>
               <CInputFile
                 id="file-multiple-input"
                 name="file-multiple-input"
@@ -319,6 +316,16 @@ export function AccountField() {
                   {filename}
                 </CLabel>
               )}
+            </CCol>
+          </CFormGroup>
+
+          <CFormGroup row>
+            <CCol md="3">
+            </CCol>
+            <CCol xs="12" md="9">
+            <br/>* 유의사항<br/><p></p>
+              1. 초기 비밀번호는 사원번호로 설정됩니다.<br/>
+              2. 연차는 입사일로부터 만근기준으로 계산됩니다.
             </CCol>
           </CFormGroup>
         </CCardBody>

@@ -73,7 +73,8 @@ export const RegistAccount = async (
   position,
   rank,
   team,
-  first_login
+  first_login,
+  entry_date
 ) => {
   //String username, String email, String password, Long position, Long rank, Long team
   console.log("RegistAccount API inserrrrrr");
@@ -85,6 +86,7 @@ export const RegistAccount = async (
   console.log(position);
   console.log(rank);
   console.log(team);
+  console.log(entry_date);
 
   //const role = "ROLE_ADMIN";
 
@@ -100,6 +102,7 @@ export const RegistAccount = async (
       rank,
       team,
       first_login,
+      entry_date
     })
     .then(() => {
       alert("회원등록 되었습니다.");

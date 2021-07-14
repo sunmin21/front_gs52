@@ -29,7 +29,7 @@ const { conf_modal1,conf_date } = useSelector((state) => {
   return (
     <div>              
         <CButton color="primary"
-    onClick={onClick}
+    onClick={onClick} style={{ textAlign: "right", margin:"auto"}}
   >
     추가
   </CButton>

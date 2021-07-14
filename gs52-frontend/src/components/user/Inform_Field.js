@@ -214,7 +214,7 @@ export function InformField() {
 							<>
 							{isDaumPost?(<DaumPostCode onComplete={handleComplete} style={modalStyle} autoClose={true} isDaumPost={isDaumPost} className="post-code" />):null}
 							</>
-						<p>{addr}</p>
+						<CLabel htmlFor="disabled-input">{addr}</CLabel>
 						<CInput id="address" name="address" placeholder="상세주소를 입력하세요"
 					onChange={onChange} value={address||''}/>
                   </CCol>

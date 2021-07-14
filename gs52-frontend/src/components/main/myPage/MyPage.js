@@ -25,8 +25,6 @@ export function MyPage() {
 
     const user = getCurrentUser();
     const [check_email, setCheck_email]=useState(false);
-    console.log("emp_list")
-    console.log(emp_list)
     const emp_data = emp_list.map((item) => ({
         name: item.emp_NAME,
         id:item.emp_ID,

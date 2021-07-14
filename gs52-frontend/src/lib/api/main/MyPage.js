@@ -13,6 +13,7 @@ export const SelectEmp = async (index) => {
     return emp;
   };
 
+  //auth로 JPA로 등록
 export const CheckPwd = async(username, password, newPassword)=>{
   console.log("CheckPwd");
   console.log(username)
@@ -27,3 +28,15 @@ export const CheckPwd = async(username, password, newPassword)=>{
   return check;
 }
 
+export const UpdateInform = async(index, name, email, tel, address, file)=>{
+  console.log("UpdateInform")
+  console.log(index)
+  console.log(name)
+  console.log(email)
+  console.log(tel)
+  console.log(address)
+  console.log(file)
+
+  //const update =await client.
+
+}

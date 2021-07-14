@@ -20,25 +20,42 @@ import DaumPostCode from 'react-daum-postcode';
 import {
   updateEmpImg,
 } from "../../../lib/api/manager/Account/AccountRegistAPI";
+import {
+  UpdateInform,
+} from "../../../lib/api/main/MyPage";
+import { useSelector } from 'react-redux';
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 export function InformChange() {
+  const user = getCurrentUser();
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
   const [filename, setFileName] = useState("");
+
+  const { emp_list } =
+    useSelector((state) => {
+      return {
+          emp_list: state.mypage.emp_list,
+      };
+    });
+    
+    //이름, 이메일, 연락처, 주소, 파일첨부
+  const emp_data = emp_list.map((item) => ({
+    name: item.emp_NAME,
+    email:item.emp_EMAIL,
+    address:item.emp_ADDRESS,
+    phone:item.emp_PHONE,
+    file:item.emp_IMG_PATH,
+  }));  
 
   const [inputs, setInputs] = useState({
     name:null,
 		tel:null,
 		address:null,
-		birth:null,
-		photo:null,
-		bank_name:null,
-		account_number:null,
-    num: null,
     email:null,
     file: [],
 	  })	
-    const {name, tel, address, birth, photo, bank_name, account_number, num, email, file} = inputs;
+    const {name, tel, address, email, file} = inputs;
 	
   const onChange = (e) => {
 		//input에 name을 가진 요소의 value에 이벤트를 걸었다
@@ -87,11 +104,25 @@ export function InformChange() {
   const imgUpload = async () => {
     console.log(file);
     const formData = new FormData();
-    formData.append("EMP_ID", Number(num));
+    formData.append("EMP_ID", Number(user.id));
     formData.append("FILES", file[0]);
     await updateEmpImg(formData);
   };
-  
+  const onRegist = async () => {
+    //이름, 이메일, 연락처, 주소, 파일첨부
+    //  emp_data      name  email  address  phone  file
+    //name, tel, address, email, file
+
+    await UpdateInform(user.index, name, email, address, tel).then(
+      (response) => {
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+    console.log(inputs);
+    
+  };
 
   return (
     <div>
@@ -106,41 +137,15 @@ export function InformChange() {
               <CInput
                 id="name"
                 name="name"
-                placeholder="이름"
+                placeholder={emp_data[0].name}
                 onChange={onChange}
                 value={name || ""}
               />
             </CCol>
           </CFormGroup>
 
-        <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="tel">연락처</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                    <CInput id="tel" name="tel" placeholder="연락처 ('-'을 제외한 숫자만 입력하시오)" 
-					onChange={onChange} value={tel||''} type="number"/>
-                  </CCol>
-                </CFormGroup>
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="address">주소</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-						{/* <DaumPost setAddr={setAddr}></DaumPost> */}
-						<CButton 
-							onClick={onModal} 
-							color="light"
-							>우편번호찾기</CButton>
-							<>
-							{isDaumPost?(<DaumPostCode onComplete={handleComplete} style={modalStyle} autoClose={true} isDaumPost={isDaumPost} className="post-code" />):null}
-							</>
-						<p>{addr}</p>
-						<CInput id="address" name="address" placeholder="상세주소를 입력하세요"
-					onChange={onChange} value={address||''}/>
-                  </CCol>
-                </CFormGroup>
-                <CFormGroup row>
+       
+          <CFormGroup row>
             <CCol md="3">
               <CLabel htmlFor="email">이메일</CLabel>
             </CCol>
@@ -148,18 +153,51 @@ export function InformChange() {
               <CInput
                 id="email"
                 name="email"
-                placeholder="이메일"
+                placeholder={emp_data[0].email}
                 onChange={onChange}
                 value={email || ""}
               />
             </CCol>
           </CFormGroup>
 
+
+          <CFormGroup row>
+              <CCol md="3">
+                <CLabel htmlFor="tel">연락처</CLabel>
+              </CCol>
+              <CCol xs="12" md="9">
+                <CInput id="tel" name="tel" placeholder={emp_data[0].tel}
+                onChange={onChange} value={tel||''} type="number"/>
+              </CCol>
+          </CFormGroup>
+
+
+
+          <CFormGroup row>
+              <CCol md="3">
+                  <CLabel htmlFor="address">주소</CLabel>
+              </CCol>
+              <CCol xs="12" md="9">
+                {/* <DaumPost setAddr={setAddr}></DaumPost> */}
+                <CButton 
+                  onClick={onModal} 
+                  color="light"
+                  style={{marginBottom:"10px"}}>우편번호찾기</CButton>
+                  <>
+                  {isDaumPost?(<DaumPostCode onComplete={handleComplete} style={modalStyle} autoClose={true} isDaumPost={isDaumPost} className="post-code" />):null}
+                  </>
+                   <CInput id="disabled-input" name="disabled-input" placeholder={addr} disabled style={{marginBottom:"10px"}} />
+                <CInput id="address" name="address" placeholder="상세주소를 입력하세요"
+              onChange={onChange} value={address||''}/>
+              </CCol>
+          </CFormGroup>
+
+
           <CFormGroup row>
             <CCol md="3">
               <CLabel>파일첨부</CLabel>
             </CCol>
-            <CCol xs="12" md="9">
+            <CCol xs="12" md="5" style={{marginLeft:"15px"}}>
               <CInputFile
                 id="file-multiple-input"
                 name="file-multiple-input"
@@ -216,6 +254,8 @@ export function InformChange() {
               )}
             </CCol>
           </CFormGroup>
+
+          
       
         </CCardBody>
 
@@ -225,6 +265,7 @@ export function InformChange() {
             size="sm"
             color="primary"
             onClick={async () => {
+              await onRegist();
               await imgUpload();
             }}
           >
