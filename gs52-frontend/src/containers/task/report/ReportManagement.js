@@ -1,7 +1,7 @@
 import React from "react";
 import { CRow, CCol, CCardBody, CCard } from "@coreui/react";
 import CheckOthers from "src/components/task/report/CheckOthers";
-import WeeklyReport from "src/components/task/report/WeeklyReport";
+import WeeklyReport from "src/components/task/report/weeklyReport";
 import EMPREPORT from "src/components/task/report/OthersList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
@@ -15,13 +15,15 @@ const ReportManagement = () => {
     boxShadow: "5px 5px 5px gray",
     padding: "8px",
     borderRadius: "50px",
-  }
+  };
 
   return (
     <CRow>
       <CCol>
         <div style={contentStyle}>
-          <h4 style={{ color:"white", marginTop: "5px" }}>나의 주간보고 조회하기</h4>
+          <h4 style={{ color: "white", marginTop: "5px" }}>
+            나의 주간보고 조회하기
+          </h4>
         </div>
         <CCardBody>
           {user.roles == "ROLE_TEAMLEADER" ? (
@@ -30,7 +32,7 @@ const ReportManagement = () => {
         </CCardBody>
         <CCardBody>
           <WeeklyReport />
-        </CCardBody>        
+        </CCardBody>
       </CCol>
     </CRow>
   );
