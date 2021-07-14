@@ -293,7 +293,7 @@ const ProjectTask = () => {
                         <CButton
                           block
                           color="link"
-                          className="text-left m-0 p-0"
+                          className="text-left m-3 p-0"
                           onClick={(e) => {
                             setClickContent(
                               e.target.innerHTML + item.project_TASK_INDEX
@@ -302,6 +302,7 @@ const ProjectTask = () => {
                           }}
                           id={key}
                           key={"bbxzcv" + key}
+                          // style={{}}
                         >
                           <h5 className="m-0 p-0" name={key}>
                             {item.project_TASK_CONTENT +
@@ -417,94 +418,6 @@ const ProjectTask = () => {
                             )
                               return (
                                 <div key={key + "aczcse=234"}>
-                                  <CSwitch
-                                    className={"mx-1"}
-                                    shape={"pill"}
-                                    color={"success"}
-                                    labelOn={"\u2713"}
-                                    labelOff={"\u2715"}
-                                    value="asdf"
-                                    name={item2.project_TASK_DETAIL_CONTENT}
-                                    key={"@#!$@!$!" + key + "!@4"}
-                                    onChange={async (e) => {
-                                      if (check[key] === 1) {
-                                        setCheck((con) => {
-                                          return con.map((c, ky) => {
-                                            if (key === ky) {
-                                              return 0;
-                                            } else {
-                                              return c;
-                                            }
-                                          });
-                                        });
-                                        await UpdateProjecTaskDetailSuccess({
-                                          index:
-                                            item2.project_TASK_DETAIL_INDEX,
-                                          success: 0,
-                                        });
-
-                                        await UpdateProjectWithScore({
-                                          index: item2.project_TASK_DETAIL_EMP,
-                                          projectIndex: item2.project_INDEX,
-                                          score:
-                                            projectWith.filter(
-                                              (person) =>
-                                                person.project_WITH_EMP_INDEX ===
-                                                item2.project_TASK_DETAIL_EMP
-                                            )[0].project_WITH_SCORE -
-                                            (item.project_TASK_PERCENT *
-                                              item2.project_TASK_DETAIL_PERCENT) /
-                                              100,
-                                        });
-                                        await dispatch(
-                                          projectTodoAxios(projectNo)
-                                        );
-                                        await dispatch(
-                                          projectTodoDetailAxios(projectNo)
-                                        );
-                                        dispatch(projectWithAxios(projectNo));
-                                      } else {
-                                        setCheck((con) => {
-                                          return con.map((c, ky) => {
-                                            if (key === ky) {
-                                              return 1;
-                                            } else {
-                                              return c;
-                                            }
-                                          });
-                                        });
-
-                                        await UpdateProjecTaskDetailSuccess({
-                                          index:
-                                            item2.project_TASK_DETAIL_INDEX,
-                                          success: 1,
-                                        });
-
-                                        await UpdateProjectWithScore({
-                                          index: item2.project_TASK_DETAIL_EMP,
-                                          projectIndex: item2.project_INDEX,
-                                          score:
-                                            projectWith.filter(
-                                              (person) =>
-                                                person.project_WITH_EMP_INDEX ===
-                                                item2.project_TASK_DETAIL_EMP
-                                            )[0].project_WITH_SCORE +
-                                            (item.project_TASK_PERCENT *
-                                              item2.project_TASK_DETAIL_PERCENT) /
-                                              100,
-                                        });
-                                        await dispatch(
-                                          projectTodoAxios(projectNo)
-                                        );
-                                        await dispatch(
-                                          projectTodoDetailAxios(projectNo)
-                                        );
-                                        dispatch(projectWithAxios(projectNo));
-                                      }
-                                    }}
-                                    checked={check[key] === 1}
-                                  />
-
                                   <ProjectTaskTodoInsertDetail //업데이트
                                     projectNo={projectNo}
                                     projectWith={projectWith}
@@ -526,6 +439,7 @@ const ProjectTask = () => {
                                     style={{
                                       textAlign: "center",
                                       float: "right",
+                                      marginLeft: "20px",
                                     }}
                                     onClick={async () => {
                                       // console.log(item.project_TASK_INDEX);
@@ -563,23 +477,164 @@ const ProjectTask = () => {
                                   >
                                     삭제
                                   </CButton>
-                                  <CListGroup accent key={key + "Asxzcxsa32"}>
+                                  <CListGroup key={key + "Asxzcxsa32"}>
                                     <CListGroupItem
-                                      accent={"dark"}
-                                      style={{
-                                        color: "dark",
-                                        borderRadius: "20px",
+                                      style={
+                                        check[key] !== 1
+                                          ? {
+                                              verticalAlign: "top",
+                                              fontSize: "15px",
+                                              textAlign: "left",
+                                              fontWeight: "bold",
+                                              maxHeight: "40px",
+                                              borderRadius: "20px",
+                                              background: "white",
+                                              border:
+                                                "solid " +
+                                                item2.project_WITH_COLOR,
+                                              borderWidth: "4px 4px 4px 20px",
 
-                                        border:
-                                          "1px solid " +
-                                          item2.project_WITH_COLOR,
-                                        borderWidth: "2px 2px 2px 20px",
-                                      }}
+                                              marginBottom: "10px",
+                                              paddingBottom: "3px",
+                                            }
+                                          : {
+                                              verticalAlign: "center",
+                                              fontSize: "15px",
+                                              textAlign: "left",
+                                              fontWeight: "bold",
+                                              maxHeight: "40px",
+                                              borderRadius: "20px",
+                                              background:
+                                                item2.project_WITH_COLOR,
+
+                                              border:
+                                                "solid " +
+                                                item2.project_WITH_COLOR,
+                                              borderWidth: "4px 4px 4px 20px",
+                                              paddingBottom: "30px",
+                                              marginBottom: "10px",
+                                              float: "left",
+                                            }
+                                      }
                                     >
                                       {item2.project_TASK_DETAIL_CONTENT +
                                         "(" +
                                         item2.project_TASK_DETAIL_PERCENT +
                                         "%)   "}
+                                      <div
+                                        style={{
+                                          float: "right",
+
+                                          paddingBottom: "500px",
+                                        }}
+                                      >
+                                        <CSwitch
+                                          className={"mx-1"}
+                                          size="sm"
+                                          shape={"pill"}
+                                          color={"info"}
+                                          labelOn={"\u2713"}
+                                          labelOff={"\u2715"}
+                                          name={
+                                            item2.project_TASK_DETAIL_CONTENT
+                                          }
+                                          key={"@#!$@!$!" + key + "!@4"}
+                                          style={{ background: "red" }}
+                                          onChange={async (e) => {
+                                            if (check[key] === 1) {
+                                              setCheck((con) => {
+                                                return con.map((c, ky) => {
+                                                  if (key === ky) {
+                                                    return 0;
+                                                  } else {
+                                                    return c;
+                                                  }
+                                                });
+                                              });
+                                              await UpdateProjecTaskDetailSuccess(
+                                                {
+                                                  index:
+                                                    item2.project_TASK_DETAIL_INDEX,
+                                                  success: 0,
+                                                }
+                                              );
+
+                                              await UpdateProjectWithScore({
+                                                index:
+                                                  item2.project_TASK_DETAIL_EMP,
+                                                projectIndex:
+                                                  item2.project_INDEX,
+                                                score:
+                                                  projectWith.filter(
+                                                    (person) =>
+                                                      person.project_WITH_EMP_INDEX ===
+                                                      item2.project_TASK_DETAIL_EMP
+                                                  )[0].project_WITH_SCORE -
+                                                  (item.project_TASK_PERCENT *
+                                                    item2.project_TASK_DETAIL_PERCENT) /
+                                                    100,
+                                              });
+                                              await dispatch(
+                                                projectTodoAxios(projectNo)
+                                              );
+                                              await dispatch(
+                                                projectTodoDetailAxios(
+                                                  projectNo
+                                                )
+                                              );
+                                              dispatch(
+                                                projectWithAxios(projectNo)
+                                              );
+                                            } else {
+                                              setCheck((con) => {
+                                                return con.map((c, ky) => {
+                                                  if (key === ky) {
+                                                    return 1;
+                                                  } else {
+                                                    return c;
+                                                  }
+                                                });
+                                              });
+
+                                              await UpdateProjecTaskDetailSuccess(
+                                                {
+                                                  index:
+                                                    item2.project_TASK_DETAIL_INDEX,
+                                                  success: 1,
+                                                }
+                                              );
+
+                                              await UpdateProjectWithScore({
+                                                index:
+                                                  item2.project_TASK_DETAIL_EMP,
+                                                projectIndex:
+                                                  item2.project_INDEX,
+                                                score:
+                                                  projectWith.filter(
+                                                    (person) =>
+                                                      person.project_WITH_EMP_INDEX ===
+                                                      item2.project_TASK_DETAIL_EMP
+                                                  )[0].project_WITH_SCORE +
+                                                  (item.project_TASK_PERCENT *
+                                                    item2.project_TASK_DETAIL_PERCENT) /
+                                                    100,
+                                              });
+                                              await dispatch(
+                                                projectTodoAxios(projectNo)
+                                              );
+                                              await dispatch(
+                                                projectTodoDetailAxios(
+                                                  projectNo
+                                                )
+                                              );
+                                              dispatch(
+                                                projectWithAxios(projectNo)
+                                              );
+                                            }
+                                          }}
+                                          checked={check[key] === 1}
+                                        />
+                                      </div>
                                     </CListGroupItem>
                                   </CListGroup>
                                 </div>

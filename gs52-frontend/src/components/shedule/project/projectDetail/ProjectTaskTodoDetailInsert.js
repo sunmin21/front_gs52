@@ -42,6 +42,11 @@ const ProjectTaskTodoDetailInsert = ({
           await setVisible(true);
         }}
         key={taskIndex}
+        style={
+          detailIndex === undefined
+            ? { marginLeft: "20px", float: "right" }
+            : { float: "right" }
+        }
       >
         {detailIndex === undefined && "할일 등록"}
         {detailIndex !== undefined && "수정"}
