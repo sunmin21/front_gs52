@@ -1,21 +1,15 @@
 import {
-  CCallout,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCardText,
-  CCardTitle,
   CCol,
   CRow,
 } from "@coreui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import CIcon from "@coreui/icons-react";
-import { useDispatch, useSelector } from "react-redux";
-import { SelectEmpEntryDate } from "src/lib/api/attendance/PersonInsightAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
-const PersonInsightList = (props) => {
+const EmpInsightList = (props) => {
   console.log(props);
   return (
     <div style={{ textAlign: "center", padding: "70px" }}>
@@ -173,4 +167,4 @@ const PersonInsightList = (props) => {
   );
 };
 
-export default React.memo(PersonInsightList);
+export default React.memo(EmpInsightList);

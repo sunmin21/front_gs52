@@ -59,7 +59,7 @@ const TheHeader = () => {
   };
 
   return (
-    <CHeader withSubheader>
+    <CHeader>
       <CToggler
         inHeader
         className="ml-md-3 d-lg-none"

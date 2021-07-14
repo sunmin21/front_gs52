@@ -1,6 +1,3 @@
-import React from "react";
-import CIcon from "@coreui/icons-react";
-
 const _nav = [
   // {
   //   _tag: "CSidebarNavItem",
@@ -20,7 +17,7 @@ const _nav = [
     _tag: "CSidebarNavItem",
     name: "업무진행사항",
     to: "/task/schedule",
-    icon: "cil-description",
+    icon: "cil-sun",
   },
   {
     _tag: "CSidebarNavItem",

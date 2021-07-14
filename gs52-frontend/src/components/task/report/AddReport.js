@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea } from '@coreui/react'
+import { CButton, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CTextarea, CAlert } from '@coreui/react'
 import { useDispatch } from 'react-redux';
 import { InsertReport } from 'src/lib/api/task/ReportAPI'
 import { reportAxios, nextreportAxios } from 'src/modules/task/report';
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-
 function AddReport({ showAllReport }) {    
 
     const user = getCurrentUser();
@@ -25,6 +24,8 @@ function AddReport({ showAllReport }) {
     const [info, setInfo] = useState(false);
     const [contents, setContents] = useState("");
     const [targetDate, setTargetDate] = useState();
+    const [visible, setVisible] = useState(0);
+    const [alertContents, setAlertContents] = useState();
 
     const handleContents = e => {
         setContents(e.target.value);
@@ -39,7 +40,8 @@ function AddReport({ showAllReport }) {
 
     const submit = () => {
         if (contents == "") {
-            alert("주간 보고 내용을 입력해주세요 !")
+            setVisible(3);
+            setAlertContents("모두 입력해주세요");
         }
         else {
             console.log("@@@@추가@@@@")
@@ -87,7 +89,12 @@ function AddReport({ showAllReport }) {
                             </tr>
                         </tbody>
                     </table>
-                    </CFormGroup>
+                    <CModalBody style={{textAlign:"center", margin:"10px 20px -20px 20px"}}>
+                        <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
+                            {alertContents}
+                        </CAlert>
+                    </CModalBody>  
+                </CFormGroup>
                 <CModalFooter>
                     <CButton color="secondary" onClick={cancel}>취소</CButton>
                     <CButton color="info" onClick={submit}>확인</CButton>
