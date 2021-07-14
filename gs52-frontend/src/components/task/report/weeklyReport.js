@@ -110,7 +110,6 @@ function WeeklyReport() {
   //          => 삭제할때 달력에서 타겟됐던 마지막 값
   return (
     <CCard>
-      <CCardHeader>주간 보고서</CCardHeader>
       <CCardGroup style={{ textAlign: "center" }}>
         <CCardBody>
           <h5>원하는 일자를 선택하세요 </h5>
@@ -119,6 +118,7 @@ function WeeklyReport() {
             onChange={(date) => {
               showAllReport(date);
             }}
+            dateFormat="yyyy-MM-dd"
           />
           &nbsp;
           <CButton color="secondary" onClick={todayOnClick} className="mr-1">

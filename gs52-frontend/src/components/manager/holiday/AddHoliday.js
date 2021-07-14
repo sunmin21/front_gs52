@@ -105,6 +105,7 @@ function AddHoliday() {
                                         inline // 달력이 모달창에 뜨도록
                                         minDate={new Date()} // 이전 날은 선택 못하도록
                                         popperPlacement="auto" // 화면 중앙에 오도록
+                                        dateFormat="yyyy-MM-dd"
                                     />
                                 </td>
                             </tr>

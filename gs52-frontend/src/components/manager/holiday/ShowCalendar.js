@@ -6,14 +6,14 @@ import { DeleteHoliday } from "src/lib/api/manager/holiday/HolidayAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { holidayAxios } from "src/modules/manager/holiday";
 
-import styles from './ShowCalendar.module.css';///////////////////////////////////////////////////////////////
 // 국가공휴일 담는 js파일
 import holidaydata from "./HolidayData";
-import { Alert } from 'antd';
-import 'antd/dist/antd.css';
 
 function ShowCalendar() {
   const dispatch = useDispatch();
+
+  const [visible, setVisible] = useState(0);
+  const [alertContents, setAlertContents] = useState();
 
   const { holiday } = useSelector((state) => {
     return {
@@ -39,10 +39,10 @@ function ShowCalendar() {
       } else {
         console.log("삭제취소");
       }
-    } else {
-      return (
-        <Alert message="국가공휴일은 삭제할 수 없습니다" type="warning" showIcon closable />
-      )
+    }
+    else {
+      setVisible(3);
+      setAlertContents("국가 공휴일은 삭제 할 수 없습니다");
     }
   };
   
@@ -56,31 +56,29 @@ function ShowCalendar() {
   });
 
   return (
-    <CCard>
-      <CCardHeader>휴일 설정</CCardHeader>
-      {/* ------------------------------------------------------------------------------------------- */}
-      <CCardBody className={styles.a}> 
-        <div className="calendarBox">
-          <FullCalendar
-            contentHeight="500px"
-            defaultView="dayGridMonth"
-            plugins={[daygridPlugin]}
-            eventSources={[data, holidaydata]}
-            eventClick={eventOnclick}
-            eventColor="red"
-            eventTextColor="white"
-            eventDisplay="title"
-          />
-        </div>
-        {/* <Alert
-          message="Warning"
-          description="This is a warning notice about copywriting."
-          type="warning"
-          showIcon
-          closable
-        /> */}
-      </CCardBody>
-    </CCard>
+    <>
+      <div style={{textAlign:"center", margin:"10px 300px"}}>
+        <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
+          {alertContents}
+        </CAlert>
+      </div>  
+      <CCard>
+        <CCardBody> 
+          <div className="calendarBox">
+            <FullCalendar
+              contentHeight="500px"
+              defaultView="dayGridMonth"
+              plugins={[daygridPlugin]}
+              eventSources={[data, holidaydata]}
+              eventClick={eventOnclick}
+              eventColor="red"
+              eventTextColor="white"
+              eventDisplay="title"
+            />
+          </div>
+        </CCardBody>
+      </CCard>
+    </>
   );
 }
 export default ShowCalendar;

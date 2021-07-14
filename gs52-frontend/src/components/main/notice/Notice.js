@@ -49,7 +49,7 @@ const Notice = ({ content }) => {
                 marginTop: "3px",
               }}
             >
-              공지사항
+              <h2 style={{textAlign:"left"}}>공지사항</h2>
             </div>
 
             {user.roles[0] === "ROLE_ADMIN" && (

@@ -185,6 +185,7 @@ const OthersList = ({ check }) => {
                     onChange={(date) => {
                         showAllReport(date);
                     }}
+                    dateFormat="yyyy-MM-dd"
                 />
             </CCardBody>
             <CCardBody>
