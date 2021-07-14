@@ -189,7 +189,7 @@ export function ConfModal() {
         show={conf_modal1}
         closeOnBackdrop={false}
         onClose={() => dispatch(modalCheck1())}
-        color="primary"
+        color="secondary"
       >
         <CModalHeader closeButton>
           <CModalTitle>회의실 예약</CModalTitle>

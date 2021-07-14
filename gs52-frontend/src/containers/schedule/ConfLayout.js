@@ -2,8 +2,6 @@ import React,{useState, useEffect} from "react";
 import {ConfRoom} from "../../components/shedule/confRoom/Conf_Room";
 import {ConfModal} from "../../components/shedule/confRoom/Conf_Modal";
 import {ConfButton} from "../../components/shedule/confRoom/Conf_Button";
-import {Conf_SelectEmp} from "../../components/shedule/confRoom/Conf_SelectEmp";
-import Readonly from "../../components/shedule/confRoom/Readonly";
 import moment from 'moment';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -66,11 +64,6 @@ const ConfLayout = () => {
             {
                 conf_modal1===true ?
                 <ConfModal></ConfModal> 
-                : null
-            }
-            {
-                conf_modal2===true ?
-                <Conf_SelectEmp></Conf_SelectEmp> 
                 : null
             }
             </CCardBody>
