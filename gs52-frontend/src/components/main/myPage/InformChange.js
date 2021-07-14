@@ -106,21 +106,22 @@ export function InformChange() {
     const formData = new FormData();
     formData.append("EMP_ID", Number(user.id));
     formData.append("FILES", file[0]);
-    await updateEmpImg(formData);
+    if(file[0]!=null){
+      await updateEmpImg(formData);
+    }
   };
   const onRegist = async () => {
     //이름, 이메일, 연락처, 주소, 파일첨부
     //  emp_data      name  email  address  phone  file
     //name, tel, address, email, file
-
-    await UpdateInform(user.index, name, email, address, tel).then(
+    const ad = addr + address;
+    await UpdateInform(user.index, name, email, tel, ad).then(
       (response) => {
       },
       (error) => {
         console.log(error);
       }
     );
-    console.log(inputs);
     
   };
 
@@ -129,6 +130,15 @@ export function InformChange() {
       <CCard>
         <CCardHeader>회원정보 수정</CCardHeader>
         <CCardBody>
+        <CFormGroup row>
+            <CCol md="3">
+            </CCol>
+            <CCol xs="12" md="9">
+            * 유의사항<br/><p></p>
+              1. 입력한 정보에 대해서만 수정됩니다.<br/>
+            </CCol>
+          </CFormGroup>
+
         <CFormGroup row>
             <CCol md="3">
               <CLabel htmlFor="name">이름</CLabel>

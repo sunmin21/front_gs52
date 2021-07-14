@@ -28,15 +28,19 @@ export const CheckPwd = async(username, password, newPassword)=>{
   return check;
 }
 
-export const UpdateInform = async(index, name, email, tel, address, file)=>{
+export const UpdateInform = async(index, name, email, tel, address)=>{
   console.log("UpdateInform")
   console.log(index)
   console.log(name)
   console.log(email)
   console.log(tel)
   console.log(address)
-  console.log(file)
-
-  //const update =await client.
+  const update =await client.post(API_URL + "/updateInform",{
+                                        emp_INDEX:index,
+                                        emp_NAME:name,
+                                        emp_EMAIL:email,
+                                        emp_PHONE:tel,
+                                        emp_ADDRESS:address
+                                        })
 
 }
