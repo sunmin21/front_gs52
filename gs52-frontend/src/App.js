@@ -3,9 +3,9 @@ import React, { useEffect, useState } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
 import { TheLayout } from "./containers/common";
-import {getCurrentUser} from "./lib/api/jwt/LoginAPI";
-import PrivateRoute from "./route/LoginRoute"
-
+import { getCurrentUser } from "./lib/api/jwt/LoginAPI";
+import PrivateRoute from "./route/LoginRoute";
+import "antd/dist/antd.css";
 const loading = (
   <div className="pt-3 text-center">
     <div className="sk-spinner sk-spinner-pulse"></div>
@@ -13,9 +13,7 @@ const loading = (
 );
 
 function App() {
-
   const user = getCurrentUser();
-
 
   return (
     /*
@@ -23,18 +21,17 @@ function App() {
     <Route exact path="/users" ..../> 
     */
     <HashRouter>
-      <React.Suspense fallback={loading} >
+      <React.Suspense fallback={loading}>
         <Switch>
-        <Route 
+          <Route
             render={(props) => {
-            // console.log("props")
-            // console.log(props)
-            return <PrivateRoute {...props} />;
-            }
-          }
-          path="/"
+              // console.log("props")
+              // console.log(props)
+              return <PrivateRoute {...props} />;
+            }}
+            path="/"
           />
-{/* 
+          {/* 
 
         {
           user === null ?

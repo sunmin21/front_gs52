@@ -30,8 +30,7 @@ const BusinessProgress = () => {
   //임의로 userid 정해줌
 
   const [user, setUser] = useState(getCurrentUser());
-  console.log(user);
-  console.log("@#@#@#@!@!#@!#@!#@#@#!@!#!@#!@#");
+
   const todo_EMP_ID_RECEIVCE = useRef(user.index); //유저아이디
 
   //////////////////////////////////////////////
@@ -163,10 +162,7 @@ const BusinessProgress = () => {
       <>
         <CCol xs="12" md="12" className="mb-4">
           <CCard>
-            <CCardHeader>
-              업무 진행 사항
-              <DocsLink name="CTabs" />
-            </CCardHeader>
+            <CCardHeader>업무 진행 사항</CCardHeader>
             <CCardBody>
               <CTabs>
                 <CNav variant="tabs">

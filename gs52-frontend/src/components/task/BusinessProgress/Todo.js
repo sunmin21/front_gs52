@@ -9,11 +9,11 @@ import {
   CPagination,
   CRow,
 } from "@coreui/react";
+import { Badge, Button } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
-import usersData from "./UsersData";
 
 const getBadge = (status) => {
   switch (status) {
@@ -112,50 +112,49 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                 상태: (item) => (
                   <td>
                     <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(Done[item.todo_DONE])}>
-                        {Done[item.todo_DONE]}
-                      </CBadge>
+                      <Badge
+                        status={getBadge(Done[item.todo_DONE])}
+                        text={Done[item.todo_DONE]}
+                        block
+                      ></Badge>
                     </h4>
                   </td>
                 ),
                 완료: (item) => (
                   <td>
-                    <CButton
-                      active
+                    <Button
                       block
-                      color="success"
+                      type="primary"
                       onClick={async (e) => {
                         await success(e);
                         await dispatch(todoAxios(userid));
                         await dispatch(sendAxios(userid));
                         await dispatch(succssAxios(userid));
                       }}
-                      aria-pressed="true"
                       value={item.todo_INDEX}
                       name={2}
                     >
                       완료
-                    </CButton>
+                    </Button>
                   </td>
                 ),
                 거절: (item) => (
                   <td>
-                    <CButton
-                      active
+                    <Button
                       block
-                      color="danger"
+                      type="primary"
                       onClick={async (e) => {
                         await reject(e);
                         await dispatch(todoAxios(userid));
                         await dispatch(sendAxios(userid));
                         await dispatch(succssAxios(userid));
                       }}
-                      aria-pressed="true"
                       value={item.todo_INDEX}
                       name={1}
+                      danger
                     >
                       거절
-                    </CButton>
+                    </Button>
                   </td>
                 ),
               }}
