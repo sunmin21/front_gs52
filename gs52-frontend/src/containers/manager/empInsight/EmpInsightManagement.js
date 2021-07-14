@@ -1,5 +1,3 @@
-import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Menu, message } from "antd";
 import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,19 +12,15 @@ import {
   todoAxios,
   worktimeAxios,
 } from "src/modules/schedule/teamInsight";
+import {
+  CDropdown,
+  CDropdownItem,
+  CDropdownMenu,
+  CDropdownToggle,
+} from "@coreui/react";
 
 const PersonInsight = () => {
   const EMP_INDEX = getCurrentUser();
-  const onClick = ({ key }) => {
-    message.info(`Click on item ${key}`);
-  };
-  const menu = (
-    <Menu onClick={onClick}>
-      <Menu.Item key="1">1st menu item</Menu.Item>
-      <Menu.Item key="2">2nd menu item</Menu.Item>
-      <Menu.Item key="3">3rd menu item</Menu.Item>
-    </Menu>
-  );
 
   const { entrydate, project, todo, business, report, worktime } = useSelector(
     (state) => {
@@ -55,15 +49,40 @@ const PersonInsight = () => {
     <div class="container">
       <div class="row" style={{ textAlign: "right" }}>
         <div class="col w-50 mt-3">
-          <Dropdown overlay={menu}>
-            <a
-              className="ant-dropdown-link"
-              onClick={(e) => e.preventDefault()}
-            >
-              팀 선택 &nbsp;
-              <DownOutlined />
-            </a>
-          </Dropdown>
+          <div>
+            <CDropdown className="mt-2">
+              <CDropdownToggle caret color="info">
+                팀 선택
+              </CDropdownToggle>
+              <CDropdownMenu>
+                <CDropdownItem header>Header</CDropdownItem>
+                <CDropdownItem disabled>Action Disabled</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+                <CDropdownItem>Action</CDropdownItem>
+              </CDropdownMenu>
+            </CDropdown>
+          </div>
         </div>
       </div>
       <div class="row">
