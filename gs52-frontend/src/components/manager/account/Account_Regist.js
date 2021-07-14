@@ -118,7 +118,7 @@ export function AccountField() {
     formData.append("EMP_ID", Number(num));
     formData.append("FILES", file[0]);
 
-    if(file!=null){
+    if(file[0]!=null){
       await updateEmpImg(formData);
     }
   };

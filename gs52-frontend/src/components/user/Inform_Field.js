@@ -112,7 +112,8 @@ export function InformField() {
 		}
 		else{
 			const user = getCurrentUser();
-			{update(user.id, first_pwd, addr, tel, birth, photo, bank_name, account_number).then(
+			const ad = addr + address;
+			{update(user.id, first_pwd, ad, tel, birth, photo, bank_name, account_number).then(
 				() => {
 					console.log("성공")
 					  history.push('/');
