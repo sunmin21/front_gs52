@@ -2,8 +2,6 @@ import { CCard } from "@coreui/react";
 import { Col, Row } from "antd";
 
 const annualCard = (props) => {
-  console.log(props.empvacation.length);
-  console.log(props);
   return (
     <>
       <CCard>

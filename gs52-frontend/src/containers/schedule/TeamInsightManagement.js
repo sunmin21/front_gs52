@@ -55,16 +55,16 @@ const PersonInsight = () => {
   }));
   console.log(teamlist);
 
-  useEffect(() => {
+  useEffect(async () => {
     console.log("얌ㅁ마");
-    dispatch(entrydateAxios(EMP_INDEX.team));
-    dispatch(projectAxios(EMP_INDEX.team));
-    dispatch(todoAxios(EMP_INDEX.team));
-    dispatch(businessAxios(EMP_INDEX.team));
-    dispatch(reportAxios(EMP_INDEX.team));
-    dispatch(worktimeAxios(EMP_INDEX.team));
-    dispatch(listAxios(EMP_INDEX.team));
-    dispatch(personinsightAxios());
+    await dispatch(entrydateAxios(EMP_INDEX.team));
+    await dispatch(projectAxios(EMP_INDEX.team));
+    await dispatch(todoAxios(EMP_INDEX.team));
+    await dispatch(businessAxios(EMP_INDEX.team));
+    await dispatch(reportAxios(EMP_INDEX.team));
+    await dispatch(worktimeAxios(EMP_INDEX.team));
+    await dispatch(listAxios(EMP_INDEX.team));
+    await dispatch(personinsightAxios());
   }, [dispatch, EMP_INDEX.team]);
 
   console.log(teamlist0);
