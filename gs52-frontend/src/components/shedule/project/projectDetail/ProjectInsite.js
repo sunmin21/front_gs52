@@ -32,6 +32,7 @@ import {
 } from "src/lib/api/schedule/Project";
 // import Liquid from "./Liquid";
 import LiquidInsite from "./Liquid";
+import PieChart from "./PieChart";
 //import PieChart from "./PieChart"
 
 const ProjectInsite = () => {
@@ -121,7 +122,7 @@ const ProjectInsite = () => {
               </CCol>
 
               <CCol xs="6" md="8">
-                {/* <PieChart projectWith={projectWith} /> */}
+                <PieChart projectWith={projectWith} />
               </CCol>
             </CFormGroup>
             <CFormGroup
