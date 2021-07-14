@@ -38,7 +38,7 @@ function AddReport({ showAllReport }) {
         // showAllReport()
     }
 
-    const submit = () => {
+    const submit = async() => {
         if (contents == "") {
             setVisible(3);
             setAlertContents("모두 입력해주세요");
@@ -46,12 +46,11 @@ function AddReport({ showAllReport }) {
         else {
             console.log("@@@@추가@@@@")
             setInfo(!info);
-            InsertReport(emp, contents, targetDate)
-            dispatch(reportAxios())
-            dispatch(nextreportAxios())
-            showAllReport(targetDate);
+            await InsertReport(emp, contents, targetDate)
+            await dispatch(reportAxios())
+            await dispatch(nextreportAxios())
+            await showAllReport(targetDate);
             console.log(targetDate)
-            
         }
     }
     
