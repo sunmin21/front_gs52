@@ -20,11 +20,10 @@ const TheContent = () => {
 
   // css 
   const contentStyle = {
-    backgroundColor: "white",
-    // backgroundColor: "rgba( 255, 255, 255, 0.9 )",
-    margin: "35px 100px",
-    borderRadius: "10px",
-    boxShadow: "2px 2px 5px gray"
+    // backgroundColor: "white",
+    // margin: "35px 100px",
+    // borderRadius: "5px",
+    // boxShadow:"5px 5px 5px gray"
   }
 
   return (

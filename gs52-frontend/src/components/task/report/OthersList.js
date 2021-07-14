@@ -108,10 +108,6 @@ const OthersList = ({ check }) => {
         );
     };
 
-    const eventOnclick = (e) => {
-        alert("타인의 보고서는 조회만 가능합니다")
-    };
-
     return (
         <CModalBody>
             <CDataTable
@@ -180,6 +176,7 @@ const OthersList = ({ check }) => {
             />
             <br />            
             <h4 style={{ color: "coral" }}>" {empname} "님의 주간보고서</h4>
+            <p>타인의 보고서는 조회만 가능합니다</p>
             <CCardGroup style={{ textAlign: "center" }}>
             <CCardBody>
                 <h5>원하는 일자를 선택하세요 </h5>
@@ -204,8 +201,6 @@ const OthersList = ({ check }) => {
                     fields={reportfields}
                     items={othersdata}
                     itemsPerPage={10}
-                    onRowClick={eventOnclick}
-                    // 자동 정렬
                     sorterValue={{ column: "date", asc: "true" }}
                     pagination
                 />
@@ -217,7 +212,6 @@ const OthersList = ({ check }) => {
                     fields={reportfields}
                     items={nextothersdata}
                     itemsPerPage={10}
-                    onRowClick={eventOnclick}
                     sorterValue={{ column: "date", asc: "true" }}
                     pagination
                 />
