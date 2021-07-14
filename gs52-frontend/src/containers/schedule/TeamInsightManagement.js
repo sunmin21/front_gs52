@@ -51,7 +51,9 @@ const PersonInsight = () => {
   const teamlist0 = teamlist.map((item) => ({
     emp_INDEX: item.emp_INDEX,
     emp_NAME: item.emp_NAME,
+    rank_NAME: item.rank_NAME,
   }));
+  console.log(teamlist);
   useEffect(() => {
     dispatch(entrydateAxios(EMP_INDEX.team));
     dispatch(projectAxios(EMP_INDEX.team));
@@ -119,14 +121,16 @@ const PersonInsight = () => {
                           <br />
                           <br />
                           <CCarouselCaption>
-                            <h2>{item.emp_NAME}</h2>
+                            <h2>
+                              {item.emp_NAME} {item.rank_NAME}
+                            </h2>
                           </CCarouselCaption>
                         </CCarouselItem>
                       ))
                     : null}
                 </CCarouselInner>
-                <CCarouselControl direction="prev" />
-                <CCarouselControl direction="next" />
+                <CCarouselControl direction="prev" dark />
+                <CCarouselControl direction="next" dark />
               </CCarousel>
             </CCardBody>
           </CCard>

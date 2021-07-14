@@ -30,7 +30,10 @@ import {
   DeleteProjecTaskDetail,
   UpdateProjecTaskDetailSuccess,
 } from "src/lib/api/schedule/Project";
-// import PieChart from "./PieChart";
+import PieChart from "./PieChart";
+import Liquid from "./Liquid";
+import LiquidInsite from "./Liquid";
+//import PieChart from "./PieChart"
 
 const ProjectInsite = () => {
   const dispatch = useDispatch();
@@ -93,269 +96,115 @@ const ProjectInsite = () => {
           <CCardHeader>인사이트 </CCardHeader>
 
           <CCardBody>
-            <CFormGroup row>
+            <CFormGroup
+              row
+              style={{
+                top: "1px",
+                left: "1px",
+                bottom: "1px",
+                right: "1px",
+                border: "2px solid rgba(255,255,255,0.5)",
+                outline: "5px solid rgba(0,0,0,0.2)",
+              }}
+            >
               <CCol md="3">
-                <CLabel htmlFor="date-input">프로젝트 기여도</CLabel>
+                <CLabel
+                  htmlFor="date-input"
+                  style={{
+                    display: "table",
+                    fontWeight: "bold",
+                    fontSize: "30px",
+                    textAlign: "center",
+                  }}
+                >
+                  프로젝트 기여도
+                </CLabel>
               </CCol>
 
               <CCol xs="6" md="8">
-                {/* <CChartPie
-                  datasets={[
-                    {
-                      backgroundColor: [
-                        ...projectWith.map((item) => item.project_WITH_COLOR),
-                      ],
-                      data: [
-                        ...projectWith.map((item) => item.project_WITH_SCORE),
-                      ],
-                    },
-                  ]}   
-                  labels={[...projectWith.map((item) => item.emp_NAME)]}
-                  options={{
-                    tooltips: {
-                      enabled: true,
-
-                    },
-                  }}
-                /> */}
-                {/* <PieChart projectWith={projectWith} /> */}
+                <PieChart projectWith={projectWith} />
               </CCol>
             </CFormGroup>
-            <CFormGroup row>
+            <CFormGroup
+              row
+              style={{
+                top: "1px",
+                left: "1px",
+                bottom: "1px",
+                right: "1px",
+                border: "2px solid rgba(255,255,255,0.5)",
+                outline: "5px solid rgba(0,0,0,0.2)",
+              }}
+            >
               <CCol md="3">
-                <CLabel htmlFor="date-input">프로젝트 할일</CLabel>
+                <CLabel
+                  htmlFor="date-input"
+                  style={{
+                    display: "table",
+                    fontWeight: "bold",
+                    fontSize: "30px",
+                    textAlign: "center",
+                  }}
+                >
+                  업무별 완성도
+                </CLabel>
               </CCol>
-              <CCol xs="9" md="7">
-                {projectTodo.map((item, key) => {
-                  // console.log(item);
-                  return (
-                    <CCard
-                      className="mb-0"
-                      key={
-                        "cczxcs" +
-                        item.project_TASK_PERCENT +
-                        item.project_TASK_CONTENT
-                      }
-                    >
-                      <CCardHeader key={key + item.project_TASK_CONTENT}>
-                        <CButton
-                          block
-                          color="link"
-                          className="text-left m-0 p-0"
-                          onClick={(e) => {
-                            setClickContent(
-                              e.target.innerHTML + item.project_TASK_INDEX
-                            );
-                            setClick(!click);
-                          }}
-                          id={key}
-                          key={"bbxzcv" + key}
-                        >
-                          <h5 className="m-0 p-0" name={key}>
-                            {item.project_TASK_CONTENT +
-                              "(" +
-                              item.project_TASK_PERCENT +
-                              "%)"}
-                          </h5>
-                        </CButton>
-                        <CButton //삭제
-                          active
-                          color="danger"
-                          aria-pressed="true"
-                          style={{ textAlign: "center", float: "right" }}
-                          onClick={async () => {
-                            // console.log(item.project_TASK_INDEX);
-                            await DeleteProjecTaskAll(item.project_TASK_INDEX);
-                            await DeleteProjecTask(item.project_TASK_INDEX);
 
-                            await dispatch(projectTodoAxios(projectNo));
-                          }}
-                          key={"bb23@@xzcv" + key}
-                        >
-                          삭제
-                        </CButton>
-                        <ProjectTaskTodoInsert //업데이트
-                          projectNo={projectNo}
-                          axios={projectTodoAxios}
-                          dispatch={dispatch}
-                          taskIndex={item.project_TASK_INDEX}
-                          item={item}
-                          sum={
-                            projectTodo.length !== 0
-                              ? projectTodo[0].percent_SUM
-                              : 0
-                          }
-                        ></ProjectTaskTodoInsert>
-                        <ProjectTaskTodoInsertDetail //디테일등록
-                          projectNo={projectNo}
-                          projectWith={projectWith}
-                          taskIndex={item.project_TASK_INDEX}
-                          axios={projectTodoAxios}
-                          axios2={projectTodoDetailAxios}
-                          dispatch={dispatch}
-                          sum={item.detail_SUM}
-                        ></ProjectTaskTodoInsertDetail>
-                        <CProgress
-                          value={item.detail_SUCCESS_SUM}
-                          showPercentage
-                          precision={2}
-                          className="mb-3"
+              <CCol xs="4" md="2">
+                {projectTodo
+                  .filter((t, key) => t.project_INDEX === projectNo)
+                  .map((todo, key) => {
+                    if (key % 4 === 0)
+                      return (
+                        <LiquidInsite
+                          projectTodo={todo}
+                          key={"asdzx@@" + key}
+                          color={key}
                         />
-                      </CCardHeader>
-                      <CCollapse
-                        show={
-                          clickContent ===
-                            item.project_TASK_CONTENT +
-                              "(" +
-                              item.project_TASK_PERCENT +
-                              "%)" +
-                              item.project_TASK_INDEX && click
-                        }
-                        key={key + "zxczvsdwe2"}
-                      >
-                        <CCardBody>
-                          {projectTodoDetail.map((item2, key) => {
-                            // console.log(item2);
-                            // console.log(key);
-                            if (
-                              item2.project_TASK_INDEX ===
-                              item.project_TASK_INDEX
-                            )
-                              return (
-                                <div key={key + "aczcse=234"}>
-                                  <CSwitch
-                                    className={"mx-1"}
-                                    shape={"pill"}
-                                    color={"success"}
-                                    labelOn={"\u2713"}
-                                    labelOff={"\u2715"}
-                                    value="asdf"
-                                    name={item2.project_TASK_DETAIL_CONTENT}
-                                    key={"@#!$@!$!" + key + "!@4"}
-                                    onChange={async (e) => {
-                                      if (check[key] === 1) {
-                                        setCheck((con) => {
-                                          return con.map((c, ky) => {
-                                            if (key === ky) {
-                                              return 0;
-                                            } else {
-                                              return c;
-                                            }
-                                          });
-                                        });
-                                        await UpdateProjecTaskDetailSuccess({
-                                          index:
-                                            item2.project_TASK_DETAIL_INDEX,
-                                          success: 0,
-                                        });
-                                        await dispatch(
-                                          projectTodoAxios(projectNo)
-                                        );
-                                        await dispatch(
-                                          projectTodoDetailAxios(projectNo)
-                                        );
-                                        await dispatch(
-                                          projectWithAxios(projectNo)
-                                        );
-                                      } else {
-                                        setCheck((con) => {
-                                          return con.map((c, ky) => {
-                                            if (key === ky) {
-                                              return 1;
-                                            } else {
-                                              return c;
-                                            }
-                                          });
-                                        });
-
-                                        await UpdateProjecTaskDetailSuccess({
-                                          index:
-                                            item2.project_TASK_DETAIL_INDEX,
-                                          success: 1,
-                                        });
-                                        await dispatch(
-                                          projectTodoAxios(projectNo)
-                                        );
-                                        await dispatch(
-                                          projectTodoDetailAxios(projectNo)
-                                        );
-                                        await dispatch(
-                                          projectWithAxios(projectNo)
-                                        );
-                                      }
-                                    }}
-                                    checked={check[key] === 1}
-                                  />
-
-                                  <ProjectTaskTodoInsertDetail //업데이트
-                                    projectNo={projectNo}
-                                    projectWith={projectWith}
-                                    axios={projectTodoAxios}
-                                    axios2={projectTodoDetailAxios}
-                                    dispatch={dispatch}
-                                    taskIndex={item.project_TASK_INDEX}
-                                    detailIndex={
-                                      item2.project_TASK_DETAIL_INDEX
-                                    }
-                                    item={item2}
-                                    sum={item.detail_SUM}
-                                  ></ProjectTaskTodoInsertDetail>
-                                  <CButton //삭제
-                                    active
-                                    color="danger"
-                                    aria-pressed="true"
-                                    style={{
-                                      textAlign: "center",
-                                      float: "right",
-                                    }}
-                                    onClick={async () => {
-                                      // console.log(item.project_TASK_INDEX);
-                                      await DeleteProjecTaskDetail(
-                                        item2.project_TASK_DETAIL_INDEX
-                                      );
-                                      await dispatch(
-                                        projectTodoAxios(projectNo)
-                                      );
-                                      await dispatch(
-                                        projectTodoDetailAxios(projectNo)
-                                      );
-                                    }}
-                                    key={"#%^!bb23@@xzcv" + key}
-                                  >
-                                    삭제
-                                  </CButton>
-                                  <CListGroup accent key={key + "Asxzcxsa32"}>
-                                    <CListGroupItem
-                                      accent={"dark"}
-                                      style={{
-                                        background: item2.project_WITH_COLOR,
-                                        color: "dark",
-                                      }}
-                                    >
-                                      {item2.project_TASK_DETAIL_CONTENT +
-                                        "(" +
-                                        item2.project_TASK_DETAIL_PERCENT +
-                                        "%)"}
-                                    </CListGroupItem>
-                                  </CListGroup>
-                                </div>
-                              );
-                          })}
-                        </CCardBody>
-                      </CCollapse>
-                    </CCard>
-                  );
-                })}
+                      );
+                  })}
               </CCol>
-              <CCol xs="6" md="2">
-                <ProjectTaskTodoInsert
-                  projectNo={projectNo}
-                  axios={projectTodoAxios}
-                  dispatch={dispatch}
-                  sum={
-                    projectTodo.length !== 0 ? projectTodo[0].percent_SUM : 0
-                  }
-                ></ProjectTaskTodoInsert>
+              <CCol xs="4" md="2">
+                {projectTodo
+                  .filter((t, key) => t.project_INDEX === projectNo)
+                  .map((todo, key) => {
+                    if (key % 4 === 1)
+                      return (
+                        <LiquidInsite
+                          projectTodo={todo}
+                          key={"asdzx@@" + key}
+                          color={key}
+                        />
+                      );
+                  })}
+              </CCol>
+              <CCol xs="4" md="2">
+                {projectTodo
+                  .filter((t, key) => t.project_INDEX === projectNo)
+                  .map((todo, key) => {
+                    if (key % 4 === 2)
+                      return (
+                        <LiquidInsite
+                          projectTodo={todo}
+                          key={"asdzx@@" + key}
+                          color={key}
+                        />
+                      );
+                  })}
+              </CCol>
+              <CCol xs="4" md="2">
+                {projectTodo
+                  .filter((t, key) => t.project_INDEX === projectNo)
+                  .map((todo, key) => {
+                    if (key % 4 === 3)
+                      return (
+                        <LiquidInsite
+                          projectTodo={todo}
+                          key={"asdzx@@" + key}
+                          color={key}
+                        />
+                      );
+                  })}
               </CCol>
             </CFormGroup>
           </CCardBody>

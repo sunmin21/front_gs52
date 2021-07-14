@@ -126,7 +126,7 @@ const ProjectTaskTodoModal = ({
             projectWith[0].emp_NAME
           : "",
     }));
-  }, [item]);
+  }, [projectWith]);
   const [check, setCheck] = useState(false);
 
   const [check2, setCheck2] = useState(false);
@@ -378,6 +378,7 @@ const ProjectTaskTodoModal = ({
                       (todo.project_TASK_PERCENT * content.진행도) / 100,
                   });
                 }
+
                 await UpdateProjecTaskDetail(content);
                 await dispatch(axios(projectNo));
                 await dispatch(axios2(projectNo));

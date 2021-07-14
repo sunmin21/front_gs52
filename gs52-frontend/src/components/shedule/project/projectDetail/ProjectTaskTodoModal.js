@@ -47,8 +47,7 @@ const ProjectTaskTodoModal = ({
   projectWith,
 }) => {
   const array = [];
-  console.log(detail);
-  console.log(projectWith);
+
   if (item) {
     //업데이트시
 
@@ -210,7 +209,6 @@ const ProjectTaskTodoModal = ({
                   // console.log(projectWith);
                   // console.log("여기탓냐1");
                   detail.map(async (item2) => {
-                    console.log(item2);
                     if (item2.project_TASK_DETAIL_SUCCESS === 1) {
                       // console.log("여기탓냐2");
                       // console.log(projectNo);

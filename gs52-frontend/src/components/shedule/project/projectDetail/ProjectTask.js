@@ -28,6 +28,7 @@ import {
   DeleteProjecTask,
   DeleteProjecTaskAll,
   DeleteProjecTaskDetail,
+  SelectProjectWithScore,
   UpdateProjecTaskDetailSuccess,
   UpdateProjectWithScore,
 } from "src/lib/api/schedule/Project";
@@ -314,8 +315,43 @@ const ProjectTask = () => {
                           style={{ textAlign: "center", float: "right" }}
                           onClick={async () => {
                             // console.log(item.project_TASK_INDEX);
-                            await DeleteProjecTaskAll(item.project_TASK_INDEX);
-                            await DeleteProjecTask(item.project_TASK_INDEX);
+
+                            await projectTodoDetail
+                              .filter(
+                                (detail) =>
+                                  detail.project_TASK_INDEX ===
+                                  item.project_TASK_INDEX
+                              )
+                              .map(async (item2) => {
+                                if (item2.project_TASK_DETAIL_SUCCESS === 1) {
+                                  console.log(
+                                    projectWith.filter(
+                                      (person) =>
+                                        person.project_WITH_EMP_INDEX ===
+                                        item2.project_TASK_DETAIL_EMP
+                                    )[0].project_WITH_SCORE
+                                  );
+
+                                  await UpdateProjectWithScore({
+                                    index: item2.project_TASK_DETAIL_EMP,
+                                    projectIndex: projectNo,
+                                    score: Math.abs(
+                                      (await SelectProjectWithScore(
+                                        item2.project_TASK_DETAIL_EMP,
+                                        item.project_INDEX
+                                      )) -
+                                        (item.project_TASK_PERCENT *
+                                          item2.project_TASK_DETAIL_PERCENT) /
+                                          100
+                                    ),
+                                  });
+
+                                  await dispatch(projectWithAxios(projectNo));
+                                }
+                              });
+
+                            await DeleteProjecTaskAll(item.project_TASK_INDEX); //디테일 전체 삭제
+                            await DeleteProjecTask(item.project_TASK_INDEX); //테스크 삭제
 
                             await dispatch(projectTodoAxios(projectNo));
                           }}
@@ -493,6 +529,23 @@ const ProjectTask = () => {
                                     }}
                                     onClick={async () => {
                                       // console.log(item.project_TASK_INDEX);
+                                      if (
+                                        item2.project_TASK_DETAIL_SUCCESS === 1
+                                      ) {
+                                        await UpdateProjectWithScore({
+                                          index: item2.project_TASK_DETAIL_EMP,
+                                          projectIndex: item2.project_INDEX,
+                                          score:
+                                            projectWith.filter(
+                                              (person) =>
+                                                person.project_WITH_EMP_INDEX ===
+                                                item2.project_TASK_DETAIL_EMP
+                                            )[0].project_WITH_SCORE -
+                                            (item.project_TASK_PERCENT *
+                                              item2.project_TASK_DETAIL_PERCENT) /
+                                              100,
+                                        });
+                                      }
                                       await DeleteProjecTaskDetail(
                                         item2.project_TASK_DETAIL_INDEX
                                       );
@@ -501,6 +554,9 @@ const ProjectTask = () => {
                                       );
                                       await dispatch(
                                         projectTodoDetailAxios(projectNo)
+                                      );
+                                      await dispatch(
+                                        projectWithAxios(projectNo)
                                       );
                                     }}
                                     key={"#%^!bb23@@xzcv" + key}

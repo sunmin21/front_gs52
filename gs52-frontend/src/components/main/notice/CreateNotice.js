@@ -161,10 +161,7 @@ const DetailNotice = (e) => {
             color="primary"
             style={{ float: "right" }}
             onClick={useCallback(() => {
-              console.log(content);
               if (content.제목 === "") {
-                console.log(content);
-
                 setTitleCheck(true);
                 return;
               }
