@@ -86,14 +86,14 @@ function WeeklyReport() {
   };
 
   // 열 클릭시 삭제 기능
-  const eventOnclick = (e) => {
+  const eventOnclick = async (e) => {
     var msg = "삭제하시겠습니까?";
 
     if (window.confirm(msg) != 0) {
       console.log("삭제");
       lastDate = weekStart;
-      DeleteReport(e.id);
-      showAllReport(new Date(lastDate));
+      await DeleteReport(e.id);
+      await showAllReport(new Date(lastDate));
       // 자동 렌더링
     } else {
       console.log("삭제취소");

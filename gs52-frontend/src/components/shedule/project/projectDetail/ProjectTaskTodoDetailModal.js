@@ -62,8 +62,7 @@ const ProjectTaskTodoModal = ({
       array.push(0);
     }
   }
-  console.log(item);
-  console.log(projectWith[0]);
+
   const [content, setContent] = useState({
     인덱스: projectNo,
     task인덱스: taskIndex,
@@ -75,36 +74,18 @@ const ProjectTaskTodoModal = ({
       : projectWith.length !== 0
       ? projectWith[0].project_WITH_EMP_INDEX
       : "",
-    담당자이름:
-      item && projectWith.length !== 0
-        ? projectWith.filter(
-            (filt) =>
-              filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
-          )[0].dept_NAME +
-          " " +
-          projectWith.filter(
-            (filt) =>
-              filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
-          )[0].team_NAME +
-          " " +
-          projectWith.filter(
-            (filt) =>
-              filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
-          )[0].emp_NAME
-        : projectWith.length !== 0
-        ? projectWith[0].dept_NAME +
-          " " +
-          projectWith[0].team_NAME +
-          " " +
-          projectWith[0].emp_NAME
-        : "",
+    담당자이름: "",
   });
 
   useEffect(() => {
     setContent((cont) => ({
       ...cont,
       담당자이름:
-        item && projectWith.length !== 0
+        item &&
+        projectWith.length !== 0 &&
+        projectWith.filter(
+          (filt) => filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
+        )[0]
           ? projectWith.filter(
               (filt) =>
                 filt.project_WITH_EMP_INDEX === item.project_TASK_DETAIL_EMP
