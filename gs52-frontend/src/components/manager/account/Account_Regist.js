@@ -35,7 +35,6 @@ export function AccountField() {
   const history = useHistory();
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
-
   const [filename, setFileName] = useState("");
 
   const dispatch = useDispatch();
@@ -241,7 +240,8 @@ export function AccountField() {
               <CLabel htmlFor="date">입사일</CLabel>
             </CCol>
             <CCol xs="12" md="9">
-              <DatePicker id="date" name="date" onChange={onDate} />
+            <CInput type="date" id="date" name="date" placeholder="date" onChange={onDate}/>
+              {/* <DatePicker id="date" name="date" onChange={onDate} /> */}
             </CCol>
           </CFormGroup>
 

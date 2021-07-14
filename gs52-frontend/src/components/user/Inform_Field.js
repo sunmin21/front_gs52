@@ -3,8 +3,8 @@ import {
   CCard,
   CCardBody,
   CCardHeader,
-  CInput,
-  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect,
+  CInput,CForm,
+  CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect, CValidFeedback, CInvalidFeedback
 } from '@coreui/react';
 import { useHistory   } from "react-router-dom";
 
@@ -161,15 +161,17 @@ export function InformField() {
                     회원정보입력
                 </CCardHeader>
                 <CCardBody>
+
                 <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="first_pwd">비밀번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput type="password" id="first_pwd" name="first_pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="first_pwd" 
-					onChange={onChange} value={first_pwd||''}/>
+					onChange={onChange} value={first_pwd||''} />
                   </CCol>
                 </CFormGroup>
+
                 <CFormGroup row>
                   <CCol md="3">
                     <CLabel htmlFor="second_pwd">비밀번호 확인</CLabel>
@@ -207,7 +209,7 @@ export function InformField() {
 						{/* <DaumPost setAddr={setAddr}></DaumPost> */}
 						<CButton 
 							onClick={onModal} 
-							className="mr-1"
+							color="light"
 							>우편번호찾기</CButton>
 							<>
 							{isDaumPost?(<DaumPostCode onComplete={handleComplete} style={modalStyle} autoClose={true} isDaumPost={isDaumPost} className="post-code" />):null}

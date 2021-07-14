@@ -25,7 +25,8 @@ export function MyPage() {
 
     const user = getCurrentUser();
     const [check_email, setCheck_email]=useState(false);
-
+    console.log("emp_list")
+    console.log(emp_list)
     const emp_data = emp_list.map((item) => ({
         name: item.emp_NAME,
         id:item.emp_ID,
@@ -37,6 +38,7 @@ export function MyPage() {
         team:item.team_NAME,
         rank:item.rank_NAME,
         position:item.position_NAME,
+        dept:item.dept_NAME
       }));  
 
     const [inputs, setInputs] = useState({
@@ -69,35 +71,6 @@ export function MyPage() {
 		//만든 변수를 seInput으로 변경해준다.
 			setInputs(nextInputs)      
 	}
-
-	const [addr, setAddr] = useState("");
-	const [isDaumPost,setIsDaumPost]=useState(false);
-	const onModal = () =>{
-        setIsDaumPost(true);
-    }
-
-	const modalStyle = {
-		position: 'absolute',
-		zIndex: '100',
-		border: '1px solid #000000',
-		overflow: 'hidden',
-	  };
-
-	const handleComplete = (data) => {
-        let fullAddress = data.address;
-        let extraAddress = '';
-        if (data.addressType === 'R') {
-            if (data.bname !== '') {
-                extraAddress += data.bname;
-            }
-            if (data.buildingName !== '') {
-                extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-            }
-            fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-        }
-        //fullAddress -> 전체 주소반환
-        setAddr(fullAddress);
-    }
 
     const onClick=(name)=>{
         if(name=="email"){
@@ -170,6 +143,15 @@ export function MyPage() {
                   </CCol>
                 </CFormGroup>
 
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="address">부서/팀/직책/직급</CLabel>
+                  </CCol>
+                  <CCol>
+                  <p className="form-control-static">{emp_data[0].dept} / {emp_data[0].team} / {emp_data[0].position} / {emp_data[0].rank}</p>
+                  </CCol>
+                </CFormGroup>
+
                 
                 <CFormGroup row>
                   <CCol md="3">
@@ -215,10 +197,8 @@ export function MyPage() {
                     <CLabel htmlFor="address">주소</CLabel>
                   </CCol>
                   <CCol>
-                    
                   <p className="form-control-static">{emp_data[0].address}</p>
                   </CCol>
-                  
                 </CFormGroup>
 
                 </CCardBody>
@@ -226,8 +206,8 @@ export function MyPage() {
 
 
                 <CCardFooter>              
-                    <CButton type="submit" size="sm" color="primary" onClick={InformChangeButton}>회원정보 수정</CButton>
-                    <CButton type="submit" size="sm" color="primary" onClick={PwdChangeButton}>비밀번호 수정</CButton>
+                    <CButton type="submit" size="sm" color="primary" onClick={InformChangeButton} style={{ textAlign: "center", margin:"auto"}}>회원정보 수정</CButton>
+                    <CButton type="submit" size="sm" color="primary" onClick={PwdChangeButton} style={{ textAlign: "center", margin:"auto"}}>비밀번호 수정</CButton>
                 </CCardFooter>
             </CCard>
 		</div>
