@@ -33,7 +33,6 @@ const Helpers = {
 
       if (response.ok) {
         let data = response;
-        // console.log("안녕");
 
         // response.headers.append("Access-Control-Allow-Origin", "*");
         // response.headers.append("Access-Control-Allow-Credentials", "true");
@@ -51,7 +50,7 @@ const Helpers = {
         ) {
           data = response.json();
         }
-        console.log(data.headers);
+
         return data;
       }
 

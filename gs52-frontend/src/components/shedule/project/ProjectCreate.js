@@ -29,8 +29,6 @@ import { userList } from "src/lib/api/auth/auth";
 const ProjectCreate = () => {
   let user = getCurrentUser();
 
-  console.log("Project user");
-  console.log(user);
   const [no, setNo] = useState([]);
   const date = moment().format("YYYY-MM-DD");
   const [content, setContent] = useState({
@@ -176,7 +174,7 @@ const ProjectCreate = () => {
   }, [filename, content.파일]);
 
   let Filename = useRef("");
-  console.log(data);
+
   return (
     <>
       {" "}
@@ -319,7 +317,6 @@ const ProjectCreate = () => {
 
                 <CCol xs="6" md="3">
                   {data.map((content, key) => {
-                    console.log(key);
                     if (key === 0) {
                       return (
                         <CButton
@@ -419,7 +416,6 @@ const ProjectCreate = () => {
                     custom
                     onChange={(e) => {
                       for (let key of Object.keys(e.target.files)) {
-                        console.log(e.target.files[key].size);
                         if (e.target.files[key].size > 102400000) {
                           setFilecheck(true);
                           return;
