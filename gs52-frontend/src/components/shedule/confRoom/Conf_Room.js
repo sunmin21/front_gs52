@@ -31,6 +31,12 @@ export function ConfRoom(props) {
 	  }
 
 	  const data = conf_list.map((item) => {
+		  if(  moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_END<moment().format("YYYY-MM-DD")){
+			  var color = "navy"
+		  }
+		  else{
+			var color = "purple"
+		  }
         return{
 		//id: item.conf_INDEX,
 		title: item.conf_TITLE,
@@ -38,6 +44,8 @@ export function ConfRoom(props) {
 		start: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_START,
 		end: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_END,
 						// //'2021-06-22T15:30'	
+		
+		color:color
     }
 	  }
       );

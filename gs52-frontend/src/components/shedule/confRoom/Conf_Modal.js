@@ -13,6 +13,7 @@ import {
   CInputGroupPrepend,
   CInputGroupText,
   CInputGroup,
+  CLabel,
   CAlert,
 } from "@coreui/react";
 import {
@@ -153,7 +154,7 @@ export function ConfModal() {
   const onRegist = async() => {
     if (inputs.title === null) {
       {
-        alert("제목입력해라")
+        alert("제목 입력하십시오")
       }
       return (
         <CAlert color="warning">This is a warning alert — check it out!</CAlert>
@@ -198,54 +199,84 @@ export function ConfModal() {
         <CModalBody>
           <h4>회의실 예약</h4>
 
+          <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="first_pwd">회의실 제목</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput
+						id="title"
+						name="title"
+						placeholder="제목을 입력하세요."
+						onChange={onChange}
+                  />
+                  </CCol>
+          </CFormGroup>
 
 
-        <CInput
-          id="title"
-          name="title"
-          placeholder="제목을 입력하세요."
-          onChange={onChange}
-        />
+          <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="first_pwd"></CLabel>
+                  </CCol>
+                  <CCol xs="12" md="4">
+                    <CSelect id="floor" name="floor" onChange={onChange}>
+						{floor_data.map((floor, idx) => {
+						return (
+							<option key={idx} value={floor.conf_ROOM_FLOOR} defaultValue={floor.conf_ROOM_FLOOR[0]}>
+							{floor.conf_ROOM_FLOOR}층
+							</option>
+						);
+						})}
+                    </CSelect>
+
+                  </CCol>
+
+				  <CCol md="4">
+				  <CSelect id="room" name="room" onChange={onChange}>
+						{room_data.map((room, idx) => {
+						return (
+							<option key={idx} value={idx} defaultValue={room.conf_ROOM_INDEX}>
+							{room.conf_ROOM_NUMBER}호
+							</option>
+						);
+						})}
+					</CSelect>
+                  </CCol>
+          </CFormGroup>
 				
-				<CSelect id="floor" name="floor" onChange={onChange}>
-					{floor_data.map((floor, idx) => {
-					return (
-						<option key={idx} value={floor.conf_ROOM_FLOOR} defaultValue={floor.conf_ROOM_FLOOR[0]}>
-						{floor.conf_ROOM_FLOOR}층
-						</option>
-					);
-					})}
-				</CSelect>
+          <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="first_pwd">예약 시간</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+					<DatePicker
+						onChange={onDate}
+						defaultValue={moment(conf_date, dateFormat)}
+					/><p></p>
+					<TimePicker.RangePicker
+						onChange={onTime}
+						defaultValue={[
+							moment(conf_startTime, "HH:mm"),
+							moment(conf_endTime, "HH:mm"),
+						]}
+						format="HH:mm"
+						minuteStep={10}
+					/>
+                  </CCol>
+          </CFormGroup>
 				
-			 <CSelect id="room" name="room" onChange={onChange}>
-					{room_data.map((room, idx) => {
-					return (
-						<option key={idx} value={idx} defaultValue={room.conf_ROOM_INDEX}>
-						{room.conf_ROOM_NUMBER}호
-						</option>
-					);
-					})}
-				</CSelect>
-				<DatePicker
-				onChange={onDate}
-				defaultValue={moment(conf_date, dateFormat)}
-				/>
-				<TimePicker.RangePicker
-				onChange={onTime}
-				defaultValue={[
-					moment(conf_startTime, "HH:mm"),
-					moment(conf_endTime, "HH:mm"),
-				]}
-				format="HH:mm"
-				minuteStep={10}
-				/>
-
-				<div className="controls">
-					<MemberDropdown 
-              data={data}></MemberDropdown>
-
-				<p className="help-block">초대 인원 선택하세요</p>
-				</div>
+			
+		  <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="first_pwd">초대 인원</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+					<div className="controls">
+						<MemberDropdown 
+						data={data}></MemberDropdown>
+					</div>
+                  </CCol>
+          </CFormGroup>	
 
         </CModalBody>
 
