@@ -62,7 +62,8 @@ const ProjectTaskTodoModal = ({
       array.push(0);
     }
   }
-
+  console.log(item);
+  console.log(projectWith[0]);
   const [content, setContent] = useState({
     인덱스: projectNo,
     task인덱스: taskIndex,

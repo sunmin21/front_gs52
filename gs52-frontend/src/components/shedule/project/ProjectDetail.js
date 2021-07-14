@@ -16,8 +16,21 @@ import {
 import ProjectContent from "./projectDetail/ProjectContent";
 import ProjectTask from "./projectDetail/ProjectTask";
 import ProjectInsite from "./projectDetail/ProjectInsite";
+import { useSelector } from "react-redux";
 
 function ShowProject() {
+  const { projectNo, projectWith, projectTodo, projectTodoDetail } =
+    useSelector(({ project }) => {
+      return {
+        projectNo: project.projectNo,
+        projectWith:
+          project.projectWith.filter((item) => item.project_WITH_OKAY === 1) ||
+          [],
+        projectTodo: project.projectTodo,
+        projectTodoDetail: project.projectTodoDetail,
+      };
+    });
+  console.log(projectTodoDetail.length !== 0);
   return (
     <>
       <CCol xs="12" md="12" className="mb-4">
@@ -32,9 +45,11 @@ function ShowProject() {
                 <CNavItem>
                   <CNavLink>업무</CNavLink>
                 </CNavItem>
-                <CNavItem>
-                  <CNavLink>인사이트</CNavLink>
-                </CNavItem>
+                {projectTodoDetail.length !== 0 && (
+                  <CNavItem>
+                    <CNavLink>인사이트</CNavLink>
+                  </CNavItem>
+                )}
               </CNav>
               <CTabContent>
                 <CTabPane>
@@ -43,9 +58,11 @@ function ShowProject() {
                 <CTabPane>
                   <ProjectTask />
                 </CTabPane>
-                <CTabPane>
-                  <ProjectInsite />
-                </CTabPane>
+                {projectTodoDetail.length !== 0 && (
+                  <CTabPane>
+                    <ProjectInsite />
+                  </CTabPane>
+                )}
               </CTabContent>
             </CTabs>
           </CCardBody>

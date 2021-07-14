@@ -1,5 +1,6 @@
 import React from "react";
 import { Pie, measureTextWidth } from "@ant-design/charts";
+import colors from "./colors";
 const PieChart = ({ projectWith }) => {
   function renderStatistic(containerWidth, text, style) {
     var _measureTextWidth = (0, measureTextWidth)(text, style),
@@ -33,6 +34,15 @@ const PieChart = ({ projectWith }) => {
         value: item.project_WITH_SCORE,
       })),
   ];
+  console.log(
+    ...projectWith
+      .filter((people) => people.project_WITH_SCORE > 0)
+      .map((item) => {
+        return item.project_WITH_COLOR !== null
+          ? item.project_WITH_COLOR
+          : colors.slice(0, projectWith.length - 1);
+      })
+  );
   var config = {
     appendPadding: 10,
     data: data,
@@ -41,7 +51,11 @@ const PieChart = ({ projectWith }) => {
     color: [
       ...projectWith
         .filter((people) => people.project_WITH_SCORE > 0)
-        .map((item) => item.project_WITH_COLOR),
+        .map((item) => {
+          return item.project_WITH_COLOR !== null
+            ? item.project_WITH_COLOR
+            : colors.slice(0, projectWith.length - 1);
+        }),
     ],
 
     radius: 1,
