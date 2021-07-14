@@ -38,9 +38,10 @@ const PieChart = ({ projectWith }) => {
     ...projectWith
       .filter((people) => people.project_WITH_SCORE > 0)
       .map((item) => {
+        console.log(item.project_WITH_COLOR);
         return item.project_WITH_COLOR !== null
           ? item.project_WITH_COLOR
-          : colors.slice(0, projectWith.length - 1);
+          : colors;
       })
   );
   var config = {
@@ -52,12 +53,12 @@ const PieChart = ({ projectWith }) => {
       ...projectWith
         .filter((people) => people.project_WITH_SCORE > 0)
         .map((item) => {
+          console.log(item.project_WITH_COLOR);
           return item.project_WITH_COLOR !== null
             ? item.project_WITH_COLOR
-            : colors.slice(0, projectWith.length - 1);
+            : colors;
         }),
     ],
-
     radius: 1,
     innerRadius: 0.64,
     meta: {
