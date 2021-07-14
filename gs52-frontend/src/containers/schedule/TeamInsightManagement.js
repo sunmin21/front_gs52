@@ -9,7 +9,7 @@ import {
   CCarouselInner,
   CCarouselItem,
 } from "@coreui/react";
-import { Carousel } from "antd";
+import { Carousel, PageHeader } from "antd";
 import React, { useCallback } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,7 +54,9 @@ const PersonInsight = () => {
     rank_NAME: item.rank_NAME,
   }));
   console.log(teamlist);
+
   useEffect(() => {
+    console.log("얌ㅁ마");
     dispatch(entrydateAxios(EMP_INDEX.team));
     dispatch(projectAxios(EMP_INDEX.team));
     dispatch(todoAxios(EMP_INDEX.team));
@@ -69,7 +71,6 @@ const PersonInsight = () => {
   //////////////////////////////////////////////////////////////personInsight
 
   const { personinsight } = useSelector((state) => {
-    console.log(state);
     return {
       personinsight: state.personInsight.personinsight,
     };
@@ -77,9 +78,13 @@ const PersonInsight = () => {
 
   return (
     <div>
-      <div class="row">
-        <div class="col w-100 mt-3">
+      <div className="row">
+        <div className="col w-50 mt-3">
           <CCard>
+            <PageHeader
+              title="팀 인사이트"
+              style={{ border: "1px solid rgb(235, 237, 240)" }}
+            />
             <CCardBody>
               {entrydate.length !== 0 &&
               project.length !== 0 &&
@@ -101,19 +106,24 @@ const PersonInsight = () => {
           </CCard>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
+      <div className="row">
+        <div className="col">
           <CCard>
+            <PageHeader
+              title="팀원 인사이트"
+              style={{ border: "1px solid rgb(235, 237, 240)" }}
+            />
             <CCardBody>
               <CCarousel animate autoSlide={3000}>
                 <CCarouselIndicators />
                 <CCarouselInner>
                   {personinsight.length !== 0
-                    ? teamlist0.map((item) => (
+                    ? teamlist0.map((item, key) => (
                         <CCarouselItem>
                           <PersonInsightList
                             EMP_INDEX={item.emp_INDEX}
                             personinsight={personinsight}
+                            key={key}
                           ></PersonInsightList>
                           <hr />
                           <br />
@@ -129,8 +139,8 @@ const PersonInsight = () => {
                       ))
                     : null}
                 </CCarouselInner>
-                <CCarouselControl direction="prev" dark />
-                <CCarouselControl direction="next" dark />
+                <CCarouselControl direction="prev" />
+                <CCarouselControl direction="next" />
               </CCarousel>
             </CCardBody>
           </CCard>

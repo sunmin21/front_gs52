@@ -50,7 +50,7 @@ const Main = () => {
             <Notice content={notice} />
           </CCol>
           <CCol>
-            <MyCalendar/>
+            <MyCalendar />
           </CCol>
         </CRow>
       </CContainer>

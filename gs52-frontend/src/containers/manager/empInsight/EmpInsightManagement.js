@@ -41,21 +41,15 @@ const PersonInsight = () => {
 
   const onChange = (value) => {
     setValue(value);
-    // dispatch(entrydateAxios(value));
-    // dispatch(projectAxios(value));
-    // dispatch(todoAxios(value));
-    // dispatch(businessAxios(value));
-    // dispatch(reportAxios(value));
-    // dispatch(worktimeAxios(value));
   };
-  useEffect(() => {
-    dispatch(teamAxios());
-    dispatch(entrydateAxios(value));
-    dispatch(projectAxios(value));
-    dispatch(todoAxios(value));
-    dispatch(businessAxios(value));
-    dispatch(reportAxios(value));
-    dispatch(worktimeAxios(value));
+  useEffect(async () => {
+    await dispatch(teamAxios());
+    await dispatch(entrydateAxios(value));
+    await dispatch(projectAxios(value));
+    await dispatch(todoAxios(value));
+    await dispatch(businessAxios(value));
+    await dispatch(reportAxios(value));
+    await dispatch(worktimeAxios(value));
   }, [dispatch, value]);
   return (
     <div class="container">

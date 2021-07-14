@@ -16,6 +16,7 @@ import axios from "axios";
 import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
+import { PageHeader } from "antd";
 
 const annualArr = ["날짜", "연차유형", "사유", "승인"];
 
@@ -98,6 +99,13 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
         승인: status,
       };
     });
+
+  console.log(
+    Math.ceil((new Date("2021-09-17") - new Date()) / (1000 * 3600 * 24))
+  );
+  const diffdata = annual.map((item) => {
+    console.log(item);
+  });
 
   const data2 = empvacation.map((item) => {
     return item.emp_VACATION;
@@ -185,14 +193,18 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                 setInputData={setInputData}
                 setRestVacation={setRestVacation}
               ></RowDeleteModal>
-              <CAlert
-                color="info"
-                show={visible}
-                fade
-                onShowChange={setVisible}
+              <div
+                style={{ textAlign: "center", margin: "10px 20px 10px 20px" }}
               >
-                삭제할 수 없는 날짜입니다.
-              </CAlert>
+                <CAlert
+                  color="warning"
+                  show={visible}
+                  fade
+                  onShowChange={setVisible}
+                >
+                  삭제할 수 없는 날짜입니다.
+                </CAlert>
+              </div>
             </CCardBody>
           </CCard>
         </CCol>

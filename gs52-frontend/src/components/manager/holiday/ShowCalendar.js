@@ -25,7 +25,7 @@ function ShowCalendar() {
     dispatch(holidayAxios());
   }, [dispatch]);
 
-  const eventOnclick = (e) => {
+  const eventOnclick = async (e) => {
     var msg = "삭제하시겠습니까?";
 
     if (e.event._def["publicId"] > 0) {
@@ -33,19 +33,18 @@ function ShowCalendar() {
         console.log("삭제");
         console.log(e.event._def);
         // holiday_index를 가져옴
-        DeleteHoliday(e.event._def["publicId"]);
-        dispatch(holidayAxios());
+        await DeleteHoliday(e.event._def["publicId"]);
+        await dispatch(holidayAxios());
         // 자동 rendering
       } else {
         console.log("삭제취소");
       }
-    }
-    else {
+    } else {
       setVisible(3);
       setAlertContents("국가 공휴일은 삭제 할 수 없습니다");
     }
   };
-  
+
   const data = holiday.map((item) => {
     return {
       id: item.holiday_INDEX,
@@ -57,13 +56,13 @@ function ShowCalendar() {
 
   return (
     <>
-      <div style={{textAlign:"center", margin:"10px 300px"}}>
+      <div style={{ textAlign: "center", margin: "10px 300px" }}>
         <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
           {alertContents}
         </CAlert>
-      </div>  
+      </div>
       <CCard>
-        <CCardBody> 
+        <CCardBody>
           <div className="calendarBox">
             <FullCalendar
               contentHeight="500px"

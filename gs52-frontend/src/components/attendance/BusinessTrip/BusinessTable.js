@@ -11,7 +11,6 @@ import {
   CBadge,
 } from "@coreui/react";
 
-import axios from "axios";
 import BusinessModal from "./BusinessModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
@@ -177,14 +176,18 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
                 setInputData={setInputData}
                 setRestVacation={setRestVacation}
               ></RowDeleteModal>
-              <CAlert
-                color="info"
-                show={visible}
-                fade
-                onShowChange={setVisible}
+              <div
+                style={{ textAlign: "center", margin: "10px 20px 10px 20px" }}
               >
-                삭제할 수 없는 날짜입니다.
-              </CAlert>
+                <CAlert
+                  color="warning"
+                  show={visible}
+                  fade
+                  onShowChange={setVisible}
+                >
+                  삭제할 수 없는 날짜입니다.
+                </CAlert>
+              </div>
             </CCardBody>
           </CCard>
         </CCol>

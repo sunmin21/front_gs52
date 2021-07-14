@@ -134,9 +134,16 @@ function AnnualModal({
           ></textarea>
           <br></br>
           <br></br>
-          <CAlert color="info" show={visible} fade onShowChange={setVisible}>
-            {alertContents}
-          </CAlert>
+          <div style={{ textAlign: "center", margin: "10px 20px 10px 20px" }}>
+            <CAlert
+              color="warning"
+              show={visible}
+              fade
+              onShowChange={setVisible}
+            >
+              {alertContents}
+            </CAlert>
+          </div>
           <div class="container mt-4 mr-5">
             <div class="row float-right">
               <CButton color="secondary" onClick={() => setInfo(!info)}>
