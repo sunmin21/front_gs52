@@ -8,7 +8,7 @@ import "antd/dist/antd.css";
 import moment from "moment";
 import { UpdateProjectWith } from "src/lib/api/schedule/Project";
 import { within } from "@testing-library/react";
-
+import colors from "./colors";
 const {
   CButton,
   CModal,
@@ -36,14 +36,14 @@ const ProjectTaskColorModal = ({
   withIndex,
 }) => {
   const [color, setColor] = useState(empcolor);
-  const colors = [
-    "paleturquoise",
-    "orange",
-    "yellow",
-    "peachpuff",
-    "Chartreuse",
-    "CornflowerBlue",
-  ];
+  // const colors = [
+  //   "paleturquoise",
+  //   "orange",
+  //   "lightsteelblue",
+  //   "peachpuff",
+  //   "Chartreuse",
+  //   "CornflowerBlue",
+  // ];
   return (
     <CModal show={visible}>
       <CModalHeader>

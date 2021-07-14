@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css';
-import { CButton, CSwitch, CInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup } from '@coreui/react'
+import { CButton, CSwitch, CInput, CModal, CModalBody, CModalFooter, CModalHeader, CModalTitle, CFormGroup, CAlert } from '@coreui/react'
 import { InsertHoliday } from 'src/lib/api/manager/holiday/HolidayAPI';
 import { holidayAxios } from 'src/modules/manager/holiday';
 import { useDispatch } from 'react-redux';
@@ -25,16 +25,17 @@ function AddHoliday() {
     const [startDate, setStartDate] = useState();
     let [annual] = useState(0);
 
+    const [visible, setVisible] = useState(0);
+    const [alertContents, setAlertContents] = useState();
+
     const handleTitle = e => {
         setTitle(e.target.value);
     };
 
     const handleAnnual = e => {
         
-        if (flag == true) {
-            console.log(flag)
+        if (flag == false) {
             console.log("on");
-            alert("이 설정은 내년에도 적용됩니다 !")
             annual = 1;
         }
         else
@@ -52,7 +53,8 @@ function AddHoliday() {
 
     const submit = () => {
         if (title == "") {
-            return "warning"
+            setVisible(3);
+            setAlertContents("모두 입력해주세요");
         }
         else {
             console.log(flag)
@@ -101,13 +103,14 @@ function AddHoliday() {
                                         selected={startDate}
                                         onChange={setStartDate}
                                         inline // 달력이 모달창에 뜨도록
-                                        // minDate={new Date()} // 이전 날은 선택 못하도록
+                                        minDate={new Date()} // 이전 날은 선택 못하도록
                                         popperPlacement="auto" // 화면 중앙에 오도록
                                     />
                                 </td>
                             </tr>
                             <tr>
-                                <td style={tdStyle}>반복 설정</td>
+                                <td style={tdStyle} rowSpan="2">반복 설정</td>
+                                {/* <FontAwesomeIcon icon="fa-solid fa-triangle-exclamation" /> */}
                                 <td style={tdStyle}>
                                     <CSwitch
                                         className={'mx-1'} variant={'3d'} color={'info'}
@@ -117,9 +120,15 @@ function AddHoliday() {
                                     />
                                 </td>
                             </tr>
+                            <tr><td>이 설정은 내년에도 반복됩니다</td></tr>
                         </tbody>
                     </table>
-                </CFormGroup>
+                    <CModalBody style={{textAlign:"center", margin:"10px 20px -20px 20px"}}>
+                        <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
+                            {alertContents}
+                        </CAlert>
+                    </CModalBody>                    
+                </CFormGroup>                
                 <CModalFooter>
                     <CButton color="secondary" onClick={cancel}>취소</CButton>
                     <CButton color="info" onClick={submit}>확인</CButton>

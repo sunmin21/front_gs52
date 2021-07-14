@@ -12,19 +12,16 @@ import {
   todoAxios,
   worktimeAxios,
 } from "src/modules/schedule/teamInsight";
-import {
-  CDropdown,
-  CDropdownItem,
-  CDropdownMenu,
-  CDropdownToggle,
-} from "@coreui/react";
+
+import { teamAxios } from "src/modules/annual/memberSchedule";
+import { TreeSelect } from "antd";
 
 const PersonInsight = () => {
   const EMP_INDEX = getCurrentUser();
+  const [value, setValue] = useState(1);
 
-  const { entrydate, project, todo, business, report, worktime } = useSelector(
-    (state) => {
-      console.log(state);
+  const { entrydate, project, todo, business, report, worktime, team } =
+    useSelector((state) => {
       return {
         entrydate: state.TeamInsight.entrydate,
         project: state.TeamInsight.project,
@@ -32,61 +29,53 @@ const PersonInsight = () => {
         business: state.TeamInsight.business,
         report: state.TeamInsight.report,
         worktime: state.TeamInsight.worktime,
+        team: state.memberSchedule.team,
       };
-    }
-  );
+    });
   const dispatch = useDispatch();
 
+  const data = team.map((item) => ({
+    title: item.dept_NAME + " : " + item.team_NAME,
+    value: item.team_INDEX,
+  }));
+
+  const onChange = (value) => {
+    setValue(value);
+    // dispatch(entrydateAxios(value));
+    // dispatch(projectAxios(value));
+    // dispatch(todoAxios(value));
+    // dispatch(businessAxios(value));
+    // dispatch(reportAxios(value));
+    // dispatch(worktimeAxios(value));
+  };
   useEffect(() => {
-    dispatch(entrydateAxios(EMP_INDEX.team));
-    dispatch(projectAxios(EMP_INDEX.team));
-    dispatch(todoAxios(EMP_INDEX.team));
-    dispatch(businessAxios(EMP_INDEX.team));
-    dispatch(reportAxios(EMP_INDEX.team));
-    dispatch(worktimeAxios(EMP_INDEX.team));
-  }, [dispatch, EMP_INDEX.team]);
+    dispatch(teamAxios());
+    dispatch(entrydateAxios(value));
+    dispatch(projectAxios(value));
+    dispatch(todoAxios(value));
+    dispatch(businessAxios(value));
+    dispatch(reportAxios(value));
+    dispatch(worktimeAxios(value));
+  }, [dispatch, value]);
   return (
     <div class="container">
       <div class="row" style={{ textAlign: "right" }}>
         <div class="col w-50 mt-3">
           <div>
-            <CDropdown className="mt-2">
-              <CDropdownToggle caret color="info">
-                팀 선택
-              </CDropdownToggle>
-              <CDropdownMenu>
-                <CDropdownItem header>Header</CDropdownItem>
-                <CDropdownItem disabled>Action Disabled</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-                <CDropdownItem>Action</CDropdownItem>
-              </CDropdownMenu>
-            </CDropdown>
+            <TreeSelect
+              style={{ width: "25%" }}
+              value={value}
+              dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
+              treeData={data}
+              placeholder="Please select"
+              treeDefaultExpandAll
+              onChange={onChange}
+            />
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="col w-50">
+        <div class="col w-70">
           {entrydate.length !== 0 &&
           project.length !== 0 &&
           todo.length !== 0 &&
@@ -94,7 +83,6 @@ const PersonInsight = () => {
           report.length !== 0 &&
           worktime.length !== 0 ? (
             <EmpInsightList
-              EMP_TEAM_INDEX={EMP_INDEX.team}
               entrydate={entrydate}
               project={project}
               todo={todo}

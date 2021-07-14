@@ -43,9 +43,6 @@ export const UpdateProjectWith = async ({ color, withIndex }) => {
 };
 
 export const SelectTask = async ({ index }) => {
-  console.log("이거안가?@?");
-  console.log("무슨차이야 ㅡㅡ");
-
   const project = await client.post(API_URL + "/schedule/project/selectTask", {
     project_INDEX: index,
   });
@@ -54,7 +51,6 @@ export const SelectTask = async ({ index }) => {
 };
 
 export const SelectTaskDetail = async ({ index }) => {
-  console.log("왜여기로안가죠???????????????????????????????@");
   const project = await client.post(
     API_URL + "/schedule/project/selectTaskDetail",
     {
@@ -96,7 +92,6 @@ export const UpdateProjecTask = async ({
 };
 
 export const DeleteProjecTaskAll = async (인덱스) => {
-  console.log(인덱스);
   const project = await client.post(
     API_URL + "/schedule/project/deleteProjecTaskAll",
     {
@@ -107,7 +102,6 @@ export const DeleteProjecTaskAll = async (인덱스) => {
   return project;
 };
 export const DeleteProjecTask = async (인덱스) => {
-  console.log(인덱스);
   const project = await client.post(
     API_URL + "/schedule/project/deleteProjectTask",
     {
@@ -125,7 +119,6 @@ export const InsertProjecTaskDetail = async ({
   진행도,
   인덱스,
 }) => {
-  console.log(task인덱스 + "  " + 담당자 + "  " + 내용 + "  " + 진행도);
   const project = await client.post(
     API_URL + "/schedule/project/insertprojectTaskDetail",
     {
@@ -147,7 +140,6 @@ export const UpdateProjecTaskDetail = async ({
   진행도,
   인덱스,
 }) => {
-  console.log(task인덱스 + "  " + 담당자 + "  " + 내용 + "  " + 진행도);
   const project = await client.post(
     API_URL + "/schedule/project/updateprojectTaskDetail",
     {
@@ -163,7 +155,6 @@ export const UpdateProjecTaskDetail = async ({
   return project;
 };
 export const DeleteProjecTaskDetail = async (인덱스) => {
-  console.log(인덱스);
   const project = await client.post(
     API_URL + "/schedule/project/deleteProjectTaskDetail",
     {
@@ -174,8 +165,6 @@ export const DeleteProjecTaskDetail = async (인덱스) => {
   return project;
 };
 export const UpdateProjecTaskDetailSuccess = async ({ index, success }) => {
-  console.log(success);
-  console.log("타냐");
   const project = await client.post(
     API_URL + "/schedule/project/updateProjecTaskDetailSuccess",
     {
@@ -192,9 +181,6 @@ export const UpdateProjectWithScore = async ({
   score,
   projectIndex,
 }) => {
-  console.log("타냐");
-  console.log(score);
-  console.log("뭐지이거");
   const project = await client.post(
     API_URL + "/schedule/project/updateProjectWithScore",
     {
@@ -207,6 +193,17 @@ export const UpdateProjectWithScore = async ({
   return project;
 };
 
+export const SelectProjectWithScore = async (index, projectIndex) => {
+  const project = await client.post(
+    API_URL + "/schedule/project/selectProjectWithScore",
+    {
+      project_WITH_EMP_INDEX: index,
+      project_INDEX: projectIndex,
+    }
+  );
+
+  return project;
+};
 export const SelectOneProject = async ({ index }) => {
   const project = await client.post(
     API_URL + "/schedule/project/selectOneProject",

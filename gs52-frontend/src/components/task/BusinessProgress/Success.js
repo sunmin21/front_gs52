@@ -9,6 +9,7 @@ import {
   CPagination,
   CRow,
 } from "@coreui/react";
+import { Badge } from "antd";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import usersData from "./UsersData";
@@ -22,7 +23,7 @@ const getBadge = (status) => {
     case "대기중":
       return "warning";
     case "거절":
-      return "danger";
+      return "error";
     default:
       return "primary";
   }
@@ -104,9 +105,10 @@ const Success = ({ content, pageCount }) => {
                 상태: (item) => (
                   <td>
                     <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(Done[item.todo_DONE])}>
-                        {Done[item.todo_DONE]}
-                      </CBadge>
+                      <Badge
+                        status={getBadge(Done[item.todo_DONE])}
+                        text={Done[item.todo_DONE]}
+                      ></Badge>
                     </h4>
                   </td>
                 ),

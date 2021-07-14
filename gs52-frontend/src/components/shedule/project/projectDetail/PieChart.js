@@ -1,5 +1,6 @@
 import React from "react";
 import { Pie, measureTextWidth } from "@ant-design/charts";
+import colors from "./colors";
 const PieChart = ({ projectWith }) => {
   function renderStatistic(containerWidth, text, style) {
     var _measureTextWidth = (0, measureTextWidth)(text, style),
@@ -14,8 +15,7 @@ const PieChart = ({ projectWith }) => {
             Math.pow(R, 2) /
               (Math.pow(textWidth / 2, 2) + Math.pow(textHeight, 2))
           )
-        ),
-        1
+        )
       );
     }
     var textStyleStr = "width:".concat(containerWidth, "px;");
@@ -27,16 +27,37 @@ const PieChart = ({ projectWith }) => {
   }
 
   var data = [
-    ...projectWith.map((item) => ({
-      type: item.emp_NAME,
-      value: item.project_WITH_SCORE,
-    })),
+    ...projectWith
+      .filter((people) => people.project_WITH_SCORE > 0)
+      .map((item) => ({
+        type: item.emp_NAME,
+        value: item.project_WITH_SCORE,
+      })),
   ];
+  console.log(
+    ...projectWith
+      .filter((people) => people.project_WITH_SCORE > 0)
+      .map((item) => {
+        return item.project_WITH_COLOR !== null
+          ? item.project_WITH_COLOR
+          : colors.slice(0, projectWith.length - 1);
+      })
+  );
   var config = {
     appendPadding: 10,
     data: data,
     angleField: "value",
     colorField: "type",
+    color: [
+      ...projectWith
+        .filter((people) => people.project_WITH_SCORE > 0)
+        .map((item) => {
+          return item.project_WITH_COLOR !== null
+            ? item.project_WITH_COLOR
+            : colors.slice(0, projectWith.length - 1);
+        }),
+    ],
+
     radius: 1,
     innerRadius: 0.64,
     meta: {
@@ -72,10 +93,14 @@ const PieChart = ({ projectWith }) => {
           var _container$getBoundin2 = container.getBoundingClientRect(),
             width = _container$getBoundin2.width;
           var text = datum
-            ? "\xA5 ".concat(datum.value)
-            : "\xA5 ".concat(
-                data.reduce(function (r, d) {
-                  return r + d.value;
+            ? "".concat(datum.value + "%")
+            : "".concat(
+                data.reduce(function (r, d, i) {
+                  if (data.length - 1 === i) {
+                    return r + d.value + "%";
+                  } else {
+                    return r + d.value;
+                  }
                 }, 0)
               );
           return renderStatistic(width, text, { fontSize: 32 });

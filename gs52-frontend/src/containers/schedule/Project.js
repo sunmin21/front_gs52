@@ -22,12 +22,12 @@ const Project = () => {
   }, [dispatch]);
 
   return (
+    <>
+    <div style={{ backgroundColor:"lightsalmon" }}>
+        <h3>프로젝트 목록</h3>
+    </div>
     <CContainer>
-      <CCardGroup>
-        <CCardBody>
-          <h3>프로젝트 목록</h3>
-        </CCardBody>
-        <CCardBody style={{ textAlign: "right", margin: "auto" }}>
+        <CCardBody style={{ textAlign: "right", margin:"0"}}>
           <CButton
             color="danger"
             size="lg"
@@ -39,15 +39,11 @@ const Project = () => {
               프로젝트 생성
           </CButton>
         </CCardBody>            
-        <CRow className="align-items-center">
-          <CCol>
-            <CCardBody style={{ textAlign: "center" }}>
+            <CCardBody style={{ textAlign: "center"}}>
               <ShowProject />
             </CCardBody>
-          </CCol>
-        </CRow>
-      </CCardGroup>
-    </CContainer>
+      </CContainer>
+      </>
   );
 };
 

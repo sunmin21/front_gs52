@@ -414,7 +414,6 @@ const ProjectContent = () => {
                             color="dark"
                             key={key}
                             onClick={() => {
-                              console.log(part.수락);
                               if (
                                 updateCheck &&
                                 window.confirm("삭제하시겠습니까?")
@@ -459,7 +458,6 @@ const ProjectContent = () => {
                             color="dark"
                             key={key}
                             onClick={() => {
-                              console.log(part);
                               if (
                                 updateCheck &&
                                 window.confirm("삭제하시겠습니까?")
@@ -513,7 +511,6 @@ const ProjectContent = () => {
                       key={key}
                       onClick={(e) => {
                         if (!updateCheck) {
-                          console.log(item);
                           Helpers.httpRequest(
                             `http://192.168.20.17:3000${item.project_REACT_PATH}`,
                             "get"
