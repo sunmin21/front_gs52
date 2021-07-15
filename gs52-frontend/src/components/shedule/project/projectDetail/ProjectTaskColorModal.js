@@ -36,14 +36,7 @@ const ProjectTaskColorModal = ({
   withIndex,
 }) => {
   const [color, setColor] = useState(empcolor);
-  // const colors = [
-  //   "paleturquoise",
-  //   "orange",
-  //   "lightsteelblue",
-  //   "peachpuff",
-  //   "Chartreuse",
-  //   "CornflowerBlue",
-  // ];
+
   return (
     <CModal show={visible}>
       <CModalHeader>

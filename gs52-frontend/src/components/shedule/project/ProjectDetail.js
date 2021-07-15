@@ -30,7 +30,7 @@ function ShowProject() {
         projectTodoDetail: project.projectTodoDetail,
       };
     });
-  console.log(projectTodoDetail.length !== 0);
+
   return (
     <>
       <CCol xs="12" md="12" className="mb-4">

@@ -82,9 +82,6 @@ const ProjectTask = () => {
     };
   }, [projectNo, dispatch]);
 
-  // console.log(...projectTodoDetail.map((a, key) => key));
-  // console.log("에에");
-  console.log(projectWith);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -279,7 +276,6 @@ const ProjectTask = () => {
               </CCol>
               <CCol xs="9" md="7">
                 {projectTodo.map((item, key) => {
-                  // console.log(item);
                   return (
                     <CCard
                       className="mb-0"
@@ -338,8 +334,6 @@ const ProjectTask = () => {
                           aria-pressed="true"
                           style={{ textAlign: "center", float: "right" }}
                           onClick={async () => {
-                            // console.log(item.project_TASK_INDEX);
-
                             await projectTodoDetail
                               .filter(
                                 (detail) =>
@@ -409,8 +403,6 @@ const ProjectTask = () => {
                       >
                         <CCardBody>
                           {projectTodoDetail.map((item2, key) => {
-                            // console.log(item2);
-                            // console.log(key);
                             if (
                               item2.project_TASK_INDEX ===
                               item.project_TASK_INDEX
@@ -442,7 +434,6 @@ const ProjectTask = () => {
                                       marginTop: "5px",
                                     }}
                                     onClick={async () => {
-                                      // console.log(item.project_TASK_INDEX);
                                       if (
                                         item2.project_TASK_DETAIL_SUCCESS === 1
                                       ) {

@@ -84,11 +84,6 @@ const ProjectInsite = () => {
     };
   }, [projectNo, dispatch]);
 
-  // console.log(...projectTodoDetail.map((a, key) => key));
-  // console.log("에에");
-  // console.log(projectWith);
-  // console.log(projectTodo);
-
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
