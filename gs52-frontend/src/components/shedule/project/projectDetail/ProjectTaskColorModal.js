@@ -57,7 +57,7 @@ const ProjectTaskColorModal = ({
               <div style={{ display: "flex" }}>
                 {colors.map((color) => (
                   <CButton
-                    key={color}
+                    key={color + "Zxcasd"}
                     name={color}
                     style={{
                       background: color,
