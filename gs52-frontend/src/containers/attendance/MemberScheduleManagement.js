@@ -10,6 +10,14 @@ import {
 } from "src/modules/annual/memberSchedule";
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
 
 const MemberScheduleManagement = () => {
   const dispatch = useDispatch();
@@ -79,6 +87,9 @@ const MemberScheduleManagement = () => {
   }));
   return (
     <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>구성원 스케줄</h4>
+      </div>
       <div>
         <div class="row justify-content-end">
           <div class="col-sm-4 mb-2 mr-3">

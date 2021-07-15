@@ -5,19 +5,33 @@ import { useDispatch, useSelector } from "react-redux";
 import BusinessTable from "src/components/attendance/BusinessTrip/BusinessTable";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
+
 const BusinessTripManageMent = () => {
   const board = useSelector((state) => state.test.board);
   const vacation_EMP_INDEX = getCurrentUser();
   return (
-    <div class="container">
-      <div class="row">
-        <div class="col w-100 mt-3">
-          <BusinessTable
-            vacation_EMP_INDEX={vacation_EMP_INDEX}
-          ></BusinessTable>
+    <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>출장 / 외근 신청</h4>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col w-100 mt-3">
+            <BusinessTable
+              vacation_EMP_INDEX={vacation_EMP_INDEX}
+            ></BusinessTable>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
