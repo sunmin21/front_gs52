@@ -47,17 +47,7 @@ const Notice = ({ content }) => {
   return (
     <CCard>
       <CCardHeader>
-        <div
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            marginTop: "3px",
-          }}
-        >
-          <div style={contentStyle}>
-            <h4 style={{ color: "white", marginTop: "5px" }}>공지사항</h4>
-          </div>
-        </div>
+        <h3 style={{ textAlign:"left" }}>공지사항</h3>      
 
         {user.roles[0] === "ROLE_ADMIN" && (
           <CButton
