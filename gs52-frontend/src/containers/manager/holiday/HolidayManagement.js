@@ -19,17 +19,20 @@ const HolidayManagement = () => {
     return (
         <CRow>
             <CCol>
-                <div style={contentStyle}>
+                <div>
+                    <div style={contentStyle}>
                     <h4 style={{ color: "white", marginTop: "5px" }}>
                         휴일 관리
                     </h4>
+                    
                 </div>
-                <CCardBody>
                     <div style={{textAlign:"right"}}>
-                        <AddHoliday />
-                    </div>                    
+                    <AddHoliday />
+                </div> 
+                </div>
+                
+                     
                     <ShowCalendar />
-                </CCardBody>
             </CCol>
         </CRow>
     )

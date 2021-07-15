@@ -56,15 +56,9 @@ function ShowCalendar() {
 
   return (
     <>
-      <div style={{ textAlign: "center", margin: "10px 300px" }}>
-        <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
-          {alertContents}
-        </CAlert>
-      </div>
-      <CCard>
         <CCardBody>          
           <FullCalendar
-            contentHeight="500px"
+            contentHeight="475px"
             defaultView="dayGridMonth"
             plugins={[daygridPlugin]}
             eventSources={[data, holidaydata]}
@@ -74,7 +68,11 @@ function ShowCalendar() {
             eventDisplay="title"
           />
         </CCardBody>
-      </CCard>
+      <div style={{ textAlign: "center", margin: "0px 300px" }}>
+        <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
+          {alertContents}
+        </CAlert>
+      </div>
     </>
   );
 }

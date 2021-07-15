@@ -40,11 +40,24 @@ function ProjectManage() {
         })
     })
 
+    const contentStyle = {
+        backgroundColor: "#3e4b54",
+        width: "400px",
+        textAlign: "center",
+        boxShadow: "5px 5px 5px gray",
+        padding: "8px",
+        borderRadius: "50px",
+    };
+	
     return (
         <CRow>
             <CCol>
-                <h5>프로젝트 목록</h5>
-                <CCardBody style={{textAlign:"center"}}>
+                <div style={contentStyle}>
+                    <h4 style={{ color: "white", marginTop: "5px" }}>
+                        프로젝트 승인 관리
+                    </h4>
+                </div>
+                <CCardBody style={{textAlign:"center", marginTop:"50px"}}>
                     <CDataTable
                         items={data}
                         fields={[
