@@ -1,15 +1,18 @@
 const colors = [
   "olivedrab",
-  "darkkhaki",
+  "orange",
+  "lightgreen",
   "goldenrod",
   "cadetblue",
   "#a8ddb5",
   "paleturquoise",
-  "orange",
+  "#B2B1B9",
+  "#FFD523",
   "lightsteelblue",
   "peachpuff",
   "Chartreuse",
   "CornflowerBlue",
+  "darkkhaki",
 ];
 
 export default colors;
