@@ -1,10 +1,10 @@
-import { CCard } from "@coreui/react";
+import { CCard, CCardBody } from "@coreui/react";
 import { Col, Row } from "antd";
 
 const annualCard = (props) => {
   return (
     <>
-      <CCard>
+      <CCardBody>
         <Row>
           {props.empvacation.length !== 0 && props.near.length !== 0 ? (
             <Col>
@@ -18,7 +18,7 @@ const annualCard = (props) => {
             <h4>휴가 정보가 없습니다.</h4>
           )}
         </Row>
-      </CCard>
+      </CCardBody>
     </>
   );
 };

@@ -39,13 +39,12 @@ const Main = () => {
               <CCardBody>
                 <CRow>
                   <CCol sm="8">
-                    <TimeProgress></TimeProgress>
+                    <TimeProgress />
                   </CCol>
                   <CCol sm="4">
                     <AnnualCard
                       empvacation={empvacation}
-                      near={near}
-                    ></AnnualCard>
+                      near={near} />
                   </CCol>
                 </CRow>
               </CCardBody>

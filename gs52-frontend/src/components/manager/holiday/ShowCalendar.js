@@ -62,19 +62,17 @@ function ShowCalendar() {
         </CAlert>
       </div>
       <CCard>
-        <CCardBody>
-          <div className="calendarBox">
-            <FullCalendar
-              contentHeight="500px"
-              defaultView="dayGridMonth"
-              plugins={[daygridPlugin]}
-              eventSources={[data, holidaydata]}
-              eventClick={eventOnclick}
-              eventColor="red"
-              eventTextColor="white"
-              eventDisplay="title"
-            />
-          </div>
+        <CCardBody>          
+          <FullCalendar
+            contentHeight="500px"
+            defaultView="dayGridMonth"
+            plugins={[daygridPlugin]}
+            eventSources={[data, holidaydata]}
+            eventClick={eventOnclick}
+            eventColor="red"
+            eventTextColor="white"
+            eventDisplay="title"
+          />
         </CCardBody>
       </CCard>
     </>
