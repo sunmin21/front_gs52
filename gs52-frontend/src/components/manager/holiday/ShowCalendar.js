@@ -16,9 +16,10 @@ function ShowCalendar() {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(0);
-  const [visibleYN, setVisibleYN] = useState(1);
+  const [visibleYN, setVisibleYN] = useState(0);
   const [alertContents, setAlertContents] = useState();
   const [alertYesNo, setAlertYesNo] = useState();
+  const [event, setEvent] = useState();
 
   const { holiday } = useSelector((state) => {
     return {
@@ -30,17 +31,18 @@ function ShowCalendar() {
     dispatch(holidayAxios());
   }, [dispatch]);
 
+  const DeleteOnClick = async (e) => {
+    await DeleteHoliday(e.event._def["publicId"]);
+    await dispatch(holidayAxios());
+    setVisibleYN(0)
+  }
+
   const eventOnClick = async (e) => {
     if (e.event._def["publicId"] > 0) {
-      if (window.confirm != 0) {
-        setAlertYesNo("test");
-        // holiday_index를 가져옴
-        // await DeleteHoliday(e.event._def["publicId"]);
-        // await dispatch(holidayAxios());
-        // 자동 rendering
-      } else {
-        console.log("삭제취소");
-      }
+      setVisibleYN(true);
+      setAlertYesNo("삭제하시겠습니까?")
+      setEvent(e);
+      
     } else {
       setVisible(3);
       setAlertContents("국가 공휴일은 삭제 할 수 없습니다");
@@ -59,14 +61,14 @@ function ShowCalendar() {
   return (
     <>
       <div style={{ textAlign: "center", margin: "0px 30px" }}>
-        <CAlert color="danger" show fade onShowChange={setVisibleYN}>
-          <>
+        <CAlert color="danger" show={visibleYN} fade onShowChange={setVisibleYN}>
+          {alertYesNo}
             <Button
               size="small"
               type="primary"
               danger
               onClick={() => {
-                console.log("삭제눌림");
+                DeleteOnClick(event)
               }}
             >
               삭제
@@ -75,12 +77,11 @@ function ShowCalendar() {
               size="small"
               type="secondary"
               onClick={() => {
-                console.log("취소눌림");
+                setVisibleYN(0)
               }}
             >
               취소
-            </Button>
-          </>
+          </Button>
         </CAlert>
       </div>
       <CCardBody>
