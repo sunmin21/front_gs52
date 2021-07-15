@@ -440,6 +440,7 @@ const ProjectTask = () => {
                                       textAlign: "center",
                                       float: "right",
                                       marginLeft: "20px",
+                                      marginTop: "5px",
                                     }}
                                     onClick={async () => {
                                       // console.log(item.project_TASK_INDEX);
@@ -494,8 +495,8 @@ const ProjectTask = () => {
                                                 item2.project_WITH_COLOR,
                                               borderWidth: "4px 4px 4px 20px",
 
+                                              paddingBottom: "30px",
                                               marginBottom: "10px",
-                                              paddingBottom: "3px",
                                             }
                                           : {
                                               verticalAlign: "center",
