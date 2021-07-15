@@ -24,7 +24,7 @@ export function ConfRoom(props) {
 	},[conf_list])
 
 	const handleDateClick = async(arg) => { 
-		await dispatch(modalDate(moment(arg.dateStr).format('YYYY/MM/DD')))
+		await dispatch(modalDate(moment(arg.dateStr).format('YYYY-MM-DD')))
 		await dispatch(modalStartTime(moment(arg.dateStr).format('HH:mm')))
 		await dispatch(modalEndTime(moment(arg.dateStr).add(30,'m').format('HH:mm')))
 		await dispatch(ConfOneAxios('1'))

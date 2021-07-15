@@ -124,7 +124,7 @@ export function AccountField() {
   };
 
   function onDate(dateString) {
-    setDate(moment(dateString).format("YYYY/MM/DD"));
+    setDate(moment(dateString).format("YYYY-MM-DD"));
   }
 
   return (

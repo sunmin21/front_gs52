@@ -136,7 +136,7 @@ export function ConfModal() {
 
   //date picker, time picker 클릭 이벤트 함수
   function onDate(date, dateString) {
-    dispatch(modalDate(moment(dateString).format("YYYY/MM/DD")));
+    dispatch(modalDate(moment(dateString).format("YYYY-MM-DD")));
     //setDate(dateString)
   }
   function onTime(timeString) {

@@ -55,7 +55,7 @@ const initialState = {
     
     conf_modal1: false,
     conf_modal2: false,
-    conf_date:moment().format('YYYY/MM/DD'),
+    conf_date:moment().format('YYYY-MM-DD'),
     conf_startTime:'09:00',
     conf_endTime:'09:30',
 };
