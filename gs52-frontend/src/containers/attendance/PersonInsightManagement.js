@@ -19,7 +19,6 @@ const PersonInsight = (props) => {
   const dispatch = useDispatch();
 
   const { personinsight } = useSelector((state) => {
-    console.log(state);
     return {
       personinsight: state.personInsight.personinsight,
     };

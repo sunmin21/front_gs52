@@ -61,7 +61,6 @@ export const SelectTeamList = async (index) => {
     //사원의 근속일수
     emp_TEAM_INDEX: index,
   });
-  console.log(list);
 
   return list;
 };

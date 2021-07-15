@@ -35,7 +35,7 @@ schedulerData.localeMoment.locale("en");
 
 const Readonly = withDragDropContext((props) => {
   ////////////////////////////팀, 직원 목록
-  console.log(props);
+
   const empList = props.emp
     .filter(
       (item) =>
@@ -127,7 +127,6 @@ const Readonly = withDragDropContext((props) => {
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(selectList.events);
 
-  console.log(selectList);
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {

@@ -30,7 +30,7 @@ const MemberScheduleManagement = () => {
   }, [dispatch]);
 
   // const test = SelectTeam();
-  // console.log(test);
+
   //리덕스에서 team 가져옴
   const { team } = useSelector((state) => {
     return {

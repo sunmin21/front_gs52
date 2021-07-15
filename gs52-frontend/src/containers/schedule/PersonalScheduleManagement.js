@@ -18,6 +18,15 @@ import {
 } from "src/modules/schedule/personSchedule/personSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
+
 const PersonalScheduleManagement = () => {
   const dispatch = useDispatch();
 
@@ -73,18 +82,9 @@ const PersonalScheduleManagement = () => {
 
   return (
     <>
-      {/* <div class="container">
-        <div class="row">
-          <div class="col">
-            <MemberSchedulePage></MemberSchedulePage>
-          </div>
-          <div class="col mb-3">
-            <MemberDropdown></MemberDropdown>
-          </div>
-
-          <MemberSchedule></MemberSchedule>
-        </div>
-      </div> */}
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>개인 스케줄</h4>
+      </div>
       <div>
         <div class="row justify-content-end">
           <div class="col-sm-4 mb-2">

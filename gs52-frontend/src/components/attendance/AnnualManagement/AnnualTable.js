@@ -16,7 +16,7 @@ import axios from "axios";
 import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
-import { PageHeader } from "antd";
+import { Badge, PageHeader } from "antd";
 
 const annualArr = ["날짜", "연차유형", "사유", "승인"];
 
@@ -169,8 +169,11 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                 scopedSlots={{
                   승인: (item) => (
                     <td>
-                      <h4>
-                        <CBadge color={getBadge(item.승인)}>{item.승인}</CBadge>
+                      <h4 style={{ textAlign: "center" }}>
+                        <Badge
+                          status={getBadge(item.승인)}
+                          text={item.승인}
+                        ></Badge>
                       </h4>
                     </td>
                   ),
