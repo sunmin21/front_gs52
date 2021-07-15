@@ -40,7 +40,7 @@ export const BoardSend = async ({ no, board, sendId }) => {
 };
 export const doneInsert = async (user) => {
   const date = moment().format("YYYY-MM-DD HH:mm:ss");
-
+  console.log(user);
   const res = await client.post(API_URL + "/task/todo/Done", {
     todo_DONE: user[2],
     todo_INDEX: user[1],

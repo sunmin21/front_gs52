@@ -13,6 +13,7 @@ import { Badge, Button } from "antd";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import { doneInsert } from "src/lib/api/task/BusinessProgress";
 import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
 
 const getBadge = (status) => {
@@ -48,7 +49,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
     1: "거절",
     2: "완료",
   };
-
+  console.log(content);
   return (
     <CRow>
       <CCol xl={12}>
@@ -115,7 +116,6 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                       <Badge
                         status={getBadge(Done[item.todo_DONE])}
                         text={Done[item.todo_DONE]}
-                        block
                       ></Badge>
                     </h4>
                   </td>
@@ -126,9 +126,18 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                       block
                       type="primary"
                       onClick={async (e) => {
-                        await success(e);
+                        console.log(item);
+                        console.log(e.target.value);
+                        await doneInsert([
+                          userid,
+                          parseInt(item.todo_INDEX),
+                          1,
+                        ]);
+
                         await dispatch(todoAxios(userid));
+
                         await dispatch(sendAxios(userid));
+
                         await dispatch(succssAxios(userid));
                       }}
                       value={item.todo_INDEX}
@@ -144,9 +153,16 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                       block
                       type="primary"
                       onClick={async (e) => {
-                        await reject(e);
+                        await doneInsert([
+                          userid,
+                          parseInt(item.todo_INDEX),
+                          2,
+                        ]);
+
                         await dispatch(todoAxios(userid));
+
                         await dispatch(sendAxios(userid));
+
                         await dispatch(succssAxios(userid));
                       }}
                       value={item.todo_INDEX}
