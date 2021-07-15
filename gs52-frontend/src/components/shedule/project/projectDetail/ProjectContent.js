@@ -34,6 +34,7 @@ import {
 import Helpers from "./helpers";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { UpdateProject } from "src/lib/api/schedule/Project";
+import { message, Popconfirm } from "antd";
 
 const ProjectContent = () => {
   const user = getCurrentUser();
@@ -161,9 +162,14 @@ const ProjectContent = () => {
     formData.append("PROJECT_END", content.종료기간);
     formData.append("PROJECT_WITH_LEADER", leader);
     formData.append("PROJECT_WITH_EMP", content.참여원);
+    console.log(content.참여원.map((item) => item["사원번호"]));
     formData.append(
       "PROJECT_WITH_EMP_INDEXS",
       content.참여원.map((item) => item["사원번호"])
+    );
+    formData.append(
+      "PROJECT_WITH_OKAYS",
+      content.참여원.map((item) => item["수락"] || 0)
     );
     formData.append("PROJECT_DELETE_FILES", deleteFile);
     for (let key of Object.keys(uploadFile)) {
@@ -376,7 +382,7 @@ const ProjectContent = () => {
                 <CLabel htmlFor="date-input">참여원 선택</CLabel>
               </CCol>
 
-              <CCol xs="6" md="4">
+              <CCol xs="6" md="3">
                 {content.참여원.length !== 0 &&
                   content.참여원
                     .filter((item) => item.사원번호 === item.리더)
@@ -388,12 +394,22 @@ const ProjectContent = () => {
                           color="dark"
                           key={key}
                           onClick={() => {
-                            if (updateCheck && window.confirm("리더입니다")) {
+                            if (
+                              updateCheck &&
+                              message.warning({
+                                content: "프로젝트 생성자",
+                                className: "custom-class",
+                                duration: 1,
+                                maxCount: 1,
+                                style: {
+                                  marginTop: "120px",
+                                },
+                              })
+                            ) {
                             }
                           }}
                           style={{
-                            background:
-                              "linear-gradient(#ff9a9e, #fad0c4, #fad0c4)",
+                            background: "peru",
                           }}
                           innerRef={withInput}
                           readOnly
@@ -407,85 +423,159 @@ const ProjectContent = () => {
                     .filter((item) => item.사원번호 !== item.리더)
                     .map((part, key) => {
                       if (key % 2 === 1) {
-                        return (
-                          <CButton
-                            block
-                            variant="outline"
-                            color="dark"
-                            key={key}
-                            onClick={() => {
-                              if (
-                                updateCheck &&
-                                window.confirm("삭제하시겠습니까?")
-                              ) {
+                        if (updateCheck) {
+                          return (
+                            <Popconfirm
+                              placement="top"
+                              title={
+                                part.수락 === 2
+                                  ? "삭제하시겠습니까?"
+                                  : "삭제하시겠습니까?"
+                              }
+                              onConfirm={() => {
                                 setContent((item) => ({
                                   ...item,
                                   참여원: content.참여원.filter(
                                     (item) => item.사원번호 !== part.사원번호
                                   ),
                                 }));
+                              }}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <CButton
+                                block
+                                variant="outline"
+                                color="dark"
+                                key={key}
+                                onClick={() => {
+                                  part.수락 === 2
+                                    ? message.info({
+                                        content:
+                                          "거절 사유 : \n" + part.거절사유,
+                                        className: "custom-class",
+                                        duration: 1,
+                                        maxCount: 1,
+                                        style: {
+                                          marginTop: "120px",
+                                        },
+                                      })
+                                    : setFilecheck(false);
+                                }}
+                                style={
+                                  Number(part.수락) === 1
+                                    ? { background: "#A4C3FF" }
+                                    : Number(part.수락) === 2
+                                    ? { background: "#FFCFDA" }
+                                    : { background: "white" }
+                                }
+                              >
+                                {part.부서} {part.팀} {part.이름}
+                              </CButton>
+                            </Popconfirm>
+                          );
+                        } else {
+                          return (
+                            <CButton
+                              block
+                              variant="outline"
+                              color="dark"
+                              key={key}
+                              style={
+                                Number(part.수락) === 1
+                                  ? { background: "#A4C3FF" }
+                                  : Number(part.수락) === 2
+                                  ? { background: "#FFCFDA" }
+                                  : { background: "white" }
                               }
-                              if (Number(part.수락) === 2) {
-                                alert("거절 사유\n" + part.거절사유);
-                              }
-                            }}
-                            style={
-                              Number(part.수락) === 1
-                                ? { background: "#A4C3FF" }
-                                : Number(part.수락) === 2
-                                ? { background: "#FFCFDA" }
-                                : { background: "white" }
-                            }
-                            innerRef={withInput}
-                            readOnly
-                          >
-                            {part.부서} {part.팀} {part.이름}
-                          </CButton>
-                        );
+                              innerRef={with2Input}
+                              readOnly
+                            >
+                              {part.부서} {part.팀} {part.이름}
+                            </CButton>
+                          );
+                        }
                       }
                     })}
               </CCol>
-              <CCol xs="6" md="4">
+              <CCol xs="6" md="3">
                 {content.참여원.length !== 0 &&
                   content.참여원
                     .filter((item) => item.사원번호 !== item.리더)
                     .map((part, key) => {
                       if (key % 2 === 0) {
-                        return (
-                          <CButton
-                            block
-                            variant="outline"
-                            color="dark"
-                            key={key}
-                            onClick={() => {
-                              if (
-                                updateCheck &&
-                                window.confirm("삭제하시겠습니까?")
-                              ) {
+                        if (updateCheck) {
+                          return (
+                            <Popconfirm
+                              placement="top"
+                              title={
+                                part.수락 === 2
+                                  ? "삭제하시겠습니까?"
+                                  : "삭제하시겠습니까?"
+                              }
+                              onConfirm={() => {
                                 setContent((item) => ({
                                   ...item,
                                   참여원: content.참여원.filter(
                                     (item) => item.사원번호 !== part.사원번호
                                   ),
                                 }));
+                              }}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <CButton
+                                block
+                                variant="outline"
+                                color="dark"
+                                key={key}
+                                onClick={() => {
+                                  part.수락 === 2
+                                    ? message.info({
+                                        content:
+                                          "거절 사유 : \n" + part.거절사유,
+                                        className: "custom-class",
+                                        duration: 1,
+                                        maxCount: 1,
+                                        style: {
+                                          marginTop: "120px",
+                                        },
+                                      })
+                                    : setFilecheck(false);
+                                }}
+                                style={
+                                  Number(part.수락) === 1
+                                    ? { background: "#A4C3FF" }
+                                    : Number(part.수락) === 2
+                                    ? { background: "#FFCFDA" }
+                                    : { background: "white" }
+                                }
+                              >
+                                {part.부서} {part.팀} {part.이름}
+                              </CButton>
+                            </Popconfirm>
+                          );
+                        } else {
+                          return (
+                            <CButton
+                              block
+                              variant="outline"
+                              color="dark"
+                              key={key}
+                              style={
+                                Number(part.수락) === 1
+                                  ? { background: "#A4C3FF" }
+                                  : Number(part.수락) === 2
+                                  ? { background: "#FFCFDA" }
+                                  : { background: "white" }
                               }
-                              if (Number(part.수락) === 2) {
-                                alert("거절 사유\n" + part.거절사유);
-                              }
-                            }}
-                            style={
-                              Number(part.수락) === 1
-                                ? { background: "#A4C3FF" }
-                                : Number(part.수락) === 2
-                                ? { background: "#FFCFDA" }
-                                : { background: "white" }
-                            }
-                            innerRef={with2Input}
-                            readOnly
-                          >
-                            {part.부서} {part.팀} {part.이름}
-                          </CButton>
-                        );
+                              innerRef={with2Input}
+                              readOnly
+                            >
+                              {part.부서} {part.팀} {part.이름}
+                            </CButton>
+                          );
+                        }
                       }
                     })}
               </CCol>
@@ -502,15 +592,58 @@ const ProjectContent = () => {
               </CCol>
               <CCol xs="12" md="9">
                 {projectFile.map((item, key) => {
-                  return (
-                    <CButton
-                      block
-                      variant="outline"
-                      color="dark"
-                      name={item.PROJECT_FILE_INDEX}
-                      key={key}
-                      onClick={(e) => {
-                        if (!updateCheck) {
+                  if (updateCheck) {
+                    return (
+                      <Popconfirm
+                        placement="top"
+                        title={"삭제하시겠습니까?"}
+                        onConfirm={() => {
+                          dispatch(
+                            projectFileChange(
+                              projectFile.filter(
+                                (file) =>
+                                  (item.project_FILE_INDEX ||
+                                    item.lastModified) !==
+                                  (file.project_FILE_INDEX || file.lastModified)
+                              )
+                            )
+                          );
+
+                          item.project_FILE_INDEX !== undefined
+                            ? setDeleteFile((file) =>
+                                file.concat(
+                                  projectFile.filter(
+                                    (file) =>
+                                      item.project_FILE_INDEX ===
+                                      file.project_FILE_INDEX
+                                  )[0].project_FILE_PATH
+                                )
+                              )
+                            : dispatch(
+                                projectUplodaFileDelete(
+                                  uploadFile.filter(
+                                    (file) =>
+                                      item.lastModified !== file.lastModified
+                                  )
+                                )
+                              );
+                        }}
+                        okText="Yes"
+                        cancelText="No"
+                      >
+                        <CButton block variant="outline" color="dark" key={key}>
+                          {item.project_FILE_ORIGIN_NAME || item.name}
+                        </CButton>
+                      </Popconfirm>
+                    );
+                  } else {
+                    return (
+                      <CButton
+                        block
+                        variant="outline"
+                        color="dark"
+                        key={key}
+                        onClick={() => {
                           Helpers.httpRequest(
                             `http://192.168.20.17:3000${item.project_REACT_PATH}`,
                             "get"
@@ -541,47 +674,92 @@ const ProjectContent = () => {
                             .catch((error) => {
                               error.json().then((json) => {});
                             });
-                        } else {
-                          if (window.confirm("삭제하시겠습니까?")) {
-                            dispatch(
-                              projectFileChange(
-                                projectFile.filter(
-                                  (file) =>
-                                    (item.project_FILE_INDEX ||
-                                      item.lastModified) !==
-                                    (file.project_FILE_INDEX ||
-                                      file.lastModified)
-                                )
-                              )
-                            );
+                        }}
+                      >
+                        {item.project_FILE_ORIGIN_NAME || item.name}
+                      </CButton>
+                    );
+                  }
+                  // return (
+                  //   <CButton
+                  //     block
+                  //     variant="outline"
+                  //     color="dark"
+                  //     name={item.PROJECT_FILE_INDEX}
+                  //     key={key}
+                  //     onClick={(e) => {
+                  //       if (!updateCheck) {
+                  //         Helpers.httpRequest(
+                  //           `http://192.168.20.17:3000${item.project_REACT_PATH}`,
+                  //           "get"
+                  //         )
+                  //           .then((response) => response.blob())
+                  //           .then((blob) => {
+                  //             // create blob link
+                  //             const url = window.URL.createObjectURL(
+                  //               new Blob([blob])
+                  //             );
+                  //             const link = document.createElement("a");
+                  //             link.href = url;
+                  //             link.setAttribute(
+                  //               "download",
+                  //               `${item.project_FILE_ORIGIN_NAME}`
+                  //             );
 
-                            if (item.project_FILE_INDEX !== undefined) {
-                              setDeleteFile((file) =>
-                                file.concat(
-                                  projectFile.filter(
-                                    (file) =>
-                                      item.project_FILE_INDEX ===
-                                      file.project_FILE_INDEX
-                                  )[0].project_FILE_PATH
-                                )
-                              );
-                            } else {
-                              dispatch(
-                                projectUplodaFileDelete(
-                                  uploadFile.filter(
-                                    (file) =>
-                                      item.lastModified !== file.lastModified
-                                  )
-                                )
-                              );
-                            }
-                          }
-                        }
-                      }}
-                    >
-                      {item.project_FILE_ORIGIN_NAME || item.name}
-                    </CButton>
-                  );
+                  //             // append to html
+                  //             document.body.appendChild(link);
+
+                  //             // download
+                  //             link.click();
+
+                  //             // remove
+
+                  //             link.parentNode.removeChild(link);
+                  //           })
+                  //           .catch((error) => {
+                  //             error.json().then((json) => {});
+                  //           });
+                  //       } else {
+                  //         if (window.confirm("삭제하시겠습니까?")) {
+                  //           dispatch(
+                  //             projectFileChange(
+                  //               projectFile.filter(
+                  //                 (file) =>
+                  //                   (item.project_FILE_INDEX ||
+                  //                     item.lastModified) !==
+                  //                   (file.project_FILE_INDEX ||
+                  //                     file.lastModified)
+                  //               )
+                  //             )
+                  //           );
+
+                  //           if (item.project_FILE_INDEX !== undefined) {
+                  //             setDeleteFile((file) =>
+                  //               file.concat(
+                  //                 projectFile.filter(
+                  //                   (file) =>
+                  //                     item.project_FILE_INDEX ===
+                  //                     file.project_FILE_INDEX
+                  //                 )[0].project_FILE_PATH
+                  //               )
+                  //             );
+                  //           } else {
+                  //             dispatch(
+                  //               projectUplodaFileDelete(
+                  //                 uploadFile.filter(
+                  //                   (file) =>
+                  //                     item.lastModified !== file.lastModified
+                  //                 )
+                  //               )
+                  //             );
+                  //           }
+                  //         }
+                  //       }
+                  //     }}
+                  //   >
+                  //     {item.project_FILE_ORIGIN_NAME || item.name}
+                  //   </CButton>
+                  // );
                 })}
               </CCol>
             </CFormGroup>

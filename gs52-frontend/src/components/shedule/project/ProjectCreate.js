@@ -25,7 +25,7 @@ import { InsertProject } from "src/lib/api/schedule/Project";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { userList } from "src/lib/api/auth/auth";
-
+import { message, Button, Space } from "antd";
 const ProjectCreate = () => {
   let user = getCurrentUser();
 
@@ -325,11 +325,18 @@ const ProjectCreate = () => {
                           color="dark"
                           key={key}
                           style={{
-                            background:
-                              "linear-gradient(#ff9a9e, #fad0c4, #fad0c4)",
+                            background: "peru ",
                           }}
                           onClick={() => {
-                            window.confirm("프로젝트생성자");
+                            message.warning({
+                              content: "프로젝트 생성자",
+                              className: "custom-class",
+                              duration: 1,
+                              maxCount: 1,
+                              style: {
+                                marginTop: "120px",
+                              },
+                            });
                           }}
                         >
                           {content.부서} {content.팀} {content.이름}
