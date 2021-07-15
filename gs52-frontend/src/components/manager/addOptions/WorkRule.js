@@ -179,10 +179,10 @@ const Team = () => {
                     size="sm"
                     color="danger"
                     className="ml-1"
-                    onClick={() => {
+                    onClick={async () => {
                       if (item.팀COUNT === 0) {
-                        DeleteWorkRule(item.인덱스);
-                        dispatch(workRuleAxios());
+                        await DeleteWorkRule(item.인덱스);
+                        await dispatch(workRuleAxios());
                       } else {
                         setShow((content) => ({
                           ...content,

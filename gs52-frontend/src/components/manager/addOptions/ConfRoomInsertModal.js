@@ -82,7 +82,7 @@ const DeptInsertModal = ({
             </CCol>
             <CCol xs="12" md="9" size="lg">
               <CInput
-                placeholder="부서명"
+                placeholder="호수"
                 autoComplete="email"
                 value={content["호수"]}
                 onChange={(e) => {
