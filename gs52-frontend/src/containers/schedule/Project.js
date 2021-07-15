@@ -36,7 +36,7 @@ const Project = () => {
           나의 프로젝트 목록
         </h4>
       </div>
-      <div style={{ textAlign: "right"}}>
+      <CCol style={{ textAlign: "right" }}>
         <CButton
           color="danger"
           size="lg"
@@ -46,8 +46,8 @@ const Project = () => {
           }}
         >
         프로젝트 생성
-        </CButton>
-      </div>            
+        </CButton>        
+      </CCol>            
       <div style={{ textAlign: "center"}}>
         <ShowProject />
       </div>
