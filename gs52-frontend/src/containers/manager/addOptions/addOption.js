@@ -17,14 +17,22 @@ import Team from "src/components/manager/addOptions/Team";
 import WorkRule from "src/components/manager/addOptions/WorkRule";
 import ConfRoom from "src/components/manager/addOptions/ConfRoom";
 const addOption = () => {
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+    marginBottom: "30px",
+  };
   return (
     <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>항목 추가</h4>
+      </div>
       <CCol xs="12" md="12" className="mb-4">
         <CCard>
-          <CCardHeader>
-            항목 관리
-            <DocsLink name="CTabs" />
-          </CCardHeader>
           <CCardBody>
             <CTabs>
               <CNav variant="tabs">
