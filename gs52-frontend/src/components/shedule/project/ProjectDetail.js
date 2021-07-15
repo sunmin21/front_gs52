@@ -30,12 +30,23 @@ function ShowProject() {
         projectTodoDetail: project.projectTodoDetail,
       };
     });
-
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+  };
   return (
     <>
       <CCol xs="12" md="12" className="mb-4">
         <CCard>
-          <CCardHeader>프로젝트</CCardHeader>
+          <CCardHeader>
+            <div style={contentStyle}>
+              <h4 style={{ color: "white", marginTop: "5px" }}>프로젝트</h4>
+            </div>
+          </CCardHeader>
           <CCardBody>
             <CTabs>
               <CNav variant="tabs">

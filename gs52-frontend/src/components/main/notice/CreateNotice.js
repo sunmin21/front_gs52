@@ -51,11 +51,23 @@ const DetailNotice = (e) => {
       };
     });
   }, []);
-
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+  };
   return (
     <>
       <CCard>
-        <CCardHeader>공지사항</CCardHeader>
+        <CCardHeader>
+          {" "}
+          <div style={contentStyle}>
+            <h4 style={{ color: "white", marginTop: "5px" }}>공지사항</h4>
+          </div>
+        </CCardHeader>
         <CCardBody>
           <CForm
             action=""

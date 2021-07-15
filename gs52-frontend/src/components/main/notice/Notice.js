@@ -36,105 +36,114 @@ const Notice = ({ content }) => {
     작성자: item.emp_NAME,
     등록날짜: item.notice_DATE,
   }));
-
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+  };
   return (
-        <CCard>
-          <CCardHeader>
-            <div
-              style={{
-                textAlign: "center",
-                fontWeight: "bold",
-                marginTop: "3px",
-              }}
-            >
-              <h2 style={{textAlign:"left"}}>공지사항</h2>
-            </div>
+    <CCard>
+      <CCardHeader>
+        <div
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            marginTop: "3px",
+          }}
+        >
+          <div style={contentStyle}>
+            <h4 style={{ color: "white", marginTop: "5px" }}>공지사항</h4>
+          </div>
+        </div>
 
-            {user.roles[0] === "ROLE_ADMIN" && (
-              <CButton
-                active
-                block
-                color="dark"
-                aria-pressed="true"
-                style={{ textAlign: "center", width: "10%", float: "right" }}
-                onClick={() => {
-                  history.push("/notice/create");
-                }}
-              >
-                등록하기
-              </CButton>
-            )}
-          </CCardHeader>
-          <CCardBody>
-            {/* <Modal info={info} setInfo={setInfo}></Modal> */}
-            <CDataTable
-              items={data}
-              fields={[
-                {
-                  key: "번호",
-                  _classes: "font-weight-bold",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "제목",
-                  _classes: "font-weight-bold",
-                  _style: { width: "55%", textAlign: "center" },
-                },
-                {
-                  key: "등록날짜",
-                  _style: { width: "20%", textAlign: "center" },
-                },
-                {
-                  key: "작성자",
-                  _style: { width: "15%", textAlign: "center" },
-                },
-              ]}
-              hover
-              striped
-              itemsPerPage={5}
-              activePage={page}
-              clickableRows
-              onRowClick={(item) =>
-                history.push({
-                  pathname: `/notice/detail/${item.인덱스}`,
-                  state: { item: item },
-                })
-              }
-              scopedSlots={{
-                번호: (item) => {
-                  return <td style={{ textAlign: "center" }}>{item.인덱스}</td>;
-                },
-                제목: (item) => {
-                  return (
-                    <td
-                      style={{ textAlign: "center" }}
-                      // onClick={() =>
-                      //   // history.push(`/task/schedule/SendContent/${item.id}`)
-                      //   // setInfo(!info)
+        {user.roles[0] === "ROLE_ADMIN" && (
+          <CButton
+            active
+            block
+            color="dark"
+            aria-pressed="true"
+            style={{ textAlign: "center", width: "10%", float: "right" }}
+            onClick={() => {
+              history.push("/notice/create");
+            }}
+          >
+            등록하기
+          </CButton>
+        )}
+      </CCardHeader>
+      <CCardBody>
+        {/* <Modal info={info} setInfo={setInfo}></Modal> */}
+        <CDataTable
+          items={data}
+          fields={[
+            {
+              key: "번호",
+              _classes: "font-weight-bold",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "제목",
+              _classes: "font-weight-bold",
+              _style: { width: "55%", textAlign: "center" },
+            },
+            {
+              key: "등록날짜",
+              _style: { width: "20%", textAlign: "center" },
+            },
+            {
+              key: "작성자",
+              _style: { width: "15%", textAlign: "center" },
+            },
+          ]}
+          hover
+          striped
+          itemsPerPage={5}
+          activePage={page}
+          clickableRows
+          onRowClick={(item) =>
+            history.push({
+              pathname: `/notice/detail/${item.인덱스}`,
+              state: { item: item },
+            })
+          }
+          scopedSlots={{
+            번호: (item) => {
+              return <td style={{ textAlign: "center" }}>{item.인덱스}</td>;
+            },
+            제목: (item) => {
+              return (
+                <td
+                  style={{ textAlign: "center" }}
+                  // onClick={() =>
+                  //   // history.push(`/task/schedule/SendContent/${item.id}`)
+                  //   // setInfo(!info)
 
-                      // }
-                    >
-                      {item.제목}
-                    </td>
-                  );
-                },
-                등록날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.등록날짜}</td>
-                ),
-                작성자: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.작성자}</td>
-                ),
-              }}
-            />
-            <CPagination
-              activePage={page}
-              onActivePageChange={pageChange}
-              pages={Math.floor((data.length - 1) / 5 + 1)}
-              doubleArrows={false}
-              align="center"
-            />
-          </CCardBody>
-        </CCard>
+                  // }
+                >
+                  {item.제목}
+                </td>
+              );
+            },
+            등록날짜: (item) => (
+              <td style={{ textAlign: "center" }}>{item.등록날짜}</td>
+            ),
+            작성자: (item) => (
+              <td style={{ textAlign: "center" }}>{item.작성자}</td>
+            ),
+          }}
+        />
+        <CPagination
+          activePage={page}
+          onActivePageChange={pageChange}
+          pages={Math.floor((data.length - 1) / 5 + 1)}
+          doubleArrows={false}
+          align="center"
+        />
+      </CCardBody>
+    </CCard>
   );
 };
 

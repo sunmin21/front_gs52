@@ -160,13 +160,27 @@ const BusinessProgress = () => {
       1,
     ]);
   };
-
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+  };
   if (todo !== null) {
     return (
       <>
         <CCol xs="12" md="12" className="mb-4">
           <CCard>
-            <CCardHeader>업무 진행 사항</CCardHeader>
+            <CCardHeader>
+              {" "}
+              <div style={contentStyle}>
+                <h4 style={{ color: "white", marginTop: "5px" }}>
+                  업무진행사항
+                </h4>
+              </div>
+            </CCardHeader>
             <CCardBody>
               <CTabs>
                 <CNav variant="tabs">
