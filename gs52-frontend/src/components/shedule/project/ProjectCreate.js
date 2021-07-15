@@ -25,7 +25,7 @@ import { InsertProject } from "src/lib/api/schedule/Project";
 import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { userList } from "src/lib/api/auth/auth";
-import { message, Button, Space } from "antd";
+import { message, Button, Space, Popconfirm } from "antd";
 const ProjectCreate = () => {
   let user = getCurrentUser();
 
@@ -344,23 +344,28 @@ const ProjectCreate = () => {
                       );
                     } else if (key % 2 === 0) {
                       return (
-                        <CButton
-                          block
-                          variant="outline"
-                          color="dark"
-                          key={key}
-                          onClick={() => {
-                            if (window.confirm("삭제하시겠습니까?")) {
-                              setData(
-                                data.filter(
-                                  (item) => item.사원번호 !== content.사원번호
-                                )
-                              );
-                            }
+                        <Popconfirm
+                          placement="top"
+                          title={"삭제하시겠습니까?"}
+                          onConfirm={() => {
+                            setData(
+                              data.filter(
+                                (item) => item.사원번호 !== content.사원번호
+                              )
+                            );
                           }}
+                          okText="Yes"
+                          cancelText="No"
                         >
-                          {content.부서} {content.팀} {content.이름}
-                        </CButton>
+                          <CButton
+                            block
+                            variant="outline"
+                            color="dark"
+                            key={key}
+                          >
+                            {content.부서} {content.팀} {content.이름}
+                          </CButton>
+                        </Popconfirm>
                       );
                     }
                   })}
@@ -369,23 +374,28 @@ const ProjectCreate = () => {
                   {data.map((content, key) => {
                     if (key % 2 === 1) {
                       return (
-                        <CButton
-                          block
-                          variant="outline"
-                          color="dark"
-                          key={key}
-                          onClick={() => {
-                            if (window.confirm("삭제하시겠습니까?")) {
-                              setData(
-                                data.filter(
-                                  (item) => item.사원번호 !== content.사원번호
-                                )
-                              );
-                            }
+                        <Popconfirm
+                          placement="top"
+                          title={"삭제하시겠습니까?"}
+                          onConfirm={() => {
+                            setData(
+                              data.filter(
+                                (item) => item.사원번호 !== content.사원번호
+                              )
+                            );
                           }}
+                          okText="Yes"
+                          cancelText="No"
                         >
-                          {content.부서} {content.팀} {content.이름}
-                        </CButton>
+                          <CButton
+                            block
+                            variant="outline"
+                            color="dark"
+                            key={key}
+                          >
+                            {content.부서} {content.팀} {content.이름}
+                          </CButton>
+                        </Popconfirm>
                       );
                     }
                   })}
