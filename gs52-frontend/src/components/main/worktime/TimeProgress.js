@@ -3,7 +3,7 @@ import {getCurrentUser} from "src/lib/api/jwt/LoginAPI"
 import {
     CProgress
 } from "@coreui/react";
-import {SelectTotal, SelectWeekTotal} from "src/lib/api/main/TimeProgress"
+import {SelectTotal, SelectWeekTotal, SelectVacation} from "src/lib/api/main/TimeProgress"
 import moment from 'moment';
 
 export function TimeProgress() {
@@ -20,7 +20,6 @@ export function TimeProgress() {
                 setUser_52(item.data[0].attend_TOTAL)
             }
         })*/
-
         await SelectWeekTotal(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
             let a=0;
             for(let i=0; i<item.data.length; i++){
@@ -29,12 +28,18 @@ export function TimeProgress() {
             }
 
         })
+        
+        await SelectVacation(user.index, moment().format('YYYY-MM-DD'))
+        
+
     },[])
 
     return (
 
     <div style={{align:"center"}}>
-        <h3>이번 주 근무시간  {parseInt(user_52/60)}시간 {user_52%60}분</h3>
+        
+        <h4>이번 주 예정근무시간  {parseInt(user_52/60)}시간 {user_52%60}분</h4>
+        <h4>이번 주 근무시간  {parseInt(user_52/60)}시간 {user_52%60}분</h4>
         {/*{console.log("user_52/minute_52")}
         {console.log(user_52)}
     {console.log(user_52/minute_52*100)}*/}
