@@ -33,12 +33,12 @@ export function TimeProgress() {
 
     return (
 
-    <div>
-        <h3>이번 주 근무시간 : {parseInt(user_52/60)}시간 {user_52%60}분</h3>
+    <div style={{align:"center"}}>
+        <h3>이번 주 근무시간  {parseInt(user_52/60)}시간 {user_52%60}분</h3>
         {/*{console.log("user_52/minute_52")}
         {console.log(user_52)}
     {console.log(user_52/minute_52*100)}*/}
-        <CProgress value={user_52/minute_52*100} className="mb-3" />
+        <CProgress value={user_52/minute_52*100} className="mb-3" style={{marginTop:"20px", padding:"15px"}}/>
     </div>
     );
 }
