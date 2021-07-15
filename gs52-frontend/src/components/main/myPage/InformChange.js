@@ -11,7 +11,7 @@ import {
   CButton,
   CSelect,
   CInputFile,
-  CAlert,
+  CAlert,CModalBody
 } from "@coreui/react";
 import { DatePicker } from "antd";
 import "antd/dist/antd.css";
@@ -33,6 +33,8 @@ export function InformChange() {
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
   const [filename, setFileName] = useState("");
+  const [visible, setVisible] = useState(0);
+  const [alertContents, setAlertContents] = useState("");
 
   const { emp_list } =
     useSelector((state) => {
@@ -117,20 +119,32 @@ export function InformChange() {
     //  emp_data      name  email  address  phone  file
     //name, tel, address, email, file
     const ad = addr + address;
-    await UpdateInform(user.index, name, email, tel, ad).then(
-      (response) => {
-        alert("수정되었습니다.")
-        history.push("/InformChange");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    
+
+    console.log(name)
+    console.log(email)
+    console.log(tel)
+    console.log(ad)
+    if(name==='' && email==='' && tel==='' && ad===''){
+      console.log("변경된게 없엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ")
+      setAlertContents("변경된 것이 없습니다.")
+    }
+    else{
+      await UpdateInform(user.index, name, email, tel, ad).then(
+        (response) => {
+            setVisible(3)
+            setAlertContents("수정되었습니다.")
+          history.push("/InformChange");
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+   }
   };
 
   return (
     <div>
+      
       <CCard>
         <CCardHeader>회원정보 수정</CCardHeader>
         <CCardBody>
@@ -270,6 +284,9 @@ export function InformChange() {
           </CFormGroup>
 
           
+        <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
+          {alertContents}
+        </CAlert>
       
         </CCardBody>
 

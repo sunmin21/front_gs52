@@ -22,14 +22,12 @@ const Main = () => {
   }, [dispatch, vacation_EMP_INDEX.index]);
 
   const { empvacation, near } = useSelector((state) => {
-    console.log(state);
     return {
       empvacation: state.annual.empvacation,
       near: state.annual.near,
     };
   });
 
-  console.log(near);
   return (
     <>
       <CContainer>
