@@ -36,10 +36,10 @@ const Main = () => {
         <CRow className="align-items-start">
           <CCol>
             <CCard accentColor="secondary">
-              <CCardBody>
+              <CCardBody >
                 <CRow>
-                  <CCol sm="8">
-                    <TimeProgress />
+                  <CCol sm="8" style={{marginTop:"80px"}}>
+                    <TimeProgress/>
                   </CCol>
                   <CCol sm="4">
                     <AnnualCard
