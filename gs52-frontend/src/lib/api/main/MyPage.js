@@ -30,17 +30,35 @@ export const CheckPwd = async(username, password, newPassword)=>{
 
 export const UpdateInform = async(index, name, email, tel, address)=>{
   console.log("UpdateInform")
-  console.log(index)
-  console.log(name)
-  console.log(email)
-  console.log(tel)
-  console.log(address)
   const update =await client.post(API_URL + "/updateInform",{
                                         emp_INDEX:index,
                                         emp_NAME:name,
                                         emp_EMAIL:email,
                                         emp_PHONE:tel,
                                         emp_ADDRESS:address
+                                        }).then(()=>{
+                                          console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+                                          client.post("http://localhost:8081/api/auth/update_userInfo", {
+                                          })
+                                          .then(response => {
+                                            if (response.data.accessToken) {
+                                              localStorage.setItem("user", JSON.stringify(response.data));
+                                              localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken).replace(/\"/gi, ""));
+                                            }
+                                
+                                            const {accessToken} = response.data;
+                                            console.log(accessToken)
+                                            //api요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+                                            //이렇게 하면 accessToken을 localStorage, cookie에 저장하지 않는다.
+                                            client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                                          
+                                            console.log("response")
+                                            console.log(response)
+                                            //return response.data;
+                                          });
+
                                         })
+
+                                        
 
 }

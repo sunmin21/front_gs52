@@ -205,6 +205,7 @@ export function MyPage() {
 
                 <CCardFooter>              
                     <CButton type="submit" size="sm" color="primary" onClick={InformChangeButton} style={{ textAlign: "center", margin:"auto"}}>회원정보 수정</CButton>
+                    {"   "}
                     <CButton type="submit" size="sm" color="primary" onClick={PwdChangeButton} style={{ textAlign: "center", margin:"auto"}}>비밀번호 수정</CButton>
                 </CCardFooter>
             </CCard>

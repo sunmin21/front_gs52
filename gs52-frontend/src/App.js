@@ -25,8 +25,6 @@ function App() {
         <Switch>
           <Route
             render={(props) => {
-              // console.log("props")
-              // console.log(props)
               return <PrivateRoute {...props} />;
             }}
             path="/"
