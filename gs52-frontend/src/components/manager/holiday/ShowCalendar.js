@@ -33,7 +33,7 @@ function ShowCalendar() {
   const eventOnClick = async (e) => {
     if (e.event._def["publicId"] > 0) {
       if (window.confirm != 0) {
-        setAlertYesNo("test")
+        setAlertYesNo("test");
         // holiday_index를 가져옴
         // await DeleteHoliday(e.event._def["publicId"]);
         // await dispatch(holidayAxios());
@@ -59,35 +59,31 @@ function ShowCalendar() {
   return (
     <>
       <div style={{ textAlign: "center", margin: "0px 30px" }}>
-        <CAlert
-          color="danger"
-          show={true}
-          fade
-          onShowChange={setVisibleYN}
-          action={
-            <>
-              <Button
-                size="small"
-                type="primary"
-                danger
-                onClick={console.log("삭제눌림")}
-              >
-                {alertYesNo}
-              </Button>
-              <Button
-                size="small"
-                type="secondary"
-                onClick={console.log("취소눌림")}
-              >
-                취소
-              </Button>
-              </>
-          }
-        >
-
+        <CAlert color="danger" show fade onShowChange={setVisibleYN}>
+          <>
+            <Button
+              size="small"
+              type="primary"
+              danger
+              onClick={() => {
+                console.log("삭제눌림");
+              }}
+            >
+              삭제
+            </Button>
+            <Button
+              size="small"
+              type="secondary"
+              onClick={() => {
+                console.log("취소눌림");
+              }}
+            >
+              취소
+            </Button>
+          </>
         </CAlert>
       </div>
-      <CCardBody>          
+      <CCardBody>
         <FullCalendar
           contentHeight="475px"
           defaultView="dayGridMonth"
