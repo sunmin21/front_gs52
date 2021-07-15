@@ -56,7 +56,6 @@ const PersonInsight = () => {
   console.log(teamlist);
 
   useEffect(async () => {
-    console.log("얌ㅁ마");
     await dispatch(entrydateAxios(EMP_INDEX.team));
     await dispatch(projectAxios(EMP_INDEX.team));
     await dispatch(todoAxios(EMP_INDEX.team));
