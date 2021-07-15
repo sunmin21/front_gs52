@@ -13,7 +13,6 @@ import React, { useEffect } from "react";
 import CIcon from "@coreui/icons-react";
 
 const PersonInsightList = (props) => {
-  console.log(props);
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
       <CRow>

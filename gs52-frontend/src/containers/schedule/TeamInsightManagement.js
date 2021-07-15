@@ -29,6 +29,15 @@ import {
   worktimeAxios,
 } from "src/modules/schedule/teamInsight";
 
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
+
 const PersonInsight = () => {
   const EMP_INDEX = getCurrentUser();
 
@@ -53,7 +62,6 @@ const PersonInsight = () => {
     emp_NAME: item.emp_NAME,
     rank_NAME: item.rank_NAME,
   }));
-  console.log(teamlist);
 
   useEffect(async () => {
     await dispatch(entrydateAxios(EMP_INDEX.team));
@@ -66,7 +74,6 @@ const PersonInsight = () => {
     await dispatch(personinsightAxios());
   }, [dispatch, EMP_INDEX.team]);
 
-  console.log(teamlist0);
   //////////////////////////////////////////////////////////////personInsight
 
   const { personinsight } = useSelector((state) => {
@@ -76,15 +83,14 @@ const PersonInsight = () => {
   });
 
   return (
-    <div>
-      <div className="row">
-        <div className="col w-50 mt-3">
-          <CCard>
-            <PageHeader
-              title="팀 인사이트"
-              style={{ border: "1px solid rgb(235, 237, 240)" }}
-            />
-            <CCardBody>
+    <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>팀 인사이트</h4>
+      </div>
+      <div>
+        <div className="row">
+          <div className="col w-50 mt-3">
+            <CCard>
               {entrydate.length !== 0 &&
               project.length !== 0 &&
               todo.length !== 0 &&
@@ -101,51 +107,51 @@ const PersonInsight = () => {
                   worktime={worktime}
                 ></TeamInsightList>
               ) : null}
-            </CCardBody>
-          </CCard>
+            </CCard>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <CCard>
+              <PageHeader
+                title="팀원 인사이트"
+                style={{ border: "1px solid rgb(235, 237, 240)" }}
+              />
+              <CCardBody>
+                <CCarousel animate autoSlide={3000}>
+                  <CCarouselIndicators />
+                  <CCarouselInner>
+                    {personinsight.length !== 0
+                      ? teamlist0.map((item, key) => (
+                          <CCarouselItem>
+                            <PersonInsightList
+                              EMP_INDEX={item.emp_INDEX}
+                              personinsight={personinsight}
+                              key={key}
+                            ></PersonInsightList>
+                            <hr />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <CCarouselCaption>
+                              <h2>
+                                {item.emp_NAME} {item.rank_NAME}
+                              </h2>
+                            </CCarouselCaption>
+                          </CCarouselItem>
+                        ))
+                      : null}
+                  </CCarouselInner>
+                  <CCarouselControl direction="prev" />
+                  <CCarouselControl direction="next" />
+                </CCarousel>
+              </CCardBody>
+            </CCard>
+          </div>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <CCard>
-            <PageHeader
-              title="팀원 인사이트"
-              style={{ border: "1px solid rgb(235, 237, 240)" }}
-            />
-            <CCardBody>
-              <CCarousel animate autoSlide={3000}>
-                <CCarouselIndicators />
-                <CCarouselInner>
-                  {personinsight.length !== 0
-                    ? teamlist0.map((item, key) => (
-                        <CCarouselItem>
-                          <PersonInsightList
-                            EMP_INDEX={item.emp_INDEX}
-                            personinsight={personinsight}
-                            key={key}
-                          ></PersonInsightList>
-                          <hr />
-                          <br />
-                          <br />
-                          <br />
-                          <br />
-                          <CCarouselCaption>
-                            <h2>
-                              {item.emp_NAME} {item.rank_NAME}
-                            </h2>
-                          </CCarouselCaption>
-                        </CCarouselItem>
-                      ))
-                    : null}
-                </CCarouselInner>
-                <CCarouselControl direction="prev" />
-                <CCarouselControl direction="next" />
-              </CCarousel>
-            </CCardBody>
-          </CCard>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

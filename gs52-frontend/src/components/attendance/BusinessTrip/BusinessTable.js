@@ -14,6 +14,7 @@ import {
 import BusinessModal from "./BusinessModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
+import { Badge } from "antd";
 
 const businessArr = ["날짜", "출장유형", "사유", "승인"];
 const getBadge = (status) => {
@@ -63,7 +64,7 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
   useEffect(() => {
     dispatch(annualAxios(vacation_EMP_INDEX.index));
     dispatch(empvacationAxios(vacation_EMP_INDEX.index));
-  }, [dispatch]);
+  }, [dispatch, vacation_EMP_INDEX.index]);
 
   //setInputData(data);
   const dateHandle = (e) => {
@@ -159,8 +160,11 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
                 scopedSlots={{
                   승인: (item) => (
                     <td>
-                      <h4>
-                        <CBadge color={getBadge(item.승인)}>{item.승인}</CBadge>
+                      <h4 style={{ textAlign: "center" }}>
+                        <Badge
+                          status={getBadge(item.승인)}
+                          text={item.승인}
+                        ></Badge>
                       </h4>
                     </td>
                   ),
