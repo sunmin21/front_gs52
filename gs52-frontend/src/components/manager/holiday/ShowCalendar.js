@@ -31,6 +31,15 @@ function ShowCalendar() {
     dispatch(holidayAxios());
   }, [dispatch]);
 
+  const data = holiday.map((item) => {
+    return {
+      id: item.holiday_INDEX,
+      title: item.holiday_TITLE,
+      start: item.holiday_DATE,
+      annual: item.holiday_ANNUAL_REPEAT,
+    };
+  });
+
   const DeleteOnClick = async (e) => {
     await DeleteHoliday(e.event._def["publicId"]);
     await dispatch(holidayAxios());
@@ -40,7 +49,7 @@ function ShowCalendar() {
   const eventOnClick = async (e) => {
     if (e.event._def["publicId"] > 0) {
       setVisibleYN(true);
-      setAlertYesNo("삭제하시겠습니까?")
+      setAlertYesNo("'" + e.event._def["title"] + "' 삭제하시겠습니까?")
       setEvent(e);
       
     } else {
@@ -48,15 +57,6 @@ function ShowCalendar() {
       setAlertContents("국가 공휴일은 삭제 할 수 없습니다");
     }
   };
-
-  const data = holiday.map((item) => {
-    return {
-      id: item.holiday_INDEX,
-      title: item.holiday_TITLE,
-      start: item.holiday_DATE,
-      annual: item.holiday_ANNUAL_REPEAT,
-    };
-  });
 
   return (
     <>
@@ -69,7 +69,8 @@ function ShowCalendar() {
               danger
               onClick={() => {
                 DeleteOnClick(event)
-              }}
+            }}
+            style={{margin:"0px 5px 0px 10px"}}
             >
               삭제
             </Button>
@@ -78,7 +79,8 @@ function ShowCalendar() {
               type="secondary"
               onClick={() => {
                 setVisibleYN(0)
-              }}
+            }}
+            style={{margin:"0px 0px 0px 5px"}}
             >
               취소
           </Button>
@@ -91,7 +93,7 @@ function ShowCalendar() {
           plugins={[daygridPlugin]}
           eventSources={[data, holidaydata]}
           eventClick={eventOnClick}
-          eventColor="orange"
+          eventColor="red"
           eventTextColor="white"
           eventDisplay="title"
         />
