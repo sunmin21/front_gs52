@@ -21,28 +21,38 @@ const Project = () => {
     dispatch(noticeAxios());
   }, [dispatch]);
 
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+  };
   return (
     <>
-    <div style={{ backgroundColor:"lightsalmon" }}>
-        <h3>프로젝트 목록</h3>
-    </div>
-    <CContainer>
-        <CCardBody style={{ textAlign: "right", margin:"0"}}>
-          <CButton
-            color="danger"
-            size="lg"
-            className="m-2"
-            onClick={() => {
-              history.push("/schedule/project/create");
-            }}
-            >
-              프로젝트 생성
-          </CButton>
-        </CCardBody>            
-            <CCardBody style={{ textAlign: "center"}}>
-              <ShowProject />
-            </CCardBody>
-      </CContainer>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>
+          나의 프로젝트 목록
+        </h4>
+      </div>
+      <CContainer>
+          <CCardBody style={{ textAlign: "right", margin:"0"}}>
+            <CButton
+              color="danger"
+              size="lg"
+              className="m-2"
+              onClick={() => {
+                history.push("/schedule/project/create");
+              }}
+              >
+                프로젝트 생성
+            </CButton>
+          </CCardBody>            
+              <CCardBody style={{ textAlign: "center"}}>
+                <ShowProject />
+              </CCardBody>
+        </CContainer>
       </>
   );
 };
