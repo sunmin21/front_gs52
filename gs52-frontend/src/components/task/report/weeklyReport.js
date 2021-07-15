@@ -102,7 +102,7 @@ function WeeklyReport() {
   // 열 클릭시 삭제 기능
   const eventOnClick = async (e) => {
     setVisible(true)
-    setAlertContents("해당 주간보고 내용을 삭제하시겠습니까?")
+    setAlertContents("'" + e.contents + "' 삭제하시겠습니까?")
     setEvent(e);
   }
 
