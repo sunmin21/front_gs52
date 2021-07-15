@@ -111,10 +111,10 @@ function WorkTime(){
             
             {
                 //moment('18:01').format('HH:mm')>ruleEnd?
-                moment().format('HH:mm')>ruleEnd && workState!="퇴근"?
-                <button onClick={onOffWork}>퇴근</button>
-                :
-                null
+                //moment().format('HH:mm')>ruleEnd && workState!="퇴근"?
+                <CButton block variant="outline" color="secondary" onClick={onOffWork}>퇴근</CButton>
+                //:
+                //null
             }
            
         </div>

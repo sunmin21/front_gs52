@@ -50,12 +50,17 @@ export function ConfRoom(props) {
 	  }
       );
 
+	  const eventOnclick = async (e) => {
+		
+	  };
+
   	return (
 		<div>
 			{console.log("ROOMMMMMMMMMMMM")}
 			<FullCalendar
 					plugins={[timegrid, interactionPlugin ]}
 					dateClick={handleDateClick}
+					eventClick={eventOnclick}
 					weekends={false}
 					width={50}
 					slotEventOverlap={false}

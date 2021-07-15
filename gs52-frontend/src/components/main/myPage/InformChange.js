@@ -25,8 +25,10 @@ import {
 } from "../../../lib/api/main/MyPage";
 import { useSelector } from 'react-redux';
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import { useHistory } from "react-router-dom";
 
 export function InformChange() {
+  const history = useHistory();
   const user = getCurrentUser();
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
@@ -117,6 +119,8 @@ export function InformChange() {
     const ad = addr + address;
     await UpdateInform(user.index, name, email, tel, ad).then(
       (response) => {
+        alert("수정되었습니다.")
+        history.push("/InformChange");
       },
       (error) => {
         console.log(error);
