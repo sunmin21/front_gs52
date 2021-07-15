@@ -34,16 +34,7 @@ const PieChart = ({ projectWith }) => {
         value: item.project_WITH_SCORE,
       })),
   ];
-  console.log(
-    ...projectWith
-      .filter((people) => people.project_WITH_SCORE > 0)
-      .map((item) => {
-        console.log(item.project_WITH_COLOR);
-        return item.project_WITH_COLOR !== null
-          ? item.project_WITH_COLOR
-          : colors;
-      })
-  );
+
   var config = {
     appendPadding: 10,
     data: data,
@@ -53,7 +44,6 @@ const PieChart = ({ projectWith }) => {
       ...projectWith
         .filter((people) => people.project_WITH_SCORE > 0)
         .map((item) => {
-          console.log(item.project_WITH_COLOR);
           return item.project_WITH_COLOR !== null
             ? item.project_WITH_COLOR
             : colors;
