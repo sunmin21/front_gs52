@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CCol, CRow, CBadge, CDataTable, CCardBody, CButton } from "@coreui/react";
+import { CCol, CRow, CCard, CDataTable, CCardBody, CButton } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
@@ -57,7 +57,7 @@ function ProjectManage() {
                         프로젝트 승인 관리
                     </h4>
                 </div>
-                <CCardBody style={{textAlign:"center", marginTop:"50px"}}>
+                <CCard style={{textAlign:"center", marginTop:"50px", padding:"50px 40px"}}>
                     <CDataTable
                         items={data}
                         fields={[
@@ -115,7 +115,7 @@ function ProjectManage() {
                             )
                         }}
                 />
-                </CCardBody>
+                </CCard>
             </CCol>
         </CRow>
     )

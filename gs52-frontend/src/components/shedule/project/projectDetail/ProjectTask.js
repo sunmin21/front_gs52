@@ -84,7 +84,7 @@ const ProjectTask = () => {
 
   // console.log(...projectTodoDetail.map((a, key) => key));
   // console.log("에에");
-
+  console.log(projectWith);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -483,7 +483,6 @@ const ProjectTask = () => {
                                       style={
                                         check[key] !== 1
                                           ? {
-                                              verticalAlign: "top",
                                               fontSize: "15px",
                                               textAlign: "left",
                                               fontWeight: "bold",
@@ -492,25 +491,27 @@ const ProjectTask = () => {
                                               background: "white",
                                               border:
                                                 "solid " +
-                                                item2.project_WITH_COLOR,
+                                                  item2.project_WITH_COLOR ||
+                                                "yellow",
                                               borderWidth: "4px 4px 4px 20px",
 
                                               paddingBottom: "30px",
                                               marginBottom: "10px",
                                             }
                                           : {
-                                              verticalAlign: "center",
                                               fontSize: "15px",
                                               textAlign: "left",
                                               fontWeight: "bold",
                                               maxHeight: "40px",
                                               borderRadius: "20px",
                                               background:
-                                                item2.project_WITH_COLOR,
+                                                item2.project_WITH_COLOR ||
+                                                "black",
 
                                               border:
                                                 "solid " +
-                                                item2.project_WITH_COLOR,
+                                                  item2.project_WITH_COLOR ||
+                                                "black",
                                               borderWidth: "4px 4px 4px 20px",
                                               paddingBottom: "30px",
                                               marginBottom: "10px",
