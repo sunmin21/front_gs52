@@ -24,16 +24,15 @@ const addOption = () => {
     boxShadow: "5px 5px 5px gray",
     padding: "8px",
     borderRadius: "50px",
+    marginBottom: "30px",
   };
   return (
     <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>항목 추가</h4>
+      </div>
       <CCol xs="12" md="12" className="mb-4">
         <CCard>
-          <CCardHeader>
-            <div style={contentStyle}>
-              <h4 style={{ color: "white", marginTop: "5px" }}>항목 추가</h4>
-            </div>
-          </CCardHeader>
           <CCardBody>
             <CTabs>
               <CNav variant="tabs">

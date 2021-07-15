@@ -58,16 +58,14 @@ const DetailNotice = (e) => {
     boxShadow: "5px 5px 5px gray",
     padding: "8px",
     borderRadius: "50px",
+    marginBottom: "30px",
   };
   return (
     <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>공지사항</h4>
+      </div>
       <CCard>
-        <CCardHeader>
-          {" "}
-          <div style={contentStyle}>
-            <h4 style={{ color: "white", marginTop: "5px" }}>공지사항</h4>
-          </div>
-        </CCardHeader>
         <CCardBody>
           <CForm
             action=""
