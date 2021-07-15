@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from "react";
 import {ConfRoom} from "../../components/shedule/confRoom/Conf_Room";
 import {ConfModal} from "../../components/shedule/confRoom/Conf_Modal";
+import {ConfDetail} from "../../components/shedule/confRoom/Conf_Detail";
 import {ConfButton} from "../../components/shedule/confRoom/Conf_Button";
 import moment from 'moment';
 
@@ -64,6 +65,11 @@ const ConfLayout = () => {
             {
                 conf_modal1===true ?
                 <ConfModal></ConfModal> 
+                : null
+            }
+                        {
+                conf_modal2===true ?
+                <ConfDetail></ConfDetail> 
                 : null
             }
             </CCardBody>
