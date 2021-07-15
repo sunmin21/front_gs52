@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import daygridPlugin from "@fullcalendar/daygrid";
-import { CCard, CCardBody, CCardHeader, CAlert } from "@coreui/react";
+import { CCardBody, CAlert } from "@coreui/react";
 import { DeleteHoliday } from "src/lib/api/manager/holiday/HolidayAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { holidayAxios } from "src/modules/manager/holiday";
@@ -14,6 +14,8 @@ function ShowCalendar() {
 
   const [visible, setVisible] = useState(0);
   const [alertContents, setAlertContents] = useState();
+  const [info, setInfo] = useState(false);
+  const [doubleCheck, setDoubleCheck] = useState(true);
 
   const { holiday } = useSelector((state) => {
     return {
@@ -25,17 +27,13 @@ function ShowCalendar() {
     dispatch(holidayAxios());
   }, [dispatch]);
 
-  const eventOnclick = async (e) => {
+  const eventOnClick = async (e) => {
     var msg = "삭제하시겠습니까?";
 
     if (e.event._def["publicId"] > 0) {
       if (window.confirm(msg) != 0) {
-        console.log("삭제");
-        console.log(e.event._def);
-        // holiday_index를 가져옴
         await DeleteHoliday(e.event._def["publicId"]);
         await dispatch(holidayAxios());
-        // 자동 rendering
       } else {
         console.log("삭제취소");
       }
@@ -56,18 +54,18 @@ function ShowCalendar() {
 
   return (
     <>
-        <CCardBody>          
-          <FullCalendar
-            contentHeight="475px"
-            defaultView="dayGridMonth"
-            plugins={[daygridPlugin]}
-            eventSources={[data, holidaydata]}
-            eventClick={eventOnclick}
-            eventColor="red"
-            eventTextColor="white"
-            eventDisplay="title"
-          />
-        </CCardBody>
+      <CCardBody>          
+        <FullCalendar
+          contentHeight="475px"
+          defaultView="dayGridMonth"
+          plugins={[daygridPlugin]}
+          eventSources={[data, holidaydata]}
+          eventClick={eventOnClick}
+          eventColor="red"
+          eventTextColor="white"
+          eventDisplay="title"
+        />
+      </CCardBody>
       <div style={{ textAlign: "center", margin: "0px 300px" }}>
         <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
           {alertContents}
