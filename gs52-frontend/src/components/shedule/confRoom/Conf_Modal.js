@@ -47,9 +47,9 @@ import {
   modalEndTime,
 } from "src/modules/schedule/conf";
 
-const user = getCurrentUser();
 
 export function ConfModal() {
+  const user = getCurrentUser();
   const dispatch = useDispatch();
   const { floor_list, room_list, conf_modal1, conf_date, conf_startTime, conf_endTime } =
     useSelector((state) => {
@@ -136,7 +136,7 @@ export function ConfModal() {
 
   //date picker, time picker 클릭 이벤트 함수
   function onDate(date, dateString) {
-    dispatch(modalDate(moment(dateString).format("YYYY/MM/DD")));
+    dispatch(modalDate(moment(dateString).format("YYYY-MM-DD")));
     //setDate(dateString)
   }
   function onTime(timeString) {
@@ -164,7 +164,7 @@ export function ConfModal() {
 	  console.log("Registtttttttttttttt")
 	  console.log(inputs)
 	  console.log(empList)
-      InsertConf(user.index, room_data[inputs.room].conf_ROOM_INDEX, inputs.title, conf_date, conf_startTime, conf_endTime, empList);
+     await InsertConf(user.index, room_data[inputs.room].conf_ROOM_INDEX, inputs.title, conf_date, conf_startTime, conf_endTime, empList);
       await dispatch(modalCheck1());
       await dispatch(ConfAxios());
     }
