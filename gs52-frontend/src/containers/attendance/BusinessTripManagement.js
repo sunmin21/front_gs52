@@ -1,7 +1,6 @@
 import React from "react";
-import Item from "antd/lib/list/Item";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 import BusinessTable from "src/components/attendance/BusinessTrip/BusinessTable";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
@@ -22,9 +21,9 @@ const BusinessTripManageMent = () => {
       <div style={contentStyle}>
         <h4 style={{ color: "white", marginTop: "5px" }}>출장 / 외근 신청</h4>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col w-100 mt-3">
+      <div className="container">
+        <div className="row">
+          <div className="col w-100 mt-3">
             <BusinessTable
               vacation_EMP_INDEX={vacation_EMP_INDEX}
             ></BusinessTable>

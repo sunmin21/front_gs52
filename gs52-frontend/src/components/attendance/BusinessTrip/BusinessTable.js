@@ -8,7 +8,6 @@ import {
   CDataTable,
   CRow,
   CAlert,
-  CBadge,
 } from "@coreui/react";
 
 import BusinessModal from "./BusinessModal";
@@ -120,13 +119,13 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
         <CCol>
           <CCard>
             <CCardHeader>
-              <div class="container">
-                <div class="row align-items-center h-100">
-                  <div class="col-sm-11">
+              <div className="container">
+                <div className="row align-items-center h-100">
+                  <div className="col-sm-11">
                     <h4>출장 사용 정보</h4>
                   </div>
 
-                  <div class="col-sm-1">
+                  <div className="col-sm-1">
                     <BusinessModal
                       vacation_EMP_INDEX={vacation_EMP_INDEX}
                       dateHandle={dateHandle}

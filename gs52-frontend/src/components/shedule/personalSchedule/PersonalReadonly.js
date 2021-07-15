@@ -1,9 +1,5 @@
-import React, { Component, useEffect, useState } from "react";
-import Scheduler, {
-  SchedulerData,
-  ViewTypes,
-  DemoData,
-} from "react-big-scheduler";
+import React from "react";
+import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
 

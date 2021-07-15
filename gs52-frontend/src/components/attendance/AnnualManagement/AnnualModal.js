@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   CButton,
@@ -9,13 +9,12 @@ import {
   CModalTitle,
   CAlert,
 } from "@coreui/react";
-import axios from "axios";
+
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 import {
   InserVacation,
   UpdateVacation,
 } from "src/lib/api/attendance/AnnualAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 function AnnualModal({
   dateHandle,
@@ -24,10 +23,9 @@ function AnnualModal({
   date,
   infoIndex,
   contents,
-  inputData,
+
   annual,
-  setInputData,
-  setRestVacation,
+
   vacation_EMP_INDEX,
 }) {
   const [info, setInfo] = useState(false);
@@ -144,8 +142,8 @@ function AnnualModal({
               {alertContents}
             </CAlert>
           </div>
-          <div class="container mt-4 mr-5">
-            <div class="row float-right">
+          <div className="container mt-4 mr-5">
+            <div className="row float-right">
               <CButton color="secondary" onClick={() => setInfo(!info)}>
                 취소
               </CButton>

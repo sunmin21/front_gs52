@@ -1,6 +1,6 @@
 import React from "react";
-import Item from "antd/lib/list/Item";
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
 import PersonalReadonly from "src/components/shedule/personalSchedule/PersonalReadonly";
@@ -10,8 +10,7 @@ import {
   teamAxios,
 } from "src/modules/annual/memberSchedule";
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
-import { ConfAxios } from "src/modules/schedule/conf";
+
 import {
   leaderAxios,
   personAxios,
@@ -86,16 +85,16 @@ const PersonalScheduleManagement = () => {
         <h4 style={{ color: "white", marginTop: "5px" }}>개인 스케줄</h4>
       </div>
       <div>
-        <div class="row justify-content-end">
-          <div class="col-sm-4 mb-2">
+        <div className="row justify-content-end">
+          <div className="col-sm-4 mb-2">
             <MemberDropdown
               data={data}
               nowEmpTeam={nowEmpTeam}
             ></MemberDropdown>
           </div>
         </div>
-        <div class="row" style={{ backgroundColor: "White" }}>
-          <div class="col">
+        <div className="row" style={{ backgroundColor: "White" }}>
+          <div className="col">
             <PersonalReadonly
               treevalue={treevalue}
               data={data}

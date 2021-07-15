@@ -1,7 +1,6 @@
 import {
   CCard,
   CCardBody,
-  CCardHeader,
   CCarousel,
   CCarouselCaption,
   CCarouselControl,
@@ -9,9 +8,9 @@ import {
   CCarouselInner,
   CCarouselItem,
 } from "@coreui/react";
-import { Carousel, PageHeader } from "antd";
-import React, { useCallback } from "react";
-import { useEffect, useRef, useState } from "react";
+import { PageHeader } from "antd";
+import React from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PersonInsightList from "src/components/attendance/PersonInsight/PersonInsightList";
 

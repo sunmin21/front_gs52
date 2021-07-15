@@ -1,15 +1,12 @@
 import {
-  CCallout,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCardText,
-  CCardTitle,
   CCol,
   CRow,
 } from "@coreui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import CIcon from "@coreui/icons-react";
 
 const PersonInsightList = (props) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   CCol,
   CNav,
@@ -10,10 +10,8 @@ import {
   CCard,
   CCardBody,
   CTabs,
-  CCardHeader,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
-import { DocsLink } from "src/reusable";
+
 import { useDispatch, useSelector } from "react-redux";
 import { vacationAxios } from "src/modules/manager/vacation";
 import AttendManage from "../../../components/manager/vacationManage/attendManage";

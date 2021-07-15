@@ -1,9 +1,8 @@
 import "./App.css";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import "./scss/style.scss";
-import { TheLayout } from "./containers/common";
-import { getCurrentUser } from "./lib/api/jwt/LoginAPI";
+
 import PrivateRoute from "./route/LoginRoute";
 import "antd/dist/antd.css";
 const loading = (
@@ -13,8 +12,6 @@ const loading = (
 );
 
 function App() {
-  const user = getCurrentUser();
-
   return (
     /*
      *<Route {...parentProps}/>

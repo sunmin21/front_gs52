@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React from "react";
 import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -8,8 +8,6 @@ import "react-dom";
 import "./style.css";
 
 import moment from "moment";
-import { Button } from "antd";
-import Modal from "antd/lib/modal/Modal";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
