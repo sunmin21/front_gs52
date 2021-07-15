@@ -66,6 +66,7 @@ const Readonly = withDragDropContext((props) => {
   ////////////////////////////직원들 연차목록
   const attendList = props.attend.map((item) => {
     var startdate = new Date(item.attend_DATE);
+
     startdate.setDate(startdate.getDate() + 1);
 
     if (item.attend_TYPE_NAME == "연차") {
@@ -114,19 +115,54 @@ const Readonly = withDragDropContext((props) => {
         bgColor: "#f759ab",
       };
     } else if (item.attend_TYPE_NAME == "지각") {
-      console.log(item);
       return {
         id: item.attend_INDEX,
-        start: item.attend_DATE + " 09:00",
+        start: item.attend_DATE + " 10:00",
         end: item.attend_DATE + " " + item.attend_START,
+        resourceId: item.emp_ID,
+        title: item.attend_TYPE_NAME,
+      };
+    } else if (item.attend_TYPE_NAME == "출근") {
+      return {
+        id: item.attend_INDEX,
+        start: item.attend_DATE + " " + item.attend_START,
+        end: item.attend_DATE + " 10:00",
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
       };
     }
   });
-  ///직원 별 회의실 목록
 
+  const endList = props.attend
+    .filter(
+      (item) =>
+        item.attend_TYPE_NAME == "지각" || item.attend_TYPE_NAME == "출근"
+    )
+    .map((item) => {
+      if (item.attend_TYPE_NAME == "지각") {
+        return {
+          id: item.attend_INDEX,
+          start: item.attend_DATE + " 17:00",
+          end: item.attend_DATE + " " + item.attend_END,
+          resourceId: item.emp_ID,
+          title: "퇴근",
+        };
+      } else if (item.attend_TYPE_NAME == "출근") {
+        return {
+          id: item.attend_INDEX,
+          start: item.attend_DATE + " 17:00",
+          end: item.attend_DATE + " " + item.attend_END,
+          resourceId: item.emp_ID,
+          title: "퇴근",
+        };
+      }
+    });
+
+  ///직원 별 회의실 목록
+  console.log("@@@@@1");
   console.log(attendList);
+  console.log("@@@@@2");
+  console.log(endList);
 
   const confPerson = props.person.map((item) => ({
     id: item.conf_RE_INDEX,
@@ -141,7 +177,7 @@ const Readonly = withDragDropContext((props) => {
   const List = teamList.concat(empList);
 
   //각 직원별 일정 리스트
-  const eventList = attendList.concat(confPerson);
+  const eventList = attendList.concat(confPerson).concat(endList);
 
   const selectList = {
     resources: List,
