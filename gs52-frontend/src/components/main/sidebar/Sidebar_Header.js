@@ -13,6 +13,7 @@ function Sidebar_Header(){
     const user = getCurrentUser();
 
     const [img, setImg] = useState(null);
+    
     useEffect(()=>{
         SelectEmpImg(user.index).then((res)=>{
             console.log("res.data[0]")
