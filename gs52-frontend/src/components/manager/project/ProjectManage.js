@@ -57,7 +57,7 @@ function ProjectManage() {
                         프로젝트 승인 관리
                     </h4>
                 </div>
-                <CCard style={{textAlign:"center", marginTop:"50px", padding:"50px 40px"}}>
+                <CCardBody style={{textAlign:"center", marginTop:"50px", padding:"50px 40px"}}>
                     <CDataTable
                         items={data}
                         fields={[
@@ -115,7 +115,7 @@ function ProjectManage() {
                             )
                         }}
                 />
-                </CCard>
+                </CCardBody>
             </CCol>
         </CRow>
     )

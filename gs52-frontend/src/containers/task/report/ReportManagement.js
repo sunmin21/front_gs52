@@ -29,6 +29,7 @@ const ReportManagement = () => {
           {user.roles == "ROLE_TEAMLEADER" ? (
             <CheckOthers Content={EMPREPORT} />
           ) : null}
+          {/* <CheckOthers Content={EMPREPORT} /> */}
         </CCardBody>
         <CCardBody>
           <WeeklyReport />
