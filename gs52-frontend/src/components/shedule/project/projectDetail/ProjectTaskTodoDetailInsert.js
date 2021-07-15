@@ -45,7 +45,7 @@ const ProjectTaskTodoDetailInsert = ({
         style={
           detailIndex === undefined
             ? { marginLeft: "20px", float: "right" }
-            : { float: "right" }
+            : { float: "right", marginTop: "5px" }
         }
       >
         {detailIndex === undefined && "할일 등록"}
