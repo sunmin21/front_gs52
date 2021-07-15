@@ -36,7 +36,7 @@ const Main = () => {
         <CRow className="align-items-start">
           <CCol>
             <CCard accentColor="secondary">
-              <CCardBody >
+              <CCardBody>
                 <CRow>
                   <CCol sm="8" style={{marginTop:"45px"}}>
                     <TimeProgress/>
@@ -51,9 +51,9 @@ const Main = () => {
             </CCard>
           </CCol>
         </CRow>
-        <CRow className="align-items-center">
+        <CRow>
           <CCol>
-            <Notice content={notice} />
+            <Notice content={notice} /> 
           </CCol>
           <CCol>
             <MyCalendar />
