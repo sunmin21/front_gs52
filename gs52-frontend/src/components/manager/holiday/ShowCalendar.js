@@ -6,6 +6,9 @@ import { DeleteHoliday } from "src/lib/api/manager/holiday/HolidayAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { holidayAxios } from "src/modules/manager/holiday";
 
+import "antd/dist/antd.css";
+import { Button } from "antd";
+
 // 국가공휴일 담는 js파일
 import holidaydata from "./HolidayData";
 
@@ -13,9 +16,9 @@ function ShowCalendar() {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(0);
+  const [visibleYN, setVisibleYN] = useState(1);
   const [alertContents, setAlertContents] = useState();
-  const [info, setInfo] = useState(false);
-  const [doubleCheck, setDoubleCheck] = useState(true);
+  const [alertYesNo, setAlertYesNo] = useState();
 
   const { holiday } = useSelector((state) => {
     return {
@@ -28,12 +31,13 @@ function ShowCalendar() {
   }, [dispatch]);
 
   const eventOnClick = async (e) => {
-    var msg = "삭제하시겠습니까?";
-
     if (e.event._def["publicId"] > 0) {
-      if (window.confirm(msg) != 0) {
-        await DeleteHoliday(e.event._def["publicId"]);
-        await dispatch(holidayAxios());
+      if (window.confirm != 0) {
+        setAlertYesNo("test")
+        // holiday_index를 가져옴
+        // await DeleteHoliday(e.event._def["publicId"]);
+        // await dispatch(holidayAxios());
+        // 자동 rendering
       } else {
         console.log("삭제취소");
       }
@@ -54,6 +58,35 @@ function ShowCalendar() {
 
   return (
     <>
+      <div style={{ textAlign: "center", margin: "0px 30px" }}>
+        <CAlert
+          color="danger"
+          show={true}
+          fade
+          onShowChange={setVisibleYN}
+          action={
+            <>
+              <Button
+                size="small"
+                type="primary"
+                danger
+                onClick={console.log("삭제눌림")}
+              >
+                {alertYesNo}
+              </Button>
+              <Button
+                size="small"
+                type="secondary"
+                onClick={console.log("취소눌림")}
+              >
+                취소
+              </Button>
+              </>
+          }
+        >
+
+        </CAlert>
+      </div>
       <CCardBody>          
         <FullCalendar
           contentHeight="475px"
@@ -61,7 +94,7 @@ function ShowCalendar() {
           plugins={[daygridPlugin]}
           eventSources={[data, holidaydata]}
           eventClick={eventOnClick}
-          eventColor="red"
+          eventColor="orange"
           eventTextColor="white"
           eventDisplay="title"
         />
