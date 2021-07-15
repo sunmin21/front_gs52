@@ -69,7 +69,8 @@ function ShowCalendar() {
               danger
               onClick={() => {
                 DeleteOnClick(event)
-              }}
+            }}
+            style={{margin:"0px 5px 0px 10px"}}
             >
               삭제
             </Button>
@@ -78,7 +79,8 @@ function ShowCalendar() {
               type="secondary"
               onClick={() => {
                 setVisibleYN(0)
-              }}
+            }}
+            style={{margin:"0px 0px 0px 5px"}}
             >
               취소
           </Button>
@@ -91,7 +93,7 @@ function ShowCalendar() {
           plugins={[daygridPlugin]}
           eventSources={[data, holidaydata]}
           eventClick={eventOnClick}
-          eventColor="orange"
+          eventColor="red"
           eventTextColor="white"
           eventDisplay="title"
         />

@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {
   CCard,
   CCardBody,
-  CCardHeader,
+  CAlert,
   CCardGroup,
   CDataTable,
   CButton,
@@ -15,11 +15,18 @@ import AddReport from "./AddReport";
 import { DeleteReport } from "src/lib/api/task/ReportAPI";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
+import "antd/dist/antd.css";
+import { Button } from "antd";
+
 function WeeklyReport() {
   const user = getCurrentUser();
   let [emp] = useState(user.index);
 
   let [lastDate] = useState();
+
+  const [visible, setVisible] = useState(0);
+  const [alertContents, setAlertContents] = useState();
+  const [event, setEvent] = useState();
 
   const dispatch = useDispatch();
   const { report } = useSelector((state) => {
@@ -85,20 +92,19 @@ function WeeklyReport() {
     );
   };
 
-  // 열 클릭시 삭제 기능
-  const eventOnclick = async (e) => {
-    var msg = "삭제하시겠습니까?";
+  const DeleteOnClick = async (e) => {
+    lastDate = weekStart;
+    await DeleteReport(e.id);
+    await showAllReport(new Date(lastDate));
+    setVisible(0)
+  }
 
-    if (window.confirm(msg) != 0) {
-      console.log("삭제");
-      lastDate = weekStart;
-      await DeleteReport(e.id);
-      await showAllReport(new Date(lastDate));
-      // 자동 렌더링
-    } else {
-      console.log("삭제취소");
-    }
-  };
+  // 열 클릭시 삭제 기능
+  const eventOnClick = async (e) => {
+    setVisible(true)
+    setAlertContents("해당 주간보고 내용을 삭제하시겠습니까?")
+    setEvent(e);
+  }
 
   const todayOnClick = (e) => {
     showAllReport(new Date());
@@ -135,6 +141,32 @@ function WeeklyReport() {
         </CCardBody>
       </CCardGroup>
       <hr></hr>
+      <div style={{ textAlign: "center", margin: "0px 80px" }}>
+        <CAlert color="danger" show={visible} fade onShowChange={setVisible}>
+          {alertContents}
+            <Button
+              size="small"
+              type="primary"
+              danger
+              onClick={() => {
+                DeleteOnClick(event)
+              }}            
+              style={{margin:"0px 5px 0px 10px"}}
+            >
+              삭제
+            </Button>
+            <Button
+              size="small"
+              type="secondary"
+              onClick={() => {
+                setVisible(0)
+            }}
+              style={{margin:"0px 0px 0px 5px"}}
+            >
+              취소
+          </Button>
+        </CAlert>
+      </div>
       <CCardGroup style={{ textAlign: "center" }}>
         <CCardBody>
           <h4>이번주</h4>
@@ -143,7 +175,7 @@ function WeeklyReport() {
             fields={fields}
             items={data}
             itemsPerPage={10}
-            onRowClick={eventOnclick}
+            onRowClick={eventOnClick}
             // 자동 정렬
             sorterValue={{ column: "date", asc: "true" }}
             pagination
@@ -156,7 +188,7 @@ function WeeklyReport() {
             fields={fields}
             items={nextdata}
             itemsPerPage={10}
-            onRowClick={eventOnclick}
+            onRowClick={eventOnClick}
             sorterValue={{ column: "date", asc: "true" }}
             pagination
           />
