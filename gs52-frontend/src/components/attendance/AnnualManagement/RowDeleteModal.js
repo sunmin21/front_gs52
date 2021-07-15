@@ -6,9 +6,8 @@ import {
   CModalFooter,
   CButton,
 } from "@coreui/react";
-import axios from "axios";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import {
   DeleteVacation,

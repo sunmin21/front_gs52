@@ -1,9 +1,8 @@
 import React from 'react'
 import ShowCalendar from 'src/components/manager/holiday/ShowCalendar';
-// import { HolidayAPI } from 'holidayapi';
 import AddHoliday from 'src/components/manager/holiday/AddHoliday';
 
-import { CCardBody, CCol, CRow } from '@coreui/react'
+import { CCol, CRow } from '@coreui/react'
 
 const HolidayManagement = () => {
     
@@ -19,17 +18,18 @@ const HolidayManagement = () => {
     return (
         <CRow>
             <CCol>
-                <div style={contentStyle}>
+                <div>
+                    <div style={contentStyle}>
                     <h4 style={{ color: "white", marginTop: "5px" }}>
                         휴일 관리
                     </h4>
+                    
                 </div>
-                <CCardBody>
                     <div style={{textAlign:"right"}}>
-                        <AddHoliday />
-                    </div>                    
-                    <ShowCalendar />
-                </CCardBody>
+                    <AddHoliday />
+                </div> 
+                </div>
+                <ShowCalendar />
             </CCol>
         </CRow>
     )

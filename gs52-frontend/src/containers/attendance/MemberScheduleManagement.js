@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "./../../components/attendance/MemberSchedule/MemberDropdown";
 import MemberReadonly from "src/components/attendance/MemberSchedule/MemberReadonly";
@@ -10,6 +10,14 @@ import {
 } from "src/modules/annual/memberSchedule";
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
 
 const MemberScheduleManagement = () => {
   const dispatch = useDispatch();
@@ -22,7 +30,7 @@ const MemberScheduleManagement = () => {
   }, [dispatch]);
 
   // const test = SelectTeam();
-  // console.log(test);
+
   //리덕스에서 team 가져옴
   const { team } = useSelector((state) => {
     return {
@@ -79,9 +87,12 @@ const MemberScheduleManagement = () => {
   }));
   return (
     <>
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>구성원 스케줄</h4>
+      </div>
       <div>
-        <div class="row justify-content-end">
-          <div class="col-sm-4 mb-2 mr-3">
+        <div className="row justify-content-end">
+          <div className="col-sm-4 mb-2 mr-3">
             <MemberDropdown
               style={{ borderRadius: "40px 80px" }}
               data={data}
@@ -90,8 +101,8 @@ const MemberScheduleManagement = () => {
             ></MemberDropdown>
           </div>
         </div>
-        <div class="row" style={{ backgroundColor: "White" }}>
-          <div class="col">
+        <div className="row" style={{ backgroundColor: "White" }}>
+          <div className="col">
             <MemberReadonly
               treevalue={treevalue}
               data={data}

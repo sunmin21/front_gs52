@@ -38,8 +38,6 @@ const Notice = ({ content }) => {
   }));
 
   return (
-    <>
-      <CCol xl={12}>
         <CCard>
           <CCardHeader>
             <div
@@ -137,8 +135,6 @@ const Notice = ({ content }) => {
             />
           </CCardBody>
         </CCard>
-      </CCol>
-    </>
   );
 };
 

@@ -36,24 +36,22 @@ const Project = () => {
           나의 프로젝트 목록
         </h4>
       </div>
-      <CContainer>
-          <CCardBody style={{ textAlign: "right", margin:"0"}}>
-            <CButton
-              color="danger"
-              size="lg"
-              className="m-2"
-              onClick={() => {
-                history.push("/schedule/project/create");
-              }}
-              >
-                프로젝트 생성
-            </CButton>
-          </CCardBody>            
-              <CCardBody style={{ textAlign: "center"}}>
-                <ShowProject />
-              </CCardBody>
-        </CContainer>
-      </>
+      <CCol style={{ textAlign: "right" }}>
+        <CButton
+          color="danger"
+          size="lg"
+          className="m-2"
+          onClick={() => {
+            history.push("/schedule/project/create");
+          }}
+        >
+        프로젝트 생성
+        </CButton>        
+      </CCol>            
+      <div style={{ textAlign: "center"}}>
+        <ShowProject />
+      </div>
+    </>
   );
 };
 

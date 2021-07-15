@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Home } from "../../../lib/api/test";
+
 import {
   CCard,
   CCardBody,
@@ -9,14 +9,12 @@ import {
   CDataTable,
   CRow,
   CAlert,
-  CBadge,
 } from "@coreui/react";
 
-import axios from "axios";
 import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
-import { PageHeader } from "antd";
+import { Badge } from "antd";
 
 const annualArr = ["날짜", "연차유형", "사유", "승인"];
 
@@ -67,7 +65,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   useEffect(() => {
     dispatch(annualAxios(vacation_EMP_INDEX.index));
     dispatch(empvacationAxios(vacation_EMP_INDEX.index));
-  }, [dispatch]);
+  }, [dispatch, vacation_EMP_INDEX.index]);
 
   //setInputData(data);
   const dateHandle = (e) => {
@@ -123,19 +121,19 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
         <CCol>
           <CCard>
             <CCardHeader>
-              <div class="container">
-                <div class="row align-items-center h-100">
-                  <div class="col-sm-8">
+              <div className="container">
+                <div className="row align-items-center h-100">
+                  <div className="col-sm-8">
                     <h4>연차 사용 정보</h4>
                   </div>
 
-                  <div class="col-sm-2">
-                    <h5 class="text-center">잔여 휴가 </h5>
+                  <div className="col-sm-2">
+                    <h5 className="text-center">잔여 휴가 </h5>
                   </div>
-                  <div class="col-sm-1 ">
+                  <div className="col-sm-1 ">
                     <h5>{data2}</h5>
                   </div>
-                  <div class="col-sm-1">
+                  <div className="col-sm-1">
                     <AnnualModal
                       vacation_EMP_INDEX={vacation_EMP_INDEX}
                       dateHandle={dateHandle}
@@ -169,8 +167,11 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                 scopedSlots={{
                   승인: (item) => (
                     <td>
-                      <h4>
-                        <CBadge color={getBadge(item.승인)}>{item.승인}</CBadge>
+                      <h4 style={{ textAlign: "center" }}>
+                        <Badge
+                          status={getBadge(item.승인)}
+                          text={item.승인}
+                        ></Badge>
                       </h4>
                     </td>
                   ),

@@ -1,22 +1,13 @@
 import React from "react";
-import {
-  CBadge,
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CDataTable,
-  CPagination,
-  CRow,
-} from "@coreui/react";
-import { useEffect, useState } from "react";
+import { CCol, CDataTable, CRow } from "@coreui/react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+
 import { vacationAxios } from "src/modules/manager/vacation";
-import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
+
 import { UpdateVacationStatus } from "src/lib/api/manager/VacationManage/VacationAPI";
 import { UpdateVacation } from "src/lib/api/attendance/AnnualAPI";
+import { Button, Badge } from "antd";
 
 const getBadge = (status) => {
   switch (status) {
@@ -49,7 +40,6 @@ const AttendManage = ({
     1: "완료",
     2: "거절",
   };
-  console.log(content);
 
   const attendData = content
     .filter(
@@ -71,147 +61,138 @@ const AttendManage = ({
       vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
     }));
 
-  console.log(attendData);
   return (
     <CRow>
       <CCol xl={12}>
-        <CCard>
-          <CCardHeader>
-            <small className="text-muted"> </small>
-          </CCardHeader>
-          <CCardBody>
-            <CDataTable
-              items={attendData}
-              fields={[
-                { key: "보낸사람", _classes: "font-weight-bold" },
-                { key: "내용", _style: { width: "40%", textAlign: "center" } },
-                {
-                  key: "종류",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "요청날짜",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "상태",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "승인",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "거절",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-              ]}
-              sorterValue={{ column: "요청날짜", desc: "true" }}
-              hover
-              striped
-              itemsPerPage={10}
-              pagination
-              // onRowClick={(item) =>
-              //   history.push(`/task/schedule/SendContent/${item.id}`)
-              // }
-              scopedSlots={{
-                보낸사람: (item) => {
-                  console.log(item);
-                  return <td>{item.emp_NAME}</td>;
-                },
-                내용: (item) => {
-                  return (
-                    <td
-                      style={{ textAlign: "center" }}
-                      // onClick={() =>
-                      //   history.push(`/task/schedule/SendContent/${item.id}`)
-                      // }
-                    >
-                      {item.vacation_CONTENTS}
-                    </td>
-                  );
-                },
-                종류: (item) => {
-                  return (
-                    <td
-                      style={{ textAlign: "center" }}
-                      // onClick={() =>
-                      //   history.push(`/task/schedule/SendContent/${item.id}`)
-                      // }
-                    >
-                      {item.attend_TYPE_NAME}
-                    </td>
-                  );
-                },
-                요청날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.vacation_DATE}</td>
-                ),
-                상태: (item) => (
-                  <td>
-                    <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(Done[item.vacation_STATUS])}>
-                        {Done[item.vacation_STATUS]}
-                      </CBadge>
-                    </h4>
-                  </td>
-                ),
-                승인: (item) => (
-                  <td>
-                    <CButton
-                      active
-                      block
-                      color="success"
-                      onClick={async (e) => {
-                        await UpdateVacationStatus(
-                          1,
-                          item.vacation_INDEX,
-                          item.vacation_DATE,
-                          item.vacation_ATTEND_INFO_INDEX,
-                          item.vacation_EMP_INDEX
-                        );
-                        dispatch(vacationAxios());
-                      }}
-                      aria-pressed="true"
-                      value={item.vacation_INDEX}
-                      name={2}
-                    >
-                      승인
-                    </CButton>
-                  </td>
-                ),
-                거절: (item) => (
-                  <td>
-                    <CButton
-                      active
-                      block
-                      color="danger"
-                      onClick={async (e) => {
-                        await UpdateVacationStatus(
-                          2,
-                          item.vacation_INDEX,
-                          item.vacation_DATE,
-                          item.vacation_ATTEND_INFO_INDEX,
-                          item.vacation_EMP_INDEX
-                        );
-                        dispatch(vacationAxios());
-                        if (item.attend_TYPE_NAME.includes("반차")) {
-                          await UpdateVacation(0.5, item.emp_ID);
-                        } else {
-                          await UpdateVacation(1, item.emp_ID);
-                        }
-                      }}
-                      aria-pressed="true"
-                      value={item.vacation_INDEX}
-                      name={1}
-                    >
-                      거절
-                    </CButton>
-                  </td>
-                ),
-              }}
-            />
-          </CCardBody>
-        </CCard>
+        <CDataTable
+          items={attendData}
+          fields={[
+            { key: "보낸사람", _classes: "font-weight-bold" },
+            { key: "내용", _style: { width: "40%", textAlign: "center" } },
+            {
+              key: "종류",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "요청날짜",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "상태",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "승인",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "거절",
+              _style: { width: "10%", textAlign: "center" },
+            },
+          ]}
+          sorterValue={{ column: "요청날짜", desc: "true" }}
+          hover
+          striped
+          itemsPerPage={10}
+          pagination
+          // onRowClick={(item) =>
+          //   history.push(`/task/schedule/SendContent/${item.id}`)
+          // }
+          scopedSlots={{
+            보낸사람: (item) => {
+              console.log(item);
+              return <td>{item.emp_NAME}</td>;
+            },
+            내용: (item) => {
+              return (
+                <td
+                  style={{ textAlign: "center" }}
+                  // onClick={() =>
+                  //   history.push(`/task/schedule/SendContent/${item.id}`)
+                  // }
+                >
+                  {item.vacation_CONTENTS}
+                </td>
+              );
+            },
+            종류: (item) => {
+              return (
+                <td
+                  style={{ textAlign: "center" }}
+                  // onClick={() =>
+                  //   history.push(`/task/schedule/SendContent/${item.id}`)
+                  // }
+                >
+                  {item.attend_TYPE_NAME}
+                </td>
+              );
+            },
+            요청날짜: (item) => (
+              <td style={{ textAlign: "center" }}>{item.vacation_DATE}</td>
+            ),
+            상태: (item) => (
+              <td>
+                <h4 style={{ textAlign: "center" }}>
+                  <Badge
+                    status={getBadge(Done[item.vacation_STATUS])}
+                    text={Done[item.vacation_STATUS]}
+                  ></Badge>
+                </h4>
+              </td>
+            ),
+            승인: (item) => (
+              <td className="py-2" style={{ textAlign: "center" }}>
+                <Button
+                  active
+                  type="primary"
+                  onClick={async (e) => {
+                    await UpdateVacationStatus(
+                      1,
+                      item.vacation_INDEX,
+                      item.vacation_DATE,
+                      item.vacation_ATTEND_INFO_INDEX,
+                      item.vacation_EMP_INDEX
+                    );
+                    dispatch(vacationAxios());
+                  }}
+                  aria-pressed="true"
+                  value={item.vacation_INDEX}
+                  name={2}
+                >
+                  승인
+                </Button>
+              </td>
+            ),
+            거절: (item) => (
+              <td className="py-2" style={{ textAlign: "center" }}>
+                <Button
+                  active
+                  type="danger"
+                  onClick={async (e) => {
+                    await UpdateVacationStatus(
+                      2,
+                      item.vacation_INDEX,
+                      item.vacation_DATE,
+                      item.vacation_ATTEND_INFO_INDEX,
+                      item.vacation_EMP_INDEX
+                    );
+                    dispatch(vacationAxios());
+                    if (item.attend_TYPE_NAME.includes("반차")) {
+                      await UpdateVacation(0.5, item.emp_ID);
+                    } else {
+                      await UpdateVacation(1, item.emp_ID);
+                    }
+                  }}
+                  aria-pressed="true"
+                  value={item.vacation_INDEX}
+                  name={1}
+                >
+                  거절
+                </Button>
+              </td>
+            ),
+          }}
+        />
       </CCol>
     </CRow>
   );

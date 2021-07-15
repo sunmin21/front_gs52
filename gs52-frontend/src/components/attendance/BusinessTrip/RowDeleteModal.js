@@ -6,21 +6,17 @@ import {
   CModalFooter,
   CButton,
 } from "@coreui/react";
-import axios from "axios";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import {
-  DeleteVacation,
-  UpdateVacation,
-} from "src/lib/api/attendance/AnnualAPI";
+import { DeleteVacation } from "src/lib/api/attendance/AnnualAPI";
 import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 
 function RowDeleteModal({
   info,
   setInfo,
   event,
-  setRestVacation,
+
   vacation_EMP_INDEX,
   doubleCheck,
   setDoubleCheck,

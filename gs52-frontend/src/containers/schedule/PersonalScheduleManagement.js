@@ -1,6 +1,6 @@
 import React from "react";
-import Item from "antd/lib/list/Item";
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
 import PersonalReadonly from "src/components/shedule/personalSchedule/PersonalReadonly";
@@ -10,13 +10,21 @@ import {
   teamAxios,
 } from "src/modules/annual/memberSchedule";
 import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
-import { ConfAxios } from "src/modules/schedule/conf";
+
 import {
   leaderAxios,
   personAxios,
 } from "src/modules/schedule/personSchedule/personSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
 
 const PersonalScheduleManagement = () => {
   const dispatch = useDispatch();
@@ -73,29 +81,20 @@ const PersonalScheduleManagement = () => {
 
   return (
     <>
-      {/* <div class="container">
-        <div class="row">
-          <div class="col">
-            <MemberSchedulePage></MemberSchedulePage>
-          </div>
-          <div class="col mb-3">
-            <MemberDropdown></MemberDropdown>
-          </div>
-
-          <MemberSchedule></MemberSchedule>
-        </div>
-      </div> */}
+      <div style={contentStyle}>
+        <h4 style={{ color: "white", marginTop: "5px" }}>개인 스케줄</h4>
+      </div>
       <div>
-        <div class="row justify-content-end">
-          <div class="col-sm-4 mb-2">
+        <div className="row justify-content-end">
+          <div className="col-sm-4 mb-2">
             <MemberDropdown
               data={data}
               nowEmpTeam={nowEmpTeam}
             ></MemberDropdown>
           </div>
         </div>
-        <div class="row" style={{ backgroundColor: "White" }}>
-          <div class="col">
+        <div className="row" style={{ backgroundColor: "White" }}>
+          <div className="col">
             <PersonalReadonly
               treevalue={treevalue}
               data={data}

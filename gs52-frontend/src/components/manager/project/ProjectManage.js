@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CCol, CRow, CBadge, CDataTable, CCardBody, CButton } from "@coreui/react";
+import { CCol, CRow, CCard, CDataTable, CCardBody, CButton } from "@coreui/react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
@@ -40,11 +40,24 @@ function ProjectManage() {
         })
     })
 
+    const contentStyle = {
+        backgroundColor: "#3e4b54",
+        width: "400px",
+        textAlign: "center",
+        boxShadow: "5px 5px 5px gray",
+        padding: "8px",
+        borderRadius: "50px",
+    };
+	
     return (
         <CRow>
             <CCol>
-                <h5>프로젝트 목록</h5>
-                <CCardBody style={{textAlign:"center"}}>
+                <div style={contentStyle}>
+                    <h4 style={{ color: "white", marginTop: "5px" }}>
+                        프로젝트 승인 관리
+                    </h4>
+                </div>
+                <CCard style={{textAlign:"center", marginTop:"50px", padding:"50px 40px"}}>
                     <CDataTable
                         items={data}
                         fields={[
@@ -102,7 +115,7 @@ function ProjectManage() {
                             )
                         }}
                 />
-                </CCardBody>
+                </CCard>
             </CCol>
         </CRow>
     )

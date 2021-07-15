@@ -10,7 +10,6 @@ import React from "react";
 import CIcon from "@coreui/icons-react";
 
 const EmpInsightList = (props) => {
-  console.log(props);
   return (
     <div style={{ textAlign: "center", padding: "70px" }}>
       <CRow style={{ marginTop: "50px" }}>

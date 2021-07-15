@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React from "react";
 import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -8,8 +8,6 @@ import "react-dom";
 import "./style.css";
 
 import moment from "moment";
-import { Button } from "antd";
-import Modal from "antd/lib/modal/Modal";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -35,7 +33,7 @@ schedulerData.localeMoment.locale("en");
 
 const Readonly = withDragDropContext((props) => {
   ////////////////////////////팀, 직원 목록
-  console.log(props);
+
   const empList = props.emp
     .filter(
       (item) =>
@@ -127,7 +125,6 @@ const Readonly = withDragDropContext((props) => {
   schedulerData.setResources(selectList.resources);
   schedulerData.setEvents(selectList.events);
 
-  console.log(selectList);
   const forceUpdate = useForceUpdate();
 
   const prevClick = (schedulerData) => {

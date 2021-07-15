@@ -1,20 +1,9 @@
 import React from "react";
-import {
-  CBadge,
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CDataTable,
-  CPagination,
-  CRow,
-} from "@coreui/react";
-import { useEffect, useState } from "react";
+import { CCol, CDataTable, CRow } from "@coreui/react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
 import { vacationAxios } from "src/modules/manager/vacation";
-import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
+import { Badge } from "antd";
 
 const getBadge = (status) => {
   switch (status) {
@@ -30,14 +19,7 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const CompleteManage = ({
-  content,
-  pageCount,
-  success,
-  remove,
-  reject,
-  userid,
-}) => {
+const CompleteManage = ({ content }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -62,82 +44,75 @@ const CompleteManage = ({
   return (
     <CRow>
       <CCol xl={12}>
-        <CCard>
-          <CCardHeader>
-            <small className="text-muted"> </small>
-          </CCardHeader>
-          <CCardBody>
-            <CDataTable
-              items={completeData}
-              fields={[
-                { key: "보낸사람", _classes: "font-weight-bold" },
-                { key: "내용", _style: { width: "60%", textAlign: "center" } },
-                {
-                  key: "종류",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "요청날짜",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-                {
-                  key: "상태",
-                  _style: { width: "10%", textAlign: "center" },
-                },
-              ]}
-              hover
-              striped
-              itemsPerPage={10}
-              clickableRows
-              pagination
-              // onRowClick={(item) =>
-              //   history.push(`/task/schedule/SendContent/${item.id}`)
-              // }
-              scopedSlots={{
-                보낸사람: (item) => {
-                  console.log(item);
-                  return <td>{item.emp_NAME}</td>;
-                },
-                내용: (item) => {
-                  return (
-                    <td
-                      style={{ textAlign: "center" }}
-                      // onClick={() =>
-                      //   history.push(`/task/schedule/SendContent/${item.id}`)
-                      // }
-                    >
-                      {item.vacation_CONTENTS}
-                    </td>
-                  );
-                },
-                종류: (item) => {
-                  return (
-                    <td
-                      style={{ textAlign: "center" }}
-                      // onClick={() =>
-                      //   history.push(`/task/schedule/SendContent/${item.id}`)
-                      // }
-                    >
-                      {item.attend_TYPE_NAME}
-                    </td>
-                  );
-                },
-                요청날짜: (item) => (
-                  <td style={{ textAlign: "center" }}>{item.vacation_DATE}</td>
-                ),
-                상태: (item) => (
-                  <td>
-                    <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(Done[item.vacation_STATUS])}>
-                        {Done[item.vacation_STATUS]}
-                      </CBadge>
-                    </h4>
-                  </td>
-                ),
-              }}
-            />
-          </CCardBody>
-        </CCard>
+        <CDataTable
+          items={completeData}
+          fields={[
+            { key: "보낸사람", _classes: "font-weight-bold" },
+            { key: "내용", _style: { width: "60%", textAlign: "center" } },
+            {
+              key: "종류",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "요청날짜",
+              _style: { width: "10%", textAlign: "center" },
+            },
+            {
+              key: "상태",
+              _style: { width: "10%", textAlign: "center" },
+            },
+          ]}
+          hover
+          striped
+          itemsPerPage={10}
+          clickableRows
+          pagination
+          // onRowClick={(item) =>
+          //   history.push(`/task/schedule/SendContent/${item.id}`)
+          // }
+          scopedSlots={{
+            보낸사람: (item) => {
+              return <td>{item.emp_NAME}</td>;
+            },
+            내용: (item) => {
+              return (
+                <td
+                  style={{ textAlign: "center" }}
+                  // onClick={() =>
+                  //   history.push(`/task/schedule/SendContent/${item.id}`)
+                  // }
+                >
+                  {item.vacation_CONTENTS}
+                </td>
+              );
+            },
+            종류: (item) => {
+              return (
+                <td
+                  style={{ textAlign: "center" }}
+                  // onClick={() =>
+                  //   history.push(`/task/schedule/SendContent/${item.id}`)
+                  // }
+                >
+                  {item.attend_TYPE_NAME}
+                </td>
+              );
+            },
+            요청날짜: (item) => (
+              <td style={{ textAlign: "center" }}>{item.vacation_DATE}</td>
+            ),
+            상태: (item) => (
+              <td>
+                <h4 style={{ textAlign: "center" }}>
+                  <Badge
+                    status={getBadge(Done[item.vacation_STATUS])}
+                    text={Done[item.vacation_STATUS]}
+                  ></Badge>
+                </h4>
+              </td>
+            ),
+          }}
+        />
       </CCol>
     </CRow>
   );

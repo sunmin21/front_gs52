@@ -65,7 +65,6 @@ export const InserVacation = async (
     })
     .catch(function (error) {
       //오류발생 시
-      console.log(error);
     })
     .then(function () {
       //항상실행
