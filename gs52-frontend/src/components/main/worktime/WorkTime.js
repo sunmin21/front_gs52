@@ -88,6 +88,7 @@ function WorkTime(){
             })
         }
         else if(workState=="퇴근"){
+            setWorkState("퇴근")
             console.log("퇴근")
             alert("퇴근처리되어 더 이상 기록되지 않습니다.")
         }
