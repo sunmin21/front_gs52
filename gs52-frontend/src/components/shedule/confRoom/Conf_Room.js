@@ -6,7 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import moment from 'moment';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { ConfAxios, modalCheck1, modalDate, modalStartTime, modalEndTime } from 'src/modules/schedule/conf';
+import { ConfOneAxios, modalCheck1,modalCheck2, modalDate, modalStartTime, modalEndTime } from 'src/modules/schedule/conf';
 
 export function ConfRoom(props) {
 
@@ -27,6 +27,7 @@ export function ConfRoom(props) {
 		await dispatch(modalDate(moment(arg.dateStr).format('YYYY/MM/DD')))
 		await dispatch(modalStartTime(moment(arg.dateStr).format('HH:mm')))
 		await dispatch(modalEndTime(moment(arg.dateStr).add(30,'m').format('HH:mm')))
+		await dispatch(ConfOneAxios('1'))
 		await dispatch(modalCheck1())
 	  }
 
@@ -38,7 +39,7 @@ export function ConfRoom(props) {
 			var color = "purple"
 		  }
         return{
-		//id: item.conf_INDEX,
+		id: item.conf_INDEX,
 		title: item.conf_TITLE,
 		date: moment(item.conf_DATE).format("YYYY-MM-DD"),
 		start: moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_START,
@@ -51,7 +52,10 @@ export function ConfRoom(props) {
       );
 
 	  const eventOnclick = async (e) => {
-		
+		console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		console.log(e.event._def.publicId)
+		await dispatch(ConfOneAxios(e.event._def.publicId))
+		await dispatch(modalCheck2())
 	  };
 
   	return (

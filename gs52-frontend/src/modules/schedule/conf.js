@@ -8,6 +8,7 @@ import { takeLatest } from "redux-saga/effects";
 
 //타입유형
 const [CONF_lIST, CONF_lIST_SUCCESS, CONF_lIST_FAILURE] = createRequestActionTypes("schedule/confRoom_conf"); //타입유형
+const [CONF_ONE, CONF_ONE_SUCCESS, CONF_ONE_FAILURE] = createRequestActionTypes("schedule/confRoom_confone"); //타입유형
 const [CONF_FLOOR, CONF_FLOOR_SUCCESS, CONF_FLOOR_FAILURE] = createRequestActionTypes("schedule/confRoom_floor"); //타입유형
 const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTypes("schedule/confRoom_room"); //타입유형
   const CHECK1 = 'schedule/confRoom_book';
@@ -17,6 +18,7 @@ const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTyp
   const ENDTIME = 'schedule/confRoom_endtime';
 
   export const ConfAxios = createAction(CONF_lIST);
+  export const ConfOneAxios = createAction(CONF_ONE);
   export const FloorAxios = createAction(CONF_FLOOR);
   export const RoomAxios = createAction(CONF_ROOM);
 
@@ -25,13 +27,16 @@ const [CONF_ROOM, CONF_ROOM_SUCCESS, CONF_ROOM_FAILURE] = createRequestActionTyp
   export const modalDate = createAction(DATE);
   export const modalStartTime = createAction(STARTTIME);
   export const modalEndTime = createAction(ENDTIME);
+  
 
   const ConfSaga = createRequestSaga(CONF_lIST, API.SelectConf);
+  const ConfOneSaga = createRequestSaga(CONF_ONE, API.Select_ConfOne);
   const FloorSaga = createRequestSaga(CONF_FLOOR, API.SelectRoomFloor);
   const RoomSaga = createRequestSaga(CONF_ROOM, API.SelectConfRoom);
 
   export function* ConfSaga2() {
     yield takeLatest(CONF_lIST, ConfSaga);
+    yield takeLatest(CONF_ONE, ConfOneSaga);
     yield takeLatest(CONF_FLOOR, FloorSaga);  
     yield takeLatest(CONF_ROOM, RoomSaga);  
   }
@@ -40,6 +45,8 @@ const initialState = {
   //초기값을 정의
     conf_list: [],
     conf_list_error: null,
+    conf_one:[],
+    conf_one_error:null,
     floor_list:[],
     floor_list_error: null,
     room_list:[],
@@ -65,6 +72,16 @@ const conf_check = handleActions(
           [CONF_lIST_FAILURE]: (state, { payload: error }) => ({
             ...state,
             conf_list_error: error,
+          }),
+          [CONF_ONE_SUCCESS]: (state, { payload: conf_one }) => ({
+            ...state,
+            conf_one_error: null,
+            conf_one,
+          }),
+      
+          [CONF_ONE_FAILURE]: (state, { payload: error }) => ({
+            ...state,
+            conf_one_error: error,
           }),
 
           [CONF_FLOOR_SUCCESS]: (state, { payload: floor_list }) => ({

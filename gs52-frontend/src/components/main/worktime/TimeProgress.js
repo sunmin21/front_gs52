@@ -38,7 +38,7 @@ export function TimeProgress() {
         {/*{console.log("user_52/minute_52")}
         {console.log(user_52)}
     {console.log(user_52/minute_52*100)}*/}
-        <CProgress value={user_52/minute_52*100} className="mb-3" style={{marginTop:"20px", padding:"15px"}}/>
+        <CProgress value={user_52/minute_52*100} className="mb-3" style={{marginTop:"20px"}}/>
     </div>
     );
 }
