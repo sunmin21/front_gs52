@@ -43,14 +43,12 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  입사일 : {data[0].emp_ENTRY_DATE}
-                </h3>
-                <h3 style={{ textAlign: "right" }}>
-                  {data[0].emp_ENTRY_COUNT}일
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                입사일 : {data[0].emp_ENTRY_DATE}
+              </h3>
+              <h3 style={{ textAlign: "right" }}>
+                {data[0].emp_ENTRY_COUNT}일
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -70,12 +68,10 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {Math.floor(data[0].emp_WORK_TIME / 60)}시간{" "}
-                  {Math.floor(data[0].emp_WORK_TIME % 60)}분
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {Math.floor(data[0].emp_WORK_TIME / 60)}시간{" "}
+                {Math.floor(data[0].emp_WORK_TIME % 60)}분
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -92,11 +88,9 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {data[0].emp_PROJECT_COUNT}개
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {data[0].emp_PROJECT_COUNT}개
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -115,11 +109,7 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {data[0].emp_TODO_COUNT}개
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>{data[0].emp_TODO_COUNT}개</h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -136,11 +126,9 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {data[0].emp_BUSINESS_COUNT}회
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {data[0].emp_BUSINESS_COUNT}회
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -157,11 +145,9 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {data[0].emp_REPORT_COUNT}회
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {data[0].emp_REPORT_COUNT}회
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
