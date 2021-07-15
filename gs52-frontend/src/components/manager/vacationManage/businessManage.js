@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { UpdateVacationStatus } from "src/lib/api/manager/VacationManage/VacationAPI";
 import { vacationAxios } from "src/modules/manager/vacation";
-import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
+import { Badge, Button } from "antd";
 
 const getBadge = (status) => {
   switch (status) {
@@ -144,18 +144,18 @@ const BusinessManage = ({
                 상태: (item) => (
                   <td>
                     <h4 style={{ textAlign: "center" }}>
-                      <CBadge color={getBadge(Done[item.vacation_STATUS])}>
-                        {Done[item.vacation_STATUS]}
-                      </CBadge>
+                      <Badge
+                        status={getBadge(Done[item.vacation_STATUS])}
+                        text={Done[item.vacation_STATUS]}
+                      ></Badge>
                     </h4>
                   </td>
                 ),
                 승인: (item) => (
-                  <td>
-                    <CButton
+                  <td className="py-2" style={{ textAlign: "center" }}>
+                    <Button
                       active
-                      block
-                      color="success"
+                      type="primary"
                       onClick={async (e) => {
                         await UpdateVacationStatus(
                           1,
@@ -171,15 +171,14 @@ const BusinessManage = ({
                       name={2}
                     >
                       승인
-                    </CButton>
+                    </Button>
                   </td>
                 ),
                 거절: (item) => (
-                  <td>
-                    <CButton
+                  <td className="py-2" style={{ textAlign: "center" }}>
+                    <Button
                       active
-                      block
-                      color="danger"
+                      type="danger"
                       onClick={async (e) => {
                         await UpdateVacationStatus(
                           2,
@@ -195,7 +194,7 @@ const BusinessManage = ({
                       name={1}
                     >
                       거절
-                    </CButton>
+                    </Button>
                   </td>
                 ),
               }}
