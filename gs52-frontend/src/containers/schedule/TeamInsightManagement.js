@@ -62,15 +62,15 @@ const PersonInsight = () => {
     rank_NAME: item.rank_NAME,
   }));
 
-  useEffect(async () => {
-    await dispatch(entrydateAxios(EMP_INDEX.team));
-    await dispatch(projectAxios(EMP_INDEX.team));
-    await dispatch(todoAxios(EMP_INDEX.team));
-    await dispatch(businessAxios(EMP_INDEX.team));
-    await dispatch(reportAxios(EMP_INDEX.team));
-    await dispatch(worktimeAxios(EMP_INDEX.team));
-    await dispatch(listAxios(EMP_INDEX.team));
-    await dispatch(personinsightAxios());
+  useEffect(() => {
+    dispatch(entrydateAxios(EMP_INDEX.team));
+    dispatch(projectAxios(EMP_INDEX.team));
+    dispatch(todoAxios(EMP_INDEX.team));
+    dispatch(businessAxios(EMP_INDEX.team));
+    dispatch(reportAxios(EMP_INDEX.team));
+    dispatch(worktimeAxios(EMP_INDEX.team));
+    dispatch(listAxios(EMP_INDEX.team));
+    dispatch(personinsightAxios());
   }, [dispatch, EMP_INDEX.team]);
 
   //////////////////////////////////////////////////////////////personInsight
@@ -142,8 +142,14 @@ const PersonInsight = () => {
                         ))
                       : null}
                   </CCarouselInner>
-                  <CCarouselControl direction="prev" />
-                  <CCarouselControl direction="next" />
+                  <CCarouselControl
+                    style={{ background: "red" }}
+                    direction="prev"
+                  />
+                  <CCarouselControl
+                    style={{ background: "red" }}
+                    direction="next"
+                  />
                 </CCarousel>
               </CCardBody>
             </CCard>
