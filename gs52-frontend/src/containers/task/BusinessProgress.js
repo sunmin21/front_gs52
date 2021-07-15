@@ -143,19 +143,23 @@ const BusinessProgress = () => {
     [todoContents]
   );
 
-  const todoSucess = useCallback(
-    (e) => {
-      doneInsert([todo_EMP_ID_RECEIVCE.current, parseInt(e.target.value), 2]);
-    },
-    [todoContents, doneInsert, todoRemove]
-  );
+  const todoSucess = async (e) => {
+    console.log(e.target.value);
+    await doneInsert([
+      todo_EMP_ID_RECEIVCE.current,
+      parseInt(e.target.value),
+      2,
+    ]);
+  };
 
-  const todoReject = useCallback(
-    (e) => {
-      doneInsert([todo_EMP_ID_RECEIVCE.current, parseInt(e.target.value), 1]);
-    },
-    [todoContents, doneInsert, todoRemove]
-  );
+  const todoReject = async (e) => {
+    console.log(e.target.value);
+    await doneInsert([
+      todo_EMP_ID_RECEIVCE.current,
+      parseInt(e.target.value),
+      1,
+    ]);
+  };
 
   if (todo !== null) {
     return (
