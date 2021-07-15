@@ -1,20 +1,8 @@
 import React from "react";
-import {
-  CBadge,
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CDataTable,
-  CPagination,
-  CRow,
-} from "@coreui/react";
-import { useEffect, useState } from "react";
+import { CCol, CDataTable, CRow } from "@coreui/react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
 import { vacationAxios } from "src/modules/manager/vacation";
-import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
 import { Badge } from "antd";
 
 const getBadge = (status) => {
@@ -31,14 +19,7 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const CompleteManage = ({
-  content,
-  pageCount,
-  success,
-  remove,
-  reject,
-  userid,
-}) => {
+const CompleteManage = ({ content }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());

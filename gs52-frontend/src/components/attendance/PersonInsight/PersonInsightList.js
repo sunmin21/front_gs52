@@ -1,17 +1,13 @@
 import {
-  CCallout,
   CCard,
   CCardBody,
-  CCardFooter,
   CCardHeader,
   CCardText,
-  CCardTitle,
   CCol,
   CRow,
 } from "@coreui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import CIcon from "@coreui/icons-react";
-import { useDispatch, useSelector } from "react-redux";
 
 const PersonInsightList = (props) => {
   const data = props.personinsight
@@ -42,7 +38,6 @@ const PersonInsightList = (props) => {
                   <CIcon name="cil-sun" size="2xl"></CIcon>
                 </CCol>
                 <CCol>
-                  {" "}
                   <h3>근속 일수</h3>
                 </CCol>
               </CRow>
@@ -72,7 +67,6 @@ const PersonInsightList = (props) => {
                   <CIcon name="cil-home" size="2xl"></CIcon>
                 </CCol>
                 <CCol>
-                  {" "}
                   <h3>평균 근무 시간</h3>
                 </CCol>
               </CRow>
@@ -95,7 +89,6 @@ const PersonInsightList = (props) => {
                   <CIcon name="cil-list" size="2xl"></CIcon>
                 </CCol>
                 <CCol>
-                  {" "}
                   <h3>프로젝트 참여</h3>
                 </CCol>
               </CRow>
@@ -119,7 +112,6 @@ const PersonInsightList = (props) => {
                   <CIcon name="cil-task" size="2xl"></CIcon>
                 </CCol>
                 <CCol>
-                  {" "}
                   <h3>할일 완료</h3>
                 </CCol>
               </CRow>
@@ -134,7 +126,6 @@ const PersonInsightList = (props) => {
           </CCard>
         </CCol>
         <CCol xs="18" xl="4">
-          {" "}
           <CCard accentColor="info" style={{ maxWidth: "30rem" }}>
             <CCardHeader>
               <CRow>
@@ -142,7 +133,6 @@ const PersonInsightList = (props) => {
                   <CIcon name="cil-settings" size="2xl"></CIcon>
                 </CCol>
                 <CCol>
-                  {" "}
                   <h3>출장 / 외근</h3>
                 </CCol>
               </CRow>
@@ -157,7 +147,6 @@ const PersonInsightList = (props) => {
           </CCard>
         </CCol>
         <CCol xs="18" xl="4">
-          {" "}
           <CCard accentColor="info" style={{ maxWidth: "30rem" }}>
             <CCardHeader>
               <CRow>
@@ -165,7 +154,6 @@ const PersonInsightList = (props) => {
                   <CIcon name="cil-cursor" size="2xl"></CIcon>
                 </CCol>
                 <CCol>
-                  {" "}
                   <h3>주간 보고</h3>
                 </CCol>
               </CRow>

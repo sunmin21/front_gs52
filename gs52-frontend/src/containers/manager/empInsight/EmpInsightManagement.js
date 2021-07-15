@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "antd/dist/antd.css";
 import EmpInsightList from "src/components/manager/empInsight/EmpInsightList";
@@ -64,9 +64,9 @@ const PersonInsight = () => {
       <div style={contentStyle}>
         <h4 style={{ color: "white", marginTop: "5px" }}>관리자 인사이트</h4>
       </div>
-      <div class="container">
-        <div class="row" style={{ textAlign: "right" }}>
-          <div class="col w-50 mt-3">
+      <div className="container">
+        <div className="row" style={{ textAlign: "right" }}>
+          <div className="col w-50 mt-3">
             <div>
               <TreeSelect
                 style={{ width: "25%" }}
@@ -80,8 +80,8 @@ const PersonInsight = () => {
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col w-70">
+        <div className="row">
+          <div className="col w-70">
             {entrydate.length !== 0 &&
             project.length !== 0 &&
             todo.length !== 0 &&

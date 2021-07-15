@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PersonInsightList from "src/components/attendance/PersonInsight/PersonInsightList";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
@@ -33,9 +33,9 @@ const PersonInsight = (props) => {
       <div style={contentStyle}>
         <h4 style={{ color: "white", marginTop: "5px" }}>개인 인사이트</h4>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col w-100 mt-3">
+      <div className="container">
+        <div className="row">
+          <div className="col w-100 mt-3">
             {personinsight.length !== 0 ? (
               <PersonInsightList
                 EMP_INDEX={EMP_INDEX.index}

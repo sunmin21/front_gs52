@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+
 import "antd/dist/antd.css";
 import { TreeSelect } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { treeValue } from "src/modules/annual/memberSchedule";
 
 const { SHOW_PARENT } = TreeSelect;

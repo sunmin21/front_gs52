@@ -1,18 +1,8 @@
 import React from "react";
-import {
-  CBadge,
-  CButton,
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCol,
-  CDataTable,
-  CPagination,
-  CRow,
-} from "@coreui/react";
-import { useEffect, useState } from "react";
+import { CCol, CDataTable, CRow } from "@coreui/react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+
 import { UpdateVacationStatus } from "src/lib/api/manager/VacationManage/VacationAPI";
 import { vacationAxios } from "src/modules/manager/vacation";
 import { Badge, Button } from "antd";
