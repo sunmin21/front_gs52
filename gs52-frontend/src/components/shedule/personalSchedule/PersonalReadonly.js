@@ -113,25 +113,20 @@ const Readonly = withDragDropContext((props) => {
         title: item.attend_TYPE_NAME,
         bgColor: "#f759ab",
       };
-    } else {
+    } else if (item.attend_TYPE_NAME == "지각") {
+      console.log(item);
       return {
         id: item.attend_INDEX,
-        start: item.attend_DATE,
-        end: moment(startdate).format("YYYY-MM-DD"),
+        start: item.attend_DATE + " 09:00",
+        end: item.attend_DATE + " " + item.attend_START,
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
       };
     }
   });
   ///직원 별 회의실 목록
-  const confLeader = props.leader.map((item) => ({
-    id: item.conf_INDEX,
-    start: item.conf_DATE + " " + item.conf_START,
-    end: item.conf_DATE + " " + item.conf_END,
-    resourceId: item.emp_ID,
-    title: item.conf_TITLE,
-    room: item.conf_ROOM_NUMBER + "호",
-  }));
+
+  console.log(attendList);
 
   const confPerson = props.person.map((item) => ({
     id: item.conf_RE_INDEX,
@@ -146,7 +141,7 @@ const Readonly = withDragDropContext((props) => {
   const List = teamList.concat(empList);
 
   //각 직원별 일정 리스트
-  const eventList = attendList.concat(confLeader).concat(confPerson);
+  const eventList = attendList.concat(confPerson);
 
   const selectList = {
     resources: List,
