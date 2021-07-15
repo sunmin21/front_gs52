@@ -84,11 +84,6 @@ const ProjectInsite = () => {
     };
   }, [projectNo, dispatch]);
 
-  // console.log(...projectTodoDetail.map((a, key) => key));
-  // console.log("에에");
-  // console.log(projectWith);
-  // console.log(projectTodo);
-
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -172,7 +167,7 @@ const ProjectInsite = () => {
                       return (
                         <LiquidInsite
                           projectTodo={todo}
-                          key={"asdzx@@" + key}
+                          key={"asdzxaaaszx@@" + key}
                           color={key}
                         />
                       );
@@ -186,7 +181,7 @@ const ProjectInsite = () => {
                       return (
                         <LiquidInsite
                           projectTodo={todo}
-                          key={"asdzx@@" + key}
+                          key={"asdaazzxc2zx@@" + key}
                           color={key}
                         />
                       );
@@ -200,7 +195,7 @@ const ProjectInsite = () => {
                       return (
                         <LiquidInsite
                           projectTodo={todo}
-                          key={"asdzx@@" + key}
+                          key={"azzzsdzx@@" + key}
                           color={key}
                         />
                       );

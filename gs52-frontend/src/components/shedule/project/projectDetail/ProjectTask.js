@@ -82,9 +82,6 @@ const ProjectTask = () => {
     };
   }, [projectNo, dispatch]);
 
-  // console.log(...projectTodoDetail.map((a, key) => key));
-  // console.log("에에");
-  console.log(projectWith);
   return (
     <>
       <CCol xs="14" md="14" style={{ marginTop: "10px" }}>
@@ -123,7 +120,7 @@ const ProjectTask = () => {
                   projectWith.map((item, key) => {
                     if (key % 3 === 0)
                       return (
-                        <div key={key}>
+                        <div key={"zxc" + key + "xac24252"}>
                           <CButton
                             block
                             variant="outline"
@@ -177,7 +174,7 @@ const ProjectTask = () => {
                             variant="outline"
                             color="dark"
                             readOnly
-                            key={"Aszcxcsa" + key}
+                            key={"Aszcxcsa$#" + key}
                             onClick={async () => {
                               await setVisible(false);
                               await setVisible(true);
@@ -219,13 +216,13 @@ const ProjectTask = () => {
                   projectWith.map((item, key) => {
                     if (key % 3 === 2) {
                       return (
-                        <div key={"ssdds" + key}>
+                        <div key={"ssdds!@#$" + key}>
                           <CButton
                             block
                             variant="outline"
                             color="dark"
                             readOnly
-                            key={"axsed" + key}
+                            key={"axse@#$d" + key}
                             onClick={() => {
                               setVisible(true);
                               setContent({
@@ -279,17 +276,18 @@ const ProjectTask = () => {
               </CCol>
               <CCol xs="9" md="7">
                 {projectTodo.map((item, key) => {
-                  // console.log(item);
                   return (
                     <CCard
                       className="mb-0"
                       key={
-                        "cczxcs" +
+                        "cczxc@@A$s" +
                         item.project_TASK_PERCENT +
                         item.project_TASK_CONTENT
                       }
                     >
-                      <CCardHeader key={key + item.project_TASK_CONTENT}>
+                      <CCardHeader
+                        key={key + item.project_TASK_CONTENT + "@#Azxcsexc..a"}
+                      >
                         <CButton
                           block
                           color="link"
@@ -301,7 +299,7 @@ const ProjectTask = () => {
                             setClick(!click);
                           }}
                           id={key}
-                          key={"bbxzcv" + key}
+                          key={"bbxzc@#!$v" + key}
                           // style={{}}
                         >
                           <h5 className="m-0 p-0" name={key}>
@@ -327,6 +325,7 @@ const ProjectTask = () => {
                               ? projectTodo[0].percent_SUM
                               : 0
                           }
+                          key={key + "zxc213455@#"}
                           projectWith={projectWith}
                         ></ProjectTaskTodoInsert>
                         <CButton //삭제
@@ -335,8 +334,6 @@ const ProjectTask = () => {
                           aria-pressed="true"
                           style={{ textAlign: "center", float: "right" }}
                           onClick={async () => {
-                            // console.log(item.project_TASK_INDEX);
-
                             await projectTodoDetail
                               .filter(
                                 (detail) =>
@@ -345,22 +342,16 @@ const ProjectTask = () => {
                               )
                               .map(async (item2) => {
                                 if (item2.project_TASK_DETAIL_SUCCESS === 1) {
-                                  console.log(
-                                    projectWith.filter(
-                                      (person) =>
-                                        person.project_WITH_EMP_INDEX ===
-                                        item2.project_TASK_DETAIL_EMP
-                                    )[0].project_WITH_SCORE
-                                  );
-
                                   await UpdateProjectWithScore({
                                     index: item2.project_TASK_DETAIL_EMP,
                                     projectIndex: projectNo,
                                     score: Math.abs(
-                                      (await SelectProjectWithScore(
-                                        item2.project_TASK_DETAIL_EMP,
-                                        item.project_INDEX
-                                      )) -
+                                      (await (
+                                        await SelectProjectWithScore(
+                                          item2.project_TASK_DETAIL_EMP,
+                                          item.project_INDEX
+                                        )
+                                      ).data) -
                                         (item.project_TASK_PERCENT *
                                           item2.project_TASK_DETAIL_PERCENT) /
                                           100
@@ -389,12 +380,14 @@ const ProjectTask = () => {
                           axios2={projectTodoDetailAxios}
                           dispatch={dispatch}
                           sum={item.detail_SUM}
+                          key={key + "!axz@#!$"}
                         ></ProjectTaskTodoInsertDetail>
                         <CProgress
                           value={item.detail_SUCCESS_SUM}
                           showPercentage
                           precision={2}
                           className="mb-3"
+                          key={key + "!zzxzcfaxz@#!$"}
                         />
                       </CCardHeader>
                       <CCollapse
@@ -406,12 +399,10 @@ const ProjectTask = () => {
                               "%)" +
                               item.project_TASK_INDEX && click
                         }
-                        key={key + "zxczvsdwe2"}
+                        key={key + "zxc@#zvsdwe2"}
                       >
                         <CCardBody>
                           {projectTodoDetail.map((item2, key) => {
-                            // console.log(item2);
-                            // console.log(key);
                             if (
                               item2.project_TASK_INDEX ===
                               item.project_TASK_INDEX
@@ -443,7 +434,6 @@ const ProjectTask = () => {
                                       marginTop: "5px",
                                     }}
                                     onClick={async () => {
-                                      // console.log(item.project_TASK_INDEX);
                                       if (
                                         item2.project_TASK_DETAIL_SUCCESS === 1
                                       ) {
@@ -480,6 +470,7 @@ const ProjectTask = () => {
                                   </CButton>
                                   <CListGroup key={key + "Asxzcxsa32"}>
                                     <CListGroupItem
+                                      key={key + "zzxcsw!axz@#!$"}
                                       style={
                                         check[key] !== 1
                                           ? {
@@ -491,8 +482,7 @@ const ProjectTask = () => {
                                               background: "white",
                                               border:
                                                 "solid " +
-                                                  item2.project_WITH_COLOR ||
-                                                "yellow",
+                                                item2.project_WITH_COLOR,
                                               borderWidth: "4px 4px 4px 20px",
 
                                               paddingBottom: "30px",
@@ -505,13 +495,11 @@ const ProjectTask = () => {
                                               maxHeight: "40px",
                                               borderRadius: "20px",
                                               background:
-                                                item2.project_WITH_COLOR ||
-                                                "black",
+                                                item2.project_WITH_COLOR,
 
                                               border:
                                                 "solid " +
-                                                  item2.project_WITH_COLOR ||
-                                                "black",
+                                                item2.project_WITH_COLOR,
                                               borderWidth: "4px 4px 4px 20px",
                                               paddingBottom: "30px",
                                               marginBottom: "10px",
@@ -524,6 +512,7 @@ const ProjectTask = () => {
                                         item2.project_TASK_DETAIL_PERCENT +
                                         "%)   "}
                                       <div
+                                        key={key + "zxc$^!axz@#!$"}
                                         style={{
                                           float: "right",
 

@@ -46,7 +46,6 @@ const ProjectTaskTodoModal = ({
   detailIndex,
   todo,
 }) => {
-  // console.log(item);
   const array = [];
   if (item) {
     //업데이트시
@@ -127,7 +126,7 @@ const ProjectTaskTodoModal = ({
       }));
     }
   }, [visible]);
-  // console.log(content.담당자);
+
   return (
     <>
       <CModal show={visible}>

@@ -43,16 +43,14 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              {
-                <CCardText>
-                  <h3 style={{ textAlign: "right" }}>
-                    입사일 : {data[0].emp_ENTRY_DATE}
-                  </h3>
-                  <h3 style={{ textAlign: "right" }}>
-                    {data[0].emp_ENTRY_COUNT}일
-                  </h3>
-                </CCardText>
-              }
+              <CCardText>
+                <h3 style={{ textAlign: "right" }}>
+                  입사일 : {data[0].emp_ENTRY_DATE}
+                </h3>
+                <h3 style={{ textAlign: "right" }}>
+                  {data[0].emp_ENTRY_COUNT}일
+                </h3>
+              </CCardText>
             </CCardBody>
           </CCard>
         </CCol>

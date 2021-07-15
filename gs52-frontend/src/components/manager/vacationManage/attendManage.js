@@ -18,7 +18,7 @@ const getBadge = (status) => {
     case "대기중":
       return "warning";
     case "거절":
-      return "danger";
+      return "error";
     default:
       return "primary";
   }

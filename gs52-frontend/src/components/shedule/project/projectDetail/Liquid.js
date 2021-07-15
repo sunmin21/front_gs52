@@ -2,7 +2,6 @@ import React from "react";
 import { Liquid, measureTextWidth } from "@ant-design/charts";
 import colors from "./colors";
 const LiquidInsite = ({ projectTodo, color }) => {
-  console.log(projectTodo.length !== 0 && projectTodo.detail_SUCCESS_SUM / 100);
   var config = {
     percent: projectTodo.length !== 0 && projectTodo.detail_SUCCESS_SUM / 100,
     outline: {
@@ -42,7 +41,7 @@ const LiquidInsite = ({ projectTodo, color }) => {
               (percent * 100).toFixed(0),
               "%"
             );
-          console.log(text);
+
           var textWidth = (0, measureTextWidth)(text, { fontSize: 60 });
           var scale = Math.min(d / textWidth, 1);
           return '<div style="width:'

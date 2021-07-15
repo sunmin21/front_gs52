@@ -206,33 +206,8 @@ const ProjectTaskTodoModal = ({
                 await dispatch(axios(projectNo));
               } else {
                 if (item.project_TASK_PERCENT !== content.진행도) {
-                  // console.log(projectWith);
-                  // console.log("여기탓냐1");
                   detail.map(async (item2) => {
                     if (item2.project_TASK_DETAIL_SUCCESS === 1) {
-                      // console.log("여기탓냐2");
-                      // console.log(projectNo);
-                      // console.log(
-                      //   projectWith.filter(
-                      //     (person) =>
-                      //       person.project_WITH_EMP_INDEX ===
-                      //       item2.project_TASK_DETAIL_EMP
-                      //   )[0].project_WITH_SCORE
-                      // );
-                      // console.log(item.project_TASK_PERCENT);
-                      // console.log(item2.project_TASK_DETAIL_PERCENT);
-                      // console.log(
-                      //   Math.abs(
-                      //     projectWith.filter(
-                      //       (person) =>
-                      //         person.project_WITH_EMP_INDEX ===
-                      //         item2.project_TASK_DETAIL_EMP
-                      //     )[0].project_WITH_SCORE -
-                      //       (item.project_TASK_PERCENT *
-                      //         item2.project_TASK_DETAIL_PERCENT) /
-                      //         100
-                      //   )
-                      // );
                       await UpdateProjectWithScore({
                         index: item2.project_TASK_DETAIL_EMP,
                         projectIndex: projectNo,
@@ -247,46 +222,7 @@ const ProjectTaskTodoModal = ({
                               100
                         ),
                       });
-                      // console.log("여기탓냐3");
-                      // console.log(
-                      //   Math.abs(
-                      //     projectWith.filter(
-                      //       (person) =>
-                      //         person.project_WITH_EMP_INDEX ===
-                      //         item2.project_TASK_DETAIL_EMP
-                      //     )[0].project_WITH_SCORE -
-                      //       (item.project_TASK_PERCENT *
-                      //         item2.project_TASK_DETAIL_PERCENT) /
-                      //         100
-                      //   )
-                      // );
-                      // console.log(projectNo);
-                      // console.log(
-                      //   projectWith.filter(
-                      //     (person) =>
-                      //       person.project_WITH_EMP_INDEX ===
-                      //       item2.project_TASK_DETAIL_EMP
-                      //   )[0].project_WITH_SCORE -
-                      //     (item.project_TASK_PERCENT *
-                      //       item2.project_TASK_DETAIL_PERCENT) /
-                      //       100
-                      // );
-                      // console.log(content.진행도);
-                      // console.log(item2.project_TASK_DETAIL_PERCENT);
-                      // console.log(
-                      //   Math.abs(
-                      //     projectWith.filter(
-                      //       (person) =>
-                      //         person.project_WITH_EMP_INDEX ===
-                      //         item2.project_TASK_DETAIL_EMP
-                      //     )[0].project_WITH_SCORE -
-                      //       (item.project_TASK_PERCENT *
-                      //         item2.project_TASK_DETAIL_PERCENT) /
-                      //         100
-                      //   ) +
-                      //     (content.진행도 * item2.project_TASK_DETAIL_PERCENT) /
-                      //       100
-                      // );
+
                       await UpdateProjectWithScore({
                         index: item2.project_TASK_DETAIL_EMP,
                         projectIndex: projectNo,

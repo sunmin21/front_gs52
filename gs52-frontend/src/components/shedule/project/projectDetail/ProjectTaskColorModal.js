@@ -36,14 +36,7 @@ const ProjectTaskColorModal = ({
   withIndex,
 }) => {
   const [color, setColor] = useState(empcolor);
-  // const colors = [
-  //   "paleturquoise",
-  //   "orange",
-  //   "lightsteelblue",
-  //   "peachpuff",
-  //   "Chartreuse",
-  //   "CornflowerBlue",
-  // ];
+
   return (
     <CModal show={visible}>
       <CModalHeader>
@@ -57,7 +50,7 @@ const ProjectTaskColorModal = ({
               <div style={{ display: "flex" }}>
                 {colors.map((color) => (
                   <CButton
-                    key={color}
+                    key={color + "Zxcasd"}
                     name={color}
                     style={{
                       background: color,

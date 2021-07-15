@@ -139,10 +139,10 @@ const Dept = () => {
                     size="sm"
                     color="danger"
                     className="ml-1"
-                    onClick={() => {
+                    onClick={async () => {
                       if (item.팀COUNT === 0) {
-                        DeleteDept(item.인덱스);
-                        dispatch(deptAxios());
+                        await DeleteDept(item.인덱스);
+                        await dispatch(deptAxios());
                       } else {
                         setShow((content) => ({
                           ...content,

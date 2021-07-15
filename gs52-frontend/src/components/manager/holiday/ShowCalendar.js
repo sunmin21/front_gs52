@@ -6,6 +6,9 @@ import { DeleteHoliday } from "src/lib/api/manager/holiday/HolidayAPI";
 import { useDispatch, useSelector } from "react-redux";
 import { holidayAxios } from "src/modules/manager/holiday";
 
+import "antd/dist/antd.css";
+import { Button } from "antd";
+
 // 국가공휴일 담는 js파일
 import holidaydata from "./HolidayData";
 
@@ -13,9 +16,10 @@ function ShowCalendar() {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(0);
+  const [visibleYN, setVisibleYN] = useState(0);
   const [alertContents, setAlertContents] = useState();
-  const [info, setInfo] = useState(false);
-  const [doubleCheck, setDoubleCheck] = useState(true);
+  const [alertYesNo, setAlertYesNo] = useState();
+  const [event, setEvent] = useState();
 
   const { holiday } = useSelector((state) => {
     return {
@@ -27,16 +31,18 @@ function ShowCalendar() {
     dispatch(holidayAxios());
   }, [dispatch]);
 
-  const eventOnClick = async (e) => {
-    var msg = "삭제하시겠습니까?";
+  const DeleteOnClick = async (e) => {
+    await DeleteHoliday(e.event._def["publicId"]);
+    await dispatch(holidayAxios());
+    setVisibleYN(0)
+  }
 
+  const eventOnClick = async (e) => {
     if (e.event._def["publicId"] > 0) {
-      if (window.confirm(msg) != 0) {
-        await DeleteHoliday(e.event._def["publicId"]);
-        await dispatch(holidayAxios());
-      } else {
-        console.log("삭제취소");
-      }
+      setVisibleYN(true);
+      setAlertYesNo("삭제하시겠습니까?")
+      setEvent(e);
+      
     } else {
       setVisible(3);
       setAlertContents("국가 공휴일은 삭제 할 수 없습니다");
@@ -54,14 +60,38 @@ function ShowCalendar() {
 
   return (
     <>
-      <CCardBody>          
+      <div style={{ textAlign: "center", margin: "0px 30px" }}>
+        <CAlert color="danger" show={visibleYN} fade onShowChange={setVisibleYN}>
+          {alertYesNo}
+            <Button
+              size="small"
+              type="primary"
+              danger
+              onClick={() => {
+                DeleteOnClick(event)
+              }}
+            >
+              삭제
+            </Button>
+            <Button
+              size="small"
+              type="secondary"
+              onClick={() => {
+                setVisibleYN(0)
+              }}
+            >
+              취소
+          </Button>
+        </CAlert>
+      </div>
+      <CCardBody>
         <FullCalendar
           contentHeight="475px"
           defaultView="dayGridMonth"
           plugins={[daygridPlugin]}
           eventSources={[data, holidaydata]}
           eventClick={eventOnClick}
-          eventColor="red"
+          eventColor="orange"
           eventTextColor="white"
           eventDisplay="title"
         />

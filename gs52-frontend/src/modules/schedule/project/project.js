@@ -11,7 +11,7 @@ const PROJECTFILECHANGE = "schedule/PROJECTFILECHANGE";
 const PROJECTFILECONCAT = "schedule/PROJECTFILECONCAT";
 const UPLODAFILEDELETE = "schedule/UPLODAFILEDELETE";
 const [PROJECT, PROJECT_SUCCESS, PROJECT_FAILURE] =
-  createRequestActionTypes("schedule/PROJECT"); //타입유형
+  createRequestActionTypes("schedule/PROJECT2"); //타입유형
 const [PROJECTWITH, PROJECTWITH_SUCCESS, PROJECTWITH_FAILURE] =
   createRequestActionTypes("schedule/PROJECTWITH"); //타입유형
 
