@@ -19,7 +19,10 @@ function WorkTime(){
     const [ruleStart, setRuleStart] = useState(null);
     const [ruleEnd, setRuleEnd] = useState(null);
 
+
     useEffect(async() => {
+        console.log("useEffectttttttttttttt")
+        console.log(workState)
           await SelectWorkCheck(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
             console.log("item.data[0]")
             console.log(item.data[0])
@@ -35,6 +38,8 @@ function WorkTime(){
                 }
                 else{
                     setWorkCheck(true)
+                    
+                console.log(localStorage.getItem("breakIndex"))
                     if(localStorage.getItem("breakIndex")==null){
                         setWorkState("휴식")
                     }
@@ -54,6 +59,8 @@ function WorkTime(){
       },[]);
 
       const onWork = async() =>{
+        console.log("workState")
+        console.log(workState)
         await SelectWorkCheck(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
             if(item.data[0]==null){
                 setWorkCheck(false)
@@ -111,8 +118,8 @@ function WorkTime(){
             } */}
             
             {
-                workState!="퇴근"?
-                //moment().format('HH:mm')>ruleEnd && workState!="퇴근"?
+                //workState!="퇴근"?
+                moment().format('HH:mm')>ruleEnd && workState!="퇴근"?
                 <CButton block variant="outline" color="secondary" onClick={onOffWork}>퇴근</CButton>
                 :
                 null

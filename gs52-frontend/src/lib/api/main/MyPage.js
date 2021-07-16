@@ -2,7 +2,7 @@ import client from "../client";
 
 import React, { useState } from "react";
 
-const API_URL = "http://192.168.20.17:8081";
+const API_URL = "http://192.168.20.17:8081/main/MyPage";
 
 export const SelectEmp = async (index) => {
   console.log("SelectWorkRule");
