@@ -5,6 +5,9 @@ import { CCard, CCardBody } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { calendarAxios, calendarAxios2, calendarAxios3 } from "src/modules/main/Calendar";
+// 휴일
+import holidaydata from "src/components/manager/holiday/HolidayData";
+import { holidayAxios } from "src/modules/manager/holiday";
 
 function MyCalendar() {
 
@@ -36,13 +39,33 @@ function MyCalendar() {
     dispatch(calendarAxios(emp));
     dispatch(calendarAxios2(emp));
     dispatch(calendarAxios3(emp));
+    dispatch(holidayAxios());
   }, [dispatch])
 
   const data = mycalendar.map((item) => {
-    return {
-      title: item.attend_TYPE_NAME,
-      start: item.attend_DATE,
-      color: "#2e88ff"
+
+    if (item.attend_TYPE_NAME == "연차" || item.attend_TYPE_NAME == "반차") {
+      return {
+        title: item.attend_TYPE_NAME,
+        start: item.attend_DATE,
+        color: "#2e88ff"
+      }
+    }
+
+    else if (item.attend_TYPE_NAME == "출장" || item.attend_TYPE_NAME == "외근") {
+      return {
+        title: item.attend_TYPE_NAME,
+        start: item.attend_DATE,
+        color: "orange"
+      }
+    }
+
+    else {
+      return {
+        title: item.attend_TYPE_NAME,
+        start: item.attend_DATE,
+        color: "black"
+      }
     }
   })
 
@@ -50,7 +73,7 @@ function MyCalendar() {
     return {
       title: item2.conf_TITLE,
       start: item2.conf_DATE,
-      color: "red"
+      color: "purple"
     }
   })
 
@@ -58,9 +81,17 @@ function MyCalendar() {
     return {
       title: item3.conf_TITLE,
       start: item3.conf_DATE,
-      color: "orange"
+      color: "purple"
     }
   })
+
+  const data4 = holiday.map((item4) => {
+    return {
+      title: item4.holiday_TITLE,
+      start: item4.holiday_DATE,
+      color: "red"
+    };
+  });
 
   return (
     <CCard>
@@ -70,10 +101,9 @@ function MyCalendar() {
             contentHeight="385px"
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
-            eventSources={[data, data2, data3]}
-            // eventColor="red"
+            eventSources={[data, data2, data3, data4, holidaydata]}
+            eventColor="red"
             eventTextColor="white"
-            // eventBorderColor="#2e88ff"
             eventDisplay="title"
           />
         </div>

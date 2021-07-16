@@ -77,7 +77,7 @@ function Requested({ dispatch }) {
           { key: "담당자", _style: { width: "10%" } },
           { key: "상태", _style: { width: "10%" } },
           "수락",
-          "거절",
+          "반려",
         ]}
         columnFilter
         tableFilter
@@ -103,7 +103,7 @@ function Requested({ dispatch }) {
           ),
           상태: (item) => (
             <td>
-              <Badge status="warning" text="대기중" />
+              <Badge status="warning" text="대기" />
             </td>
           ),
           수락: (item) => (
@@ -121,7 +121,7 @@ function Requested({ dispatch }) {
               </Button>
             </td>
           ),
-          거절: (item, index) => {
+          반려: (item, index) => {
             return (
               <td className="py-2">
                 <Button
@@ -131,7 +131,7 @@ function Requested({ dispatch }) {
                     toggleDetails(index);
                   }}
                 >
-                  {details.includes(index) ? "닫기" : "거절"}
+                  {details.includes(index) ? "닫기" : "반려"}
                 </Button>
               </td>
             );
@@ -142,7 +142,7 @@ function Requested({ dispatch }) {
                 <CCard>
                   <CCardBody>
                     <CInput
-                      placeholder="거절 사유를 적어주세요"
+                      placeholder="반려 사유를 적어주세요"
                       onChange={handleChange}
                     />
                     <br />
@@ -154,7 +154,7 @@ function Requested({ dispatch }) {
                         await dispatch(requestedAxios(emp));
                       }}
                     >
-                      거절
+                      반려
                     </Button>
                   </CCardBody>
                 </CCard>
