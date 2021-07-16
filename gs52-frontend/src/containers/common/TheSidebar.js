@@ -35,7 +35,7 @@ const TheSidebar = ({ nav }) => {
       >
         <CIcon
           className="c-sidebar-brand-full"
-          src="logo/mainLogo3.png"
+          src="logo/mainLogo1.png"
           name="logo-negative"
           width={200}
           height={105}
