@@ -62,7 +62,7 @@ function MyCalendar() {
       return {
         title: item.attend_TYPE_NAME,
         start: item.attend_DATE,
-        color: "#f759ab"
+        color: "orange"
       }
     }
 
