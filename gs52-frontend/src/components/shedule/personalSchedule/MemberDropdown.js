@@ -27,7 +27,7 @@ const Dropdown = (data) => {
   const tProps = {
     treeData,
     value: value,
-    maxTagCount: 3,
+    maxTagCount: 2,
     onChange: onChange,
     treeCheckable: true,
     treeNodeFilterProp: "title",

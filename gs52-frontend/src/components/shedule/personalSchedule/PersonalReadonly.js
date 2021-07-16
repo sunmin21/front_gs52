@@ -6,7 +6,8 @@ import HTML5Backend from "react-dnd-html5-backend";
 import "react-big-scheduler/lib/css/style.css";
 
 import moment from "moment";
-import { Modal } from "antd";
+import { Card, Modal } from "antd";
+import "./style.css";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -24,7 +25,7 @@ let schedulerData = new SchedulerData(now, ViewTypes.Day, false, false, {
   movable: false,
   calendarPopoverEnabled: false,
   resourceName: "개인 스케줄",
-  schedulerWidth: "73%",
+  schedulerWidth: "67%",
   views: [],
 });
 schedulerData.localeMoment.locale("en");
@@ -66,9 +67,12 @@ const Readonly = withDragDropContext((props) => {
   ////////////////////////////직원들 연차목록
   const attendList = props.attend.map((item) => {
     var startdate = new Date(item.attend_DATE);
+    var starttime = new Date(item.attend_DATE + " " + item.attend_START);
 
     startdate.setDate(startdate.getDate() + 1);
+    starttime.setHours(starttime.getHours() + 1);
 
+    console.log(moment(starttime).format("HH:mm"));
     if (item.attend_TYPE_NAME == "연차") {
       return {
         id: item.attend_INDEX,
@@ -117,18 +121,20 @@ const Readonly = withDragDropContext((props) => {
     } else if (item.attend_TYPE_NAME == "지각") {
       return {
         id: item.attend_INDEX,
-        start: item.attend_DATE + " 10:00",
+        start: item.attend_DATE + " 09:00",
         end: item.attend_DATE + " " + item.attend_START,
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
+        bgColor: "#faf03d",
       };
     } else if (item.attend_TYPE_NAME == "출근") {
       return {
         id: item.attend_INDEX,
         start: item.attend_DATE + " " + item.attend_START,
-        end: item.attend_DATE + " 10:00",
+        end: item.attend_DATE + moment(starttime).format(" HH:mm"),
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
+        bgColor: "#5af82a",
       };
     }
   });
@@ -139,30 +145,32 @@ const Readonly = withDragDropContext((props) => {
         item.attend_TYPE_NAME == "지각" || item.attend_TYPE_NAME == "출근"
     )
     .map((item) => {
+      var endtime = new Date(item.attend_DATE + " " + item.attend_END);
+
+      endtime.setHours(endtime.getHours() - 1);
+
       if (item.attend_TYPE_NAME == "지각") {
         return {
           id: item.attend_INDEX,
-          start: item.attend_DATE + " 17:00",
+          start: item.attend_DATE + moment(endtime).format(" HH:mm"),
           end: item.attend_DATE + " " + item.attend_END,
           resourceId: item.emp_ID,
           title: "퇴근",
+          bgColor: "#0f83c1",
         };
       } else if (item.attend_TYPE_NAME == "출근") {
         return {
           id: item.attend_INDEX,
-          start: item.attend_DATE + " 17:00",
+          start: item.attend_DATE + moment(endtime).format(" HH:mm"),
           end: item.attend_DATE + " " + item.attend_END,
           resourceId: item.emp_ID,
           title: "퇴근",
+          bgColor: "#0f83c1",
         };
       }
     });
 
   ///직원 별 회의실 목록
-  console.log("@@@@@1");
-  console.log(attendList);
-  console.log("@@@@@2");
-  console.log(endList);
 
   const confPerson = props.person.map((item) => ({
     id: item.conf_RE_INDEX,
@@ -284,21 +292,23 @@ const Readonly = withDragDropContext((props) => {
   return (
     <div>
       <div>
-        <Scheduler
-          schedulerData={schedulerData}
-          prevClick={prevClick}
-          nextClick={nextClick}
-          onSelectDate={onSelectDate}
-          onViewChange={onViewChange}
-          updateEventStart={updateEventStart}
-          updateEventEnd={updateEventEnd}
-          onScrollLeft={onScrollLeft}
-          onScrollRight={onScrollRight}
-          onScrollTop={onScrollTop}
-          onScrollBottom={onScrollBottom}
-          toggleExpandFunc={toggleExpandFunc}
-          eventItemClick={eventClicked}
-        />
+        <Card>
+          <Scheduler
+            schedulerData={schedulerData}
+            prevClick={prevClick}
+            nextClick={nextClick}
+            onSelectDate={onSelectDate}
+            onViewChange={onViewChange}
+            updateEventStart={updateEventStart}
+            updateEventEnd={updateEventEnd}
+            onScrollLeft={onScrollLeft}
+            onScrollRight={onScrollRight}
+            onScrollTop={onScrollTop}
+            onScrollBottom={onScrollBottom}
+            toggleExpandFunc={toggleExpandFunc}
+            eventItemClick={eventClicked}
+          />
+        </Card>
       </div>
     </div>
   );

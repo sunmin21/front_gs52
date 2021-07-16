@@ -15,7 +15,7 @@ const getBadge = (status) => {
       return "secondary";
     case "대기중":
       return "warning";
-    case "거절":
+    case "반려":
       return "error";
     default:
       return "primary";
@@ -36,7 +36,7 @@ const BusinessManage = ({
   const Done = {
     0: "대기중",
     1: "완료",
-    2: "거절",
+    2: "반려",
   };
   const businessData = content
     .filter(
@@ -82,7 +82,7 @@ const BusinessManage = ({
               _style: { width: "10%", textAlign: "center" },
             },
             {
-              key: "거절",
+              key: "반려",
               _style: { width: "10%", textAlign: "center" },
             },
           ]}
@@ -158,7 +158,7 @@ const BusinessManage = ({
                 </Button>
               </td>
             ),
-            거절: (item) => (
+            반려: (item) => (
               <td className="py-2" style={{ textAlign: "center" }}>
                 <Button
                   active
@@ -177,7 +177,7 @@ const BusinessManage = ({
                   value={item.vacation_INDEX}
                   name={1}
                 >
-                  거절
+                  반려
                 </Button>
               </td>
             ),

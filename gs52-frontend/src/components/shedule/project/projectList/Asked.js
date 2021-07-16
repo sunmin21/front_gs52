@@ -11,11 +11,11 @@ import 'antd/dist/antd.css';
 
 const getBadge = (status) => {
     switch (status) {
-        case "대기중":
+        case "대기":
             return "warning";
         case "승인":
             return "success";
-        case "거부":
+        case "반려":
             return "error";
         default:
         return "primary";
@@ -29,7 +29,6 @@ function Asked() {
     
     const history = useHistory();
     const { asked } = useSelector((state) => {
-       
         return {
             asked: state.projectList.asked,
         };
@@ -40,9 +39,9 @@ function Asked() {
     }, [dispatch]);
 
     const Done = {
-        0: "대기중",
+        0: "대기",
         1: "승인",
-        2: "거부",
+        2: "반려",
     };
     
     const data = asked.map((item, key) => {
