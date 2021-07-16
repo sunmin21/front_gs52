@@ -15,6 +15,7 @@ import { BrowserRouter } from "react-router-dom";
 // import "react-app-polyfill/stable";
 
 import { icons } from "./assets/icons";
+import styled from "styled-components";
 // import { createPromise } from "redux-promise-middleware";
 
 // const customizedPromiseMiddleware = createPromise({
@@ -28,10 +29,30 @@ const stores = createStore(
 );
 sagaMiddleware.run(rootSaga);
 React.icons = icons;
+const Hover = styled.div`
+  @font-face {
+    font-family: "InfinitySans-RegularA1";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/InfinitySans-RegularA1.woff")
+      format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+  font-family: "InfinitySans-RegularA1" !important;
+  /* a {
+    font-family: "GmarketSansMedium" !important;
+  }
+  a:hover {
+    background-color: #4d5175 !important;
+    color: #ffffff !important;
+  } */
+`;
 ReactDOM.render(
   <Provider store={stores}>
     <BrowserRouter>
-      <App />
+      <Hover>
+        {" "}
+        <App />{" "}
+      </Hover>
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
