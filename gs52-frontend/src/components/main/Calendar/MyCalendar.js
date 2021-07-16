@@ -41,7 +41,8 @@ function MyCalendar() {
   const data = mycalendar.map((item) => {
     return {
       title: item.attend_TYPE_NAME,
-      start: item.attend_DATE
+      start: item.attend_DATE,
+      color: "red"
     }
   })
 
