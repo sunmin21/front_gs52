@@ -23,9 +23,6 @@ const TheSidebar = ({ nav }) => {
   console.log(nav);
   console.log(nav.length !== 0 && nav[0]._children[0]);
   const Hover = styled.div`
-    /* a {
-      font-family: "GmarketSansMedium" !important;
-    } */
     a:hover {
       background-color: #4d5175 !important;
       color: #ffffff !important;
@@ -46,7 +43,7 @@ const TheSidebar = ({ nav }) => {
       >
         <CIcon
           className="c-sidebar-brand-full"
-          src="logo/mainLogo3.png"
+          src="logo/mainLogo1.png"
           name="logo-negative"
           width={200}
           height={105}
@@ -59,10 +56,7 @@ const TheSidebar = ({ nav }) => {
       </CSidebarBrand>
 
       <CSidebarHeader style={{ background: "#2C2E43" }}>
-        <Hover>
-          {" "}
-          <Sidebar_Header nav={nav}></Sidebar_Header>
-        </Hover>
+        <Sidebar_Header nav={nav}></Sidebar_Header>
       </CSidebarHeader>
       {nav.length !== 0 && nav[0]._children[0] !== "Main" && (
         <CSidebarNav style={{ background: "#2C2E43" }}>
