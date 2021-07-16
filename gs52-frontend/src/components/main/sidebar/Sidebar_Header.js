@@ -10,7 +10,7 @@ import { userList } from "src/lib/api/auth/auth";
 
 // 퇴근가능시간 이후에는 퇴근 버튼 활성화
 
-function Sidebar_Header() {
+function Sidebar_Header({ nav }) {
   const user = getCurrentUser();
 
   const [img, setImg] = useState(null);
@@ -38,20 +38,18 @@ function Sidebar_Header() {
   console.log(userContent);
 
   return (
-    <div style={{ background: "" }}>
-      <br />
-
+    <div>
       <img
         src={img}
         style={{
           width: "200px",
-          height: "200px",
+          height: "225px",
           borderRadius: "5px",
           overflow: "hidden",
         }}
       />
 
-      <div style={{ marginTop: "30px" }}>
+      <div style={{ marginTop: "20px" }}>
         <div style={{ fontSize: "30px" }}>
           {user.username} {userContent && userContent[0].rank_NAME}
         </div>
@@ -63,9 +61,9 @@ function Sidebar_Header() {
       </div>
       <br />
       <WorkTime></WorkTime>
-      <br />
-      <br />
-      <WiseSaying />
+      {nav.length !== 0 && nav[0]._children[0] === "Main" && <br />}
+      {nav.length !== 0 && nav[0]._children[0] === "Main" && <br />}
+      {nav.length !== 0 && nav[0]._children[0] === "Main" && <WiseSaying />}
     </div>
   );
 }

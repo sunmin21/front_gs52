@@ -28,6 +28,8 @@ import {
   worktimeAxios,
 } from "src/modules/schedule/teamInsight";
 
+import "./test.css";
+
 const contentStyle = {
   backgroundColor: "#3e4b54",
   width: "400px",
@@ -142,12 +144,9 @@ const PersonInsight = () => {
                         ))
                       : null}
                   </CCarouselInner>
+                  <CCarouselControl direction="prev" />
                   <CCarouselControl
-                    style={{ background: "red" }}
-                    direction="prev"
-                  />
-                  <CCarouselControl
-                    style={{ background: "red" }}
+                    style={{ outline: "red" }}
                     direction="next"
                   />
                 </CCarousel>

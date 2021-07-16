@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {getCurrentUser} from "src/lib/api/jwt/LoginAPI"
-import {
-    CProgress
-} from "@coreui/react";
+import { CCard, CCardBody, CCol, CContainer, CRow,CProgress } from "@coreui/react";
 import {SelectTotal, SelectWeekTotal, SelectVacation} from "src/lib/api/main/TimeProgress"
 import {SelectWorkCheck} from "src/lib/api/main/SideBar"
 import moment from 'moment';
@@ -19,6 +17,9 @@ export function TimeProgress() {
 
     useEffect(async()=>{
         await SelectWorkCheck(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
+            console.log("item")
+            console.log(item.data!=0)
+            if(item.data!=0){
             if(item.data[0].attend_START!=null){
                 setStartTime(item.data[0].attend_START)
             }
@@ -28,6 +29,7 @@ export function TimeProgress() {
             if(item.data[0].attend_BREAK!=null){
                 setBreakTime(item.data[0].attend_BREAK)
             }
+        }
         })
         // await SelectTotal(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
         //     console.log("SelectTotal")
@@ -48,26 +50,28 @@ export function TimeProgress() {
     },[])
 
     const showStart = ()=>{
+        var str = startTime.split(':')
         return(
-            <div>
-                금일 출근시간 :  {startTime} 
+            <div style={{width:'100px', textAlign:'center',}}>
+                금일 출근시간  <div style={{color:'blue', textAlign:'center'}}> {str[0]}시 {str[1]}분 </div>
             </div>
         )
     }
 
     
     const showEnd = ()=>{
+        var str = endTime.split(':')
         return(
-            <div>
-                금일 퇴근시간 :  {endTime} 
+            <div style={{width:'100px', textAlign:'center',}}>
+                금일 퇴근시간  <div style={{color:'blue', textAlign:'center'}}> {str[0]}시 {str[1]}분 </div>
             </div>
         )
     }
 
     const showBreak = ()=>{
         return(
-            <div>
-                금일 총 휴식시간 :  {(breakTime/60).toFixed(0)}시간 {breakTime%60} 분
+            <div style={{width:'120px',textAlign:'center'}}>
+                금일 총 휴식시간 <div style={{color:'green', textAlign:'center'}}> {(breakTime/60).toFixed(0)}시간 {breakTime%60} 분</div>
             </div>
         )
     }
@@ -82,21 +86,37 @@ export function TimeProgress() {
         {console.log(user_52)}
     {console.log(user_52/minute_52*100)}*/}
         <CProgress value={user_52/minute_52*100} className="mb-3" style={{marginTop:"20px"}}/>
+
+
+        <CRow>
+                  <CCol sm="3">
+                      
         {
             startTime!=null?
             showStart()        :
             null
         }
+                  </CCol>
+                  <CCol sm="3">
+                      
         {
             endTime!=null?
             showEnd()        :
             null
         }
+                  </CCol>
+                  
+                  <CCol sm="3">
+                      
+
         {
             breakTime!=null?
             showBreak()        :
             null
         }
+                  </CCol>
+                </CRow>
+        
     </div>
     );
 
