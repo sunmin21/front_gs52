@@ -24,7 +24,7 @@ const getBadge = (status) => {
       return "secondary";
     case "대기":
       return "warning";
-    case "거절":
+    case "반려":
       return "error";
     default:
       return "primary";
@@ -89,7 +89,7 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
       } else if (item.vacation_STATUS == 1) {
         status = "완료";
       } else {
-        status = "거절";
+        status = "반려";
       }
       return {
         vacation_index: item.vacation_INDEX,
@@ -104,7 +104,7 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
     var moment = require("moment");
     var nowDate = moment(new Date()).format("YYYY-MM-DD");
     var clickDate = e.날짜;
-    if (nowDate >= clickDate || e.승인 == "거절") {
+    if (nowDate >= clickDate || e.승인 == "반려") {
       setVisible(3);
     } else {
       setDoubleCheck(true);

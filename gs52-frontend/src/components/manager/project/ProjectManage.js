@@ -67,7 +67,7 @@ function ProjectManage() {
                             "종료",
                             { key: "담당자", _style: { width: "10%" } },
                             '수락',
-                            '거부'
+                            '반려'
                         ]}
                         columnFilter
                         tableFilter
@@ -101,15 +101,15 @@ function ProjectManage() {
                                     </Button>
                                 </td>
                             ),
-                            거부: (item) => (
+                            반려: (item) => (
                                 <td className="py-2">
                                     <Button type="primary" danger
                                         onClick={async (e) => {
-                                            console.log(item.pindex + "번 거부")
+                                            console.log(item.pindex + "번 반려")
                                             await UpdateOKay(item.pindex, 2);
                                             await dispatch(okayAxios());
                                         }}
-                                    >거부
+                                    >반려
                                     </Button>
                                 </td>
                             )

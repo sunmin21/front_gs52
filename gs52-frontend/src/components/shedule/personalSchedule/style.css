@@ -161,7 +161,7 @@ table.scheduler-table tr:last-child td {
   margin: 1px 0;
   width: 100%;
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip;
   white-space: nowrap;
   color: #fff;
   padding-right: 20px !important;
@@ -170,7 +170,7 @@ table.scheduler-table tr:last-child td {
 
 .overflow-text {
   overflow: hidden;
-  text-overflow: ellipsis;
+  text-overflow: clip;
   white-space: nowrap;
   padding-right: 5px !important;
 }

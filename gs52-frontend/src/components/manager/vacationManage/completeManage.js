@@ -13,7 +13,7 @@ const getBadge = (status) => {
       return "secondary";
     case "대기중":
       return "warning";
-    case "거절":
+    case "반려":
       return "error";
     default:
       return "primary";
@@ -27,7 +27,7 @@ const CompleteManage = ({ content }) => {
   const Done = {
     0: "대기중",
     1: "완료",
-    2: "거절",
+    2: "반려",
   };
   const completeData = content
     .filter((item) => item.vacation_STATUS == 1 || item.vacation_STATUS == 2)

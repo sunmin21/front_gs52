@@ -13,7 +13,7 @@ function MyCalendar() {
 
   const user = getCurrentUser();
   let [emp] = useState(user.index);
-  
+
   var moment = require("moment");
 
   const dispatch = useDispatch();
@@ -35,12 +35,6 @@ function MyCalendar() {
     }
   })
 
-  const { holiday } = useSelector((state) => {
-    return {
-      holiday: state.holiday.holiday,
-    };
-  });
-  
   useEffect(() => {
     dispatch(calendarAxios(emp));
     dispatch(calendarAxios2(emp));
@@ -62,7 +56,7 @@ function MyCalendar() {
       return {
         title: item.attend_TYPE_NAME,
         start: item.attend_DATE,
-        color: "#f759ab"
+        color: "orange"
       }
     }
 

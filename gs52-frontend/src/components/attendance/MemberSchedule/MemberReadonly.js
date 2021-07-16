@@ -8,6 +8,7 @@ import "react-dom";
 import "./style.css";
 
 import moment from "moment";
+import { Card } from "antd";
 
 const withDragDropContext = DragDropContext(HTML5Backend);
 
@@ -25,7 +26,7 @@ let schedulerData = new SchedulerData(now, ViewTypes.Month, false, false, {
   movable: false,
   calendarPopoverEnabled: false,
   showAgenda: true,
-  schedulerWidth: "73%",
+  schedulerWidth: "67%",
   views: [],
 });
 schedulerData.localeMoment.locale("en");
@@ -94,7 +95,7 @@ const Readonly = withDragDropContext((props) => {
         end: moment(startdate).format("YYYY-MM-DD"),
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
-        bgColor: "#D9D9D9",
+        bgColor: "orange",
       };
     } else if (item.attend_TYPE_NAME == "외근") {
       return {
@@ -103,7 +104,7 @@ const Readonly = withDragDropContext((props) => {
         end: moment(startdate).format("YYYY-MM-DD"),
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
-        bgColor: "#f759ab",
+        bgColor: "orange",
       };
     } else {
       return {
@@ -207,20 +208,22 @@ const Readonly = withDragDropContext((props) => {
   return (
     <div>
       <div>
-        <Scheduler
-          schedulerData={schedulerData}
-          prevClick={prevClick}
-          nextClick={nextClick}
-          onSelectDate={onSelectDate}
-          updateEventStart={updateEventStart}
-          updateEventEnd={updateEventEnd}
-          onScrollLeft={onScrollLeft}
-          onScrollRight={onScrollRight}
-          onScrollTop={onScrollTop}
-          onScrollBottom={onScrollBottom}
-          toggleExpandFunc={toggleExpandFunc}
-          onViewChange={onScrollTop}
-        />
+        <Card>
+          <Scheduler
+            schedulerData={schedulerData}
+            prevClick={prevClick}
+            nextClick={nextClick}
+            onSelectDate={onSelectDate}
+            updateEventStart={updateEventStart}
+            updateEventEnd={updateEventEnd}
+            onScrollLeft={onScrollLeft}
+            onScrollRight={onScrollRight}
+            onScrollTop={onScrollTop}
+            onScrollBottom={onScrollBottom}
+            toggleExpandFunc={toggleExpandFunc}
+            onViewChange={onScrollTop}
+          />
+        </Card>
       </div>
     </div>
   );
