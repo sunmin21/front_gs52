@@ -18,6 +18,7 @@ export function TimeProgress() {
     useEffect(async()=>{
         await SelectWorkCheck(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
             console.log("item")
+            console.log(item)
             console.log(item.data!=0)
             if(item.data!=0){
             if(item.data[0].attend_START!=null){
@@ -44,7 +45,10 @@ export function TimeProgress() {
 
         })
         
-        await SelectVacation(user.index, moment().format('YYYY-MM-DD'))
+        await SelectVacation(user.index, moment().format('YYYY-MM-DD')).then((item)=>{
+            console.log("SelectVacation")
+            console.log(item)
+        })
         
 
     },[])
