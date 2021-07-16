@@ -1,19 +1,16 @@
 import client from "../client";
 
-import React,{useState} from "react";
+import React, { useState } from "react";
 
-import {
-  user_state
-} from "src/modules/main/main";
+import { user_state } from "src/modules/main/main";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 
 // export const LoginAPI = async (username, password) => {
 // //String username, String email, String password, Long position, Long rank, Long team
 //   console.log("LoginAPI API inserrrrrr");
 //   console.log(username)
 //   console.log(password)
-
 
 //   const login = await client.post(API_URL + "/api/auth/signin",{
 //     username,
@@ -25,70 +22,97 @@ const API_URL = "http://localhost:8081";
 //    return login.data.first_login;
 // }
 
-export const LoginAPI = async  (username, password) => {
+export const LoginAPI = async (username, password) => {
+  const login = await client
+    .post(API_URL + "/api/auth/signin", {
+      username,
+      password,
+    })
+    .then((response) => {
+      if (response.data.accessToken) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+        localStorage.setItem(
+          "accessToken",
+          JSON.stringify(response.data.accessToken).replace(/\"/gi, "")
+        );
+      }
 
-  const login =  await client.post(API_URL + "/api/auth/signin", {
-                            username,
-                            password
-                          })
-          .then(response => {
-            if (response.data.accessToken) {
-              localStorage.setItem("user", JSON.stringify(response.data));
-              localStorage.setItem("accessToken", JSON.stringify(response.data.accessToken).replace(/\"/gi, ""));
-            }
+      const { accessToken } = response.data;
+      console.log(accessToken);
+      //api요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+      //이렇게 하면 accessToken을 localStorage, cookie에 저장하지 않는다.
+      client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-            const {accessToken} = response.data;
-            console.log(accessToken)
-            //api요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-            //이렇게 하면 accessToken을 localStorage, cookie에 저장하지 않는다.
-            client.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-          
-            console.log("response")
-            console.log(response)
-            //return response.data;
-          })
-          .catch(); 
-          
-   return login;
+      console.log("response");
+      console.log(response);
+      //return response.data;
+    })
+    .catch();
+
+  return login;
 };
 
+export const logout = () => {
+  console.log("로그아웃ㅅㅅㅅㅅ");
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+  localStorage.removeItem("authenticatedUser");
+  localStorage.removeItem("w_state");
+};
 
-export const logout = () =>{
-	console.log("로그아웃ㅅㅅㅅㅅ")
-	localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    localStorage.removeItem("authenticatedUser")
-    localStorage.removeItem("w_state")
-}
+export const register = async ({
+  username,
+  email,
+  password,
+  position,
+  rank,
+  team,
+}) => {
+  return await client
+    .post(API_URL + "signup", {
+      username,
+      email,
+      password,
+      position,
+      rank,
+      team,
+    })
+    .then()
+    .error();
+};
 
-export const register = async({username, email, password, position, rank, team}) => {
-	return await client.post(API_URL + "signup", {
-		username,
-		email,
-		password, position, rank, team
-	  })
-	  .then()
-	  .error();
-}
-
-export const update = async(id, password, address, phone, birth, photo, bank_name, account_number)=>{
+export const update = async (
+  id,
+  password,
+  address,
+  phone,
+  birth,
+  photo,
+  bank_name,
+  account_number
+) => {
   console.log(id);
   //String password, String address, String phone, String birth, String photo, String bank_name, long account_number
-  return await client.post(API_URL+"/api/auth/update_user",{
-    id, password, address, phone, birth, photo, bank_name, account_number
+  return await client.post(API_URL + "/api/auth/update_user", {
+    id,
+    password,
+    address,
+    phone,
+    birth,
+    photo,
+    bank_name,
+    account_number,
   });
-}
+};
 
-
-  //token 생성
+//token 생성
 export const createJWTToken = (token) => {
-	return 'Bearer '+token
-}
+  return "Bearer " + token;
+};
 
 export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem('user'));;
-}
-
+  return JSON.parse(localStorage.getItem("user"));
+};
 
 /*
   //로그인에 성공하면 username을 authenticatedUser로 localstorage에 저장

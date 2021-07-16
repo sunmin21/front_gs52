@@ -2,7 +2,7 @@ import client from "../client";
 
 import React, { useState } from "react";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 //export const InsertConf = async (floor, room, index, title, date, startTime, endTime) => {
 export const InsertConf = async (
   held_empIndex,
@@ -22,7 +22,7 @@ export const InsertConf = async (
       conf_START: startTime,
       conf_END: endTime,
       conf_EMP_INDEX_SEND: held_empIndex,
-      person:empList
+      person: empList,
     })
     .then(function (response) {
       //response
@@ -35,15 +35,17 @@ export const InsertConf = async (
       //항상실행
     });
 
-    // const confRe = await client.post(API_URL+"/schedule/confRoom/empInsert",{
-    //     conf_RE_EMP_INDEX:,
-    //     conf_RE_CONF_INDEX:empList,
-    // })
+  // const confRe = await client.post(API_URL+"/schedule/confRoom/empInsert",{
+  //     conf_RE_EMP_INDEX:,
+  //     conf_RE_CONF_INDEX:empList,
+  // })
 };
 
 export const SelectConf = async () => {
   console.log("SelectConf");
-  const conf = await client.post(API_URL + "/schedule/confRoom/select_confList");
+  const conf = await client.post(
+    API_URL + "/schedule/confRoom/select_confList"
+  );
   //return conf.data;
   return conf;
 };
@@ -76,11 +78,13 @@ export const Select_emp = async () => {
   console.log(conf.data);
 };
 
-
 export const Select_ConfOne = async (index) => {
   console.log("@@@@@@@@@@@@@@@Select_ConfOne");
   console.log(index);
-  const conf = await client.post(API_URL + "/schedule/confRoom/select_confOne",{conf_INDEX:index});
+  const conf = await client.post(
+    API_URL + "/schedule/confRoom/select_confOne",
+    { conf_INDEX: index }
+  );
   console.log(conf);
   return conf;
 };

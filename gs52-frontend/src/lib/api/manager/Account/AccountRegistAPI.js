@@ -39,7 +39,7 @@ if (localStorage.getItem("accessToken") != null) {
 console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@token");
 console.log(token);
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 //부서
 export const SelectTeam = async () => {
   const team = await client.post(API_URL + "/manager/select_team");
@@ -102,7 +102,7 @@ export const RegistAccount = async (
       rank,
       team,
       first_login,
-      entry_date
+      entry_date,
     })
     .then(() => {
       alert("회원등록 되었습니다.");

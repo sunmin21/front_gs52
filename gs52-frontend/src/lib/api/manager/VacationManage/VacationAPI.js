@@ -5,7 +5,7 @@ if (localStorage.getItem("accessToken") != null) {
     .getItem("accessToken")
     .replace(/\"/gi, "")}`;
 }
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 export const SelectVacation = async (index) => {
   const vacation = await client.post(API_URL + "/manager/vacation/select", {
     //사원의 연차정보 전부 가져옴

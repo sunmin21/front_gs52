@@ -1,6 +1,6 @@
 import client from "../client";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 
 export const SelectEmpEntryDate = async (index) => {
   const emp = await client.post(API_URL + "/insight/selectempentrydate", {

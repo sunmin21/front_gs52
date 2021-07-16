@@ -1,7 +1,7 @@
 import moment from "moment";
 import client from "../client";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 export const SelectNotice = async (NOTICE_INDEX) => {
   const notice = await client.get(API_URL + "/main/notice", {
     params: { notice_INDEX: NOTICE_INDEX },

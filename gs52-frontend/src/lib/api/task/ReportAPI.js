@@ -1,8 +1,7 @@
 import client from "../client";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
-
   const report = await client.post(API_URL + "/report/showReport", {
     report_EMP_INDEX: emp,
     weekstart: weekStart,
@@ -19,7 +18,6 @@ export const SelectReport = async ({ emp, weekStart, weekEnd }) => {
 };
 
 export const SelectOthersReport = async ({ othersemp, weekStart, weekEnd }) => {
-
   const othersreport = await client.post(API_URL + "/report/showReport", {
     report_EMP_INDEX: othersemp,
     weekstart: weekStart,
@@ -49,7 +47,6 @@ export const InsertReport = async (emp, contents, targetDate) => {
 };
 
 export const DeleteReport = async (id) => {
-
   const report = await client.post(API_URL + "/report/delReport", {
     report_INDEX: id,
   });
@@ -58,7 +55,7 @@ export const DeleteReport = async (id) => {
 };
 
 export const EmpList = async (index) => {
-  console.log("index : " + index)
+  console.log("index : " + index);
   const res = await client.post(API_URL + "/report/empList", {
     report_EMP_INDEX: index,
   });

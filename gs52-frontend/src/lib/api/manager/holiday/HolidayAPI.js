@@ -1,6 +1,6 @@
 import client from "../../client";
 
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 export const SelectHoliday = async () => {
   // console.log("test");
 
