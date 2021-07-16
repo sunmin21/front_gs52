@@ -23,14 +23,7 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const AttendManage = ({
-  content,
-  pageCount,
-  success,
-  remove,
-  reject,
-  userid,
-}) => {
+const AttendManage = ({ content, team }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -47,7 +40,8 @@ const AttendManage = ({
         (item.vacation_ATTEND_INFO_INDEX == 7 ||
           item.vacation_ATTEND_INFO_INDEX == 8 ||
           item.vacation_ATTEND_INFO_INDEX == 9) &&
-        item.vacation_STATUS == 0
+        item.vacation_STATUS == 0 &&
+        item.emp_TEAM_INDEX == team
     )
     .map((item) => ({
       emp_NAME: item.emp_NAME,
@@ -100,7 +94,6 @@ const AttendManage = ({
           // }
           scopedSlots={{
             보낸사람: (item) => {
-              console.log(item);
               return <td>{item.emp_NAME}</td>;
             },
             내용: (item) => {
@@ -143,7 +136,6 @@ const AttendManage = ({
             승인: (item) => (
               <td className="py-2" style={{ textAlign: "center" }}>
                 <Button
-                  active
                   type="primary"
                   onClick={async (e) => {
                     await UpdateVacationStatus(
@@ -166,7 +158,6 @@ const AttendManage = ({
             반려: (item) => (
               <td className="py-2" style={{ textAlign: "center" }}>
                 <Button
-                  active
                   type="danger"
                   onClick={async (e) => {
                     await UpdateVacationStatus(

@@ -21,14 +21,7 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const BusinessManage = ({
-  content,
-  pageCount,
-  success,
-  remove,
-  reject,
-  userid,
-}) => {
+const BusinessManage = ({ content, team }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -43,7 +36,8 @@ const BusinessManage = ({
       (item) =>
         (item.vacation_ATTEND_INFO_INDEX == 5 ||
           item.vacation_ATTEND_INFO_INDEX == 6) &&
-        item.vacation_STATUS == 0
+        item.vacation_STATUS == 0 &&
+        item.emp_TEAM_INDEX == team
     )
     .map((item) => ({
       emp_NAME: item.emp_NAME,
@@ -138,7 +132,6 @@ const BusinessManage = ({
             승인: (item) => (
               <td className="py-2" style={{ textAlign: "center" }}>
                 <Button
-                  active
                   type="primary"
                   onClick={async (e) => {
                     await UpdateVacationStatus(
@@ -161,7 +154,6 @@ const BusinessManage = ({
             반려: (item) => (
               <td className="py-2" style={{ textAlign: "center" }}>
                 <Button
-                  active
                   type="danger"
                   onClick={async (e) => {
                     await UpdateVacationStatus(

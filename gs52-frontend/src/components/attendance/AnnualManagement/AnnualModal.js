@@ -86,7 +86,7 @@ function AnnualModal({
         setInfo(!info);
       } else {
         setVisible(3);
-        setAlertContents("휴가를 중복 사용할 수 없습니다.");
+        setAlertContents("이미 일정이 있습니다");
         setDoubleCheck(true);
       }
     }

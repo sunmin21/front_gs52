@@ -17,6 +17,7 @@ import { vacationAxios } from "src/modules/manager/vacation";
 import AttendManage from "../../../components/manager/vacationManage/attendManage";
 import BusinessManage from "../../../components/manager/vacationManage/businessManage";
 import CompleteManage from "../../../components/manager/vacationManage/completeManage";
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const contentStyle = {
   backgroundColor: "#3e4b54",
   width: "400px",
@@ -27,7 +28,8 @@ const contentStyle = {
 };
 
 const VacationManage = () => {
-  const vacation_EMP_INDEX = useRef(5);
+  const vacation_EMP_INDEX = getCurrentUser();
+
   const dispatch = useDispatch();
   const { vacation } = useSelector((state) => {
     return {
@@ -65,19 +67,19 @@ const VacationManage = () => {
                   <CTabPane>
                     <AttendManage
                       content={vacation}
-                      userid={vacation_EMP_INDEX.current}
+                      team={vacation_EMP_INDEX.team}
                     ></AttendManage>
                   </CTabPane>
                   <CTabPane>
                     <BusinessManage
                       content={vacation}
-                      userid={vacation_EMP_INDEX.current}
+                      team={vacation_EMP_INDEX.team}
                     ></BusinessManage>
                   </CTabPane>
                   <CTabPane>
                     <CompleteManage
                       content={vacation}
-                      userid={vacation_EMP_INDEX.current}
+                      team={vacation_EMP_INDEX.team}
                     ></CompleteManage>
                   </CTabPane>
                 </CTabContent>

@@ -13,8 +13,16 @@ import {
 
 import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
-import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
+import {
+  annualAxios,
+  checkAxios,
+  empvacationAxios,
+} from "src/modules/annual/annual";
 import { Badge } from "antd";
+import { holidayAxios } from "src/modules/manager/holiday";
+import { attendAxios } from "src/modules/annual/memberSchedule";
+import { personAxios } from "src/modules/schedule/personSchedule/personSchedule";
+import holidaydata from "src/components/manager/holiday/HolidayData";
 
 const annualArr = ["날짜", "연차유형", "사유", "승인"];
 
@@ -51,23 +59,28 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     승인: "",
   });
   const dispatch = useDispatch();
-  const { annual } = useSelector((state) => {
-    return {
-      annual: state.annual.annual,
-    };
-  });
+  const { annual, empvacation, holiday, attend, person } = useSelector(
+    (state) => {
+      console.log(state);
+      return {
+        annual: state.annual.annual,
+        holiday: state.holiday.holiday,
+        attend: state.memberSchedule.attend,
+        person: state.personSchedule.person,
+        empvacation: state.annual.empvacation,
+      };
+    }
+  );
 
-  const { empvacation } = useSelector((state) => {
-    return {
-      empvacation: state.annual.empvacation,
-    };
-  });
   useEffect(() => {
     dispatch(annualAxios(vacation_EMP_INDEX.index));
     dispatch(empvacationAxios(vacation_EMP_INDEX.index));
+    dispatch(holidayAxios());
+    dispatch(attendAxios());
+    dispatch(personAxios());
   }, [dispatch, vacation_EMP_INDEX.index]);
 
-  //setInputData(data);
+  console.log(annual);
   const dateHandle = (e) => {
     setDate(e.target.value);
   };
@@ -101,6 +114,40 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   const data2 = empvacation.map((item) => {
     return item.emp_VACATION;
   });
+
+  const attendlist = attend
+    .filter((item) => item.attend_EMP_INDEX == vacation_EMP_INDEX.index)
+    .map((item) => {
+      return {
+        vacation_DATE: item.attend_DATE,
+        emp_NAME: item.emp_NAME,
+        vacation_EMP_INDEX: 0,
+      };
+    });
+
+  const personlist = person
+    .filter((item) => item.conf_RE_EMP_INDEX == vacation_EMP_INDEX.index)
+    .map((item) => {
+      return {
+        vacation_DATE: item.conf_DATE,
+        conf_RE_EMP_INDEX: item.conf_RE_EMP_INDEX,
+        vacation_EMP_INDEX: 0,
+      };
+    });
+  const holidaylist = holiday.map((item) => {
+    return {
+      vacation_DATE: item.holiday_DATE,
+      holiday_TITLE: item.holiday_TITLE,
+      vacation_EMP_INDEX: 0,
+    };
+  });
+
+  const annualList = annual
+    .concat(attendlist)
+    .concat(personlist)
+    .concat(holidaylist);
+
+  console.log(holidaydata);
 
   const eventHandle = (e) => {
     var moment = require("moment");
@@ -140,7 +187,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                       infoIndexHandle={infoIndexHandle}
                       contentsHandle={contentsHandle}
                       date={date}
-                      annual={annual}
+                      annual={annualList}
                       infoIndex={infoIndex}
                       contents={contents}
                       inputData={data}
@@ -167,7 +214,7 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
                 scopedSlots={{
                   승인: (item) => (
                     <td>
-                      <h4 style={{ textAlign: "center" }}>
+                      <h4 style={{ textAlign: "left" }}>
                         <Badge
                           status={getBadge(item.승인)}
                           text={item.승인}

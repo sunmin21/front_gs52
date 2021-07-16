@@ -19,7 +19,7 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const CompleteManage = ({ content }) => {
+const CompleteManage = ({ content, team }) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -30,7 +30,11 @@ const CompleteManage = ({ content }) => {
     2: "반려",
   };
   const completeData = content
-    .filter((item) => item.vacation_STATUS == 1 || item.vacation_STATUS == 2)
+    .filter(
+      (item) =>
+        (item.vacation_STATUS == 1 || item.vacation_STATUS == 2) &&
+        item.emp_TEAM_INDEX == team
+    )
     .map((item) => ({
       emp_NAME: item.emp_NAME,
       vacation_DATE: item.vacation_DATE,
