@@ -23,9 +23,9 @@ const TheSidebar = ({ nav }) => {
   console.log(nav);
   console.log(nav.length !== 0 && nav[0]._children[0]);
   const Hover = styled.div`
-    a {
+    /* a {
       font-family: "GmarketSansMedium" !important;
-    }
+    } */
     a:hover {
       background-color: #4d5175 !important;
       color: #ffffff !important;
