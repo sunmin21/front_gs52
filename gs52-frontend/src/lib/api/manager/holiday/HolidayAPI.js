@@ -37,8 +37,6 @@ export const InsertHoliday = async (title, date, annual) => {
 
 export const DeleteHoliday = async (id) => {
   id = parseInt(id);
-  // console.log("id : " + id);
-  // console.log(typeof (id));
 
   const holiday = await client
     .post(API_URL + "/manager/holiday/delHoliday", {
