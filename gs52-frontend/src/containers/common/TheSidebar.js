@@ -10,7 +10,7 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
-  CSidebarHeader
+  CSidebarHeader,
 } from "@coreui/react";
 
 import CIcon from "@coreui/icons-react";
@@ -22,12 +22,16 @@ const TheSidebar = ({ nav }) => {
 
   return (
     <CSidebar
-      style={{boxShadow:"5px 5px 5px gray"}}
+      style={{ boxShadow: "5px 5px 5px gray" }}
       show={show}
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
       {/* sidebar 로고 자리 */}
-      <CSidebarBrand className="d-md-down-none" to="/">
+      <CSidebarBrand
+        className="d-md-down-none"
+        to="/"
+        style={{ background: "#7DEDFF" }}
+      >
         <CIcon
           className="c-sidebar-brand-full"
           src="logo/mainLogo2.png"
@@ -42,11 +46,11 @@ const TheSidebar = ({ nav }) => {
         />
       </CSidebarBrand>
 
-      <CSidebarHeader>
+      <CSidebarHeader style={{ background: "#7DEDFF" }}>
         <Sidebar_Header></Sidebar_Header>
       </CSidebarHeader>
 
-      <CSidebarNav>
+      <CSidebarNav style={{ background: "#7DEDFF" }}>
         <CCreateElement
           items={nav}
           components={{
@@ -57,7 +61,10 @@ const TheSidebar = ({ nav }) => {
           }}
         />
       </CSidebarNav>
-      <CSidebarMinimizer className="c-d-md-down-none"/>
+      <CSidebarMinimizer
+        className="c-d-md-down-none"
+        style={{ background: "#7DEDFF" }}
+      />
     </CSidebar>
   );
 };
