@@ -42,25 +42,23 @@ function MyCalendar() {
     return {
       title: item.attend_TYPE_NAME,
       start: item.attend_DATE,
-      color: "red"
+      color: "#2e88ff"
     }
   })
 
   const data2 = mycalendar2.map((item2) => {
     return {
       title: item2.conf_TITLE,
-      start: item2.conf_DATE
-      // start: item2.conf_DATE + " " + item2.conf_START,
-      // end: item2.conf_DATE + " " + item2.conf_END
+      start: item2.conf_DATE,
+      color: "red"
     }
   })
 
   const data3 = mycalendar3.map((item3) => {
     return {
       title: item3.conf_TITLE,
-      start: item3.conf_DATE
-      // start: item3.conf_DATE + " " + item3.conf_START,
-      // end: item3.conf_DATE + " " + item3.conf_END
+      start: item3.conf_DATE,
+      color: "orange"
     }
   })
 
@@ -73,9 +71,9 @@ function MyCalendar() {
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
             eventSources={[data, data2, data3]}
-            eventColor="#2e88ff"
+            // eventColor="red"
             eventTextColor="white"
-            eventBorderColor="#2e88ff"
+            // eventBorderColor="#2e88ff"
             eventDisplay="title"
           />
         </div>
