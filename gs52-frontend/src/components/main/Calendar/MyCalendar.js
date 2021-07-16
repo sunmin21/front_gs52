@@ -89,9 +89,8 @@ function MyCalendar() {
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
             eventSources={[data, data2, data3, data4, holidaydata]}
-            // eventColor="red"
+            eventColor="red"
             eventTextColor="white"
-            // eventBorderColor="#2e88ff"
             eventDisplay="title"
           />
         </div>
