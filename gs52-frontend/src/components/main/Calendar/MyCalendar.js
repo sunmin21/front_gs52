@@ -72,11 +72,11 @@ function MyCalendar() {
     }
   })
 
-  const data4 = holiday.map((item) => {
+  const data4 = holiday.map((item4) => {
     return {
-      title: item.holiday_TITLE,
-      start: item.holiday_DATE,
-      color:"red"
+      title: item4.holiday_TITLE,
+      start: item4.holiday_DATE,
+      color: "red"
     };
   });
 
@@ -88,7 +88,7 @@ function MyCalendar() {
             contentHeight="385px"
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
-            eventSources={[data, data2, data3, data4]}
+            eventSources={[data, data2, data3, data4, holidaydata]}
             // eventColor="red"
             eventTextColor="white"
             // eventBorderColor="#2e88ff"
