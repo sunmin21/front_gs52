@@ -8,16 +8,19 @@ import { takeLatest } from "redux-saga/effects";
 const [NOTICE, NOTICE_SUCCESS, NOTICE_FAILURE] =
   createRequestActionTypes("main/NOTICE"); //타입유형
 
-const USER_STATE = 'main/USER_STATE'
+const USER_STATE = "main/USER_STATE";
+const PROGRESS_RENDER = "main/PROGRESS_RENDER";
 
 export const noticeAxios = createAction(NOTICE); //리덕스의 액션함수
 export const user_state = createAction(USER_STATE);
+export const progressRender = createAction(PROGRESS_RENDER);
 
 const NoticeSaga = createRequestSaga(NOTICE, API.SelectNotice);
 
 export function* MainSaga() {
   yield takeLatest(NOTICE, NoticeSaga);
 }
+
 const initialState = {
   //초기값을 정의
   notice: [
@@ -31,16 +34,15 @@ const initialState = {
     },
   ],
   noticeError: null,
-  
+  render: false,
   user_inform: [
     {
       id: "",
       name: "",
       email: "",
     },
-  ]
+  ],
 };
-
 // 리듀서 선언부분
 const main = handleActions(
   {
@@ -54,10 +56,16 @@ const main = handleActions(
       ...state,
       reporError: error,
     }),
-    [USER_STATE] : (state,{payload:user_state}) => ({
+    [USER_STATE]: (state, { payload: user_state }) => ({
       ...state,
-      user_inform : user_state,
-    })
+      user_inform: user_state,
+    }),
+
+    [PROGRESS_RENDER]: (state, { payload: notice }) => ({
+      ...state,
+      noticeError: null,
+      render: !state.render,
+    }),
   },
   initialState
 );
