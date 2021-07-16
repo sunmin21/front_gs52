@@ -49,10 +49,29 @@ function MyCalendar() {
   }, [dispatch])
 
   const data = mycalendar.map((item) => {
-    return {
-      title: item.attend_TYPE_NAME,
-      start: item.attend_DATE,
-      color: "#2e88ff"
+
+    if (item.attend_TYPE_NAME == "연차" || item.attend_TYPE_NAME == "반차") {
+      return {
+        title: item.attend_TYPE_NAME,
+        start: item.attend_DATE,
+        color: "#2e88ff"
+      }
+    }
+
+    else if (item.attend_TYPE_NAME == "출장" || item.attend_TYPE_NAME == "외근") {
+      return {
+        title: item.attend_TYPE_NAME,
+        start: item.attend_DATE,
+        color: "#f759ab"
+      }
+    }
+
+    else {
+      return {
+        title: item.attend_TYPE_NAME,
+        start: item.attend_DATE,
+        color: "black"
+      }
     }
   })
 
