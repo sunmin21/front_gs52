@@ -23,6 +23,9 @@ const TheSidebar = ({ nav }) => {
   console.log(nav);
   console.log(nav.length !== 0 && nav[0]._children[0]);
   const Hover = styled.div`
+    /* a {
+      font-family: "GmarketSansMedium" !important;
+    } */
     a:hover {
       background-color: #4d5175 !important;
       color: #ffffff !important;
@@ -56,7 +59,10 @@ const TheSidebar = ({ nav }) => {
       </CSidebarBrand>
 
       <CSidebarHeader style={{ background: "#2C2E43" }}>
-        <Sidebar_Header nav={nav}></Sidebar_Header>
+        <Hover>
+          {" "}
+          <Sidebar_Header nav={nav}></Sidebar_Header>
+        </Hover>
       </CSidebarHeader>
       {nav.length !== 0 && nav[0]._children[0] !== "Main" && (
         <CSidebarNav style={{ background: "#2C2E43" }}>

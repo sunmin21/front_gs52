@@ -55,7 +55,6 @@ function Sidebar_Header({ nav }) {
         </div>
         <div>
           {userContent && userContent[0].team_NAME}{" "}
-          {userContent && userContent[0].rank_NAME}{" "}
           {userContent && userContent[0].position_NAME}
         </div>
       </div>
