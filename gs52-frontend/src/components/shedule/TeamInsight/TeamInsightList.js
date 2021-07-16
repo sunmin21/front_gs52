@@ -33,12 +33,10 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {" "}
-                  {props.entrydate[0].team_ENTRY_COUNT}일
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {" "}
+                {props.entrydate[0].team_ENTRY_COUNT}일
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -59,12 +57,10 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {Math.floor(props.worktime[0].team_WORK_TIME / 60)}시간{" "}
-                  {Math.floor(props.worktime[0].team_WORK_TIME % 60)}분
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {Math.floor(props.worktime[0].team_WORK_TIME / 60)}시간{" "}
+                {Math.floor(props.worktime[0].team_WORK_TIME % 60)}분
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -82,11 +78,9 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  평균 {props.project[0].team_PROJECT_AVG}개
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                평균 {props.project[0].team_PROJECT_AVG}개
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -106,11 +100,9 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  평균 {props.todo[0].team_TODO_AVG}개
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                평균 {props.todo[0].team_TODO_AVG}개
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -129,12 +121,10 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  {" "}
-                  평균 {props.business[0].team_BUSINESS_AVG}회
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                {" "}
+                평균 {props.business[0].team_BUSINESS_AVG}회
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>
@@ -153,11 +143,9 @@ const PersonInsightList = (props) => {
               </CRow>
             </CCardHeader>
             <CCardBody>
-              <CCardText>
-                <h3 style={{ textAlign: "right" }}>
-                  평균 {props.report[0].team_REPORT_AVG}회
-                </h3>
-              </CCardText>
+              <h3 style={{ textAlign: "right" }}>
+                평균 {props.report[0].team_REPORT_AVG}회
+              </h3>
             </CCardBody>
           </CCard>
         </CCol>

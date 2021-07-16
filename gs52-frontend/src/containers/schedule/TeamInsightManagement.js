@@ -30,16 +30,15 @@ import {
 
 import "./test.css";
 
-const contentStyle = {
-  backgroundColor: "#3e4b54",
-  width: "400px",
-  textAlign: "center",
-  boxShadow: "5px 5px 5px gray",
-  padding: "8px",
-  borderRadius: "50px",
-};
-
 const PersonInsight = () => {
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+  };
   const EMP_INDEX = getCurrentUser();
 
   const { entrydate, project, todo, business, report, worktime, teamlist } =
@@ -124,7 +123,7 @@ const PersonInsight = () => {
                   <CCarouselInner>
                     {personinsight.length !== 0
                       ? teamlist0.map((item, key) => (
-                          <CCarouselItem>
+                          <CCarouselItem key={key}>
                             <PersonInsightList
                               EMP_INDEX={item.emp_INDEX}
                               personinsight={personinsight}

@@ -72,7 +72,6 @@ const Readonly = withDragDropContext((props) => {
     startdate.setDate(startdate.getDate() + 1);
     starttime.setHours(starttime.getHours() + 1);
 
-    console.log(moment(starttime).format("HH:mm"));
     if (item.attend_TYPE_NAME == "연차") {
       return {
         id: item.attend_INDEX,
