@@ -38,12 +38,11 @@ function Sidebar_Header() {
   console.log(userContent);
 
   return (
-    <div style={{ background: "#595260" }}>
+    <div style={{ background: "" }}>
       <br />
 
       <img
         src={img}
-        block
         style={{
           width: "200px",
           height: "200px",
@@ -52,15 +51,16 @@ function Sidebar_Header() {
         }}
       />
 
-      <div>
-        {user.username} {userContent && userContent[0].rank_NAME}
+      <div style={{ marginTop: "30px" }}>
+        <div style={{ fontSize: "30px" }}>
+          {user.username} {userContent && userContent[0].rank_NAME}
+        </div>
+        <div>
+          {userContent && userContent[0].team_NAME}{" "}
+          {userContent && userContent[0].rank_NAME}{" "}
+          {userContent && userContent[0].position_NAME}
+        </div>
       </div>
-      <br />
-      {userContent && userContent[0].team_NAME}
-      <br />
-      {userContent && userContent[0].rank_NAME}
-      <br />
-      {userContent && userContent[0].position_NAME}
       <br />
       <WorkTime></WorkTime>
       <br />

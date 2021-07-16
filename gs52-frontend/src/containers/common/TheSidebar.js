@@ -19,7 +19,8 @@ import Sidebar_Header from "../../components/main/sidebar/Sidebar_Header";
 const TheSidebar = ({ nav }) => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.changeState.sidebarShow);
-
+  console.log(nav);
+  console.log(nav.length !== 0 && nav[0]._children[0]);
   return (
     <CSidebar
       style={{ boxShadow: "5px 5px 5px gray" }}
@@ -30,7 +31,7 @@ const TheSidebar = ({ nav }) => {
       <CSidebarBrand
         className="d-md-down-none"
         to="/"
-        style={{ background: "#7DEDFF" }}
+        style={{ background: "#2C2E43" }}
       >
         <CIcon
           className="c-sidebar-brand-full"
@@ -46,11 +47,11 @@ const TheSidebar = ({ nav }) => {
         />
       </CSidebarBrand>
 
-      <CSidebarHeader style={{ background: "#7DEDFF" }}>
+      <CSidebarHeader style={{ background: "#2C2E43" }}>
         <Sidebar_Header></Sidebar_Header>
       </CSidebarHeader>
 
-      <CSidebarNav style={{ background: "#7DEDFF" }}>
+      <CSidebarNav style={{ background: "#2C2E43" }}>
         <CCreateElement
           items={nav}
           components={{
@@ -61,10 +62,7 @@ const TheSidebar = ({ nav }) => {
           }}
         />
       </CSidebarNav>
-      <CSidebarMinimizer
-        className="c-d-md-down-none"
-        style={{ background: "#7DEDFF" }}
-      />
+      <CSidebarMinimizer className="c-d-md-down-none" />
     </CSidebar>
   );
 };
