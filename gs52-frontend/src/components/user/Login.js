@@ -58,8 +58,9 @@ export function Login() {
 
         const res = LoginAPI(user.id, user.pwd).then(
             () => {
-                console.log("로그인 성공")
                 const user_state = getCurrentUser();
+                console.log(user_state)
+                console.log("로그인 성공")
                 if(user_state.first_login === 1){
                   history.push('/first_login');
                 }
