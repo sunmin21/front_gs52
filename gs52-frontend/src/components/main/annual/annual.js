@@ -3,7 +3,7 @@ import { Col, Row } from "antd";
 
 const annualCard = (props) => {
   return (
-    <div style={{backgroundColor:"orange"}}>
+    <div style={{ boxShadow: "5px 5px 5px gray", backgroundColor:"#f9f9f9" }}>
       <CCardBody>
         <CRow>
           {props.empvacation.length !== 0 && props.near.length !== 0 ? (

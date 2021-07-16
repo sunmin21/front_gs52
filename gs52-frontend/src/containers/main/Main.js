@@ -36,7 +36,7 @@ const Main = () => {
             <CCard accentColor="secondary">
               <CCardBody>
                 <CRow>
-                  <CCol sm="8" style={{marginTop:"45px"}}>
+                  <CCol sm="8" style={{marginTop:"20px"}}>
                     <TimeProgress/>
                   </CCol>
                   <CCol sm="4">
