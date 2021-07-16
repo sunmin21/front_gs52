@@ -32,7 +32,7 @@ export function ConfRoom(props) {
 	  }
 
 	  const data = conf_list.map((item) => {
-		  if(  moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_END<moment().format("YYYY-MM-DD")){
+		  if(  moment(item.conf_DATE).format("YYYY-MM-DD")+"T"+item.conf_END < moment().format("YYYY-MM-DD")){
 			  var color = "navy"
 		  }
 		  else{
