@@ -22,30 +22,36 @@ const getBadge = (status) => {
       return "secondary";
     case "대기중":
       return "warning";
-    case "거절":
+    case "반려":
       return "error";
     default:
       return "primary";
   }
 };
-const Success = ({ content, pageCount }) => {
+const Success = ({ content, checkSuccess }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
-
+  console.log(currentPage);
   const pageChange = (newPage) => {
+    console.log(currentPage);
+    console.log(newPage);
     currentPage !== newPage && history.push(`/task/schedule?page=${newPage}`);
   };
 
   useEffect(() => {
-    currentPage !== page && setPage(currentPage);
+    !checkSuccess && currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
-
+  useEffect(() => {
+    console.log("타냐?");
+    setPage(1);
+  }, [checkSuccess]);
+  console.log(page);
   const Done = {
     0: "대기중",
-    1: "거절",
+    1: "반려",
     2: "완료",
   };
   return (
@@ -120,7 +126,7 @@ const Success = ({ content, pageCount }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={pageCount}
+              pages={Math.floor(content.length / 10 + 1)}
               doubleArrows={false}
               align="center"
             />

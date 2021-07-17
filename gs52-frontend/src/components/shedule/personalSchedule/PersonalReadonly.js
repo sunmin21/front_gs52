@@ -85,7 +85,7 @@ const Readonly = withDragDropContext((props) => {
       return {
         id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE + " 09:00",
-        end: item.attend_DATE + " 13:00",
+        end: item.attend_DATE + " 12:30",
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
         bgColor: "#DC143C",
@@ -93,8 +93,8 @@ const Readonly = withDragDropContext((props) => {
     } else if (item.attend_TYPE_NAME.includes("오후반차")) {
       return {
         id: keyvalue, //item.attend_INDEX,
-        start: item.attend_DATE + " 14:00",
-        end: item.attend_DATE + " 19:00",
+        start: item.attend_DATE + " 13:30",
+        end: item.attend_DATE + " 18:00",
         resourceId: item.emp_ID,
         title: item.attend_TYPE_NAME,
         bgColor: "#DC143C",

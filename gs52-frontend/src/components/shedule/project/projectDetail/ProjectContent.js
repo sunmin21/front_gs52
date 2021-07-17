@@ -66,7 +66,7 @@ const ProjectContent = () => {
         리더: projectWith.project_WITH_LEADER,
         수락: projectWith.project_WITH_OKAY,
         색깔: projectWith.project_WITH_COLOR,
-        거절사유: projectWith.project_WITH_REJECT,
+        반려사유: projectWith.project_WITH_REJECT,
       },
     ],
     추가할참여원: [],
@@ -100,7 +100,7 @@ const ProjectContent = () => {
         리더: item.project_WITH_LEADER,
         수락: item.project_WITH_OKAY,
         색깔: item.project_WITH_COLOR,
-        거절사유: item.project_WITH_REJECT,
+        반려사유: item.project_WITH_REJECT,
       })),
 
       내용: projectContent.project_CONTENT,
@@ -452,7 +452,7 @@ const ProjectContent = () => {
                                   part.수락 === 2
                                     ? message.info({
                                         content:
-                                          "거절 사유 : \n" + part.거절사유,
+                                          "반려 사유 : \n" + part.반려사유,
                                         className: "custom-class",
                                         duration: 1,
                                         maxCount: 1,
@@ -533,7 +533,7 @@ const ProjectContent = () => {
                                   part.수락 === 2
                                     ? message.info({
                                         content:
-                                          "거절 사유 : \n" + part.거절사유,
+                                          "반려 사유 : \n" + part.반려사유,
                                         className: "custom-class",
                                         duration: 1,
                                         maxCount: 1,

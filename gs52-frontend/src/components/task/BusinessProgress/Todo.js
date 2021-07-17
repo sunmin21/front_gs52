@@ -24,13 +24,18 @@ const getBadge = (status) => {
       return "secondary";
     case "대기중":
       return "warning";
-    case "거절":
+    case "반려":
       return "danger";
     default:
       return "primary";
   }
 };
-const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
+const Todo = ({
+  content,
+
+  userid,
+  checkTodo,
+}) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 
@@ -42,14 +47,18 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
   };
   const dispatch = useDispatch();
   useEffect(() => {
-    currentPage !== page && setPage(currentPage);
+    currentPage !== page && setPage(0);
   }, [currentPage, page]);
   const Done = {
     0: "대기중",
-    1: "거절",
+    1: "반려",
     2: "완료",
   };
+  useEffect(() => {
+    setPage(1);
+  }, [checkTodo]);
   console.log(content);
+
   return (
     <CRow>
       <CCol xl={12}>
@@ -77,7 +86,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                   _style: { width: "10%", textAlign: "center" },
                 },
                 {
-                  key: "거절",
+                  key: "반려",
                   _style: { width: "10%", textAlign: "center" },
                 },
               ]}
@@ -131,7 +140,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                         await doneInsert([
                           userid,
                           parseInt(item.todo_INDEX),
-                          1,
+                          2,
                         ]);
 
                         await dispatch(todoAxios(userid));
@@ -147,7 +156,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                     </Button>
                   </td>
                 ),
-                거절: (item) => (
+                반려: (item) => (
                   <td>
                     <Button
                       block
@@ -156,7 +165,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                         await doneInsert([
                           userid,
                           parseInt(item.todo_INDEX),
-                          2,
+                          1,
                         ]);
 
                         await dispatch(todoAxios(userid));
@@ -169,7 +178,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
                       name={1}
                       danger
                     >
-                      거절
+                      반려 {content.length / 10 + 1}
                     </Button>
                   </td>
                 ),
@@ -178,7 +187,7 @@ const Todo = ({ content, pageCount, success, remove, reject, userid }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={content.length / 10 + 1}
+              pages={Math.floor(content.length / 10 + 1)}
               doubleArrows={false}
               align="center"
             />
