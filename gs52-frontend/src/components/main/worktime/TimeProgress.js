@@ -69,6 +69,7 @@ export function TimeProgress() {
         for (let i = 0; i < item.data.length; i++) {
           a = a + item.data[i].attend_TOTAL;
           setUser_52(a);
+          console.log(a)
         }
       }
     );
@@ -141,13 +142,16 @@ export function TimeProgress() {
         이번 주 예정근무시간 {parseInt(work_regular/1)}시간 {parseInt((work_regular % 1)*60)}분
       </h4>
       <h4>
+        {console.log("user_52")}
+        {console.log(user_52)}
         이번 주 근무시간 {parseInt(user_52 / 60)}시간 {user_52 % 60}분
       </h4>
       {/*{console.log("user_52/minute_52")}
         {console.log(user_52)}
     {console.log(user_52/minute_52*100)}*/}
       <CProgress
-        value={(user_52 / work_regular) * 100}
+        value={(user_52 / (work_regular*60))*100}
+        showPercentage
         className="mb-3"
         style={{ marginTop: "20px" }}
       />
