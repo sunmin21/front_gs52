@@ -48,7 +48,7 @@ function ShowProject() {
           </h4>
         </div>
 
-        <CCard>
+        <CCard style={{ marginTop: "30px" }}>
           <CCardBody>
             <CTabs>
               <CNav variant="tabs">

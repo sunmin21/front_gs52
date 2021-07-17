@@ -80,7 +80,7 @@ function MyCalendar() {
     return {
       title: item2.conf_TITLE,
       start: item2.conf_DATE,
-      color: "purple",
+      color: "#a45cf7",
     };
   });
 
@@ -88,7 +88,7 @@ function MyCalendar() {
     return {
       title: item3.conf_TITLE,
       start: item3.conf_DATE,
-      color: "purple",
+      color: "#a45cf7",
     };
   });
 
@@ -96,7 +96,7 @@ function MyCalendar() {
     return {
       title: item4.holiday_TITLE,
       start: item4.holiday_DATE,
-      color: "red",
+      color: "#ff4747",
     };
   });
 
@@ -109,7 +109,7 @@ function MyCalendar() {
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
             eventSources={[data, data2, data3, data4, holidaydata]}
-            eventColor="red"
+            eventColor="#ff4747"
             eventTextColor="white"
             eventDisplay="title"
           />

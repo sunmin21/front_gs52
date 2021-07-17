@@ -23,12 +23,22 @@ export function TimeProgress() {
   const dispatch = useDispatch();
   const [minute_52, setMinute_52] = useState(52 * 60);
   const [user_52, setUser_52] = useState(0);
+  const [work_regular, setWork_regular] = useState(40);
+
+
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [breakTime, setBreakTime] = useState(null);
 
+  // 7:연차, 8:오전반차, 9:오후반차
+  const [dayoff, setDayoff] = useState(0)
+  const [halfday_AM, setHalfday_AM] = useState(0)
+  const [halfday_PM, setHalfday_PM] = useState(0)
+
   const [week, setWeek] = useState(null);
   const render = useSelector((state) => state.main.render);
+
+
   console.log(render);
   useEffect(async () => {
     await SelectWorkCheck(user.index, moment().format("YYYY-MM-DD")).then(
@@ -65,8 +75,22 @@ export function TimeProgress() {
 
     await SelectVacation(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
-        console.log("SelectVacation");
-        console.log(item);
+        for (let i = 0; i < item.data.length; i++) {
+            if("7" == item.data[i].attend_ATTEND_TYPE_INDEX){
+                setWork_regular(work_regular-item.data[i].attend_TYPE_COUNT*8)
+                setDayoff(item.data[i].attend_TYPE_COUNT)
+            }
+            else if("8" == item.data[i].attend_ATTEND_TYPE_INDEX){
+                
+                setWork_regular(work_regular-item.data[i].attend_TYPE_COUNT*3.5)
+                setHalfday_AM(item.data[i].attend_TYPE_COUNT)
+            }
+            else if("9" == item.data[i].attend_ATTEND_TYPE_INDEX){
+                setWork_regular(work_regular-item.data[i].attend_TYPE_COUNT*4.5)
+                setHalfday_PM(item.data[i].attend_TYPE_COUNT)
+            }
+        }
+        
       }
     );
   }, [render]);
@@ -109,10 +133,12 @@ export function TimeProgress() {
     );
   };
 
+
   return (
     <div style={{ align: "center" }}>
+        
       <h4>
-        이번 주 예정근무시간 {parseInt(user_52 / 60)}시간 {user_52 % 60}분
+        이번 주 예정근무시간 {parseInt(work_regular/1)}시간 {parseInt((work_regular % 1)*60)}분
       </h4>
       <h4>
         이번 주 근무시간 {parseInt(user_52 / 60)}시간 {user_52 % 60}분
@@ -121,7 +147,7 @@ export function TimeProgress() {
         {console.log(user_52)}
     {console.log(user_52/minute_52*100)}*/}
       <CProgress
-        value={(user_52 / minute_52) * 100}
+        value={(user_52 / work_regular) * 100}
         className="mb-3"
         style={{ marginTop: "20px" }}
       />
