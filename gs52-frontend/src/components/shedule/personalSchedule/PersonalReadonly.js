@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -32,7 +32,7 @@ schedulerData.localeMoment.locale("en");
 
 const Readonly = withDragDropContext((props) => {
   //treevalue값 까지 받아와짐
-
+  var keyvalue = 0;
   ////////////////////////////팀, 직원 목록
   const empList = props.emp
     .filter(
@@ -71,10 +71,10 @@ const Readonly = withDragDropContext((props) => {
 
     startdate.setDate(startdate.getDate() + 1);
     starttime.setHours(starttime.getHours() + 1);
-
+    keyvalue = keyvalue + 1;
     if (item.attend_TYPE_NAME == "연차") {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE,
         end: moment(startdate).format("YYYY-MM-DD"),
         resourceId: item.emp_ID,
@@ -83,7 +83,7 @@ const Readonly = withDragDropContext((props) => {
       };
     } else if (item.attend_TYPE_NAME.includes("오전반차")) {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE + " 09:00",
         end: item.attend_DATE + " 13:00",
         resourceId: item.emp_ID,
@@ -92,7 +92,7 @@ const Readonly = withDragDropContext((props) => {
       };
     } else if (item.attend_TYPE_NAME.includes("오후반차")) {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE + " 14:00",
         end: item.attend_DATE + " 19:00",
         resourceId: item.emp_ID,
@@ -101,7 +101,7 @@ const Readonly = withDragDropContext((props) => {
       };
     } else if (item.attend_TYPE_NAME == "출장") {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE,
         end: moment(startdate).format("YYYY-MM-DD"),
         resourceId: item.emp_ID,
@@ -110,7 +110,7 @@ const Readonly = withDragDropContext((props) => {
       };
     } else if (item.attend_TYPE_NAME == "외근") {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE,
         end: moment(startdate).format("YYYY-MM-DD"),
         resourceId: item.emp_ID,
@@ -119,7 +119,7 @@ const Readonly = withDragDropContext((props) => {
       };
     } else if (item.attend_TYPE_NAME == "지각") {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE + " 09:00",
         end: item.attend_DATE + " " + item.attend_START,
         resourceId: item.emp_ID,
@@ -128,7 +128,7 @@ const Readonly = withDragDropContext((props) => {
       };
     } else if (item.attend_TYPE_NAME == "출근") {
       return {
-        id: item.attend_INDEX,
+        id: keyvalue, //item.attend_INDEX,
         start: item.attend_DATE + " " + item.attend_START,
         end: item.attend_DATE + moment(starttime).format(" HH:mm"),
         resourceId: item.emp_ID,
@@ -147,10 +147,10 @@ const Readonly = withDragDropContext((props) => {
       var endtime = new Date(item.attend_DATE + " " + item.attend_END);
 
       endtime.setHours(endtime.getHours() - 1);
-
+      keyvalue = keyvalue + 1;
       if (item.attend_TYPE_NAME == "지각") {
         return {
-          id: item.attend_INDEX,
+          id: keyvalue, //item.attend_INDEX,
           start: item.attend_DATE + moment(endtime).format(" HH:mm"),
           end: item.attend_DATE + " " + item.attend_END,
           resourceId: item.emp_ID,
@@ -159,7 +159,7 @@ const Readonly = withDragDropContext((props) => {
         };
       } else if (item.attend_TYPE_NAME == "출근") {
         return {
-          id: item.attend_INDEX,
+          id: keyvalue, //item.attend_INDEX,
           start: item.attend_DATE + moment(endtime).format(" HH:mm"),
           end: item.attend_DATE + " " + item.attend_END,
           resourceId: item.emp_ID,
@@ -171,14 +171,17 @@ const Readonly = withDragDropContext((props) => {
 
   ///직원 별 회의실 목록
 
-  const confPerson = props.person.map((item) => ({
-    id: item.conf_RE_INDEX,
-    start: item.conf_DATE + " " + item.conf_START,
-    end: item.conf_DATE + " " + item.conf_END,
-    resourceId: item.emp_ID,
-    title: item.conf_TITLE,
-    room: item.conf_ROOM_NUMBER + "호",
-  }));
+  const confPerson = props.person.map((item) => {
+    keyvalue = keyvalue + 1;
+    return {
+      id: keyvalue, //item.attend_INDEX,
+      start: item.conf_DATE + " " + item.conf_START,
+      end: item.conf_DATE + " " + item.conf_END,
+      resourceId: item.emp_ID,
+      title: item.conf_TITLE,
+      room: item.conf_ROOM_NUMBER + "호",
+    };
+  });
 
   //직원, 팀 부서 리스트
   const List = teamList.concat(empList);
