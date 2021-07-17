@@ -93,12 +93,12 @@ export function Login() {
           <CCol md="8">
             <CCardGroup>
               <CCard className="p-4">
-                <CCardBody>
-                <CIcon
-                  style={{textAlign:"center", margin:"10px 0px 30px 15px"}}
+                <CCardBody style={{textAlign:"center"}}>
+                  <CIcon
+                    style={{marginBottom:"30px"}}
                   src="logo/LoginLogo.png"
                   name="logo-negative"
-                  height={220} />
+                  height={180} />
                   <CForm>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
