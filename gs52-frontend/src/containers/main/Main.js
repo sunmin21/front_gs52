@@ -41,9 +41,7 @@ const Main = () => {
                     <TimeProgress />
                   </CCol>
                   <CCol sm="4">
-                    {near === null && (
-                      <AnnualCard empvacation={empvacation} near={near} />
-                    )}
+                    <AnnualCard empvacation={empvacation} near={near} />
                   </CCol>
                 </CRow>
               </CCardBody>
