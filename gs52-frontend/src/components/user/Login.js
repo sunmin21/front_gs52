@@ -84,13 +84,22 @@ export function Login() {
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
+      
       <CContainer>
+        
         <CRow className="justify-content-center">
+          
+
           <CCol md="8">
             <CCardGroup>
               <CCard className="p-4">
-
                 <CCardBody>
+                <CIcon
+                  style={{textAlign:"center"}}
+                  src="logo/LoginLogo.png"
+                  name="logo-negative"
+                  height={150}
+                /><br/>
                   <CForm>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
@@ -125,19 +134,16 @@ export function Login() {
 
 
                     <CRow>
-                      <CCol xs="6">
+                      <CCol xs="10"></CCol>
+                      <CCol xs="1">
                         <CButton
                           color="primary"
                           className="px-4"
                           onClick={onLogin}
+                          style={{Align:"center"}}
                         >
                           Login
                         </CButton>
-                      </CCol>
-                      <CCol xs="6" className="text-right">
-                        {/* <CButton color="link" className="px-0">
-                          Forgot password?
-                        </CButton> */}
                       </CCol>
                     </CRow>
                   </CForm>
