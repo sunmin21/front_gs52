@@ -136,7 +136,7 @@ export function Login() {
                       <CCol>
                         <div style={{textAlign:"right"}}>
                           <CButton
-                          color="primary"
+                          color="info"
                           className="px-4"
                           onClick={onLogin}
                         >
