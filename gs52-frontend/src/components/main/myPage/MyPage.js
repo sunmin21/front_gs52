@@ -88,10 +88,6 @@ export function MyPage() {
   	return (
 		<div>
 		    <CCard>
-                <CCardHeader>
-                  마이페이지
-                </CCardHeader>
-
                 <CCardBody>
 
                 {/* <CFormGroup row>

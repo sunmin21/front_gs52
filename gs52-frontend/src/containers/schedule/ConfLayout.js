@@ -22,7 +22,14 @@ import {
   } from '@coreui/react';
 
 
-
+  const contentStyle = {
+    backgroundColor: "#3e4b54",
+    width: "400px",
+    textAlign: "center",
+    boxShadow: "5px 5px 5px gray",
+    padding: "8px",
+    borderRadius: "50px",
+};
 
 const ConfLayout = () => {
     
@@ -44,12 +51,12 @@ const ConfLayout = () => {
     return (
         <div>
             {console.log("LAYOUTTTTTTTTTTTTT")}
-        <CCard>
             
-            <CCardHeader>
-                <big>회의실 예약</big>  
-                
-            </CCardHeader>
+        <div style={contentStyle}>
+            <h4 style={{ color: "white", marginTop: "5px" }}>
+                   회의실 예약
+            </h4>
+        </div><br/>
                 
             <CCardBody>
             <ConfButton style={{ textAlign: "right", margin:"auto"}}></ConfButton> 
@@ -73,8 +80,6 @@ const ConfLayout = () => {
                 : null
             }
             </CCardBody>
-        </CCard>
-            
         </div>
     );
 }

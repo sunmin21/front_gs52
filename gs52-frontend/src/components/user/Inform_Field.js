@@ -158,9 +158,6 @@ export function InformField() {
     return (
         <div>
             <CCard>
-                <CCardHeader>
-                    회원정보입력
-                </CCardHeader>
                 <CCardBody>
 
                 <CFormGroup row>
