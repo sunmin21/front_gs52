@@ -95,11 +95,10 @@ export function Login() {
               <CCard className="p-4">
                 <CCardBody>
                 <CIcon
-                  style={{textAlign:"center"}}
+                  style={{textAlign:"center", margin:"10px 0px 30px 15px"}}
                   src="logo/LoginLogo.png"
                   name="logo-negative"
-                  height={150}
-                /><br/>
+                  height={220} />
                   <CForm>
                     <CInputGroup className="mb-3">
                       <CInputGroupPrepend>
@@ -134,16 +133,17 @@ export function Login() {
 
 
                     <CRow>
-                      <CCol xs="10"></CCol>
-                      <CCol xs="1">
-                        <CButton
+                      <CCol>
+                        <div style={{textAlign:"right"}}>
+                          <CButton
                           color="primary"
                           className="px-4"
                           onClick={onLogin}
-                          style={{Align:"center"}}
                         >
                           Login
                         </CButton>
+                        </div>
+                        
                       </CCol>
                     </CRow>
                   </CForm>
