@@ -52,7 +52,7 @@ const BusinessProgress = () => {
 
   const Done = {
     0: "대기중",
-    1: "거절",
+    1: "반려",
     2: "완료",
   };
   useEffect(() => {
@@ -169,6 +169,9 @@ const BusinessProgress = () => {
     borderRadius: "50px",
     marginBottom: "30px",
   };
+  const [checkTodo, setCheckTodo] = useState(false);
+  const [checkSend, setCheckSend] = useState(false);
+  const [checkSuccess, setCheckSuccess] = useState(false);
   if (todo !== null) {
     return (
       <>
@@ -181,13 +184,37 @@ const BusinessProgress = () => {
               <CTabs>
                 <CNav variant="tabs">
                   <CNavItem>
-                    <CNavLink>할 일</CNavLink>
+                    <CNavLink
+                      onClick={() => {
+                        setCheckTodo(true);
+                        setCheckSend(false);
+                        setCheckSuccess(false);
+                      }}
+                    >
+                      할 일
+                    </CNavLink>
                   </CNavItem>
                   <CNavItem>
-                    <CNavLink>보낸 요청</CNavLink>
+                    <CNavLink
+                      onClick={() => {
+                        setCheckTodo(false);
+                        setCheckSend(true);
+                        setCheckSuccess(false);
+                      }}
+                    >
+                      보낸 요청
+                    </CNavLink>
                   </CNavItem>
                   <CNavItem>
-                    <CNavLink>완료한 요청</CNavLink>
+                    <CNavLink
+                      onClick={() => {
+                        setCheckTodo(false);
+                        setCheckSend(false);
+                        setCheckSuccess(true);
+                      }}
+                    >
+                      완료한 요청
+                    </CNavLink>
                   </CNavItem>
                 </CNav>
                 <CTabContent>
@@ -199,6 +226,7 @@ const BusinessProgress = () => {
                       reject={todoReject}
                       remove={todoRemove}
                       userid={todo_EMP_ID_RECEIVCE.current}
+                      checkTodo={checkTodo}
                     ></Todo>
                   </CTabPane>
                   <CTabPane>
@@ -207,12 +235,14 @@ const BusinessProgress = () => {
                       pageCount={Math.floor(sendCount)}
                       setSendContents={setSendContents}
                       user={user}
+                      checkSend={checkSend}
                     ></Send>
                   </CTabPane>
                   <CTabPane>
                     <Success
                       content={success}
                       pageCount={Math.floor(successCount)}
+                      checkSuccess={checkSuccess}
                     />
                   </CTabPane>
                 </CTabContent>

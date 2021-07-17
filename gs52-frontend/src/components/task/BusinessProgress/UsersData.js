@@ -26,7 +26,7 @@ const usersData = [
     이름: "Chetan Mohamed",
     요청날짜: "2018/02/01",
     내용: "Admin",
-    상태: "거절",
+    상태: "반려",
   },
   {
     id: 4,

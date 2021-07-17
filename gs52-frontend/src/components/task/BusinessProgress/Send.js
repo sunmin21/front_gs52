@@ -21,13 +21,13 @@ const getBadge = (status) => {
       return "secondary";
     case "대기중":
       return "warning";
-    case "거절":
+    case "반려":
       return "error";
     default:
       return "primary";
   }
 };
-const Send = ({ content }) => {
+const Send = ({ content, checkSend }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
 
@@ -41,9 +41,13 @@ const Send = ({ content }) => {
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [checkSend]);
   const Done = {
     0: "대기중",
-    1: "거절",
+    1: "반려",
     2: "완료",
   };
 
@@ -141,7 +145,7 @@ const Send = ({ content }) => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={content.length / 10 + 1}
+              pages={Math.floor(content.length / 10 + 1)}
               doubleArrows={false}
               align="center"
             />
