@@ -164,15 +164,14 @@ table.scheduler-table tr:last-child td {
   text-overflow: clip;
   white-space: nowrap;
   color: #fff;
-  padding-right: 20px !important;
+  padding-right: 10px !important;
   text-align: center;
 }
 
 .overflow-text {
   overflow: hidden;
-  text-overflow: clip;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  padding-right: 5px !important;
 }
 
 .status-dot {
