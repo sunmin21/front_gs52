@@ -14,7 +14,7 @@ const annualCard = (props) => {
               </h2>
               <h5>다음 휴가</h5>
               <h2 style={{ textAlign: "center" }}>
-                {props.near[0].attend_DATE}
+                {props.near[0].vacation_DATE}
               </h2>
             </CCol>
           ) : props.empvacation.length !== 0 && props.near.length == 0 ? (
