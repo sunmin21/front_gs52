@@ -3,6 +3,17 @@ import AccountField from "../../../components/manager/account/Account_Regist"
 import Search from "../../../components/task/BusinessProgress/Search"
 
 import {logout, getCurrentUser} from "../../../lib/api/jwt/LoginAPI"
+
+const contentStyle = {
+  backgroundColor: "#3e4b54",
+  width: "400px",
+  textAlign: "center",
+  boxShadow: "5px 5px 5px gray",
+  padding: "8px",
+  borderRadius: "50px",
+};
+
+
 export function InformLayout(){
 
     useEffect(() => {
@@ -17,6 +28,12 @@ const onClick = () =>{
 }
       return(
         <div>
+             <div style={contentStyle}>
+                <h4 style={{ color: "white", marginTop: "5px" }}>
+                    계정 등록
+                </h4>
+            </div>
+                <br/>
             <Search></Search>
             <AccountField></AccountField>
         </div>

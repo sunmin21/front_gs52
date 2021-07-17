@@ -8,7 +8,7 @@ const NoticeCreate = React.lazy(() =>
   import("src/components/main/notice/CreateNotice")
 );
 const myPage = React.lazy(() =>
-  import("src/components/main/myPage/MyPage")
+  import("src/containers/main/myPage/MyPage")
 );
 const InformChange = React.lazy(() =>
   import("src/components/main/myPage/InformChange")
