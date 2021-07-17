@@ -18,7 +18,7 @@ import {
 } from "@coreui/react";
 import "antd/dist/antd.css";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-import { Delete_Conf } from "src/lib/api/conf/ConfAPI";
+// import { Delete_Conf } from "src/lib/api/conf/ConfAPI";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -29,7 +29,7 @@ const user = getCurrentUser();
 export function ConfDetail() {
   const dispatch = useDispatch();
   const { conf_modal2, conf_one } = useSelector((state) => {
-   console.log("state");
+    console.log("state");
     console.log(state);
     return {
       conf_modal2: state.conf_check.conf_modal2,
@@ -37,7 +37,7 @@ export function ConfDetail() {
     };
   });
   const conf_data = conf_one.map((item) => ({
-    conf_INDEX:item.conf_INDEX,
+    conf_INDEX: item.conf_INDEX,
     conf_TITLE: item.conf_TITLE,
     conf_DATE: item.conf_DATE,
     conf_START: item.conf_START,
@@ -56,12 +56,12 @@ export function ConfDetail() {
   const onCancle = (e) => {
     dispatch(modalCheck2());
   };
-  
-  const onDelete = async() =>{
-    console.log("onDelete")
-    console.log(conf_data[0].conf_index)
-    await Delete_Conf(conf_data[0].conf_index);
-  }
+
+  const onDelete = async () => {
+    console.log("onDelete");
+    console.log(conf_data[0].conf_index);
+    // await Delete_Conf(conf_data[0].conf_index);
+  };
 
   if (conf_data.length !== 0) {
     return (
