@@ -31,6 +31,7 @@ export function ConfRoom(props) {
 	  })
 	
 	const [pwd_message, setPwd_message] = useState(null);
+	const [pwd_Color, setPwd_Color] = useState(null);
 	const [pwd_check, setPwd_check] = useState(false);
 	const [pwd_regcheck, setPwd_regcheck] = useState(false);
 	const [pwd_reg, setPwd_reg] = useState(null);
@@ -44,7 +45,7 @@ export function ConfRoom(props) {
 	// 	setInputs(onlyNumber)
 	//   }
 		var regex_PW = /^.*(?=^.{6,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-		//특수문자, 문자, 숫자 포함 형태의 6~15자리 이내의 암호 정규식
+		//특수문자, 영문자, 숫자 포함 형태의 6~15자리 이내의 암호 정규식
 
 		
 	const onChange = (e) => {
@@ -79,14 +80,17 @@ export function ConfRoom(props) {
 				}
 				else if(e.target.value !== inputs.second_pwd){
 					setPwd_message('비밀번호가 일치하지 않습니다.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}			
 				else if(e.target.value === inputs.second_pwd){
 					setPwd_message('비밀번호가 일치합니다.')
+					setPwd_Color({ color: "blue" });
 					setPwd_check(true);
 				}
 				else if(e.target.value===''){
 					setPwd_message('비밀번호를 입력하세요.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}
 			}
@@ -97,14 +101,17 @@ export function ConfRoom(props) {
 				}
 				else if(e.target.value !== inputs.first_pwd){
 					setPwd_message('비밀번호가 일치하지 않습니다.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}			
 				else if(e.target.value === inputs.first_pwd){
 					setPwd_message('비밀번호가 일치합니다.')
+					setPwd_Color({ color: "blue" });
 					setPwd_check(true);
 				}
 				else if(e.target.value===''){
 					setPwd_message('비밀번호를 입력하세요.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}
 			}
@@ -156,7 +163,7 @@ export function ConfRoom(props) {
                     <CLabel htmlFor="pwd">기존 비밀번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="pwd" name="pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="pwd" 
+                    <CInput type="password" id="pwd" name="pwd" placeholder="영문자, 특수문자, 숫자 포함 6~15자리" autoComplete="pwd" 
 					onChange={onChange} value={pwd||''}/>
                   </CCol>
                 </CFormGroup>
@@ -166,8 +173,8 @@ export function ConfRoom(props) {
                     <CLabel htmlFor="first_pwd">새 비밀번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="first_pwd"
-					onChange={onChange} value={first_pwd||''}/>
+                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="영문자, 특수문자, 숫자 포함 6~15자리" autoComplete="first_pwd"
+					onChange={onChange} value={first_pwd||''}  style={{imemode:"inactive"}}/>
                   </CCol>
                 </CFormGroup>          
                 <CFormGroup row>
@@ -184,8 +191,8 @@ export function ConfRoom(props) {
                   <CCol md="3">
                   </CCol>
                   <CCol xs="12" md="9" >
-						{pwd_reg}<br/>
-						{pwd_message}
+				 		<div style={pwd_Color}>{pwd_message}</div>
+						<div style={{color:"red"}}>{pwd_reg}</div>
                   </CCol>
                 </CFormGroup>  
 				

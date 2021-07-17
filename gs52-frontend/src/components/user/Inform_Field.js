@@ -27,6 +27,7 @@ export function InformField() {
 	  })
 	
 	const [pwd_message, setPwd_message] = useState(null);
+	const [pwd_Color, setPwd_Color] = useState(null);
 	const [pwd_check, setPwd_check] = useState(false);
 	const [pwd_reg, setPwd_reg] = useState(null);
 	const [addr, setAddr] = useState("");
@@ -74,14 +75,17 @@ export function InformField() {
 				}
 				else if(e.target.value !== inputs.second_pwd){
 					setPwd_message('비밀번호가 일치하지 않습니다.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}			
 				else if(e.target.value === inputs.second_pwd){
 					setPwd_message('비밀번호가 일치합니다.')
+					setPwd_Color({ color: "blue" });
 					setPwd_check(true);
 				}
 				else if(e.target.value===''){
 					setPwd_message('비밀번호를 입력하세요.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}
 			}
@@ -92,14 +96,17 @@ export function InformField() {
 				}
 				else if(e.target.value !== inputs.first_pwd){
 					setPwd_message('비밀번호가 일치하지 않습니다.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}			
 				else if(e.target.value === inputs.first_pwd){
 					setPwd_message('비밀번호가 일치합니다.')
+					setPwd_Color({ color: "blue" });
 					setPwd_check(true);
 				}
 				else if(e.target.value===''){
 					setPwd_message('비밀번호를 입력하세요.')
+					setPwd_Color({ color: "red" });
 					setPwd_check(false);
 				}
 			}
@@ -165,7 +172,7 @@ export function InformField() {
                     <CLabel htmlFor="first_pwd">비밀번호</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="first_pwd" 
+                    <CInput type="password" id="first_pwd" name="first_pwd" placeholder="영문자, 특수문자, 숫자 포함 6~15자리" autoComplete="first_pwd" 
 					onChange={onChange} value={first_pwd||''} />
                   </CCol>
                 </CFormGroup>
@@ -175,7 +182,7 @@ export function InformField() {
                     <CLabel htmlFor="second_pwd">비밀번호 확인</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
-                    <CInput type="password" id="second_pwd" name="second_pwd" placeholder="특수문자, 문자, 숫자 포함 6~15자리" autoComplete="second_pwd"
+                    <CInput type="password" id="second_pwd" name="second_pwd" placeholder="영문자, 특수문자, 숫자 포함 6~15자리" autoComplete="second_pwd"
 					onChange={onChange} value={second_pwd||''}/>
                   </CCol>
                 </CFormGroup>               
@@ -184,8 +191,8 @@ export function InformField() {
                   <CCol md="3">
                   </CCol>
                   <CCol xs="12" md="9" >
-						{pwd_message}
-						{pwd_reg}
+						<div style={pwd_Color}>{pwd_message}</div>
+						<div style={{color:"red"}}>{pwd_reg}</div>
                   </CCol>
                 </CFormGroup>  
 				
