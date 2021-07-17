@@ -9,6 +9,7 @@ import { empvacationAxios, nearAxios } from "src/modules/annual/annual";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import TimeProgress from "src/components/main/worktime/TimeProgress";
 import Notice from "src/components/main/notice/Notice";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const Main = () => {
       near: state.annual.near,
     };
   });
-
+  console.log(near === null);
   return (
     <>
       <CContainer>
@@ -36,13 +37,13 @@ const Main = () => {
             <CCard accentColor="secondary">
               <CCardBody>
                 <CRow>
-                  <CCol sm="8" style={{marginTop:"20px"}}>
-                    <TimeProgress/>
+                  <CCol sm="8" style={{ marginTop: "20px" }}>
+                    <TimeProgress />
                   </CCol>
                   <CCol sm="4">
-                    <AnnualCard
-                      empvacation={empvacation}
-                      near={near} />
+                    {near === null && (
+                      <AnnualCard empvacation={empvacation} near={near} />
+                    )}
                   </CCol>
                 </CRow>
               </CCardBody>
@@ -51,7 +52,7 @@ const Main = () => {
         </CRow>
         <CRow>
           <CCol>
-            <Notice content={notice} /> 
+            <Notice content={notice} />
           </CCol>
           <CCol>
             <MyCalendar />
