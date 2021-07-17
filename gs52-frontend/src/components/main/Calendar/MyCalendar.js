@@ -26,11 +26,11 @@ function MyCalendar() {
     };
   });
 
-  const { mycalendar2 } = useSelector((state) => {
-    return {
-      mycalendar2: state.myCalendar.calendar2,
-    };
-  });
+  // const { mycalendar2 } = useSelector((state) => {
+  //   return {
+  //     mycalendar2: state.myCalendar.calendar2,
+  //   };
+  // });
 
   const { mycalendar3 } = useSelector((state) => {
     return {
@@ -76,13 +76,13 @@ function MyCalendar() {
     }
   });
 
-  const data2 = mycalendar2.map((item2) => {
-    return {
-      title: item2.conf_TITLE,
-      start: item2.conf_DATE,
-      color: "#a45cf7",
-    };
-  });
+  // const data2 = mycalendar2.map((item2) => {
+  //   return {
+  //     title: item2.conf_TITLE,
+  //     start: item2.conf_DATE,
+  //     color: "#a45cf7",
+  //   };
+  // });
 
   const data3 = mycalendar3.map((item3) => {
     return {
@@ -108,7 +108,7 @@ function MyCalendar() {
             contentHeight="385px"
             plugins={[daygridPlugin]}
             defaultView="dayGridMonth"
-            eventSources={[data, data2, data3, data4, holidaydata]}
+            eventSources={[data, data3, data4, holidaydata]}
             eventColor="#ff4747"
             eventTextColor="white"
             eventDisplay="title"
