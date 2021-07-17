@@ -96,7 +96,7 @@ const Send = ({ content }) => {
                 받은사람: (item) => {
                   return (
                     <td
-                      style={{ textAlign: "center" }}
+                      style={{ textAlign: "left" }}
                       // onClick={() =>
                       //   // history.push(`/task/schedule/SendContent/${item.id}`)
                       //   // setInfo(!info)
