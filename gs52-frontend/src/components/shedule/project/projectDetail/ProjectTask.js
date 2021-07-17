@@ -96,7 +96,7 @@ const ProjectTask = () => {
                   style={{
                     display: "table",
                     fontWeight: "bold",
-                    fontSize: "30px",
+                    fontSize: "20px",
                     textAlign: "center",
                   }}
                 >
@@ -267,7 +267,7 @@ const ProjectTask = () => {
                   style={{
                     display: "table",
                     fontWeight: "bold",
-                    fontSize: "30px",
+                    fontSize: "20px",
                     textAlign: "center",
                   }}
                 >

@@ -108,7 +108,7 @@ const ProjectInsite = () => {
                   style={{
                     display: "table",
                     fontWeight: "bold",
-                    fontSize: "30px",
+                    fontSize: "20px",
                     textAlign: "center",
                   }}
                 >
@@ -137,7 +137,7 @@ const ProjectInsite = () => {
                   style={{
                     display: "table",
                     fontWeight: "bold",
-                    fontSize: "30px",
+                    fontSize: "20px",
                     textAlign: "center",
                   }}
                 >
