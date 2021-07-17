@@ -92,7 +92,7 @@ const CreateTodo = ({ success, remove }) => {
           value={board}
           name={1}
         >
-          거절
+          반려
         </CButton>
       </CCard>
     </>
