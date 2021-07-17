@@ -18,16 +18,16 @@ import {
 } from "@coreui/react";
 import "antd/dist/antd.css";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-// import { Delete_Conf } from "src/lib/api/conf/ConfAPI";
+import { Delete_Conf } from "src/lib/api/conf/ConfAPI";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { modalCheck2 } from "src/modules/schedule/conf";
-
+import { modalCheck2, ConfAxios} from "src/modules/schedule/conf";
 const user = getCurrentUser();
-
 export function ConfDetail() {
   const dispatch = useDispatch();
+
+
   const { conf_modal2, conf_one } = useSelector((state) => {
     console.log("state");
     console.log(state);
@@ -49,18 +49,17 @@ export function ConfDetail() {
     emp_NAME: item.emp_NAME,
   }));
 
-  //등록 버튼 클릭 이벤트 함수
-  const onRegist = async () => {
-    dispatch(modalCheck2());
-  };
   const onCancle = (e) => {
     dispatch(modalCheck2());
   };
 
   const onDelete = async () => {
     console.log("onDelete");
-    console.log(conf_data[0].conf_index);
-    // await Delete_Conf(conf_data[0].conf_index);
+    console.log(conf_data[0].conf_INDEX);
+    await Delete_Conf(conf_data[0].conf_INDEX);
+    await dispatch(ConfAxios());
+    await dispatch(modalCheck2());
+    
   };
 
   if (conf_data.length !== 0) {

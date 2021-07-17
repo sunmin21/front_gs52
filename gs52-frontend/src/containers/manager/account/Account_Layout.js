@@ -34,8 +34,8 @@ const onClick = () =>{
                 </h4>
             </div>
                 <br/>
-            <Search></Search>
             <AccountField></AccountField>
+            <Search></Search>
         </div>
       );
 }
