@@ -93,7 +93,7 @@ function ShowCalendar() {
           plugins={[daygridPlugin]}
           eventSources={[data, holidaydata]}
           eventClick={eventOnClick}
-          eventColor="red"
+          eventColor="#ff4747"
           eventTextColor="white"
           eventDisplay="title"
         />
