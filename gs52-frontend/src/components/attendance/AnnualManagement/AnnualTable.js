@@ -61,7 +61,6 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
   const dispatch = useDispatch();
   const { annual, empvacation, holiday, attend, person } = useSelector(
     (state) => {
-      console.log(state);
       return {
         annual: state.annual.annual,
         holiday: state.holiday.holiday,
@@ -80,7 +79,6 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     dispatch(personAxios());
   }, [dispatch, vacation_EMP_INDEX.index]);
 
-  console.log(annual);
   const dateHandle = (e) => {
     setDate(e.target.value);
   };
@@ -146,8 +144,6 @@ const AnnualTables = ({ vacation_EMP_INDEX }) => {
     .concat(attendlist)
     .concat(personlist)
     .concat(holidaylist);
-
-  console.log(holidaydata);
 
   const eventHandle = (e) => {
     var moment = require("moment");
