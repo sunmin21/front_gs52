@@ -54,15 +54,13 @@ const PersonalScheduleManagement = () => {
       //String(item.emp_TEAM_INDEX);
       String(item.emp_TEAM_INDEX)
     );
-  //Promise 푸는거
-  const test = SelectAttend().then((item) => {});
 
-  useEffect(() => {
-    dispatch(teamAxios());
-    dispatch(empAxios());
-    dispatch(attendAxios());
-    dispatch(personAxios());
-    dispatch(leaderAxios());
+  useEffect(async () => {
+    await dispatch(teamAxios());
+    await dispatch(empAxios());
+    await dispatch(attendAxios());
+    await dispatch(personAxios());
+    await dispatch(leaderAxios());
   }, [dispatch]);
 
   const data = team.map((item) => ({
