@@ -30,6 +30,7 @@ const contentStyle = {
 const PersonalScheduleManagement = () => {
   const dispatch = useDispatch();
 
+  const render = useSelector((state) => state.main.render);
   const vacation_EMP_INDEX = getCurrentUser();
 
   // const test = SelectTeam();
@@ -57,13 +58,8 @@ const PersonalScheduleManagement = () => {
     );
 
   useEffect(() => {
-    // dispatch(teamAxios());
-    // dispatch(empAxios());
-    // dispatch(attendAxios());
     dispatch(allAxios());
-    // dispatch(personAxios());
-    // dispatch(leaderAxios());
-  }, []);
+  }, [render]);
 
   const data = team.map((item) => ({
     title: item.dept_NAME + " : " + item.team_NAME,
@@ -78,10 +74,7 @@ const PersonalScheduleManagement = () => {
         team: String(data.emp_TEAM_INDEX),
       })),
   }));
-  console.log("왕준수씨");
-  console.log(team);
-  console.log(emp);
-  console.log(attend);
+  console.log(render);
   return (
     <>
       <div style={contentStyle}>
