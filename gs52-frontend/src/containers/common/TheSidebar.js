@@ -16,12 +16,45 @@ import {
 import CIcon from "@coreui/icons-react";
 import Sidebar_Header from "../../components/main/sidebar/Sidebar_Header";
 import styled from "styled-components";
-
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const TheSidebar = ({ nav }) => {
+  const user = getCurrentUser();
+
   const dispatch = useDispatch();
   const show = useSelector((state) => state.changeState.sidebarShow);
+
+  const ROLE_ADMIN = [
+    "계정 등록",
+    "항목추가",
+    "연차/출장관리",
+    "프로젝트관리",
+    "휴일관리",
+    "인사이트",
+  ];
+  const ROLE_TEAMLEADER = ["연차/출장관리", "프로젝트관리"];
   console.log(nav);
-  console.log(nav.length !== 0 && nav[0]._children[0]);
+  if (nav.length !== 0 && nav[0]._children[0] === "관리자페이지") {
+    if (user.roles[0] === "ROLE_ADMIN") {
+      nav = nav.filter((item, key) => {
+        if (key === 0) {
+          return item;
+        }
+        if (key !== 0) {
+          return ROLE_ADMIN.includes(item.name);
+        }
+      });
+    } else if (user.roles[0] === "ROLE_TEAMLEADER") {
+      nav = nav.filter((item, key) => {
+        if (key === 0) {
+          return item;
+        }
+        if (key !== 0) {
+          return ROLE_TEAMLEADER.includes(item.name);
+        }
+      });
+    }
+  }
+  console.log(nav);
   const Hover = styled.div`
     a:hover {
       background-color: #4d5175 !important;

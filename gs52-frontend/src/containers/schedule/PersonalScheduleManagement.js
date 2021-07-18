@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
 import PersonalReadonly from "src/components/shedule/personalSchedule/PersonalReadonly";
 import {
+  allAxios,
   attendAxios,
   empAxios,
   teamAxios,
@@ -55,13 +56,14 @@ const PersonalScheduleManagement = () => {
       String(item.emp_TEAM_INDEX)
     );
 
-  useEffect(async () => {
-    await dispatch(teamAxios());
-    await dispatch(empAxios());
-    await dispatch(attendAxios());
-    await dispatch(personAxios());
-    await dispatch(leaderAxios());
-  }, [dispatch]);
+  useEffect(() => {
+    // dispatch(teamAxios());
+    // dispatch(empAxios());
+    // dispatch(attendAxios());
+    dispatch(allAxios());
+    // dispatch(personAxios());
+    // dispatch(leaderAxios());
+  }, []);
 
   const data = team.map((item) => ({
     title: item.dept_NAME + " : " + item.team_NAME,
@@ -76,7 +78,10 @@ const PersonalScheduleManagement = () => {
         team: String(data.emp_TEAM_INDEX),
       })),
   }));
-
+  console.log("왕준수씨");
+  console.log(team);
+  console.log(emp);
+  console.log(attend);
   return (
     <>
       <div style={contentStyle}>
