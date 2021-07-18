@@ -19,7 +19,8 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const CompleteManage = ({ content, team }) => {
+const CompleteManage = ({ content, team, index }) => {
+  var completeData;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -29,22 +30,36 @@ const CompleteManage = ({ content, team }) => {
     1: "완료",
     2: "반려",
   };
-  const completeData = content
-    .filter(
-      (item) =>
-        (item.vacation_STATUS == 1 || item.vacation_STATUS == 2) &&
-        item.emp_TEAM_INDEX == team
-    )
-    .map((item) => ({
-      emp_NAME: item.emp_NAME,
-      vacation_DATE: item.vacation_DATE,
-      vacation_CONTENTS: item.vacation_CONTENTS,
-      vacation_STATUS: item.vacation_STATUS,
-      vacation_EMP_INDEX: item.vacation_EMP_INDEX,
-      attend_TYPE_NAME: item.attend_TYPE_NAME,
-      emp_ID: item.emp_ID,
-    }));
 
+  if (index !== 1) {
+    completeData = content
+      .filter(
+        (item) =>
+          (item.vacation_STATUS == 1 || item.vacation_STATUS == 2) &&
+          item.emp_TEAM_INDEX == team
+      )
+      .map((item) => ({
+        emp_NAME: item.emp_NAME,
+        vacation_DATE: item.vacation_DATE,
+        vacation_CONTENTS: item.vacation_CONTENTS,
+        vacation_STATUS: item.vacation_STATUS,
+        vacation_EMP_INDEX: item.vacation_EMP_INDEX,
+        attend_TYPE_NAME: item.attend_TYPE_NAME,
+        emp_ID: item.emp_ID,
+      }));
+  } else {
+    completeData = content
+      .filter((item) => item.vacation_STATUS == 1 || item.vacation_STATUS == 2)
+      .map((item) => ({
+        emp_NAME: item.emp_NAME,
+        vacation_DATE: item.vacation_DATE,
+        vacation_CONTENTS: item.vacation_CONTENTS,
+        vacation_STATUS: item.vacation_STATUS,
+        vacation_EMP_INDEX: item.vacation_EMP_INDEX,
+        attend_TYPE_NAME: item.attend_TYPE_NAME,
+        emp_ID: item.emp_ID,
+      }));
+  }
   return (
     <CRow>
       <CCol xl={12}>
@@ -71,21 +86,13 @@ const CompleteManage = ({ content, team }) => {
           itemsPerPage={10}
           clickableRows
           pagination
-          // onRowClick={(item) =>
-          //   history.push(`/task/schedule/SendContent/${item.id}`)
-          // }
           scopedSlots={{
             보낸사람: (item) => {
               return <td>{item.emp_NAME}</td>;
             },
             내용: (item) => {
               return (
-                <td
-                  style={{ textAlign: "center" }}
-                  // onClick={() =>
-                  //   history.push(`/task/schedule/SendContent/${item.id}`)
-                  // }
-                >
+                <td style={{ textAlign: "center" }}>
                   {item.vacation_CONTENTS}
                 </td>
               );

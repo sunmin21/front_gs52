@@ -23,7 +23,8 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const AttendManage = ({ content, team }) => {
+const AttendManage = ({ content, team, index }) => {
+  var attendData = null;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -34,26 +35,50 @@ const AttendManage = ({ content, team }) => {
     2: "반려",
   };
 
-  const attendData = content
-    .filter(
-      (item) =>
-        (item.vacation_ATTEND_INFO_INDEX == 7 ||
-          item.vacation_ATTEND_INFO_INDEX == 8 ||
-          item.vacation_ATTEND_INFO_INDEX == 9) &&
-        item.vacation_STATUS == 0 &&
-        item.emp_TEAM_INDEX == team
-    )
-    .map((item) => ({
-      emp_NAME: item.emp_NAME,
-      vacation_DATE: item.vacation_DATE,
-      vacation_CONTENTS: item.vacation_CONTENTS,
-      vacation_STATUS: item.vacation_STATUS,
-      vacation_EMP_INDEX: item.vacation_EMP_INDEX,
-      attend_TYPE_NAME: item.attend_TYPE_NAME,
-      emp_ID: item.emp_ID,
-      vacation_INDEX: item.vacation_INDEX,
-      vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
-    }));
+  if (index !== 1) {
+    attendData = content
+      .filter(
+        (item) =>
+          (item.vacation_ATTEND_INFO_INDEX == 7 ||
+            item.vacation_ATTEND_INFO_INDEX == 8 ||
+            item.vacation_ATTEND_INFO_INDEX == 9) &&
+          item.vacation_STATUS == 0 &&
+          item.emp_TEAM_INDEX == team
+      )
+      .map((item) => ({
+        emp_NAME: item.emp_NAME,
+        vacation_DATE: item.vacation_DATE,
+        vacation_CONTENTS: item.vacation_CONTENTS,
+        vacation_STATUS: item.vacation_STATUS,
+        vacation_EMP_INDEX: item.vacation_EMP_INDEX,
+        attend_TYPE_NAME: item.attend_TYPE_NAME,
+        emp_ID: item.emp_ID,
+        vacation_INDEX: item.vacation_INDEX,
+        vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
+      }));
+  } else {
+    attendData = content
+      .filter(
+        (item) =>
+          (item.vacation_ATTEND_INFO_INDEX == 7 ||
+            item.vacation_ATTEND_INFO_INDEX == 8 ||
+            item.vacation_ATTEND_INFO_INDEX == 9) &&
+          item.vacation_STATUS == 0
+      )
+      .map((item) => ({
+        emp_NAME: item.emp_NAME,
+        vacation_DATE: item.vacation_DATE,
+        vacation_CONTENTS: item.vacation_CONTENTS,
+        vacation_STATUS: item.vacation_STATUS,
+        vacation_EMP_INDEX: item.vacation_EMP_INDEX,
+        attend_TYPE_NAME: item.attend_TYPE_NAME,
+        emp_ID: item.emp_ID,
+        vacation_INDEX: item.vacation_INDEX,
+        vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
+      }));
+  }
+
+  console.log(attendData);
 
   return (
     <CRow>

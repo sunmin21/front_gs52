@@ -28,7 +28,7 @@ const Main = () => {
       near: state.annual.near,
     };
   });
-  console.log(near === null);
+
   return (
     <>
       <CContainer>

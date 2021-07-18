@@ -68,18 +68,21 @@ const VacationManage = () => {
                     <AttendManage
                       content={vacation}
                       team={vacation_EMP_INDEX.team}
+                      index={vacation_EMP_INDEX.index}
                     ></AttendManage>
                   </CTabPane>
                   <CTabPane>
                     <BusinessManage
                       content={vacation}
                       team={vacation_EMP_INDEX.team}
+                      index={vacation_EMP_INDEX.index}
                     ></BusinessManage>
                   </CTabPane>
                   <CTabPane>
                     <CompleteManage
                       content={vacation}
                       team={vacation_EMP_INDEX.team}
+                      index={vacation_EMP_INDEX.index}
                     ></CompleteManage>
                   </CTabPane>
                 </CTabContent>
