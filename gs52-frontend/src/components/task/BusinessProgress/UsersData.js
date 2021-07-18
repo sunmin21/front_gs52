@@ -12,7 +12,7 @@ const usersData = [
     이름: "Samppa Nori",
     요청날짜: "2018/01/01",
     내용: "Member",
-    상태: "대기중",
+    상태: "대기",
   },
   {
     id: 2,

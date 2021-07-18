@@ -13,7 +13,7 @@ const getBadge = (status) => {
       return "success";
     case "Inactive":
       return "secondary";
-    case "대기중":
+    case "대기":
       return "warning";
     case "반려":
       return "error";
@@ -27,7 +27,7 @@ const BusinessManage = ({ content, team }) => {
     dispatch(vacationAxios());
   }, [dispatch]);
   const Done = {
-    0: "대기중",
+    0: "대기",
     1: "완료",
     2: "반려",
   };

@@ -22,7 +22,7 @@ const getBadge = (status) => {
       return "success";
     case "Inactive":
       return "secondary";
-    case "대기중":
+    case "대기":
       return "warning";
     case "반려":
       return "danger";
@@ -50,7 +50,7 @@ const Todo = ({
     currentPage !== page && setPage(0);
   }, [currentPage, page]);
   const Done = {
-    0: "대기중",
+    0: "대기",
     1: "반려",
     2: "완료",
   };
@@ -178,7 +178,7 @@ const Todo = ({
                       name={1}
                       danger
                     >
-                      반려 {content.length / 10 + 1}
+                      반려
                     </Button>
                   </td>
                 ),

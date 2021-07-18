@@ -51,7 +51,7 @@ const BusinessProgress = () => {
   }));
 
   const Done = {
-    0: "대기중",
+    0: "대기",
     1: "반려",
     2: "완료",
   };

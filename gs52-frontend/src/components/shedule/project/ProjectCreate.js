@@ -334,7 +334,7 @@ const ProjectCreate = () => {
                           color="dark"
                           key={key}
                           style={{
-                            background: "peru ",
+                            background: "yellow ",
                           }}
                           onClick={() => {
                             message.warning({

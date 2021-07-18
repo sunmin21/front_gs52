@@ -19,7 +19,7 @@ const getBadge = (status) => {
       return "success";
     case "Inactive":
       return "secondary";
-    case "대기중":
+    case "대기":
       return "warning";
     case "반려":
       return "error";
@@ -46,7 +46,7 @@ const Send = ({ content, checkSend }) => {
     setPage(1);
   }, [checkSend]);
   const Done = {
-    0: "대기중",
+    0: "대기",
     1: "반려",
     2: "완료",
   };

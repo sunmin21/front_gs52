@@ -192,7 +192,8 @@ const ProjectContent = () => {
   if (projectNo === 0) {
     return <Redirect to="/schedule/project" />;
   }
-
+  console.log(leader);
+  console.log(user.index);
   return (
     <>
       {" "}
@@ -409,7 +410,7 @@ const ProjectContent = () => {
                             }
                           }}
                           style={{
-                            background: "peru",
+                            background: "yellow",
                           }}
                           innerRef={withInput}
                           readOnly
