@@ -1,10 +1,7 @@
 import { call, put } from "redux-saga/effects";
-import { finishLoading, startLoading } from "../modules/loading/loading";
 
 export default function createRequestMultiSaga(type, request) {
   return function* (action) {
-    // console.log(type);
-
     let SUCCESS = `${type[0]}_SUCCESS`;
     let response = yield call(request[0], action.payload);
     yield put({
