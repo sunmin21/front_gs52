@@ -130,8 +130,17 @@ export function AccountField() {
   return (
     <div>
       <CCard>
-        <CCardHeader>계정 등록</CCardHeader>
         <CCardBody>
+          <CFormGroup row>
+            <CCol md="3">
+            </CCol>
+            <CCol xs="12" md="9">
+            <br/>* 유의사항<br/><p></p>
+              1. 초기 비밀번호는 사원번호로 설정됩니다.<br/>
+              2. 연차는 입사일로부터 만근기준으로 계산됩니다.<br/>
+            </CCol>
+          </CFormGroup> 
+
           <CFormGroup row>
             <CCol md="3">
               <CLabel htmlFor="num">사원번호</CLabel>
@@ -319,15 +328,6 @@ export function AccountField() {
             </CCol>
           </CFormGroup>
 
-          <CFormGroup row>
-            <CCol md="3">
-            </CCol>
-            <CCol xs="12" md="9">
-            <br/>* 유의사항<br/><p></p>
-              1. 초기 비밀번호는 사원번호로 설정됩니다.<br/>
-              2. 연차는 입사일로부터 만근기준으로 계산됩니다.
-            </CCol>
-          </CFormGroup>
         </CCardBody>
 
         <CCardFooter>
