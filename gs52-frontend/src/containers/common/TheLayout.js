@@ -14,11 +14,11 @@ const TheLayout = (props) => {
     (user.roles == "ROLE_ADMIN" || user.roles == "ROLE_TEAMLEADER")
   ) {
     import("../manager/sidebar_nav").then((nav) => setNav(nav.default));
+  } else if (location.pathname.includes("/task")) {
+    import("../task/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname.includes("/schedule")) {
     console.log("탓냐??");
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));
-  } else if (location.pathname.includes("/task")) {
-    import("../task/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname.includes("/attendance")) {
     import("../attendance/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname.includes("/")) {
