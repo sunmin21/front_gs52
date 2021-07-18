@@ -36,19 +36,25 @@ function WorkTime() {
           setWorkState("출근");
         } else {
           console.log("else");
-          if (item.data[0].attend_END != null) {
-            console.log("퇴근");
-            setWorkState("퇴근");
-          } else {
-            setWorkCheck(true);
+          if(item.data[0].attend_ATTEND_TYPE_INDEX=="7"){
+            setWorkState("연차")
+          }
+          else{
 
-            console.log(localStorage.getItem("breakIndex"));
-            if (localStorage.getItem("breakIndex") == null) {
-              console.log("localStorage.getItem(breakInde)")
-              console.log(localStorage.getItem("breakIndex"))
-              setWorkState("휴식");
+            if (item.data[0].attend_END != null) {
+              console.log("퇴근");
+              setWorkState("퇴근");
             } else {
-              setWorkState("휴식종료");
+              setWorkCheck(true);
+
+              console.log(localStorage.getItem("breakIndex"));
+              if (localStorage.getItem("breakIndex") == null) {
+                console.log("localStorage.getItem(breakInde)")
+                console.log(localStorage.getItem("breakIndex"))
+                setWorkState("휴식");
+              } else {
+                setWorkState("휴식종료");
+              }
             }
           }
         }
@@ -123,6 +129,10 @@ function WorkTime() {
       dispatch(progressRender());
       console.log("퇴근");
       alert("퇴근처리되어 더 이상 기록되지 않습니다.");
+    } 
+    else if(workState=="연차"){
+      setWorkState("연차")
+      alert("금일은 연차이므로 기록되지 않습니다.");
     }
   };
 

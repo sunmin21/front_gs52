@@ -70,6 +70,10 @@ export function TimeProgress() {
       }
     );
 
+  }, [render]);
+
+  useEffect(async()=>{
+
     await SelectVacation(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
         for (let i = 0; i < item.data.length; i++) {
@@ -90,7 +94,7 @@ export function TimeProgress() {
         
       }
     );
-  }, [render]);
+  },[])
 
   //return()=>setooooo    <- useEffect의 cleanup
   useEffect(() => {
@@ -111,16 +115,6 @@ export function TimeProgress() {
     minutes: date.getMinutes(),
     seconds: date.getSeconds()
   });
-
-
-  // useEffect(()=>{
-  //   timer = setInterval(() => {
-  //     setTime(moment());
-  //   }, 1000);
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // },[])
 
 
   const showStart = () => {
