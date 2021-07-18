@@ -191,7 +191,7 @@ const BusinessProgress = () => {
                         setCheckSuccess(false);
                       }}
                     >
-                      할 일
+                      받은 요청
                     </CNavLink>
                   </CNavItem>
                   <CNavItem>

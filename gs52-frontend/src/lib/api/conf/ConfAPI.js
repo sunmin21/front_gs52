@@ -88,6 +88,13 @@ export const Select_ConfOne = async (index) => {
   console.log(conf);
   return conf;
 };
+export const Delete_Conf = async (index) => {
+  const delete_conf = await client.post(
+    API_URL + "/schedule/confRoom/delete_conf",
+    { conf_INDEX: index }
+  );
+  console.log(delete_conf);
+};
 
 // post로 값넘기기
 

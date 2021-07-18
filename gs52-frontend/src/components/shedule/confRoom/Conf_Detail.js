@@ -22,11 +22,10 @@ import { Delete_Conf } from "src/lib/api/conf/ConfAPI";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { modalCheck2, ConfAxios} from "src/modules/schedule/conf";
+import { modalCheck2, ConfAxios } from "src/modules/schedule/conf";
 const user = getCurrentUser();
 export function ConfDetail() {
   const dispatch = useDispatch();
-
 
   const { conf_modal2, conf_one } = useSelector((state) => {
     console.log("state");
@@ -59,7 +58,6 @@ export function ConfDetail() {
     await Delete_Conf(conf_data[0].conf_INDEX);
     await dispatch(ConfAxios());
     await dispatch(modalCheck2());
-    
   };
 
   if (conf_data.length !== 0) {

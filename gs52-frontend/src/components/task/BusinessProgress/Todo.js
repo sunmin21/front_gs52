@@ -63,10 +63,6 @@ const Todo = ({
     <CRow>
       <CCol xl={12}>
         <CCard>
-          <CCardHeader>
-            TODO!
-            <small className="text-muted"> </small>
-          </CCardHeader>
           <CCardBody>
             <CDataTable
               items={content}

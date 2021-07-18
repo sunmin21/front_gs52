@@ -58,10 +58,6 @@ const Success = ({ content, checkSuccess }) => {
     <CRow>
       <CCol xl={12}>
         <CCard>
-          <CCardHeader>
-            Success!!
-            <small className="text-muted"> </small>
-          </CCardHeader>
           <CCardBody>
             <CDataTable
               items={content}

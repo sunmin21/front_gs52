@@ -55,25 +55,25 @@ const Send = ({ content, checkSend }) => {
     <CRow>
       <CCol xl={12}>
         <CCard>
-          <CCardHeader>
-            <div>
-              send!!
-              <CButton
-                active
-                block
-                color="dark"
-                aria-pressed="true"
-                style={{ textAlign: "center", width: "10%", float: "right" }}
-                onClick={() => {
-                  history.push("/task/schedule/create");
-                }}
-              >
-                요청하기
-              </CButton>
-            </div>
-          </CCardHeader>
           <CCardBody>
             {/* <Modal info={info} setInfo={setInfo}></Modal> */}
+            <CButton
+              active
+              block
+              color="dark"
+              aria-pressed="true"
+              style={{
+                textAlign: "center",
+                width: "10%",
+                float: "right",
+                marginBottom: "10px",
+              }}
+              onClick={() => {
+                history.push("/task/schedule/create");
+              }}
+            >
+              요청하기
+            </CButton>
             <CDataTable
               items={content}
               fields={[
