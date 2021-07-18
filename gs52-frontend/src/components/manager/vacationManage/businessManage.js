@@ -21,7 +21,8 @@ const getBadge = (status) => {
       return "primary";
   }
 };
-const BusinessManage = ({ content, team }) => {
+const BusinessManage = ({ content, team, index }) => {
+  var businessData = null;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(vacationAxios());
@@ -31,26 +32,47 @@ const BusinessManage = ({ content, team }) => {
     1: "완료",
     2: "반려",
   };
-  const businessData = content
-    .filter(
-      (item) =>
-        (item.vacation_ATTEND_INFO_INDEX == 5 ||
-          item.vacation_ATTEND_INFO_INDEX == 6) &&
-        item.vacation_STATUS == 0 &&
-        item.emp_TEAM_INDEX == team
-    )
-    .map((item) => ({
-      emp_NAME: item.emp_NAME,
-      vacation_DATE: item.vacation_DATE,
-      vacation_CONTENTS: item.vacation_CONTENTS,
-      vacation_STATUS: item.vacation_STATUS,
-      vacation_EMP_INDEX: item.vacation_EMP_INDEX,
-      attend_TYPE_NAME: item.attend_TYPE_NAME,
-      emp_ID: item.emp_ID,
-      vacation_INDEX: item.vacation_INDEX,
-      vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
-    }));
 
+  if (index !== 1) {
+    businessData = content
+      .filter(
+        (item) =>
+          (item.vacation_ATTEND_INFO_INDEX == 5 ||
+            item.vacation_ATTEND_INFO_INDEX == 6) &&
+          item.vacation_STATUS == 0 &&
+          item.emp_TEAM_INDEX == team
+      )
+      .map((item) => ({
+        emp_NAME: item.emp_NAME,
+        vacation_DATE: item.vacation_DATE,
+        vacation_CONTENTS: item.vacation_CONTENTS,
+        vacation_STATUS: item.vacation_STATUS,
+        vacation_EMP_INDEX: item.vacation_EMP_INDEX,
+        attend_TYPE_NAME: item.attend_TYPE_NAME,
+        emp_ID: item.emp_ID,
+        vacation_INDEX: item.vacation_INDEX,
+        vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
+      }));
+  } else {
+    businessData = content
+      .filter(
+        (item) =>
+          (item.vacation_ATTEND_INFO_INDEX == 5 ||
+            item.vacation_ATTEND_INFO_INDEX == 6) &&
+          item.vacation_STATUS == 0
+      )
+      .map((item) => ({
+        emp_NAME: item.emp_NAME,
+        vacation_DATE: item.vacation_DATE,
+        vacation_CONTENTS: item.vacation_CONTENTS,
+        vacation_STATUS: item.vacation_STATUS,
+        vacation_EMP_INDEX: item.vacation_EMP_INDEX,
+        attend_TYPE_NAME: item.attend_TYPE_NAME,
+        emp_ID: item.emp_ID,
+        vacation_INDEX: item.vacation_INDEX,
+        vacation_ATTEND_INFO_INDEX: item.vacation_ATTEND_INFO_INDEX,
+      }));
+  }
   return (
     <CRow>
       <CCol xl={12}>

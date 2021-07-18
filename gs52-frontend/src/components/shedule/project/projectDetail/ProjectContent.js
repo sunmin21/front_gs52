@@ -35,6 +35,7 @@ import Helpers from "./helpers";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { UpdateProject } from "src/lib/api/schedule/Project";
 import { message, Popconfirm } from "antd";
+import React from "react";
 
 const ProjectContent = () => {
   const user = getCurrentUser();
@@ -646,7 +647,7 @@ const ProjectContent = () => {
                         key={key}
                         onClick={() => {
                           Helpers.httpRequest(
-                            `http://localhost:3000${item.project_REACT_PATH}`,
+                            `http://192.168.20.17:3000${item.project_REACT_PATH}`,
                             "get"
                           )
                             .then((response) => response.blob())
@@ -735,4 +736,4 @@ const ProjectContent = () => {
   );
 };
 
-export default ProjectContent;
+export default React.memo(ProjectContent);

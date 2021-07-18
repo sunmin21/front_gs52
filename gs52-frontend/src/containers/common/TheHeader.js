@@ -20,7 +20,15 @@ import Admin from "../../route/AdminRoute";
 import { logout, getCurrentUser } from "../../lib/api/jwt/LoginAPI";
 import { EmpAxios } from "src/modules/main/mypage";
 import styled from "styled-components";
+const Style = styled.div`
+  font-size: 20px !important;
+  /* font-weight: bold !important; */
 
+  a:hover {
+    background-color: #4d5175 !important;
+    color: #ffffff !important;
+  }
+`;
 const TheHeader = () => {
   const history = useHistory();
 
@@ -59,15 +67,7 @@ const TheHeader = () => {
       : "responsive";
     dispatch({ type: "set", sidebarShow: val });
   };
-  const Style = styled.div`
-    font-size: 20px !important;
-    /* font-weight: bold !important; */
 
-    a:hover {
-      background-color: #4d5175 !important;
-      color: #ffffff !important;
-    }
-  `;
   return (
     <CHeader>
       <CToggler

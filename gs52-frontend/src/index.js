@@ -50,8 +50,7 @@ ReactDOM.render(
   <Provider store={stores}>
     <BrowserRouter>
       <Hover>
-        {" "}
-        <App />{" "}
+        <App />
       </Hover>
     </BrowserRouter>
   </Provider>,

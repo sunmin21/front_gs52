@@ -13,10 +13,6 @@ const loading = (
 
 function App() {
   return (
-    /*
-     *<Route {...parentProps}/>
-    <Route exact path="/users" ..../> 
-    */
     <HashRouter>
       <React.Suspense fallback={loading}>
         <Switch>

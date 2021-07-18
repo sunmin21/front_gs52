@@ -4,7 +4,8 @@ import createRequestSaga, {
 } from "../../lib/createRequestSaga";
 import * as API from "../../lib/api/attendance/MemberScheduleAPI";
 import { takeLatest } from "redux-saga/effects";
-
+import createRequestMultiSaga from "src/lib/createRequestMutil";
+import * as API2 from "../../lib/api/schedule/PersonalScheduleAPI";
 const [TEAM, TEAM_SUCCESS, TEAM_FAILURE] =
   createRequestActionTypes("annual/TEAM"); //타입유형
 const [EMP, EMP_SUCCESS, EMP_FAILURE] = createRequestActionTypes("annual/EMP"); //타입유형
@@ -12,10 +13,11 @@ const [ATTEND, ATTEND_SUCCESS, ATTEND_FAILURE] =
   createRequestActionTypes("annual/ATTEND"); //타입유형
 const TREEVALUE = "annual/VALUE";
 const SELECTALLLIST = "annual/SELECTALLLIST";
-
+const ALL = "annual/ALL";
 export const teamAxios = createAction(TEAM); //리덕스의 액션함수
 export const empAxios = createAction(EMP); //리덕스의 액션함수
 export const attendAxios = createAction(ATTEND); //리덕스의 액션함수
+export const allAxios = createAction(ALL);
 
 export const treeValue = createAction(TREEVALUE);
 export const selectAllList = createAction(SELECTALLLIST);
@@ -24,10 +26,21 @@ const teamSaga = createRequestSaga(TEAM, API.SelectTeam);
 const empSaga = createRequestSaga(EMP, API.SelectEmp);
 const attendSaga = createRequestSaga(ATTEND, API.SelectAttend);
 
+export const personscheduleAxios = createRequestMultiSaga(
+  [TEAM, EMP, ATTEND, "schedule/PERSON", "schedule/LEADER"],
+  [
+    API.SelectTeam,
+    API.SelectEmp,
+    API.SelectAttend,
+    API2.SelectConfPerson,
+    API2.SelectConfLeader,
+  ]
+);
 export function* memberScheduleSaga2() {
   yield takeLatest(TEAM, teamSaga);
   yield takeLatest(EMP, empSaga);
   yield takeLatest(ATTEND, attendSaga);
+  yield takeLatest(ALL, personscheduleAxios);
 }
 const initialState = {
   //초기값을 정의

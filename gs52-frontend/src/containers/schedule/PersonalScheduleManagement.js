@@ -4,17 +4,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
 import PersonalReadonly from "src/components/shedule/personalSchedule/PersonalReadonly";
-import {
-  attendAxios,
-  empAxios,
-  teamAxios,
-} from "src/modules/annual/memberSchedule";
-import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
+import { allAxios } from "src/modules/annual/memberSchedule";
 
-import {
-  leaderAxios,
-  personAxios,
-} from "src/modules/schedule/personSchedule/personSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const contentStyle = {
@@ -29,6 +20,7 @@ const contentStyle = {
 const PersonalScheduleManagement = () => {
   const dispatch = useDispatch();
 
+  const render = useSelector((state) => state.main.render);
   const vacation_EMP_INDEX = getCurrentUser();
 
   // const test = SelectTeam();
@@ -55,13 +47,9 @@ const PersonalScheduleManagement = () => {
       String(item.emp_TEAM_INDEX)
     );
 
-  useEffect(async () => {
-    await dispatch(teamAxios());
-    await dispatch(empAxios());
-    await dispatch(attendAxios());
-    await dispatch(personAxios());
-    await dispatch(leaderAxios());
-  }, [dispatch]);
+  useEffect(() => {
+    dispatch(allAxios());
+  }, [render]);
 
   const data = team.map((item) => ({
     title: item.dept_NAME + " : " + item.team_NAME,
@@ -76,7 +64,7 @@ const PersonalScheduleManagement = () => {
         team: String(data.emp_TEAM_INDEX),
       })),
   }));
-
+  console.log(render);
   return (
     <>
       <div style={contentStyle}>
