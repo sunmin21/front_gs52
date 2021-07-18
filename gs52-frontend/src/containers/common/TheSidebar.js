@@ -17,6 +17,12 @@ import CIcon from "@coreui/icons-react";
 import Sidebar_Header from "../../components/main/sidebar/Sidebar_Header";
 import styled from "styled-components";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+const Hover = styled.div`
+  a:hover {
+    background-color: #4d5175 !important;
+    color: #ffffff !important;
+  }
+`;
 const TheSidebar = ({ nav }) => {
   const user = getCurrentUser();
 
@@ -55,12 +61,7 @@ const TheSidebar = ({ nav }) => {
     }
   }
   console.log(nav);
-  const Hover = styled.div`
-    a:hover {
-      background-color: #4d5175 !important;
-      color: #ffffff !important;
-    }
-  `;
+
   return (
     <CSidebar
       style={{ boxShadow: "5px 5px 5px gray" }}
