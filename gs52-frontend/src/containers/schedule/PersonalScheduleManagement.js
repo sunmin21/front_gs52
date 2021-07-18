@@ -4,18 +4,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import MemberDropdown from "../../components/shedule/personalSchedule/MemberDropdown";
 import PersonalReadonly from "src/components/shedule/personalSchedule/PersonalReadonly";
-import {
-  allAxios,
-  attendAxios,
-  empAxios,
-  teamAxios,
-} from "src/modules/annual/memberSchedule";
-import { SelectAttend } from "src/lib/api/attendance/MemberScheduleAPI";
+import { allAxios } from "src/modules/annual/memberSchedule";
 
-import {
-  leaderAxios,
-  personAxios,
-} from "src/modules/schedule/personSchedule/personSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const contentStyle = {
