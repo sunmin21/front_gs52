@@ -58,6 +58,7 @@ export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("authenticatedUser");
   localStorage.removeItem("w_state");
+  localStorage.removeItem("breakIndex");
 };
 
 export const register = async ({

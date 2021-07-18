@@ -44,6 +44,8 @@ function WorkTime() {
 
             console.log(localStorage.getItem("breakIndex"));
             if (localStorage.getItem("breakIndex") == null) {
+              console.log("localStorage.getItem(breakInde)")
+              console.log(localStorage.getItem("breakIndex"))
               setWorkState("휴식");
             } else {
               setWorkState("휴식종료");

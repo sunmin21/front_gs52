@@ -17,11 +17,11 @@ import { SelectWorkCheck } from "src/lib/api/main/SideBar";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { progressRender } from "src/modules/main/main";
+import momentDurationFormatSetup from "moment-duration-format";
 
 export function TimeProgress() {
   const user = getCurrentUser();
   const dispatch = useDispatch();
-  const [minute_52, setMinute_52] = useState(52 * 60);
   const [user_52, setUser_52] = useState(0);
   const [work_regular, setWork_regular] = useState(40);
 
@@ -30,22 +30,19 @@ export function TimeProgress() {
   const [endTime, setEndTime] = useState(null);
   const [breakTime, setBreakTime] = useState(null);
 
-  // 7:연차, 8:오전반차, 9:오후반차
-  const [dayoff, setDayoff] = useState(0)
-  const [halfday_AM, setHalfday_AM] = useState(0)
-  const [halfday_PM, setHalfday_PM] = useState(0)
 
-  const [week, setWeek] = useState(null);
+  // 7:연차, 8:오전반차, 9:오후반차
+  // const [dayoff, setDayoff] = useState(0)
+  // const [halfday_AM, setHalfday_AM] = useState(0)
+  // const [halfday_PM, setHalfday_PM] = useState(0)
+  // const [week, setWeek] = useState(null);
+
   const render = useSelector((state) => state.main.render);
 
 
-  console.log(render);
   useEffect(async () => {
     await SelectWorkCheck(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
-        console.log("item");
-        console.log(item);
-        console.log(item.data != 0);
         if (item.data != 0) {
           if (item.data[0].attend_START != null) {
             setStartTime(item.data[0].attend_START);
@@ -69,7 +66,6 @@ export function TimeProgress() {
         for (let i = 0; i < item.data.length; i++) {
           a = a + item.data[i].attend_TOTAL;
           setUser_52(a);
-          console.log(a)
         }
       }
     );
@@ -79,16 +75,16 @@ export function TimeProgress() {
         for (let i = 0; i < item.data.length; i++) {
             if("7" == item.data[i].attend_ATTEND_TYPE_INDEX){
                 setWork_regular(work_regular-item.data[i].attend_TYPE_COUNT*8)
-                setDayoff(item.data[i].attend_TYPE_COUNT)
+                //setDayoff(item.data[i].attend_TYPE_COUNT)
             }
             else if("8" == item.data[i].attend_ATTEND_TYPE_INDEX){
                 
                 setWork_regular(work_regular-item.data[i].attend_TYPE_COUNT*3.5)
-                setHalfday_AM(item.data[i].attend_TYPE_COUNT)
+                //setHalfday_AM(item.data[i].attend_TYPE_COUNT)
             }
             else if("9" == item.data[i].attend_ATTEND_TYPE_INDEX){
                 setWork_regular(work_regular-item.data[i].attend_TYPE_COUNT*4.5)
-                setHalfday_PM(item.data[i].attend_TYPE_COUNT)
+                //setHalfday_PM(item.data[i].attend_TYPE_COUNT)
             }
         }
         
@@ -96,8 +92,46 @@ export function TimeProgress() {
     );
   }, [render]);
 
+  //return()=>setooooo    <- useEffect의 cleanup
+  useEffect(() => {
+    if(startTime!=null){
+    var str = startTime.split(":");
+      const date = new Date();
+     setDateTime({
+        hours: date.getHours()-str[0],
+        minutes: date.getMinutes()-str[1]
+      });
+
+  }
+    }, [startTime]);
+
+  const date = new Date();
+  const [dateTime, setDateTime] = useState({
+    hours: date.getHours(),
+    minutes: date.getMinutes(),
+    seconds: date.getSeconds()
+  });
+
+
+  // useEffect(()=>{
+  //   timer = setInterval(() => {
+  //     setTime(moment());
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // },[])
+
+
   const showStart = () => {
     var str = startTime.split(":");
+    setInterval(() => {
+      const date = new Date();
+      setDateTime({
+        hours: date.getHours()-str[0],
+        minutes: date.getMinutes()-str[1]
+      });
+    }, 1000*60);
     return (
       <div style={{ width: "100px", textAlign: "center" }}>
         금일 출근시간{" "}
@@ -137,18 +171,15 @@ export function TimeProgress() {
 
   return (
     <div style={{ align: "center" }}>
-        
       <h4>
         이번 주 예정근무시간 {parseInt(work_regular/1)}시간 {parseInt((work_regular % 1)*60)}분
+
       </h4>
       <h4>
-        {console.log("user_52")}
-        {console.log(user_52)}
         이번 주 근무시간 {parseInt(user_52 / 60)}시간 {user_52 % 60}분
+      </h4>      <h4>
+        오늘의 근무시간 {dateTime.hours}시간 {dateTime.minutes}분
       </h4>
-      {/*{console.log("user_52/minute_52")}
-        {console.log(user_52)}
-    {console.log(user_52/minute_52*100)}*/}
       <CProgress
         value={(user_52 / (work_regular*60))*100}
         showPercentage
@@ -159,7 +190,6 @@ export function TimeProgress() {
       <CRow>
         <CCol sm="3">{startTime != null ? showStart() : null}</CCol>
         <CCol sm="3">{endTime != null ? showEnd() : null}</CCol>
-
         <CCol sm="3">{breakTime != null ? showBreak() : null}</CCol>
       </CRow>
     </div>
