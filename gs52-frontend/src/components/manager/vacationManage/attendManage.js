@@ -78,8 +78,6 @@ const AttendManage = ({ content, team, index }) => {
       }));
   }
 
-  console.log(attendData);
-
   return (
     <CRow>
       <CCol xl={12}>

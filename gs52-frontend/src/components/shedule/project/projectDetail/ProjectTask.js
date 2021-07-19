@@ -32,6 +32,7 @@ import {
   UpdateProjecTaskDetailSuccess,
   UpdateProjectWithScore,
 } from "src/lib/api/schedule/Project";
+import React from "react";
 
 const ProjectTask = () => {
   const [visible, setVisible] = useState(false);
@@ -532,6 +533,8 @@ const ProjectTask = () => {
                                           key={"@#!$@!$!" + key + "!@4"}
                                           style={{ background: "red" }}
                                           onChange={async (e) => {
+                                            console.log(check[key]);
+
                                             if (check[key] === 1) {
                                               setCheck((con) => {
                                                 return con.map((c, ky) => {
@@ -655,4 +658,4 @@ const ProjectTask = () => {
   );
 };
 
-export default ProjectTask;
+export default React.memo(ProjectTask);

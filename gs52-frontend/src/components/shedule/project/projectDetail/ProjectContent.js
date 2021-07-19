@@ -33,7 +33,7 @@ import {
 } from "src/modules/schedule/project/project";
 import Helpers from "./helpers";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-import { UpdateProject } from "src/lib/api/schedule/Project";
+import { DeleteProject, UpdateProject } from "src/lib/api/schedule/Project";
 import { message, Popconfirm } from "antd";
 import React from "react";
 
@@ -218,6 +218,21 @@ const ProjectContent = () => {
                   }}
                 >
                   <CIcon name="cil-scrubber" /> 수정
+                </CButton>
+              )}
+            {!updateCheck &&
+              projectContent.project_OKAY === 0 &&
+              leader === user.index && (
+                <CButton
+                  size="sm"
+                  color="danger"
+                  style={{ float: "right" }}
+                  onClick={async () => {
+                    await DeleteProject(projectNo);
+                    history.goBack();
+                  }}
+                >
+                  <CIcon name="cil-scrubber" /> 삭제
                 </CButton>
               )}
             {updateCheck && (

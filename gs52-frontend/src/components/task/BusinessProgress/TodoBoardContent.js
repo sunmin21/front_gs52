@@ -15,6 +15,7 @@ import {
   CLabel,
   CTextarea,
 } from "@coreui/react";
+import React from "react";
 import { useRef } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -99,4 +100,4 @@ const CreateTodo = ({ success, remove }) => {
   );
 };
 
-export default CreateTodo;
+export default React.memo(CreateTodo);

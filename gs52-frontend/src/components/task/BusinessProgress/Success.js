@@ -10,6 +10,7 @@ import {
   CRow,
 } from "@coreui/react";
 import { Badge } from "antd";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import usersData from "./UsersData";
@@ -133,4 +134,4 @@ const Success = ({ content, checkSuccess }) => {
   );
 };
 
-export default Success;
+export default React.memo(Success);
