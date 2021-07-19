@@ -94,7 +94,7 @@ const Modal = ({
               setShow2(false);
             }}
           >
-            Close
+            닫기
           </CButton>
           <CButton
             color="primary"
