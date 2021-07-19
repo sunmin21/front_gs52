@@ -98,11 +98,14 @@ export function TimeProgress() {
   useEffect(() => {
     if(startTime!=null){
     var str = startTime.split(":");
-      const date = new Date();
-     setDateTime({
-        hours: date.getHours()-str[0],
-        minutes: date.getMinutes()-str[1]
-      });
+    const currentMinute = date.getHours()*60 + date.getMinutes();
+    const startMinute = parseInt(str[0])*60 + parseInt(str[1]);
+    const calculMinute = currentMinute-startMinute;
+
+    setDateTime({
+      hours: calculMinute/60,
+      minutes: calculMinute%60
+    });
 
   }
     }, [startTime]);
@@ -119,9 +122,13 @@ export function TimeProgress() {
     var str = startTime.split(":");
     setInterval(() => {
       const date = new Date();
+      const currentMinute = date.getHours()*60 + date.getMinutes();
+      const startMinute = parseInt(str[0])*60 + parseInt(str[1]);
+      const calculMinute = currentMinute-startMinute;
+
       setDateTime({
-        hours: date.getHours()-str[0],
-        minutes: date.getMinutes()-str[1]
+        hours: calculMinute/60,
+        minutes: calculMinute%60
       });
     }, 1000*60);
     return (
@@ -170,7 +177,7 @@ export function TimeProgress() {
       <h4>
         이번 주 근무시간 {parseInt(user_52 / 60)}시간 {user_52 % 60}분
       </h4>      <h4>
-        오늘의 근무시간 {dateTime.hours}시간 {dateTime.minutes}분
+        오늘의 근무시간 {Math.floor(dateTime.hours)}시간 {dateTime.minutes}분
       </h4>
       <CProgress
         value={(user_52 / (work_regular*60))*100}
