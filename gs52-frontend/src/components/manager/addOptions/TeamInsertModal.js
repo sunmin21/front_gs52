@@ -3,6 +3,7 @@ import {
   SelectCheckTeam,
 } from "src/lib/api/manager/addOptions/addOptions";
 import React, { useState } from "react";
+import { deptAxios } from "src/modules/manager/addOptions";
 const {
   CButton,
   CModal,
@@ -168,6 +169,7 @@ const DeptInsertModal = ({
                 }
                 await InsertTeam(content);
                 await dispatch(axios());
+                await dispatch(deptAxios());
                 setContent({
                   부서인덱스: 1,
                   팀이름: "",

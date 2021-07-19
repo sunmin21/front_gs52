@@ -193,6 +193,8 @@ const ProjectTaskTodoModal = ({
           <CButton
             color="primary"
             onClick={async () => {
+              console.log(content);
+              console.log(taskIndex);
               if (content.내용 === "") {
                 setCheck(true);
                 return;
@@ -202,10 +204,14 @@ const ProjectTaskTodoModal = ({
                 return;
               }
               if (taskIndex === undefined) {
+                console.log("여기타냐32");
                 await InsertProjecTask(content);
-                await dispatch(axios(projectNo));
+
+                console.log("여기타냐324");
               } else {
+                console.log("여기타냐5");
                 if (item.project_TASK_PERCENT !== content.진행도) {
+                  console.log("여기타냐5");
                   detail.map(async (item2) => {
                     if (item2.project_TASK_DETAIL_SUCCESS === 1) {
                       await UpdateProjectWithScore({
@@ -242,13 +248,13 @@ const ProjectTaskTodoModal = ({
                       });
                     }
                   });
-
-                  await UpdateProjecTask(content);
-                  await dispatch(projectWithAxios(projectNo));
-                  await dispatch(projectTodoAxios(projectNo));
-                  await dispatch(projectTodoDetailAxios(projectNo));
                 }
               }
+
+              await UpdateProjecTask(content);
+              await dispatch(projectWithAxios(projectNo));
+              await dispatch(projectTodoAxios(projectNo));
+              await dispatch(projectTodoDetailAxios(projectNo));
               setContent({
                 task인덱스: taskIndex,
                 인덱스: projectNo,

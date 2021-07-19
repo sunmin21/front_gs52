@@ -3,6 +3,7 @@ import {
   UpdateTeam,
 } from "src/lib/api/manager/addOptions/addOptions";
 import React, { useState } from "react";
+import { deptAxios } from "src/modules/manager/addOptions";
 const {
   CButton,
   CModal,
@@ -139,6 +140,7 @@ const Modal = ({
               if (content["teamname"] !== "" && content["teamname"] !== null) {
                 await UpdateTeam(content);
                 await dispatch(axios());
+                await dispatch(deptAxios());
                 setContent({
                   teamname: teamName,
                   work_RULE_INDEX: work_RULE_INDEX,
