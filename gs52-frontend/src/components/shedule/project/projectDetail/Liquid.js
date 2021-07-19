@@ -38,6 +38,7 @@ const LiquidInsite = ({ projectTodo, color }) => {
           var text =
             projectTodo.length !== 0 &&
             projectTodo.project_TASK_CONTENT.concat(
+              "  ",
               (percent * 100).toFixed(0),
               "%"
             );
@@ -59,4 +60,4 @@ const LiquidInsite = ({ projectTodo, color }) => {
   };
   return <Liquid {...config} />;
 };
-export default LiquidInsite;
+export default React.memo(LiquidInsite);

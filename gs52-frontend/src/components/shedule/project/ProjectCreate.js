@@ -26,6 +26,7 @@ import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { userList } from "src/lib/api/auth/auth";
 import { message, Button, Space, Popconfirm } from "antd";
+import React from "react";
 const ProjectCreate = () => {
   let user = getCurrentUser();
 
@@ -511,4 +512,4 @@ const ProjectCreate = () => {
   );
 };
 
-export default ProjectCreate;
+export default React.memo(ProjectCreate);

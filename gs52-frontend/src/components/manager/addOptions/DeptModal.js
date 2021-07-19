@@ -16,7 +16,7 @@ const {
   CFormGroup,
   CAlert,
 } = require("@coreui/react");
-const { useState } = require("react");
+const { useState, default: React } = require("react");
 
 const Modal = ({
   index,

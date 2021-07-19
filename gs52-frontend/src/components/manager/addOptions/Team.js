@@ -6,10 +6,14 @@ import {
   CCollapse,
   CDataTable,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteTeam } from "src/lib/api/manager/addOptions/addOptions";
-import { teamAxios, workRuleAxios } from "src/modules/manager/addOptions";
+import {
+  deptAxios,
+  teamAxios,
+  workRuleAxios,
+} from "src/modules/manager/addOptions";
 import Modal from "./TeamModal";
 import InsertModal from "./TeamInsertModal";
 const Team = () => {
@@ -165,6 +169,7 @@ const Team = () => {
                       if (item.팀원COUNT === 0) {
                         await DeleteTeam(item.인덱스);
                         await dispatch(teamAxios());
+                        await dispatch(deptAxios());
                       } else {
                         setShow((content) => ({
                           ...content,
@@ -210,4 +215,4 @@ const Team = () => {
     </>
   );
 };
-export default Team;
+export default React.memo(Team);
