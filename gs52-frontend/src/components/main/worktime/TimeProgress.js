@@ -16,8 +16,6 @@ import {
 import { SelectWorkCheck } from "src/lib/api/main/SideBar";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { progressRender } from "src/modules/main/main";
-import momentDurationFormatSetup from "moment-duration-format";
 
 export function TimeProgress() {
   const user = getCurrentUser();
