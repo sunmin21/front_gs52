@@ -1,6 +1,7 @@
 import { CImg, CMedia } from "@coreui/react";
 import { BackTop } from "antd";
 import Avatar from "antd/lib/avatar/avatar";
+import React from "react";
 import WiseSays from "./WiseSays";
 const style = {
   height: 40,
@@ -22,4 +23,4 @@ const WiseSaying = () => {
   );
 };
 
-export default WiseSaying;
+export default React.memo(WiseSaying);

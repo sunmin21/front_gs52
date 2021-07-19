@@ -26,6 +26,7 @@ import { empAxios, teamAxios } from "src/modules/annual/memberSchedule";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { userList } from "src/lib/api/auth/auth";
 import { message, Button, Space, Popconfirm } from "antd";
+import React from "react";
 const ProjectCreate = () => {
   let user = getCurrentUser();
 
@@ -478,7 +479,7 @@ const ProjectCreate = () => {
                 </CCol>
               </CFormGroup>
               <CButton type="submit" size="sm" color="primary">
-                <CIcon name="cil-scrubber" /> Submit
+                <CIcon name="cil-scrubber" /> 등록
               </CButton>
               <CButton
                 type="reset"
@@ -500,7 +501,7 @@ const ProjectCreate = () => {
                   });
                 }}
               >
-                <CIcon name="cil-ban" /> Reset
+                <CIcon name="cil-ban" /> 취소
               </CButton>
             </CForm>
           </CCardBody>
@@ -511,4 +512,4 @@ const ProjectCreate = () => {
   );
 };
 
-export default ProjectCreate;
+export default React.memo(ProjectCreate);

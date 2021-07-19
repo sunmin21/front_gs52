@@ -124,7 +124,7 @@ const Modal = ({
               });
             }}
           >
-            Close
+            닫기
           </CButton>
 
           <CButton

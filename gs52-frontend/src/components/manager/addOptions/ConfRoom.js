@@ -6,7 +6,7 @@ import {
   CCollapse,
   CDataTable,
 } from "@coreui/react";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteConfRoom } from "src/lib/api/manager/addOptions/addOptions";
 import { confRoomAxios } from "src/modules/manager/addOptions";
@@ -204,4 +204,4 @@ const ConfRoom = () => {
     </>
   );
 };
-export default ConfRoom;
+export default React.memo(ConfRoom);

@@ -24,4 +24,4 @@ const AnnualModal = ({ form, info, setInfo }) => {
   );
 };
 
-export default AnnualModal;
+export default React.memo(AnnualModal);

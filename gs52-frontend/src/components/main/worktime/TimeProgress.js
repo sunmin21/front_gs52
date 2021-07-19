@@ -167,6 +167,15 @@ export function TimeProgress() {
     );
   };
 
+  const showTodayWork=()=>{
+    return (
+      <div>
+        오늘의 근무시간 {Math.floor(dateTime.hours)}시간 {dateTime.minutes}분
+      </div>
+    );
+  };
+
+
 
   return (
     <div style={{ align: "center" }}>
@@ -176,8 +185,10 @@ export function TimeProgress() {
       </h4>
       <h4>
         이번 주 근무시간 {parseInt(user_52 / 60)}시간 {user_52 % 60}분
-      </h4>      <h4>
-        오늘의 근무시간 {Math.floor(dateTime.hours)}시간 {dateTime.minutes}분
+      </h4>      
+      <h4>
+      {startTime != null ?showTodayWork()  : null}
+        
       </h4>
       <CProgress
         value={(user_52 / (work_regular*60))*100}

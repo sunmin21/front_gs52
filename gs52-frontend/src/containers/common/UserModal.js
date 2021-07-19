@@ -69,4 +69,4 @@ const AnnualModal = ({ Content, no }) => {
   );
 };
 
-export default AnnualModal;
+export default React.memo(AnnualModal);

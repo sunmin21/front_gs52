@@ -25,6 +25,7 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { sendAxios, succssAxios, todoAxios } from "src/modules/task/task";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import React from "react";
 
 const BusinessProgress = () => {
   //임의로 userid 정해줌
@@ -260,4 +261,4 @@ const BusinessProgress = () => {
   //   }
 };
 
-export default BusinessProgress;
+export default React.memo(BusinessProgress);

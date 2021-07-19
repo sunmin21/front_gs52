@@ -1,4 +1,5 @@
 import { CButton } from "@coreui/react";
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import TaskTodoModal from "./ProjectTaskTodoModal";
 const ProjectTaskTodo = ({
@@ -46,4 +47,4 @@ const ProjectTaskTodo = ({
   );
 };
 
-export default ProjectTaskTodo;
+export default React.memo(ProjectTaskTodo);

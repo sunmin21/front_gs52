@@ -71,4 +71,4 @@ const addOption = () => {
   );
 };
 
-export default addOption;
+export default React.memo(addOption);

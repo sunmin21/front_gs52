@@ -151,7 +151,7 @@ const DeptInsertModal = ({
               setDoubleCheck(true);
             }}
           >
-            Close
+            닫기
           </CButton>
           <CButton
             color="primary"

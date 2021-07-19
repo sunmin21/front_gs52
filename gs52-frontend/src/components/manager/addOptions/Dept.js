@@ -6,7 +6,7 @@ import {
   CCollapse,
   CDataTable,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteDept } from "src/lib/api/manager/addOptions/addOptions";
 import { deptAxios } from "src/modules/manager/addOptions";
@@ -186,4 +186,4 @@ const Dept = () => {
     </>
   );
 };
-export default Dept;
+export default React.memo(Dept);

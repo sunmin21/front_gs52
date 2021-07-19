@@ -106,4 +106,4 @@ const PieChart = ({ projectWith }) => {
   };
   return <Pie {...config} />;
 };
-export default PieChart;
+export default React.memo(PieChart);

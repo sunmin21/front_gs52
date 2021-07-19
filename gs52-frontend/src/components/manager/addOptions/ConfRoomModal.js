@@ -118,7 +118,7 @@ const Modal = ({
               setVisible(false);
             }}
           >
-            Close
+            닫기
           </CButton>
 
           <CButton

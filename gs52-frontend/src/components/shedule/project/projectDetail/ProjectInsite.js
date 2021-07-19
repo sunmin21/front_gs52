@@ -33,6 +33,7 @@ import {
 // import Liquid from "./Liquid";
 import LiquidInsite from "./Liquid";
 import PieChart from "./PieChart";
+import React from "react";
 //import PieChart from "./PieChart"
 
 const ProjectInsite = () => {
@@ -209,4 +210,4 @@ const ProjectInsite = () => {
   );
 };
 
-export default ProjectInsite;
+export default React.memo(ProjectInsite);

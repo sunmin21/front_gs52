@@ -37,6 +37,7 @@ function ShowCalendar() {
       title: item.holiday_TITLE,
       start: item.holiday_DATE,
       annual: item.holiday_ANNUAL_REPEAT,
+      color: "#ff6459"
     };
   });
 
@@ -93,7 +94,7 @@ function ShowCalendar() {
           plugins={[daygridPlugin]}
           eventSources={[data, holidaydata]}
           eventClick={eventOnClick}
-          eventColor="#ff4747"
+          eventColor="red"
           eventTextColor="white"
           eventDisplay="title"
         />
