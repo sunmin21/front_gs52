@@ -78,6 +78,7 @@ export const UpdateProjecTask = async ({
   내용,
   진행도,
 }) => {
+  console.log(내용);
   const project = await client.post(
     API_URL + "/schedule/project/updateProjectTodo",
     {
