@@ -30,6 +30,20 @@ export const UpdateProject = async (regiInfo) => {
 
   return project;
 };
+
+export const DeleteProject = async (index) => {
+  // console.log("test");
+  console.log(index);
+  const project = await client.post(
+    API_URL + "/schedule/project/deleteproject",
+    {
+      project_INDEX: index,
+    }
+  );
+
+  return project;
+};
+
 export const UpdateProjectWith = async ({ color, withIndex }) => {
   const project = await client.post(
     API_URL + "/schedule/project/updateprojectWith",

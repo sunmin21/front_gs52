@@ -1,4 +1,5 @@
 import { CDataTable } from "@coreui/react";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userList } from "src/lib/api/auth/auth";
@@ -199,4 +200,4 @@ const Search = ({ check, no }) => {
   );
 };
 
-export default Search;
+export default React.memo(Search);

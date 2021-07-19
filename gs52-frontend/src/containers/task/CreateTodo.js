@@ -32,6 +32,7 @@ import {
 } from "src/modules/task/task";
 import modalcontent from "../../components/task/BusinessProgress/Search";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+import React from "react";
 const CreateTodo = () => {
   const [user, setUser] = useState(getCurrentUser());
   const { search } = useSelector(({ emp }) => ({
@@ -201,4 +202,4 @@ const CreateTodo = () => {
   );
 };
 
-export default CreateTodo;
+export default React.memo(CreateTodo);

@@ -10,6 +10,7 @@ import {
   CRow,
 } from "@coreui/react";
 import { Badge, Button } from "antd";
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -194,4 +195,4 @@ const Todo = ({
   );
 };
 
-export default Todo;
+export default React.memo(Todo);

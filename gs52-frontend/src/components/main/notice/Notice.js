@@ -9,9 +9,9 @@ import {
   CPagination,
   CRow,
 } from "@coreui/react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import styled from "styled-components";
+
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 const Notice = ({ content }) => {
@@ -47,7 +47,7 @@ const Notice = ({ content }) => {
   return (
     <CCard>
       <CCardHeader>
-        <h3 style={{ textAlign:"left" }}>공지사항</h3>      
+        <h3 style={{ textAlign: "left" }}>공지사항</h3>
 
         {user.roles[0] === "ROLE_ADMIN" && (
           <CButton
@@ -137,4 +137,4 @@ const Notice = ({ content }) => {
   );
 };
 
-export default Notice;
+export default React.memo(Notice);

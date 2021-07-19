@@ -12,7 +12,7 @@ import {
 import { useDispatch } from "react-redux";
 import { noticeAxios } from "src/modules/main/main";
 import { useHistory } from "react-router-dom";
-import ShowProject from 'src/components/shedule/project/ShowProject';
+import ShowProject from "src/components/shedule/project/ShowProject";
 
 const Project = () => {
   const dispatch = useDispatch();
@@ -32,9 +32,7 @@ const Project = () => {
   return (
     <>
       <div style={contentStyle}>
-        <h4 style={{ color: "white", marginTop: "5px" }}>
-          나의 프로젝트 목록
-        </h4>
+        <h4 style={{ color: "white", marginTop: "5px" }}>나의 프로젝트 목록</h4>
       </div>
       <CCol style={{ textAlign: "right" }}>
         <CButton
@@ -45,14 +43,14 @@ const Project = () => {
             history.push("/schedule/project/create");
           }}
         >
-        프로젝트 생성
-        </CButton>        
-      </CCol>            
-      <div style={{ textAlign: "center"}}>
+          프로젝트 생성
+        </CButton>
+      </CCol>
+      <div style={{ textAlign: "center" }}>
         <ShowProject />
       </div>
     </>
   );
 };
 
-export default Project;
+export default React.memo(Project);

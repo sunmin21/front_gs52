@@ -85,4 +85,4 @@ function ShowProject() {
   );
 }
 
-export default ShowProject;
+export default React.memo(ShowProject);
