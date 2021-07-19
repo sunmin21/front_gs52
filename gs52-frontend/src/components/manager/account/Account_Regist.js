@@ -97,10 +97,20 @@ export function AccountField() {
       console.log(name); //sunmin
       console.log(num); //사원번호
 
-      await RegistAccount(id, name, email, num, position, rank, team, 1, date).then(
+      await RegistAccount(
+        id,
+        name,
+        email,
+        num,
+        position,
+        rank,
+        team,
+        1,
+        date
+      ).then(
         (response) => {
           mail(email, name, id).then(console.log("메일전송완료"));
-           history.push("/manager/addAccount");
+          history.push("/manager/addAccount");
         },
         (error) => {
           console.log(error);
@@ -110,15 +120,13 @@ export function AccountField() {
     }
   };
 
-
-
   const imgUpload = async () => {
     console.log(file);
     const formData = new FormData();
     formData.append("EMP_ID", Number(num));
     formData.append("FILES", file[0]);
 
-    if(file[0]!=null){
+    if (file[0] != null) {
       await updateEmpImg(formData);
     }
   };
@@ -132,14 +140,17 @@ export function AccountField() {
       <CCard>
         <CCardBody>
           <CFormGroup row>
-            <CCol md="3">
-            </CCol>
+            <CCol md="3"></CCol>
             <CCol xs="12" md="9">
-            <br/>* 유의사항<br/><p></p>
-              1. 초기 비밀번호는 사원번호로 설정됩니다.<br/>
-              2. 연차는 입사일로부터 만근기준으로 계산됩니다.<br/>
+              <br />* 유의사항
+              <br />
+              <p></p>
+              1. 초기 비밀번호는 사원번호로 설정됩니다.
+              <br />
+              2. 연차는 입사일로부터 만근기준으로 계산됩니다.
+              <br />
             </CCol>
-          </CFormGroup> 
+          </CFormGroup>
 
           <CFormGroup row>
             <CCol md="3">
@@ -246,7 +257,7 @@ export function AccountField() {
               <CLabel htmlFor="date">입사일</CLabel>
             </CCol>
             <CCol xs="12" md="9">
-             {/*<CInput type="date" id="date" name="date" placeholder="date" onChange={onDate}/> */}
+              {/*<CInput type="date" id="date" name="date" placeholder="date" onChange={onDate}/> */}
               <DatePicker id="date" name="date" onChange={onDate} />
             </CCol>
           </CFormGroup>
@@ -270,7 +281,7 @@ export function AccountField() {
             <CCol md="3">
               <CLabel>파일첨부</CLabel>
             </CCol>
-            <CCol xs="12" md="5" style={{marginLeft:"15px"}}>
+            <CCol xs="12" md="5" style={{ marginLeft: "15px" }}>
               <CInputFile
                 id="file-multiple-input"
                 name="file-multiple-input"
@@ -327,7 +338,6 @@ export function AccountField() {
               )}
             </CCol>
           </CFormGroup>
-
         </CCardBody>
 
         <CCardFooter>
@@ -341,11 +351,11 @@ export function AccountField() {
               await imgUpload();
             }}
           >
-            Submit
+            등록
           </CButton>
           <CButton type="reset" size="sm" color="danger">
             {" "}
-            Reset
+            취소
           </CButton>
         </CCardFooter>
       </CCard>

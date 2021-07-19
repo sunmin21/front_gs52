@@ -183,7 +183,7 @@ const CreateTodo = () => {
               }
             }}
           >
-            <CIcon name="cil-scrubber" /> Submit
+            <CIcon name="cil-scrubber" /> 등록
           </CButton>
           <CButton
             type="reset"
@@ -194,7 +194,7 @@ const CreateTodo = () => {
               dispatch(boardInit());
             }}
           >
-            <CIcon name="cil-ban" /> Reset
+            <CIcon name="cil-ban" /> 취소
           </CButton>
         </CCardFooter>
       </CCard>

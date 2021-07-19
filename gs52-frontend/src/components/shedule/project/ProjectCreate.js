@@ -479,7 +479,7 @@ const ProjectCreate = () => {
                 </CCol>
               </CFormGroup>
               <CButton type="submit" size="sm" color="primary">
-                <CIcon name="cil-scrubber" /> Submit
+                <CIcon name="cil-scrubber" /> 등록
               </CButton>
               <CButton
                 type="reset"
@@ -501,7 +501,7 @@ const ProjectCreate = () => {
                   });
                 }}
               >
-                <CIcon name="cil-ban" /> Reset
+                <CIcon name="cil-ban" /> 취소
               </CButton>
             </CForm>
           </CCardBody>
