@@ -93,7 +93,6 @@ function ProjectManage() {
                                 <td className="py-2">
                                     <Button type="primary"
                                         onClick={async (e) => {
-                                            console.log(item.pindex + "번 승인")
                                             await UpdateOKay(item.pindex, 1);
                                             await dispatch(okayAxios());
                                         }}
@@ -105,7 +104,6 @@ function ProjectManage() {
                                 <td className="py-2">
                                     <Button type="primary" danger
                                         onClick={async (e) => {
-                                            console.log(item.pindex + "번 반려")
                                             await UpdateOKay(item.pindex, 2);
                                             await dispatch(okayAxios());
                                         }}

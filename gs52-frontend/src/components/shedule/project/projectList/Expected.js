@@ -28,7 +28,7 @@ function Expected({ dispatch, proceeding }) {
       담당자: item.emp_NAME,
       인덱스: item.project_INDEX,
     }));
-  // console.log(data)
+  
   return (
     <CCardBody>
       <CDataTable
