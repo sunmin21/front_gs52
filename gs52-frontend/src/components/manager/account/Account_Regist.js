@@ -353,10 +353,6 @@ export function AccountField() {
           >
             등록
           </CButton>
-          <CButton type="reset" size="sm" color="danger">
-            {" "}
-            취소
-          </CButton>
         </CCardFooter>
       </CCard>
     </div>

@@ -152,16 +152,9 @@ function WorkTime() {
       <CButton block variant="outline" color="secondary" onClick={onWork}>
         {workState}
       </CButton>
-      {/* {
-                workCheck===false?
-                <button onClick={onWork}><h2>{workState}</h2></button>
-                :
-                <button onClick={onWork}><h2>휴식</h2></button>
-            } */}
-
       {
         //workState!="퇴근"?
-        moment().format("HH:mm") > ruleEnd && workState != "퇴근" ? (
+        moment().format("HH:mm") > ruleEnd && workState != "퇴근" && workState!="출근" && workState!="연차" ? (
           <CButton
             block
             variant="outline"

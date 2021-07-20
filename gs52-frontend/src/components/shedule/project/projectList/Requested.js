@@ -111,7 +111,6 @@ function Requested({ dispatch }) {
               <Button
                 type="primary"
                 onClick={async (e) => {
-                  console.log(item.pwindex);
                   await UpdateRequested(item.pwindex, 1, "null");
                   await dispatch(requestedAxios(emp));
                   await dispatch(proceedingAxios(emp));

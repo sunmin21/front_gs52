@@ -58,7 +58,6 @@ const Todo = ({
   useEffect(() => {
     setPage(1);
   }, [checkTodo]);
-  console.log(content);
 
   return (
     <CRow>
@@ -132,8 +131,6 @@ const Todo = ({
                       block
                       type="primary"
                       onClick={async (e) => {
-                        console.log(item);
-                        console.log(e.target.value);
                         await doneInsert([
                           userid,
                           parseInt(item.todo_INDEX),

@@ -2,7 +2,6 @@ import client from "../../client";
 
 const API_URL = "http://192.168.20.17:8081";
 export const SelectHoliday = async () => {
-  // console.log("test");
 
   if (localStorage.getItem("accessToken") != null) {
     client.defaults.headers.common.Authorization = `Bearer ${localStorage
@@ -15,7 +14,6 @@ export const SelectHoliday = async () => {
 };
 
 export const InsertHoliday = async (title, date, annual) => {
-  console.log("title : " + title + " date : " + date + " annual : " + annual);
 
   var moment = require("moment");
   var event = moment(date).format("YYYY-MM-DD");

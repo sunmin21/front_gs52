@@ -55,7 +55,6 @@ export const DeleteReport = async (id) => {
 };
 
 export const EmpList = async (index) => {
-  console.log("index : " + index);
   const res = await client.post(API_URL + "/report/empList", {
     report_EMP_INDEX: index,
   });

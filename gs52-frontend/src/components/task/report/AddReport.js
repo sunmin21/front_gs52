@@ -29,11 +29,9 @@ function AddReport({ showAllReport }) {
 
     const handleContents = e => {
         setContents(e.target.value);
-        console.log(contents)
     };
     
     const cancel = () => {
-        console.log("취소했다!")
         setInfo(!info);
         // showAllReport()
     }
@@ -44,13 +42,11 @@ function AddReport({ showAllReport }) {
             setAlertContents("모두 입력해주세요");
         }
         else {
-            console.log("@@@@추가@@@@")
             setInfo(!info);
             await InsertReport(emp, contents, targetDate)
             await dispatch(reportAxios())
             await dispatch(nextreportAxios())
             await showAllReport(targetDate);
-            console.log(targetDate)
         }
     }
     

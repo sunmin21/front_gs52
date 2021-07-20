@@ -82,6 +82,14 @@ export function Login() {
            
     }
 
+    const onKeyPress= (e) =>{
+      if(e.key=='Enter'){
+        console.log("e.key")
+        console.log(e.key)
+        onLogin()
+      }
+    }
+
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       
@@ -128,6 +136,7 @@ export function Login() {
                         autoComplete="current-password"
                         name="pwd"
                         onChange={onChange}
+                        onKeyPress={onKeyPress}
                       />
                     </CInputGroup>
 
@@ -139,6 +148,7 @@ export function Login() {
                           color="info"
                           className="px-4"
                           onClick={onLogin}
+                          onKeyPress={onKeyPress}
                         >
                           Login
                         </CButton>

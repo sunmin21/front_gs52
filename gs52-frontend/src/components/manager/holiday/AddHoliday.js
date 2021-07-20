@@ -44,14 +44,14 @@ function AddHoliday() {
 
   const handleAnnual = (e) => {
     if (flag == false) {
-      console.log("on");
       annual = 1;
-    } else console.log("off");
+    }
+    else
+    {
+      
+    };
   };
-  console.log("flag : " + flag);
-
   const cancel = () => {
-    console.log("취소했다!");
     setInfo(!info);
     dispatch(holidayAxios());
     // 자동 rendering
@@ -63,7 +63,6 @@ function AddHoliday() {
       setVisible(3);
       setAlertContents("모두 입력해주세요");
     } else {
-      console.log(flag);
       if (flag == true) {
         await InsertHoliday(title, startDate, annual);
         startDate.setYear(startDate.getFullYear() + 1);
@@ -72,7 +71,6 @@ function AddHoliday() {
       } else if (flag == false) {
         await InsertHoliday(title, startDate, annual);
       }
-      console.log("등록성공");
       setInfo(!info);
       await dispatch(holidayAxios());
       setFlag(false);
