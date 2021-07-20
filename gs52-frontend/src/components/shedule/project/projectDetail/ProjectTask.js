@@ -534,8 +534,6 @@ const ProjectTask = () => {
                                           key={"@#!$@!$!" + key + "!@4"}
                                           style={{ background: "red" }}
                                           onChange={async (e) => {
-                                            console.log(check[key]);
-
                                             if (check[key] === 1) {
                                               setCheck((con) => {
                                                 return con.map((c, ky) => {
@@ -570,7 +568,6 @@ const ProjectTask = () => {
                                                     100,
                                               });
 
-                                              console.log("project1");
                                               await dispatch(
                                                 projectTodoAxios(projectNo)
                                               );
@@ -616,7 +613,7 @@ const ProjectTask = () => {
                                                     item2.project_TASK_DETAIL_PERCENT) /
                                                     100,
                                               });
-                                              console.log("project1");
+
                                               await dispatch(
                                                 projectTodoAxios(projectNo)
                                               );

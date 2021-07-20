@@ -33,7 +33,7 @@ export const UpdateProject = async (regiInfo) => {
 
 export const DeleteProject = async (index) => {
   // console.log("test");
-  console.log(index);
+
   const project = await client.post(
     API_URL + "/schedule/project/deleteproject",
     {
@@ -92,7 +92,6 @@ export const UpdateProjecTask = async ({
   내용,
   진행도,
 }) => {
-  console.log(내용);
   const project = await client.post(
     API_URL + "/schedule/project/updateProjectTodo",
     {

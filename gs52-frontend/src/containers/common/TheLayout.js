@@ -8,7 +8,7 @@ const TheLayout = (props) => {
   const [nav, setNav] = useState([]);
 
   const user = getCurrentUser();
-  console.log(location.pathname);
+
   if (
     location.pathname.includes("/manager") &&
     (user.roles == "ROLE_ADMIN" || user.roles == "ROLE_TEAMLEADER")

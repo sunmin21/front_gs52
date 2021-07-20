@@ -258,14 +258,9 @@ const Readonly = withDragDropContext((props) => {
     }
   };
 
-  const onScrollTop = (schedulerData, schedulerContent, maxScrollTop) => {
-    console.log("onScrollTop");
-  };
+  const onScrollTop = (schedulerData, schedulerContent, maxScrollTop) => {};
 
-  const onScrollBottom = (schedulerData, schedulerContent, maxScrollTop) => {
-    console.log("@@s");
-    console.log("onScrollBottom");
-  };
+  const onScrollBottom = (schedulerData, schedulerContent, maxScrollTop) => {};
 
   const toggleExpandFunc = (schedulerData, slotId) => {
     schedulerData.toggleExpandStatus(slotId);

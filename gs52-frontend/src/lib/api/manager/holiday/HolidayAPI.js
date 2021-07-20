@@ -2,7 +2,6 @@ import client from "../../client";
 
 const API_URL = "http://192.168.20.17:8081";
 export const SelectHoliday = async () => {
-
   if (localStorage.getItem("accessToken") != null) {
     client.defaults.headers.common.Authorization = `Bearer ${localStorage
       .getItem("accessToken")
@@ -14,7 +13,6 @@ export const SelectHoliday = async () => {
 };
 
 export const InsertHoliday = async (title, date, annual) => {
-
   var moment = require("moment");
   var event = moment(date).format("YYYY-MM-DD");
 
@@ -25,9 +23,7 @@ export const InsertHoliday = async (title, date, annual) => {
       holiday_ANNUAL_REPEAT: annual,
     })
     .then(function (response) {})
-    .catch(function (error) {
-      console.log(error);
-    })
+    .catch(function (error) {})
     .then(function () {
       // 항상 실행되는 부분
     });
@@ -43,9 +39,7 @@ export const DeleteHoliday = async (id) => {
     .then(function (response) {
       // return response.data;
     })
-    .catch(function (error) {
-      console.log(error);
-    })
+    .catch(function (error) {})
     .then(function () {
       // 항상 실행되는 부분
     });

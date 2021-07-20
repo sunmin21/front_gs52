@@ -8,8 +8,7 @@ const LiquidInsite = ({ projectTodo, color }) => {
       render: project.render,
     };
   });
-  console.log("render");
-  console.log("text가안보이는이유");
+
   var config = {
     percent: projectTodo.length !== 0 && projectTodo.detail_SUCCESS_SUM / 100,
     outline: {

@@ -38,13 +38,11 @@ export const LoginAPI = async (username, password) => {
       }
 
       const { accessToken } = response.data;
-      console.log(accessToken);
+
       //api요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
       //이렇게 하면 accessToken을 localStorage, cookie에 저장하지 않는다.
       client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
 
-      console.log("response");
-      console.log(response);
       //return response.data;
     })
     .catch();
@@ -53,7 +51,6 @@ export const LoginAPI = async (username, password) => {
 };
 
 export const logout = () => {
-  console.log("로그아웃ㅅㅅㅅㅅ");
   localStorage.removeItem("user");
   localStorage.removeItem("token");
   localStorage.removeItem("authenticatedUser");
@@ -92,7 +89,6 @@ export const update = async (
   bank_name,
   account_number
 ) => {
-  console.log(id);
   //String password, String address, String phone, String birth, String photo, String bank_name, long account_number
   return await client.post(API_URL + "/api/auth/update_user", {
     id,

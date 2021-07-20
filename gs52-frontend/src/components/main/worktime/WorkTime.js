@@ -25,32 +25,21 @@ function WorkTime() {
   const [ruleEnd, setRuleEnd] = useState(null);
 
   useEffect(async () => {
-    console.log("useEffectttttttttttttt");
-    console.log(workState);
     await SelectWorkCheck(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
-        console.log("item.data[0]");
-        console.log(item.data[0]);
         if (item.data[0] == null) {
           setWorkCheck(false);
           setWorkState("출근");
         } else {
-          console.log("else");
-          if(item.data[0].attend_ATTEND_TYPE_INDEX=="7"){
-            setWorkState("연차")
-          }
-          else{
-
+          if (item.data[0].attend_ATTEND_TYPE_INDEX == "7") {
+            setWorkState("연차");
+          } else {
             if (item.data[0].attend_END != null) {
-              console.log("퇴근");
               setWorkState("퇴근");
             } else {
               setWorkCheck(true);
 
-              console.log(localStorage.getItem("breakIndex"));
               if (localStorage.getItem("breakIndex") == null) {
-                console.log("localStorage.getItem(breakInde)")
-                console.log(localStorage.getItem("breakIndex"))
                 setWorkState("휴식");
               } else {
                 setWorkState("휴식종료");
@@ -70,8 +59,6 @@ function WorkTime() {
   }, []);
 
   const onWork = async () => {
-    console.log("workState");
-    console.log(workState);
     await SelectWorkCheck(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
         if (item.data[0] == null) {
@@ -87,7 +74,6 @@ function WorkTime() {
     );
     if (workState == "출근") {
       //출근
-      console.log("출근");
       await SelectWorkStart(
         user.index,
         moment().format("YYYY-MM-DD"),
@@ -101,7 +87,6 @@ function WorkTime() {
       });
     } else if (workState == "휴식") {
       //휴식
-      console.log("휴식");
       const index = await InsertBreakStart(
         user.index,
         moment().format("YYYY-MM-DD"),
@@ -113,7 +98,6 @@ function WorkTime() {
       });
     } else if (workState == "휴식종료") {
       //휴식종료
-      console.log("휴식종료");
       await UpdateBreakEnd(
         localStorage.getItem("breakIndex"),
         moment().format("HH:mm"),
@@ -127,11 +111,9 @@ function WorkTime() {
     } else if (workState == "퇴근") {
       setWorkState("퇴근");
       dispatch(progressRender());
-      console.log("퇴근");
       alert("퇴근처리되어 더 이상 기록되지 않습니다.");
-    } 
-    else if(workState=="연차"){
-      setWorkState("연차")
+    } else if (workState == "연차") {
+      setWorkState("연차");
       alert("금일은 연차이므로 기록되지 않습니다.");
     }
   };
@@ -154,7 +136,10 @@ function WorkTime() {
       </CButton>
       {
         //workState!="퇴근"?
-        moment().format("HH:mm") > ruleEnd && workState != "퇴근" && workState!="출근" && workState!="연차" ? (
+        moment().format("HH:mm") > ruleEnd &&
+        workState != "퇴근" &&
+        workState != "출근" &&
+        workState != "연차" ? (
           <CButton
             block
             variant="outline"

@@ -5,8 +5,6 @@ import { change } from "../modules/test";
 const CotainersTest = () => {
   const board = useSelector((state) => state.test.board);
   const dispatch = useDispatch();
-  console.log(board);
-  console.log("@@@@");
 
   return (
     <>

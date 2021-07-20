@@ -93,9 +93,6 @@ export function AccountField() {
       alert("이메일을 입력하세요");
     } else {
       const id = num;
-      console.log(id); //사원번호
-      console.log(name); //sunmin
-      console.log(num); //사원번호
 
       await RegistAccount(
         id,
@@ -109,19 +106,15 @@ export function AccountField() {
         date
       ).then(
         (response) => {
-          mail(email, name, id).then(console.log("메일전송완료"));
+          mail(email, name, id).then();
           history.push("/manager/addAccount");
         },
-        (error) => {
-          console.log(error);
-        }
+        (error) => {}
       );
-      console.log(inputs);
     }
   };
 
   const imgUpload = async () => {
-    console.log(file);
     const formData = new FormData();
     formData.append("EMP_ID", Number(num));
     formData.append("FILES", file[0]);
@@ -287,8 +280,6 @@ export function AccountField() {
                 name="file-multiple-input"
                 custom
                 onChange={(e) => {
-                  console.log(e.target.files);
-                  console.log(e.target.files[0].type.substring(0, 5));
                   if (e.target.files.size > 102400000) {
                     setFilecheck(true);
                     return;

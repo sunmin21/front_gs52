@@ -87,13 +87,6 @@ const ProjectInsite = () => {
       isComponentMounted = false;
     };
   }, [projectNo, dispatch]);
-  useEffect(() => {
-    console.log("render..완료");
-    return console.log("안녕");
-  }, [render]);
-  useEffect(() => {
-    console.log("projectTodo렌더링..완료");
-  }, [projectTodo]);
 
   return (
     <>

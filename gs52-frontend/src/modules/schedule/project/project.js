@@ -45,8 +45,6 @@ export const projectFileAxios = createAction(PROJECTFILE, (index) => {
   };
 });
 export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
-  console.log("projectTodoAxios");
-
   return {
     index,
   };
@@ -54,7 +52,6 @@ export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
 export const projectTodoDetailAxios = createAction(
   PROJECTTODODETAIL,
   (index) => {
-    console.log("projectTodoDetailAxios");
     return {
       index,
     };
@@ -190,7 +187,6 @@ const initialState = {
 const project = handleActions(
   {
     [RENDER]: (state) => {
-      console.log("RENDER 모듈");
       return {
         ...state,
         render: !state.render,

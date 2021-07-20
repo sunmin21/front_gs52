@@ -17,12 +17,8 @@ function Sidebar_Header({ nav }) {
   const [userContent, setUserContent] = useState();
   useEffect(async () => {
     SelectEmpImg(user.index).then((res) => {
-      console.log("res.data[0]");
-      console.log(res.data[0]);
       if (res.data[0] != null) {
         setImg(res.data[0].emp_IMG_PATH);
-        console.log(res);
-        console.log("res");
       } else {
         setImg("/upload/empImages/default.png");
       }
@@ -34,8 +30,6 @@ function Sidebar_Header({ nav }) {
       ).filter((item) => Number(item.emp_INDEX) === user.index)
     );
   }, []);
-
-  console.log(userContent);
 
   return (
     <div>

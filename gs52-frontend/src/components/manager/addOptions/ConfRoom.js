@@ -39,7 +39,6 @@ const ConfRoom = () => {
   const deptData = useCallback(
     () =>
       confroom.map((item) => {
-        console.log(item);
         return {
           인덱스: item.conf_ROOM_INDEX,
           층: item.conf_ROOM_FLOOR,
@@ -157,8 +156,6 @@ const ConfRoom = () => {
                     color="danger"
                     className="ml-1"
                     onClick={async () => {
-                      console.log(item.인덱스);
-                      console.log("confROOM");
                       if (item.예약COUNT === 0) {
                         await DeleteConfRoom(item.인덱스);
                         await dispatch(confRoomAxios());

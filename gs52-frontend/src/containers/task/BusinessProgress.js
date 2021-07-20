@@ -145,7 +145,6 @@ const BusinessProgress = () => {
   );
 
   const todoSucess = async (e) => {
-    console.log(e.target.value);
     await doneInsert([
       todo_EMP_ID_RECEIVCE.current,
       parseInt(e.target.value),
@@ -154,7 +153,6 @@ const BusinessProgress = () => {
   };
 
   const todoReject = async (e) => {
-    console.log(e.target.value);
     await doneInsert([
       todo_EMP_ID_RECEIVCE.current,
       parseInt(e.target.value),

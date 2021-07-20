@@ -193,8 +193,6 @@ const ProjectTaskTodoModal = ({
           <CButton
             color="primary"
             onClick={async () => {
-              console.log(content);
-              console.log(taskIndex);
               if (content.내용 === "") {
                 setCheck(true);
                 return;
@@ -204,14 +202,9 @@ const ProjectTaskTodoModal = ({
                 return;
               }
               if (taskIndex === undefined) {
-                console.log("여기타냐32");
                 await InsertProjecTask(content);
-
-                console.log("여기타냐324");
               } else {
-                console.log("여기타냐5");
                 if (item.project_TASK_PERCENT !== content.진행도) {
-                  console.log("여기타냐5");
                   detail.map(async (item2) => {
                     if (item2.project_TASK_DETAIL_SUCCESS === 1) {
                       await UpdateProjectWithScore({
