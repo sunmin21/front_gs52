@@ -93,7 +93,7 @@ function Requested({ dispatch }) {
             <td
               onClick={() => {
                 history.push({
-                  pathname: `/schedule/project/detail`,
+                  pathname: `/task/project/detail`,
                 });
                 dispatch(projectNoChange({ index: item.인덱스 }));
               }}

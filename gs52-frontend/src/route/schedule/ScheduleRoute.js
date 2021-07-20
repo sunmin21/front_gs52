@@ -33,25 +33,7 @@ const ScheduleRoute = [
     component: confRoom,
     exact: true,
   },
-  {
-    path: "/schedule/project",
-    name: "프로젝트",
-    component: Project,
-    exact: true,
-  },
 
-  {
-    path: "/schedule/project/create",
-    name: "프로젝트 생성",
-    component: ProjectCreate,
-    exact: true,
-  },
-  {
-    path: "/schedule/project/detail",
-    name: "프로젝트 상세보기",
-    component: ProjectDetail,
-    exact: true,
-  },
   {
     path: "/schedule/insight",
     name: "팀별 인사이트",

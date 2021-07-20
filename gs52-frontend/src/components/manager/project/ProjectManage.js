@@ -84,7 +84,7 @@ function ProjectManage({ roles, index }) {
                     onClick={() => {
                       dispatch(projectNoChange({ index: item.인덱스 }));
                       history.push({
-                        pathname: `/schedule/project/detail`,
+                        pathname: `/task/project/detail`,
                       });
                     }}
                   >

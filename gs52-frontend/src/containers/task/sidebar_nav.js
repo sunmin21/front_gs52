@@ -25,6 +25,12 @@ const _nav = [
     to: "/task/report",
     icon: "cil-Notes",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "프로젝트",
+    to: "/task/project",
+    icon: "cil-star",
+  },
 ];
 
 export default _nav;

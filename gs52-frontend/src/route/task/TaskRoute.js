@@ -1,4 +1,7 @@
 import React from "react";
+import ProjectCreate from "src/components/shedule/project/ProjectCreate";
+import ProjectDetail from "src/components/shedule/project/ProjectDetail";
+import Project from "src/containers/schedule/Project";
 const Dashboard = React.lazy(() => import("../../views/dashboard/Dashboard"));
 const CreateTodo = React.lazy(() => import("src/containers/task/CreateTodo"));
 const TodoBoard = React.lazy(() =>
@@ -17,6 +20,25 @@ const TaskRoute = [
   //   name: "상세보기",
   //   component: TodoBoard,
   // },
+  {
+    path: "/task/project",
+    name: "프로젝트",
+    component: Project,
+    exact: true,
+  },
+
+  {
+    path: "/task/project/create",
+    name: "프로젝트 생성",
+    component: ProjectCreate,
+    exact: true,
+  },
+  {
+    path: "/task/project/detail",
+    name: "프로젝트 상세보기",
+    component: ProjectDetail,
+    exact: true,
+  },
   {
     path: "/task/schedule",
     name: "업무진행사항",
@@ -39,7 +61,7 @@ const TaskRoute = [
     path: "/task",
     name: "업무관리",
     component: BusinessProgress,
-    exact: true
+    exact: true,
   },
 ];
 
