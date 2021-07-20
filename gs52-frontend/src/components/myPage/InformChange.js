@@ -14,25 +14,27 @@ import {
   CAlert,
   CModalBody,
 } from "@coreui/react";
-import { DatePicker } from "antd";
 import "antd/dist/antd.css";
-import moment from "moment";
 import DaumPostCode from "react-daum-postcode";
 import { updateEmpImg } from "../../lib/api/manager/Account/AccountRegistAPI";
 import { UpdateInform } from "../../lib/api/myPage/MyPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { useHistory } from "react-router-dom";
+import { progressRender } from "src/modules/main/main";
 
 export function InformChange() {
+  const dispatch = useDispatch();
   const history = useHistory();
   const user = getCurrentUser();
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
   const [filename, setFileName] = useState("");
-  const [visible, setVisible] = useState(0);
-  const [alertContents, setAlertContents] = useState("");
+  const [email_message, setEmail_message]=useState("");
+  const [check, setCheck]=useState(true);
 
+  var regex_email = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+ 
   const { emp_list } = useSelector((state) => {
     return {
       emp_list: state.mypage.emp_list,
@@ -60,6 +62,16 @@ export function InformChange() {
   const onChange = (e) => {
     //input에 name을 가진 요소의 value에 이벤트를 걸었다
     const { name, value } = e.target;
+    if(e.target.id==="email"){
+      if(!regex_email.test(e.target.value)){
+        setEmail_message("이메일 형식이 아닙니다.");
+        setCheck(false)
+      }
+      else{
+        setEmail_message("");
+        setCheck(true)
+      }
+    }
 
     // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
     const nextInputs = {
@@ -71,12 +83,13 @@ export function InformChange() {
     setInputs(nextInputs);
   };
 
-  const [addr, setAddr] = useState("");
+  const [addr, setAddr] = useState(null);
+  const [ad, setAd] = useState(null);
   const [isDaumPost, setIsDaumPost] = useState(false);
   const onModal = () => {
     setIsDaumPost(true);
   };
-
+  //특수문자, 영문자, 숫자 포함 형태의 6~15자리 이내의 암호 정규식
   const modalStyle = {
     position: "absolute",
     zIndex: "100",
@@ -99,33 +112,46 @@ export function InformChange() {
     }
     //fullAddress -> 전체 주소반환
     setAddr(fullAddress);
+    setIsDaumPost(false);
   };
 
   const imgUpload = async () => {
-    const formData = new FormData();
-    formData.append("EMP_ID", Number(user.id));
-    formData.append("FILES", file[0]);
-    if (file[0] != null) {
-      await updateEmpImg(formData);
-    }
   };
+
   const onRegist = async () => {
     //이름, 이메일, 연락처, 주소, 파일첨부
     //  emp_data      name  email  address  phone  file
     //name, tel, address, email, file
-    const ad = addr + address;
+    
+    const formData = new FormData();
+    formData.append("EMP_ID", Number(user.id));
+    formData.append("FILES", file[0]);
 
-    if (name === "" && email === "" && tel === "" && ad === "") {
-      setAlertContents("변경된 것이 없습니다.");
-    } else {
-      await UpdateInform(user.index, name, email, tel, ad).then(
-        (response) => {
-          setVisible(3);
-          setAlertContents("수정되었습니다.");
-          history.push("/InformChange");
-        },
-        (error) => {}
-      );
+    console.log(addr)
+    console.log(address)
+    if(check==false){
+      alert("입력한 값을 다시 확인하십시오.")
+    }
+    else{
+      const ad = addr + address;
+      
+      if (file[0] != null) {
+        await updateEmpImg(formData);
+        dispatch(progressRender());
+      }
+      if (name === null && email === null && tel === null &&addr===null&&file[0]==null) {
+        alert("변경된 것이 없습니다.");
+      } 
+      else {
+        await UpdateInform(user.index, name, email, tel, ad).then(
+          (response) => {
+            alert("수정되었습니다.");
+            dispatch(progressRender());
+            history.push("/myPage/informChange");
+          },
+          (error) => {}
+        );
+      }
     }
   };
 
@@ -177,6 +203,13 @@ export function InformChange() {
           </CFormGroup>
 
           <CFormGroup row>
+            <CCol md="3"></CCol>
+            <CCol xs="12" md="9">
+              <div style={{color:"red"}}>{email_message}</div>
+            </CCol>
+          </CFormGroup>
+
+          <CFormGroup row>
             <CCol md="3">
               <CLabel htmlFor="tel">연락처</CLabel>
             </CCol>
@@ -197,7 +230,6 @@ export function InformChange() {
               <CLabel htmlFor="address">주소</CLabel>
             </CCol>
             <CCol xs="12" md="9">
-              {/* <DaumPost setAddr={setAddr}></DaumPost> */}
               <CButton
                 onClick={onModal}
                 color="light"
@@ -219,7 +251,7 @@ export function InformChange() {
               <CInput
                 id="disabled-input"
                 name="disabled-input"
-                placeholder={emp_data[0].address}
+                placeholder={addr==null?emp_data[0].address:addr}
                 disabled
                 style={{ marginBottom: "10px" }}
               />
@@ -293,9 +325,6 @@ export function InformChange() {
             </CCol>
           </CFormGroup>
 
-          <CAlert color="warning" show={visible} fade onShowChange={setVisible}>
-            {alertContents}
-          </CAlert>
         </CCardBody>
 
         <CCardFooter>

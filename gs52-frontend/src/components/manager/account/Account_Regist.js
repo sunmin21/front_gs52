@@ -36,7 +36,10 @@ export function AccountField() {
   const [filecheck, setFilecheck] = useState(false);
   const [imgCheck, setImageCheck] = useState(false);
   const [filename, setFileName] = useState("");
+  const [email_message, setEmail_message]=useState("");
 
+  var regex_email = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
+ 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(TeamAxios());
@@ -68,7 +71,14 @@ export function AccountField() {
   const onChange = (e) => {
     //input에 name을 가진 요소의 value에 이벤트를 걸었다
     const { name, value } = e.target;
-
+    if(e.target.id==="email"){
+      if(!regex_email.test(e.target.value)){
+        setEmail_message("이메일 형식이 아닙니다.");
+      }
+      else{
+        setEmail_message("");
+      }
+    }
     // 변수를 만들어 이벤트가 발생했을때의 value를 넣어줬다
     const nextInputs = {
       //스프레드 문법으로 기존의 객체를 복사한다.
@@ -270,6 +280,13 @@ export function AccountField() {
             </CCol>
           </CFormGroup>
 
+          <CFormGroup row>
+            <CCol md="3"></CCol>
+            <CCol xs="12" md="9">
+              <div style={{color:"red"}}>{email_message}</div>
+            </CCol>
+          </CFormGroup>
+          
           <CFormGroup row>
             <CCol md="3">
               <CLabel>파일첨부</CLabel>

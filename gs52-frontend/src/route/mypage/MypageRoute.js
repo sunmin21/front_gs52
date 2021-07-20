@@ -5,8 +5,11 @@ const MyPage = React.lazy(() =>
 const PwdChange = React.lazy(() =>
   import("../../containers/myPage/PwdChange")
 );
+const InformChange = React.lazy(() =>
+  import("../../containers/myPage/InformChange")
+);
 
-const Mypage = [
+const MypageRoute = [
   {
     path: "/myPage",
     name: "마이페이지",
@@ -19,6 +22,12 @@ const Mypage = [
     component: PwdChange,
     exact: true,
   },
+  {
+    path: "/myPage/informChange",
+    name: "회원정보수정",
+    component: InformChange,
+    exact: true,
+  },
 ];
 
-export default Mypage;
+export default MypageRoute;

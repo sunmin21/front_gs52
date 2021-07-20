@@ -51,7 +51,11 @@ export function ConfDetail() {
   };
 
   const onDelete = async () => {
-    await Delete_Conf(conf_data[0].conf_INDEX);
+    await Delete_Conf(conf_data[0].conf_INDEX, user.index).then((item)=>{
+      if(item.data==0){
+        alert("사용자가 예약한 회의실이 아닙니다.")
+      }
+    });
     await dispatch(ConfAxios());
     await dispatch(modalCheck2());
   };
