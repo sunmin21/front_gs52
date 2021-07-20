@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyPage from "../../components/myPage/MyPage";
+import InformChange from "../../components/myPage/InformChange";
 const contentStyle = {
   backgroundColor: "#3e4b54",
   width: "400px",
@@ -8,7 +8,7 @@ const contentStyle = {
   padding: "8px",
   borderRadius: "50px",
 };
-const myPage = () => {
+const informChange = () => {
     const contentStyle = {
         backgroundColor: "#3e4b54",
         width: "400px",
@@ -22,12 +22,12 @@ const myPage = () => {
     <div>   
       <div style={contentStyle}>
         <h4 style={{ color: "white", marginTop: "5px" }}>
-            마이페이지
+        회원정보수정
         </h4>
-      </div><br/><br/>
-      <MyPage></MyPage>
+      </div>
+      <InformChange></InformChange>
     </div>
   );
 };
 
-export default myPage;
+export default informChange;

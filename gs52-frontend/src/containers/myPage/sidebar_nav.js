@@ -8,14 +8,20 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
-    name: "계정 등록",
-    to: "/maPage/myPage",
+    name: "마이페이지",
+    to: "/myPage/myPage",
     icon: "cil-Notes",
   },
   {
     _tag: "CSidebarNavItem",
-    name: "비밀번호 수정",
+    name: "비밀번호수정",
     to: "/myPage/pwdChange",
+    icon: "cil-Notes",
+  },
+  {
+    _tag: "CSidebarNavItem",
+    name: "회원정보수정",
+    to: "/myPage/informChange",
     icon: "cil-Notes",
   },
 ];

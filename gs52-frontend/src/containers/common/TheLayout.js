@@ -20,6 +20,8 @@ const TheLayout = (props) => {
     import("../attendance/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname.includes("/schedule")) {
     import("../schedule/sidebar_nav").then((nav) => setNav(nav.default));
+  } else if (location.pathname.includes("/myPage")) {
+    import("../myPage/sidebar_nav").then((nav) => setNav(nav.default));
   } else if (location.pathname.includes("/")) {
     import("../main/sidebar_nav").then((nav) => setNav(nav.default));
   }

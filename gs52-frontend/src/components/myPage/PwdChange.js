@@ -18,15 +18,6 @@ import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { CheckPwd } from "src/lib/api/myPage/MyPage";
 
 export function ConfRoom(props) {
-  const contentStyle = {
-    backgroundColor: "#3e4b54",
-    width: "400px",
-    textAlign: "center",
-    boxShadow: "5px 5px 5px gray",
-    padding: "8px",
-    borderRadius: "50px",
-  };
-
   const history = useHistory();
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
@@ -139,9 +130,6 @@ export function ConfRoom(props) {
 
   return (
     <div>
-      <div style={contentStyle}>
-        <h4 style={{ color: "white", marginTop: "5px" }}>비밀번호 수정</h4>
-      </div>
       <br />
       <br />
       <CCard>

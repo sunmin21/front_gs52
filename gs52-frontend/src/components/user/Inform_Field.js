@@ -180,8 +180,20 @@ export function InformField() {
       <CCard>
         <CCardBody>
           <CFormGroup row>
+            <CCol md="3"></CCol>
+            <CCol xs="12" md="9">
+              <br />* 유의사항
+              <br />
+              <p></p>
+              1. 초기 비밀번호는 사원번호이니, 비밀번호 재설정을 하십시오.
+              <br />
+              2. 해당 페이지는 회원 정보 수정 후, 다음 로그인 시 나타나지 않습니다.
+              <br />
+            </CCol>
+          </CFormGroup>
+          <CFormGroup row>
             <CCol md="3">
-              <CLabel htmlFor="first_pwd">비밀번호</CLabel>
+              <CLabel htmlFor="first_pwd">새 비밀번호</CLabel>
             </CCol>
             <CCol xs="12" md="9">
               <CInput
@@ -198,7 +210,7 @@ export function InformField() {
 
           <CFormGroup row>
             <CCol md="3">
-              <CLabel htmlFor="second_pwd">비밀번호 확인</CLabel>
+              <CLabel htmlFor="second_pwd">새 비밀번호 확인</CLabel>
             </CCol>
             <CCol xs="12" md="9">
               <CInput

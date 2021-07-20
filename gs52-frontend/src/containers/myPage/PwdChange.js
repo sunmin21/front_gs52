@@ -8,7 +8,7 @@ const contentStyle = {
   padding: "8px",
   borderRadius: "50px",
 };
-const InformLayout = () => {
+const pwdChange = () => {
     const contentStyle = {
         backgroundColor: "#3e4b54",
         width: "400px",
@@ -30,4 +30,4 @@ const InformLayout = () => {
   );
 };
 
-export default InformLayout;
+export default pwdChange;
