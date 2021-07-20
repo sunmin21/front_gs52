@@ -2,7 +2,7 @@ import client from "../client";
 
 import React, { useState } from "react";
 
-const API_URL = "http://192.168.20.17:8081/main/MyPage";
+const API_URL = "http://localhost:8081/main/MyPage";
 
 export const SelectEmp = async (index) => {
   console.log("SelectWorkRule");
@@ -20,7 +20,7 @@ export const CheckPwd = async (username, password, newPassword) => {
   console.log(password);
   console.log(newPassword);
   const check = await client.post(
-    "http://192.168.20.17:8081/api/auth/update_Pwd",
+    "http://localhost:8081/api/auth/update_Pwd",
     {
       username,
       password,
@@ -45,7 +45,7 @@ export const UpdateInform = async (index, name, email, tel, address) => {
     .then(() => {
       console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
       client
-        .post("http://192.168.20.17:8081/api/auth/update_userInfo", {})
+        .post("http://localhost:8081/api/auth/update_userInfo", {})
         .then((response) => {
           if (response.data.accessToken) {
             localStorage.setItem("user", JSON.stringify(response.data));

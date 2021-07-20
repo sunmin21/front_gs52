@@ -38,9 +38,6 @@ const TheHeader = () => {
     logout();
     history.push("/");
   };
-  const onMypage = () => {
-    history.push("/Mypage");
-  };
 
   const dispatch = useDispatch();
   const sidebarShow = useSelector((state) => state.changeState.sidebarShow);
@@ -118,28 +115,28 @@ const TheHeader = () => {
 
       </CHeaderNav>
       <CHeaderNav>
-        <CButton
-          style={{ textAlign: "right", margin: "auto" }}
-          variant="ghost"
-          color="dark"
-          onClick={onMypage}
-        >
-          <Style>마이페이지</Style>
-        </CButton>
+      <CHeaderNavItem className="px-3">
+          <Style>
+            <CHeaderNavLink to="/myPage">마이페이지</CHeaderNavLink>
+          </Style>
+        </CHeaderNavItem>
 
         {user !== null ? (
-          <CButton
+           <CHeaderNavItem className="px-3">
+           <Style>
+          <CHeaderNavLink
             style={{
               textAlign: "right",
               margin: "auto",
               marginRight: "30px",
             }}
-            variant="ghost"
-            color="dark"
             onClick={onLogout}
           >
             <Style>로그아웃</Style>
-          </CButton>
+          </CHeaderNavLink>
+          
+          </Style>
+          </CHeaderNavItem>
         ) : null}
       </CHeaderNav>
       <CSubheader className="px-3 justify-content-between">

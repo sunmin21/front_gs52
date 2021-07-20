@@ -15,7 +15,7 @@ import { useHistory } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
-import { CheckPwd } from "src/lib/api/main/MyPage";
+import { CheckPwd } from "src/lib/api/myPage/MyPage";
 
 export function ConfRoom(props) {
   const contentStyle = {

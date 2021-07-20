@@ -4,6 +4,7 @@ import TaskRoute from "./task/TaskRoute";
 import ManageRoute from "./manager/ManageRoute";
 import MainRoute from "./main/MainRoute";
 import EmpRoute from "./emp/EmpRoute";
+import MypageRoute from "./mypage/MypageRoute";
 
 const routes = [].concat(
   AttendanceRoute,
@@ -11,7 +12,8 @@ const routes = [].concat(
   TaskRoute,
   ManageRoute,
   MainRoute,
-  EmpRoute
+  EmpRoute,
+  MypageRoute
 );
 
 export default routes;

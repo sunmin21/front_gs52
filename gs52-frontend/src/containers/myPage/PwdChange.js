@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyPage from "../../../components/main/myPage/MyPage";
+import PwdChange from "../../components/myPage/PwdChange";
 const contentStyle = {
   backgroundColor: "#3e4b54",
   width: "400px",
@@ -22,10 +22,10 @@ const InformLayout = () => {
     <div>   
       <div style={contentStyle}>
         <h4 style={{ color: "white", marginTop: "5px" }}>
-            마이페이지
+            비밀번호수정
         </h4>
       </div><br/><br/>
-      <MyPage></MyPage>
+      <PwdChange></PwdChange>
     </div>
   );
 };

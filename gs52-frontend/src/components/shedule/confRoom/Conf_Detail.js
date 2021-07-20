@@ -74,12 +74,11 @@ export function ConfDetail() {
             <CModalTitle>회의실 예약</CModalTitle>
           </CModalHeader>
 
-          <CModalBody>
-            <h4>회의실 예약</h4>
+          <CModalBody style={{padding:"20px"}}>
 
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="first_pwd">회의실 제목</CLabel>
+                <CLabel htmlFor="title">회의실 제목</CLabel>
               </CCol>
               <CCol xs="12" md="9">
                 {" "}
@@ -89,25 +88,38 @@ export function ConfDetail() {
 
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="first_pwd"></CLabel>
+                <CLabel htmlFor="confRoom">회의실 위치</CLabel>
               </CCol>
-              <CCol xs="12" md="4"></CCol>
+              <CCol xs="12" md="4">
+                {conf_data[0].conf_ROOM_FLOOR}층{" "}
+                {conf_data[0].conf_ROOM_NUMBER}호</CCol>
 
               <CCol md="4"></CCol>
             </CFormGroup>
 
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="first_pwd">예약 시간</CLabel>
+                <CLabel htmlFor="time">시작일시</CLabel>
               </CCol>
               <CCol xs="12" md="9">
-                {conf_data[0].conf_DATE}
+                {conf_data[0].conf_DATE}{" "}
+                {" "}{conf_data[0].conf_START}{" "}
               </CCol>
             </CFormGroup>
 
             <CFormGroup row>
               <CCol md="3">
-                <CLabel htmlFor="first_pwd">초대 인원</CLabel>
+                <CLabel htmlFor="time">종료일시</CLabel>
+              </CCol>
+              <CCol xs="12" md="9">
+                {conf_data[0].conf_DATE}{" "}
+                {conf_data[0].conf_END}{" "}
+              </CCol>
+            </CFormGroup>
+
+            <CFormGroup row>
+              <CCol md="3">
+                <CLabel htmlFor="person">초대 인원</CLabel>
               </CCol>
               <CCol xs="12" md="9">
                 {conf_data.map((item, key) => {
