@@ -52,7 +52,11 @@ function MyCalendar() {
   }, [dispatch]);
 
   const data = mycalendar.map((item) => {
-    if (item.attend_TYPE_NAME == "연차" || item.attend_TYPE_NAME == "오전반차" || item.attend_TYPE_NAME == "오후반차") {
+    if (
+      item.attend_TYPE_NAME == "연차" ||
+      item.attend_TYPE_NAME == "오전반차" ||
+      item.attend_TYPE_NAME == "오후반차"
+    ) {
       return {
         title: item.attend_TYPE_NAME,
         start: item.attend_DATE,
