@@ -2,7 +2,7 @@ import client from "../../client";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 // const API_URL = "http://http://localhost:8081";
-const API_URL = "http://localhost:8081";
+const API_URL = "http://192.168.20.17:8081";
 
 const user = getCurrentUser();
   
