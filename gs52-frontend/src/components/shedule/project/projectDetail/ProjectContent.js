@@ -502,6 +502,19 @@ const ProjectContent = () => {
                                   ? { background: "#FFCFDA" }
                                   : { background: "white" }
                               }
+                              onClick={() => {
+                                part.수락 === 2
+                                  ? message.info({
+                                      content: "반려 사유 : \n" + part.반려사유,
+                                      className: "custom-class",
+                                      duration: 1,
+                                      maxCount: 1,
+                                      style: {
+                                        marginTop: "120px",
+                                      },
+                                    })
+                                  : setFilecheck(false);
+                              }}
                               innerRef={with2Input}
                               readOnly
                             >
@@ -583,6 +596,19 @@ const ProjectContent = () => {
                                   ? { background: "#FFCFDA" }
                                   : { background: "white" }
                               }
+                              onClick={() => {
+                                part.수락 === 2
+                                  ? message.info({
+                                      content: "반려 사유 : \n" + part.반려사유,
+                                      className: "custom-class",
+                                      duration: 1,
+                                      maxCount: 1,
+                                      style: {
+                                        marginTop: "120px",
+                                      },
+                                    })
+                                  : setFilecheck(false);
+                              }}
                               innerRef={with2Input}
                               readOnly
                             >
