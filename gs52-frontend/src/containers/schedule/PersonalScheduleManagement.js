@@ -57,7 +57,6 @@ const PersonalScheduleManagement = () => {
         team: String(data.emp_TEAM_INDEX),
       })),
   }));
-  console.log(render);
   return (
     <>
       <div style={contentStyle}>
