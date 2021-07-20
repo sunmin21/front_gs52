@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "antd/dist/antd.css";
 import EmpInsightList from "src/components/manager/empInsight/EmpInsightList";
-import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
+
 import {
   businessAxios,
   entrydateAxios,
@@ -25,7 +25,6 @@ const contentStyle = {
 };
 
 const PersonInsight = () => {
-  const EMP_INDEX = getCurrentUser();
   const [value, setValue] = useState(1);
 
   const { entrydate, project, todo, business, report, worktime, team } =

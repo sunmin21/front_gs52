@@ -107,35 +107,20 @@ const BusinessManage = ({ content, team, index }) => {
           striped
           itemsPerPage={10}
           pagination
-          // onRowClick={(item) =>
-          //   history.push(`/task/schedule/SendContent/${item.id}`)
-          // }
           scopedSlots={{
             보낸사람: (item) => {
               return <td>{item.emp_NAME}</td>;
             },
             내용: (item) => {
               return (
-                <td
-                  style={{ textAlign: "center" }}
-                  // onClick={() =>
-                  //   history.push(`/task/schedule/SendContent/${item.id}`)
-                  // }
-                >
+                <td style={{ textAlign: "center" }}>
                   {item.vacation_CONTENTS}
                 </td>
               );
             },
             종류: (item) => {
               return (
-                <td
-                  style={{ textAlign: "center" }}
-                  // onClick={() =>
-                  //   history.push(`/task/schedule/SendContent/${item.id}`)
-                  // }
-                >
-                  {item.attend_TYPE_NAME}
-                </td>
+                <td style={{ textAlign: "center" }}>{item.attend_TYPE_NAME}</td>
               );
             },
             요청날짜: (item) => (

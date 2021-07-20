@@ -52,17 +52,14 @@ const BusinessTables = ({ vacation_EMP_INDEX }) => {
     승인: "",
   });
   const dispatch = useDispatch();
-  const { annual, empvacation, holiday, attend, person } = useSelector(
-    (state) => {
-      return {
-        annual: state.annual.annual,
-        holiday: state.holiday.holiday,
-        attend: state.memberSchedule.attend,
-        person: state.personSchedule.person,
-        empvacation: state.annual.empvacation,
-      };
-    }
-  );
+  const { annual, holiday, attend, person } = useSelector((state) => {
+    return {
+      annual: state.annual.annual,
+      holiday: state.holiday.holiday,
+      attend: state.memberSchedule.attend,
+      person: state.personSchedule.person,
+    };
+  });
 
   useEffect(() => {
     dispatch(annualAxios(vacation_EMP_INDEX.index));

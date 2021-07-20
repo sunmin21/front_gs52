@@ -23,10 +23,6 @@ const PersonalScheduleManagement = () => {
   const render = useSelector((state) => state.main.render);
   const vacation_EMP_INDEX = getCurrentUser();
 
-  // const test = SelectTeam();
-  // console.log(test);
-
-  //리덕스에서 team 가져옴
   const { team, emp, treevalue, attend, person, leader } = useSelector(
     (state) => {
       return {
@@ -42,10 +38,7 @@ const PersonalScheduleManagement = () => {
 
   const nowEmpTeam = emp //현재 로그인한 사람의 팀 구하기
     .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.index)
-    .map((item) =>
-      //String(item.emp_TEAM_INDEX);
-      String(item.emp_TEAM_INDEX)
-    );
+    .map((item) => String(item.emp_TEAM_INDEX));
 
   useEffect(() => {
     dispatch(allAxios());
