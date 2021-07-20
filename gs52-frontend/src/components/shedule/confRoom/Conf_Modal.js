@@ -18,6 +18,7 @@ import {
 } from "@coreui/react";
 import {
   InsertConf,
+  overlap_Conf,
   SelectConf,
   Select_emp,
 } from "../../../lib/api/conf/ConfAPI";
@@ -163,16 +164,25 @@ export function ConfModal() {
       );
     } else {
       //roomIndex, title, date, startTime, endTime
-
-      await InsertConf(
-        user.index,
-        room_data[inputs.room].conf_ROOM_INDEX,
-        inputs.title,
-        conf_date,
-        conf_startTime,
-        conf_endTime,
-        empList
+      await overlap_Conf(room_data[inputs.room].conf_ROOM_INDEX,conf_date,conf_startTime,conf_endTime ).then((item)=>{
+        console.log(item)
+        if(item.data[0]==null){
+          InsertConf(
+            user.index,
+            room_data[inputs.room].conf_ROOM_INDEX,
+            inputs.title,
+            conf_date,
+            conf_startTime,
+            conf_endTime,
+            empList
+          );
+        }
+        else{
+          alert("이미 예약되어 있습니다.")
+        }
+      }
       );
+
       await dispatch(modalCheck1());
       await dispatch(ConfAxios());
     }

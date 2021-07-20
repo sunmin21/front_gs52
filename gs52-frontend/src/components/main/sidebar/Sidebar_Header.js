@@ -8,6 +8,8 @@ import WiseSaying from "./WiseSaying";
 import { CImg } from "@coreui/react";
 import { userList } from "src/lib/api/auth/auth";
 
+import { useSelector } from "react-redux";
+
 // 퇴근가능시간 이후에는 퇴근 버튼 활성화
 
 function Sidebar_Header({ nav }) {
@@ -15,6 +17,10 @@ function Sidebar_Header({ nav }) {
 
   const [img, setImg] = useState(null);
   const [userContent, setUserContent] = useState();
+  
+  const render = useSelector((state) => state.main.render);
+
+
   useEffect(async () => {
     SelectEmpImg(user.index).then((res) => {
       if (res.data[0] != null) {
@@ -29,7 +35,7 @@ function Sidebar_Header({ nav }) {
         await userList()
       ).filter((item) => Number(item.emp_INDEX) === user.index)
     );
-  }, []);
+  }, [render]);
 
   return (
     <div>

@@ -173,6 +173,8 @@ export function InformField() {
     }
     //fullAddress -> 전체 주소반환
     setAddr(fullAddress);
+    
+    setIsDaumPost(false);
   };
 
   return (

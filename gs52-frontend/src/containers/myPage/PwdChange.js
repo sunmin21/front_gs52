@@ -24,7 +24,7 @@ const pwdChange = () => {
         <h4 style={{ color: "white", marginTop: "5px" }}>
             비밀번호수정
         </h4>
-      </div><br/><br/>
+      </div>
       <PwdChange></PwdChange>
     </div>
   );

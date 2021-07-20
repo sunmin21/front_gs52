@@ -2,7 +2,7 @@ import client from "../client";
 
 import React, { useState } from "react";
 
-const API_URL = "http://localhost:8081/main/MyPage";
+const API_URL = "http://192.168.20.17:8081/main/MyPage";
 
 export const SelectEmp = async (index) => {
   const emp = await client.post(API_URL + "/selectEmp", { emp_INDEX: index });
@@ -13,7 +13,7 @@ export const SelectEmp = async (index) => {
 //auth로 JPA로 등록
 export const CheckPwd = async (username, password, newPassword) => {
   const check = await client.post(
-    "http://localhost:8081/api/auth/update_Pwd",
+    "http://192.168.20.17:8081/api/auth/update_Pwd",
     {
       username,
       password,
@@ -35,7 +35,7 @@ export const UpdateInform = async (index, name, email, tel, address) => {
     })
     .then(() => {
       client
-        .post("http://localhost:8081/api/auth/update_userInfo", {})
+        .post("http://192.168.20.17:8081/api/auth/update_userInfo", {})
         .then((response) => {
           if (response.data.accessToken) {
             localStorage.setItem("user", JSON.stringify(response.data));
