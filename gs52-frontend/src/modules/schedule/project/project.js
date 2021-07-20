@@ -4,8 +4,9 @@ import createRequestSaga, {
 } from "../../../lib/createRequestSaga";
 import * as API from "../../../lib/api/schedule/Project";
 import { takeEvery, takeLatest } from "redux-saga/effects";
-
+const RENDER = "schedule/RENDER";
 const PROJECTNO = "schedule/PROJECTNO";
+
 const PROJECTWITHCHANGE = "schedule/PROJECTWITHCHANGE";
 const PROJECTFILECHANGE = "schedule/PROJECTFILECHANGE";
 const PROJECTFILECONCAT = "schedule/PROJECTFILECONCAT";
@@ -26,6 +27,7 @@ const [
   PROJECTTODODETAIL_FAILURE,
 ] = createRequestActionTypes("schedule/PROJECTTODODETAIL"); //타입유형
 
+export const renderLoad = createAction(RENDER);
 export const projectAxios = createAction(PROJECT, (index) => {
   return {
     index,
@@ -44,8 +46,7 @@ export const projectFileAxios = createAction(PROJECTFILE, (index) => {
 });
 export const projectTodoAxios = createAction(PROJECTTODO, (index) => {
   console.log("projectTodoAxios");
-  console.log(index);
-  console.log("??");
+
   return {
     index,
   };
@@ -177,6 +178,7 @@ const initialState = {
       PROJECT_INDEX: "",
     },
   ],
+  render: false,
   projectTodoError: null,
   projectError: null,
   projectWithError: null,
@@ -187,6 +189,13 @@ const initialState = {
 // 리듀서 선언부분
 const project = handleActions(
   {
+    [RENDER]: (state) => {
+      console.log("RENDER 모듈");
+      return {
+        ...state,
+        render: !state.render,
+      };
+    },
     [PROJECT_SUCCESS]: (state, { payload: projectContent }) => ({
       ...state,
       projectError: null,

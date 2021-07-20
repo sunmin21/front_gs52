@@ -20,6 +20,7 @@ import {
   projectTodoAxios,
   projectTodoDetailAxios,
   projectWithAxios,
+  renderLoad,
 } from "src/modules/schedule/project/project";
 import ColorModal from "./ProjectTaskColorModal";
 import ProjectTaskTodoInsert from "./ProjectTaskTodoInsert";
@@ -568,6 +569,8 @@ const ProjectTask = () => {
                                                     item2.project_TASK_DETAIL_PERCENT) /
                                                     100,
                                               });
+
+                                              console.log("project1");
                                               await dispatch(
                                                 projectTodoAxios(projectNo)
                                               );
@@ -576,7 +579,7 @@ const ProjectTask = () => {
                                                   projectNo
                                                 )
                                               );
-                                              dispatch(
+                                              await dispatch(
                                                 projectWithAxios(projectNo)
                                               );
                                             } else {
@@ -613,6 +616,7 @@ const ProjectTask = () => {
                                                     item2.project_TASK_DETAIL_PERCENT) /
                                                     100,
                                               });
+                                              console.log("project1");
                                               await dispatch(
                                                 projectTodoAxios(projectNo)
                                               );
@@ -621,7 +625,7 @@ const ProjectTask = () => {
                                                   projectNo
                                                 )
                                               );
-                                              dispatch(
+                                              await dispatch(
                                                 projectWithAxios(projectNo)
                                               );
                                             }

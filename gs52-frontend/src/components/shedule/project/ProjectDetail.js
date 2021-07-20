@@ -16,9 +16,11 @@ import {
 import ProjectContent from "./projectDetail/ProjectContent";
 import ProjectTask from "./projectDetail/ProjectTask";
 import ProjectInsite from "./projectDetail/ProjectInsite";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { renderLoad } from "src/modules/schedule/project/project";
 
 function ShowProject() {
+  const dispatch = useDispatch();
   const { projectNo, projectWith, projectTodo, projectTodoDetail } =
     useSelector(({ project }) => {
       return {
@@ -60,7 +62,15 @@ function ShowProject() {
                 </CNavItem>
                 {projectTodoDetail.length !== 0 && (
                   <CNavItem>
-                    <CNavLink>인사이트</CNavLink>
+                    <CNavLink
+                      onClick={() => {
+                        dispatch(renderLoad());
+
+                        setTimeout(() => dispatch(renderLoad()), 10);
+                      }}
+                    >
+                      인사이트
+                    </CNavLink>
                   </CNavItem>
                 )}
               </CNav>

@@ -163,7 +163,6 @@ const ProjectContent = () => {
     formData.append("PROJECT_END", content.종료기간);
     formData.append("PROJECT_WITH_LEADER", leader);
     formData.append("PROJECT_WITH_EMP", content.참여원);
-    console.log(content.참여원.map((item) => item["사원번호"]));
     formData.append(
       "PROJECT_WITH_EMP_INDEXS",
       content.참여원.map((item) => item["사원번호"])
@@ -193,8 +192,6 @@ const ProjectContent = () => {
   if (projectNo === 0) {
     return <Redirect to="/schedule/project" />;
   }
-  console.log(leader);
-  console.log(user.index);
   return (
     <>
       {" "}
