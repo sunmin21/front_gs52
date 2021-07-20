@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Scheduler, { SchedulerData, ViewTypes } from "react-big-scheduler";
 import { DragDropContext } from "react-dnd";
 import HTML5Backend from "react-dnd-html5-backend";
@@ -120,11 +120,11 @@ const Readonly = withDragDropContext((props) => {
     } else if (item.attend_TYPE_NAME == "지각") {
       return {
         id: keyvalue, //item.attend_INDEX,
-        start: item.attend_DATE + " 09:00",
-        end: item.attend_DATE + " " + item.attend_START,
+        start: item.attend_DATE + " " + item.attend_START,
+        end: item.attend_DATE + moment(starttime).format(" HH:mm"),
         resourceId: item.emp_ID,
-        title: item.attend_TYPE_NAME,
-        bgColor: "#faf03d",
+        title: "출근",
+        bgColor: "#5af82a",
       };
     } else if (item.attend_TYPE_NAME == "출근") {
       return {
@@ -208,8 +208,6 @@ const Readonly = withDragDropContext((props) => {
     schedulerData.next();
     schedulerData.setEvents(selectList.events);
     forceUpdate();
-
-    // console.log("@@");
   };
 
   const onSelectDate = (schedulerData, date) => {
@@ -260,14 +258,9 @@ const Readonly = withDragDropContext((props) => {
     }
   };
 
-  const onScrollTop = (schedulerData, schedulerContent, maxScrollTop) => {
-    console.log("onScrollTop");
-  };
+  const onScrollTop = (schedulerData, schedulerContent, maxScrollTop) => {};
 
-  const onScrollBottom = (schedulerData, schedulerContent, maxScrollTop) => {
-    console.log("@@s");
-    console.log("onScrollBottom");
-  };
+  const onScrollBottom = (schedulerData, schedulerContent, maxScrollTop) => {};
 
   const toggleExpandFunc = (schedulerData, slotId) => {
     schedulerData.toggleExpandStatus(slotId);

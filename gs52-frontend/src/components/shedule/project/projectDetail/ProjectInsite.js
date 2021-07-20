@@ -37,12 +37,14 @@ import React from "react";
 //import PieChart from "./PieChart"
 
 const ProjectInsite = () => {
+  const [value, setValue] = React.useState(0); // integer state
+
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
   const [userData, setUserData] = useState();
 
-  const { projectNo, projectWith, projectTodo, projectTodoDetail } =
+  const { projectNo, projectWith, projectTodo, projectTodoDetail, render } =
     useSelector(({ project }) => {
       return {
         projectNo: project.projectNo,
@@ -51,6 +53,7 @@ const ProjectInsite = () => {
           [],
         projectTodo: project.projectTodo,
         projectTodoDetail: project.projectTodoDetail,
+        render: project.render,
       };
     });
 
@@ -192,7 +195,7 @@ const ProjectInsite = () => {
                 {projectTodo
                   .filter((t, key) => t.project_INDEX === projectNo)
                   .map((todo, key) => {
-                    if (key % 4 === 3)
+                    if (key % 4 === 3) {
                       return (
                         <LiquidInsite
                           projectTodo={todo}
@@ -200,6 +203,7 @@ const ProjectInsite = () => {
                           color={key}
                         />
                       );
+                    }
                   })}
               </CCol>
             </CFormGroup>

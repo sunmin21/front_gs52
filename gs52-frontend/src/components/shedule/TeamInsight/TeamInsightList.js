@@ -1,11 +1,4 @@
-import {
-  CCard,
-  CCardBody,
-  CCardHeader,
-  CCardText,
-  CCol,
-  CRow,
-} from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
 import React from "react";
 import CIcon from "@coreui/icons-react";
 

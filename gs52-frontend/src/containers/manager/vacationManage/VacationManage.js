@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import {
   CCol,
   CNav,
@@ -49,7 +49,6 @@ const VacationManage = () => {
       <CRow style={{ marginTop: "50px" }}>
         <CCol xs="12" md="12" className="mb-4">
           <CCard>
-            {/*<CCardHeader>연차/출장관리</CCardHeader>*/}
             <CCardBody>
               <CTabs>
                 <CNav variant="tabs">

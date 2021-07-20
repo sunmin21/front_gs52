@@ -21,14 +21,9 @@ function RowDeleteModal({
   doubleCheck,
   setDoubleCheck,
 }) {
-  // const [info, setInfo] = useState(false);
   const dispatch = useDispatch();
 
   const rowDelete = async () => {
-    // axios.post("/annual/delete", {
-    //   vacation_DATE: event.날짜,
-    // });
-
     await DeleteVacation(event.날짜, vacation_EMP_INDEX.index);
     dispatch(annualAxios(vacation_EMP_INDEX.index));
 

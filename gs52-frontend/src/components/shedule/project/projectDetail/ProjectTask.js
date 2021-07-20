@@ -20,6 +20,7 @@ import {
   projectTodoAxios,
   projectTodoDetailAxios,
   projectWithAxios,
+  renderLoad,
 } from "src/modules/schedule/project/project";
 import ColorModal from "./ProjectTaskColorModal";
 import ProjectTaskTodoInsert from "./ProjectTaskTodoInsert";
@@ -533,8 +534,6 @@ const ProjectTask = () => {
                                           key={"@#!$@!$!" + key + "!@4"}
                                           style={{ background: "red" }}
                                           onChange={async (e) => {
-                                            console.log(check[key]);
-
                                             if (check[key] === 1) {
                                               setCheck((con) => {
                                                 return con.map((c, ky) => {
@@ -568,6 +567,7 @@ const ProjectTask = () => {
                                                     item2.project_TASK_DETAIL_PERCENT) /
                                                     100,
                                               });
+
                                               await dispatch(
                                                 projectTodoAxios(projectNo)
                                               );
@@ -576,7 +576,7 @@ const ProjectTask = () => {
                                                   projectNo
                                                 )
                                               );
-                                              dispatch(
+                                              await dispatch(
                                                 projectWithAxios(projectNo)
                                               );
                                             } else {
@@ -613,6 +613,7 @@ const ProjectTask = () => {
                                                     item2.project_TASK_DETAIL_PERCENT) /
                                                     100,
                                               });
+
                                               await dispatch(
                                                 projectTodoAxios(projectNo)
                                               );
@@ -621,7 +622,7 @@ const ProjectTask = () => {
                                                   projectNo
                                                 )
                                               );
-                                              dispatch(
+                                              await dispatch(
                                                 projectWithAxios(projectNo)
                                               );
                                             }

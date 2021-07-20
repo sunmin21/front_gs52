@@ -35,10 +35,8 @@ const Success = ({ content, checkSuccess }) => {
 
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
-  console.log(currentPage);
+
   const pageChange = (newPage) => {
-    console.log(currentPage);
-    console.log(newPage);
     currentPage !== newPage && history.push(`/task/schedule?page=${newPage}`);
   };
 
@@ -46,10 +44,9 @@ const Success = ({ content, checkSuccess }) => {
     !checkSuccess && currentPage !== page && setPage(currentPage);
   }, [currentPage, page]);
   useEffect(() => {
-    console.log("타냐?");
     setPage(1);
   }, [checkSuccess]);
-  console.log(page);
+
   const Done = {
     0: "대기",
     1: "반려",

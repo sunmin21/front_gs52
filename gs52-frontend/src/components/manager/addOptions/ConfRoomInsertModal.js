@@ -157,7 +157,7 @@ const DeptInsertModal = ({
                   setShow2(true);
                   return;
                 }
-                console.log(content);
+
                 await InsertConfROOM(content);
 
                 await dispatch(axios());

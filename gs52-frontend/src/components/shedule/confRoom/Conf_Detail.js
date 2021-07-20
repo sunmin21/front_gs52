@@ -28,8 +28,6 @@ export function ConfDetail() {
   const dispatch = useDispatch();
 
   const { conf_modal2, conf_one } = useSelector((state) => {
-    console.log("state");
-    console.log(state);
     return {
       conf_modal2: state.conf_check.conf_modal2,
       conf_one: state.conf_check.conf_one,
@@ -53,8 +51,6 @@ export function ConfDetail() {
   };
 
   const onDelete = async () => {
-    console.log("onDelete");
-    console.log(conf_data[0].conf_INDEX);
     await Delete_Conf(conf_data[0].conf_INDEX);
     await dispatch(ConfAxios());
     await dispatch(modalCheck2());
@@ -63,7 +59,6 @@ export function ConfDetail() {
   if (conf_data.length !== 0) {
     return (
       <div>
-        {console.log(conf_data[0].conf_DATE)}
         <CModal
           show={conf_modal2}
           closeOnBackdrop={false}

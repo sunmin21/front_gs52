@@ -75,7 +75,6 @@ export function InformField() {
     // 비밀번호 썼다가 지웠을 때, 같다고 나오는 경우 해결
     if (e.target.id === "first_pwd") {
       if (!regex_PW.test(e.target.value)) {
-        console.log(e.target.value);
         setPwd_check(false);
         setPwd_reg("비밀번호 형식이 맞지 않습니다.");
       } else {
@@ -137,13 +136,10 @@ export function InformField() {
           account_number
         ).then(
           () => {
-            console.log("성공");
             history.push("/");
           },
           (error) => {
             alert("다시 입력 하십시오.");
-            console.log("error");
-            console.log(error);
           }
         );
       }

@@ -111,7 +111,6 @@ export function InformChange() {
   };
 
   const imgUpload = async () => {
-    console.log(file);
     const formData = new FormData();
     formData.append("EMP_ID", Number(user.id));
     formData.append("FILES", file[0]);
@@ -125,10 +124,6 @@ export function InformChange() {
     //name, tel, address, email, file
     const ad = addr + address;
 
-    console.log(name);
-    console.log(email);
-    console.log(tel);
-    console.log(ad);
     if (name === "" && email === "" && tel === "" && ad === "") {
       setAlertContents("변경된 것이 없습니다.");
     } else {
@@ -138,9 +133,7 @@ export function InformChange() {
           setAlertContents("수정되었습니다.");
           history.push("/InformChange");
         },
-        (error) => {
-          console.log(error);
-        }
+        (error) => {}
       );
     }
   };
@@ -262,8 +255,6 @@ export function InformChange() {
                 name="file-multiple-input"
                 custom
                 onChange={(e) => {
-                  console.log(e.target.files);
-                  console.log(e.target.files[0].type.substring(0, 5));
                   if (e.target.files.size > 102400000) {
                     setFilecheck(true);
                     return;
@@ -331,7 +322,6 @@ export function InformChange() {
           >
             등록
           </CButton>
-          
         </CCardFooter>
       </CCard>
     </div>

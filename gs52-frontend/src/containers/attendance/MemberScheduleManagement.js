@@ -29,8 +29,6 @@ const MemberScheduleManagement = () => {
     dispatch(attendAxios());
   }, [dispatch]);
 
-  // const test = SelectTeam();
-
   //리덕스에서 team 가져옴
   const { team } = useSelector((state) => {
     return {
@@ -40,8 +38,6 @@ const MemberScheduleManagement = () => {
 
   //리덕스에서 emp 가져옴
   const { emp } = useSelector((state) => {
-    // console.log(state);
-
     return {
       emp: state.memberSchedule.emp,
     };
@@ -61,16 +57,9 @@ const MemberScheduleManagement = () => {
 
   const nowEmpTeam = emp //현재 로그인한 사람의 팀 구하기
     .filter((item) => item.emp_INDEX === vacation_EMP_INDEX.index)
-    .map((item) =>
-      //String(item.emp_TEAM_INDEX);
-      String(item.emp_TEAM_INDEX)
-    );
+    .map((item) => String(item.emp_TEAM_INDEX));
   //Promise 푸는거
-  const test = SelectAttend().then((item) => {
-    //console.log(item);
-  });
-
-  //console.log(test);
+  const test = SelectAttend().then((item) => {});
 
   const data = team.map((item) => ({
     title: item.dept_NAME + " : " + item.team_NAME,

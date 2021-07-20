@@ -99,14 +99,7 @@ const CompleteManage = ({ content, team, index }) => {
             },
             종류: (item) => {
               return (
-                <td
-                  style={{ textAlign: "center" }}
-                  // onClick={() =>
-                  //   history.push(`/task/schedule/SendContent/${item.id}`)
-                  // }
-                >
-                  {item.attend_TYPE_NAME}
-                </td>
+                <td style={{ textAlign: "center" }}>{item.attend_TYPE_NAME}</td>
               );
             },
             요청날짜: (item) => (

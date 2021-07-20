@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useSelector } from "react-redux";
 import AnnualTable from "src/components/attendance/AnnualManagement/AnnualTable";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
@@ -14,7 +13,6 @@ const contentStyle = {
 };
 
 const AnnualManageMent = () => {
-  const board = useSelector((state) => state.test.board);
   const vacation_EMP_INDEX = getCurrentUser();
 
   return (

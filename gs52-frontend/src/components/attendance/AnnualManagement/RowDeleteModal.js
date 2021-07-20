@@ -19,7 +19,6 @@ function RowDeleteModal({
   info,
   setInfo,
   event,
-  setRestVacation,
   vacation_EMP_INDEX,
   doubleCheck,
   setDoubleCheck,

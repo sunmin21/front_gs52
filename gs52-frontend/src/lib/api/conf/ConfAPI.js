@@ -13,7 +13,6 @@ export const InsertConf = async (
   endTime,
   empList
 ) => {
-  // console.log("Conf API inserrrrrr");
   const conf = await client
     .post(API_URL + "/schedule/confRoom/insert", {
       conf_TITLE: title,
@@ -29,7 +28,6 @@ export const InsertConf = async (
     })
     .catch(function (error) {
       //오류발생 시
-      console.log(error);
     })
     .then(function () {
       //항상실행
@@ -42,7 +40,6 @@ export const InsertConf = async (
 };
 
 export const SelectConf = async () => {
-  console.log("SelectConf");
   const conf = await client.post(
     API_URL + "/schedule/confRoom/select_confList"
   );
@@ -51,41 +48,32 @@ export const SelectConf = async () => {
 };
 
 export const SelectRoomFloor = async () => {
-  console.log("Select_floor");
   const conf = await client.post(
     API_URL + "/schedule/confRoom/select_room_floor"
   );
 
-  console.log(conf);
   return conf;
 };
 
 export const SelectConfRoom = async (floor) => {
-  console.log("Select_room");
-  console.log(floor);
   const conf = await client.post(
     API_URL + "/schedule/confRoom/Select_conf_room",
     { conf_ROOM_FLOOR: floor }
   );
 
-  console.log("conffffffffffffff");
-  console.log(conf);
   return conf;
 };
 
 export const Select_emp = async () => {
   const conf = await client.post(API_URL + "/schedule/confRoom/select_emp");
-  console.log(conf.data);
 };
 
 export const Select_ConfOne = async (index) => {
-  console.log("@@@@@@@@@@@@@@@Select_ConfOne");
-  console.log(index);
   const conf = await client.post(
     API_URL + "/schedule/confRoom/select_confOne",
     { conf_INDEX: index }
   );
-  console.log(conf);
+
   return conf;
 };
 export const Delete_Conf = async (index) => {
@@ -93,7 +81,6 @@ export const Delete_Conf = async (index) => {
     API_URL + "/schedule/confRoom/delete_conf",
     { conf_INDEX: index }
   );
-  console.log(delete_conf);
 };
 
 // post로 값넘기기

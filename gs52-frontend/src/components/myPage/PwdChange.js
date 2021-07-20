@@ -68,7 +68,6 @@ export function ConfRoom(props) {
     // 비밀번호 썼다가 지웠을 때, 같다고 나오는 경우 해결
     if (e.target.id === "first_pwd") {
       if (!regex_PW.test(e.target.value)) {
-        console.log(e.target.value);
         setPwd_regcheck(false);
         setPwd_reg("비밀번호 형식이 맞지 않습니다.");
       } else {
@@ -126,14 +125,11 @@ export function ConfRoom(props) {
       const user = getCurrentUser();
       const result = CheckPwd(user.id, pwd, first_pwd).then(
         () => {
-          console.log("성공");
           alert("비밀번호가 변경되었습니다.");
           history.push("/myPage");
         },
         (error) => {
           alert("기존 비밀번호가 일치하지 않습니다.");
-          console.log("error");
-          console.log(error);
         }
       );
       if (result) {

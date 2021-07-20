@@ -13,16 +13,11 @@ import {
 
 import AnnualModal from "./AnnualModal";
 import RowDeleteModal from "./RowDeleteModal";
-import {
-  annualAxios,
-  checkAxios,
-  empvacationAxios,
-} from "src/modules/annual/annual";
+import { annualAxios, empvacationAxios } from "src/modules/annual/annual";
 import { Badge } from "antd";
 import { holidayAxios } from "src/modules/manager/holiday";
 import { attendAxios } from "src/modules/annual/memberSchedule";
 import { personAxios } from "src/modules/schedule/personSchedule/personSchedule";
-import holidaydata from "src/components/manager/holiday/HolidayData";
 
 const annualArr = ["날짜", "연차유형", "사유", "승인"];
 

@@ -22,11 +22,10 @@ export const SelectWeekTotal = async (userIndex, date) => {
 };
 
 export const SelectVacation = async (userIndex, date) => {
-  console.log("vacation");
   const vacation = await client.post(API_URL + "/selectVacation", {
     attend_EMP_INDEX: userIndex,
     attend_DATE: date,
   });
-  console.log(vacation);
+
   return vacation;
 };

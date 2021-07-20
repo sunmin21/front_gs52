@@ -1,7 +1,14 @@
 import React from "react";
 import { Liquid, measureTextWidth } from "@ant-design/charts";
 import colors from "./colors";
+import { useSelector } from "react-redux";
 const LiquidInsite = ({ projectTodo, color }) => {
+  const { render } = useSelector(({ project }) => {
+    return {
+      render: project.render,
+    };
+  });
+
   var config = {
     percent: projectTodo.length !== 0 && projectTodo.detail_SUCCESS_SUM / 100,
     outline: {
@@ -45,6 +52,7 @@ const LiquidInsite = ({ projectTodo, color }) => {
 
           var textWidth = (0, measureTextWidth)(text, { fontSize: 60 });
           var scale = Math.min(d / textWidth, 1);
+
           return '<div style="width:'
             .concat(
               d,

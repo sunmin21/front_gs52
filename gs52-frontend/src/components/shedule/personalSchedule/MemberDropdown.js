@@ -7,10 +7,7 @@ import { treeValue } from "src/modules/annual/memberSchedule";
 const { SHOW_PARENT } = TreeSelect;
 
 const Dropdown = (data) => {
-  //const nowEmpTeam = data.nowEmpTeam[0];
-
   const [value, setValue] = useState(["1", "2"]);
-  //const [value, setValue] = useState(["3"]);
 
   const dispatch = useDispatch();
 
@@ -18,7 +15,7 @@ const Dropdown = (data) => {
 
   useEffect(() => {
     dispatch(treeValue(value));
-  }, [dispatch]);
+  }, [dispatch, value]);
 
   const onChange = (value) => {
     setValue(value);

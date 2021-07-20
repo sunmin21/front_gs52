@@ -48,7 +48,7 @@ const Dept = () => {
     }
     setDetails(newDetails);
   };
-  console.log(dept);
+
   const fields = [
     { key: "인덱스", _style: { width: "20%" } },
     { key: "부서이름", _style: { width: "40%" } },

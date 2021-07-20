@@ -38,7 +38,7 @@ const TheSidebar = ({ nav }) => {
     "인사이트",
   ];
   const ROLE_TEAMLEADER = ["연차/출장관리", "프로젝트관리"];
-  console.log(nav);
+
   if (nav.length !== 0 && nav[0]._children[0] === "관리자페이지") {
     if (user.roles[0] === "ROLE_ADMIN") {
       nav = nav.filter((item, key) => {
@@ -60,7 +60,6 @@ const TheSidebar = ({ nav }) => {
       });
     }
   }
-  console.log(nav);
 
   return (
     <CSidebar

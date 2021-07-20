@@ -56,7 +56,6 @@ const PersonInsight = () => {
 
   const dispatch = useDispatch();
 
-  //const teamlist0 = teamlist.map((item) => item.emp_INDEX);
   const teamlist0 = teamlist.map((item) => ({
     emp_INDEX: item.emp_INDEX,
     emp_NAME: item.emp_NAME,
