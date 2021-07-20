@@ -11,29 +11,29 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { projectNoChange } from "src/modules/schedule/project/project";
-import { okayAxios } from "src/modules/manager/Project";
+import { AllAxios, okayAxios } from "src/modules/manager/Project";
 import { UpdateOKay } from "src/lib/api/manager/project/ProjectAPI";
 import { Button } from "antd";
 import "antd/dist/antd.css";
 
-function ProjectManage() {
+function ProjectAll() {
   const user = getCurrentUser();
   let [emp] = useState(user.index);
 
   const dispatch = useDispatch();
 
   const history = useHistory();
-  const { okay } = useSelector((state) => {
+  const { all } = useSelector((state) => {
     return {
-      okay: state.projectOkay.okay,
+      all: state.projectOkay.okay,
     };
   });
 
   useEffect(() => {
-    dispatch(okayAxios());
+    dispatch(AllAxios());
   }, [dispatch]);
 
-  const data = okay.map((item, key) => {
+  const data = all.map((item, key) => {
     return {
       pindex: item.project_INDEX,
       번호: key + 1, // index를 1부터 세 주기 위해서
@@ -45,7 +45,7 @@ function ProjectManage() {
       인덱스: item.project_INDEX,
     };
   });
-
+  console.log(data);
   return (
     <CRow>
       <CCol>
@@ -124,4 +124,4 @@ function ProjectManage() {
   );
 }
 
-export default ProjectManage;
+export default ProjectAll;
