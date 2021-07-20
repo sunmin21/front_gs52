@@ -130,7 +130,6 @@ export function InformChange() {
     console.log(tel);
     console.log(ad);
     if (name === "" && email === "" && tel === "" && ad === "") {
-      console.log("변경된게 없엉ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ");
       setAlertContents("변경된 것이 없습니다.");
     } else {
       await UpdateInform(user.index, name, email, tel, ad).then(
@@ -204,7 +203,7 @@ export function InformChange() {
               <CInput
                 id="tel"
                 name="tel"
-                placeholder={emp_data[0].tel}
+                placeholder={emp_data[0].phone}
                 onChange={onChange}
                 value={tel || ""}
                 type="number"
@@ -239,7 +238,7 @@ export function InformChange() {
               <CInput
                 id="disabled-input"
                 name="disabled-input"
-                placeholder={addr}
+                placeholder={emp_data[0].address}
                 disabled
                 style={{ marginBottom: "10px" }}
               />
@@ -332,10 +331,7 @@ export function InformChange() {
           >
             등록
           </CButton>
-          <CButton type="reset" size="sm" color="danger">
-            {" "}
-            취소
-          </CButton>
+          
         </CCardFooter>
       </CCard>
     </div>

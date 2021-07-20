@@ -212,12 +212,7 @@ export function ConfRoom(props) {
 
         <CCardFooter>
           <CButton type="submit" size="sm" color="primary" onClick={onRegist}>
-            등록
-          </CButton>
-          {"    "}
-          <CButton type="reset" size="sm" color="danger">
-            {" "}
-            취소
+            변경
           </CButton>
         </CCardFooter>
       </CCard>

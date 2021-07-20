@@ -100,13 +100,22 @@ const TheHeader = () => {
           </Style>
         </CHeaderNavItem>
 
-        {user.roles == "ROLE_ADMIN" || user.roles == "ROLE_TEAMLEADER" ? (
+        {user.roles == "ROLE_ADMIN"? (
           <CHeaderNavItem className="px-3">
             <Style>
-              <CHeaderNavLink to="/manager">관리자페이지</CHeaderNavLink>
+              <CHeaderNavLink to="/manager">관리자페이지<div style={{fontSize:"15px"}}>(최고관리자)</div></CHeaderNavLink>
             </Style>
           </CHeaderNavItem>
         ) : null}
+
+        {user.roles == "ROLE_TEAMLEADER" ? (
+          <CHeaderNavItem className="px-3">
+            <Style>
+              <CHeaderNavLink to="/manager">관리자페이지<div style={{fontSize:"15px"}}>(팀장)</div></CHeaderNavLink>
+            </Style>
+          </CHeaderNavItem>
+        ) : null}
+
       </CHeaderNav>
       <CHeaderNav>
         <CButton
