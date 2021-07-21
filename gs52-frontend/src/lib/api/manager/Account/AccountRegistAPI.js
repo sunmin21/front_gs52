@@ -93,9 +93,13 @@ export const RegistAccount = async (
       client.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     })
     .catch(function (error) {
+      console.log(error.response.data.message);
       if (error.response) {
-        if (error.reponse.data.message == "Error: Email is already in use!") {
+        if (error.response.data.message == "Error: Email is already in use!") {
           alert("이미 등록된 이메일입니다.");
+        }
+        if (error.response.data.message == "Error: ID is already taken!") {
+          alert("이미 등록된 아이디입니다.");
         }
       } else if (error.request) {
       } else {
