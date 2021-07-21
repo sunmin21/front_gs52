@@ -8,16 +8,28 @@ import {
     CFormGroup, CCol, CLabel, CCardFooter, CButton, CSelect, CRow,
   } from '@coreui/react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  empAxios,
+} from "src/modules/annual/memberSchedule";
 
 export function MyPage() {  
     const history = useHistory();
+    const dispatch = useDispatch();
+    const render = useSelector((state) => state.main.render);
+
+    useEffect(async()=>{
+      await dispatch(empAxios());
+    }, [render])
+
     const { emp_list } =
-      useSelector((state) => {
-        return {
-            emp_list: state.mypage.emp_list,
-        };
-      });
+    useSelector((state) => {
+      return {
+          emp_list: state.mypage.emp_list,
+      };
+    });
+
+   
     
     const emp_data = emp_list.map((item) => ({
         name: item.emp_NAME,
@@ -58,7 +70,7 @@ export function MyPage() {
           <tr>
             <td style={{paddingRight:"100px"}} rowSpan="7">
               <img
-                src={emp_data[0].img==null?"/upload/empImages/default.png":emp_data[0].imx}
+                src={emp_data[0].img==null?"/upload/empImages/default.png":emp_data[0].img}
                 style={{
                 width: "200px",
                 height: "225px",
