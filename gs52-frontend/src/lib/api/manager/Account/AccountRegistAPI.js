@@ -99,7 +99,7 @@ export const RegistAccount = async (
           alert("이미 등록된 이메일입니다.");
         }
         if (error.response.data.message == "Error: ID is already taken!") {
-          alert("이미 등록된 아이디입니다.");
+          alert("이미 등록된 사원번호입니다.");
         }
       } else if (error.request) {
       } else {
