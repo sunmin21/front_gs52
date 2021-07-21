@@ -1,5 +1,4 @@
-import { CCard, CCardBody, CCol, CRow } from "@coreui/react";
-import { Col, Row } from "antd";
+import { CCardBody, CCol, CRow } from "@coreui/react";
 
 const annualCard = (props) => {
   return (

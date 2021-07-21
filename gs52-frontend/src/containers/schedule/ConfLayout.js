@@ -48,7 +48,7 @@ const ConfLayout = () => {
 
       <CCardBody>
         <ConfButton style={{ textAlign: "right", margin: "auto" }}></ConfButton>
-
+        <br />
         {/* data의 길이가 0일 때, confroom이 렌더링 되도록 만들었다. 근데 이렇게 하면 데이터가 아무것도 없을때는 렌더링되지 않는다는 문제가 생긴다.... */}
         {conf_list.length !== 0 ? (
           //conf_list.length !== 0 ?

@@ -173,7 +173,7 @@ export function InformField() {
     }
     //fullAddress -> 전체 주소반환
     setAddr(fullAddress);
-    
+
     setIsDaumPost(false);
   };
 
@@ -189,7 +189,8 @@ export function InformField() {
               <p></p>
               1. 초기 비밀번호는 사원번호이니, 비밀번호 재설정을 하십시오.
               <br />
-              2. 해당 페이지는 회원 정보 수정 후, 다음 로그인 시 나타나지 않습니다.
+              2. 해당 페이지는 회원 정보 수정 후, 다음 로그인 시 나타나지
+              않습니다.
               <br />
             </CCol>
           </CFormGroup>
@@ -259,6 +260,7 @@ export function InformField() {
               <CButton onClick={onModal} color="light">
                 우편번호찾기
               </CButton>
+              <br />
               <>
                 {isDaumPost ? (
                   <DaumPostCode
@@ -296,12 +298,18 @@ export function InformField() {
         </CCardBody>
 
         <CCardFooter>
-          <CButton type="submit" size="sm" color="primary" onClick={onRegist}>
-            등록
-          </CButton>
           <CButton type="reset" size="sm" color="danger">
-            {" "}
             취소
+          </CButton>
+
+          <CButton
+            type="submit"
+            size="sm"
+            color="primary"
+            onClick={onRegist}
+            style={{ float: "right" }}
+          >
+            등록
           </CButton>
         </CCardFooter>
       </CCard>

@@ -1,6 +1,4 @@
 import React from "react";
-
-import { useSelector } from "react-redux";
 import BusinessTable from "src/components/attendance/BusinessTrip/BusinessTable";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
@@ -14,7 +12,6 @@ const contentStyle = {
 };
 
 const BusinessTripManageMent = () => {
-  const board = useSelector((state) => state.test.board);
   const vacation_EMP_INDEX = getCurrentUser();
   return (
     <>
