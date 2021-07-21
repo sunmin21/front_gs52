@@ -685,7 +685,7 @@ const ProjectContent = () => {
                         key={key}
                         onClick={() => {
                           Helpers.httpRequest(
-                            `http://192.168.20.17:3000${item.project_REACT_PATH}`,
+                            `http://192.168.20.17${item.project_REACT_PATH}`,
                             "get"
                           )
                             .then((response) => response.blob())
