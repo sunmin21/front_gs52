@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import {
   CCard,
@@ -14,7 +14,7 @@ import {
   SelectWeekTotal,
   SelectVacation,
 } from "src/lib/api/main/TimeProgress";
-import { SelectWorkCheck } from "src/lib/api/main/SideBar";
+import { SelectWorkCheck,SelectWorkRule } from "src/lib/api/main/SideBar";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -27,6 +27,10 @@ export function TimeProgress() {
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
   const [breakTime, setBreakTime] = useState(null);
+  const [todayTotal, setTodayTotal] =useState(null)
+
+  const [teamStart, setTeamStart] = useState(null);
+  const [teamEnd, setTeamEnd] = useState(null);
 
   // 7:연차, 8:오전반차, 9:오후반차
   // const [dayoff, setDayoff] = useState(0)
@@ -36,9 +40,18 @@ export function TimeProgress() {
 
   const render = useSelector((state) => state.main.render);
 
+  useLayoutEffect(()=>{
+    
+    SelectWorkRule(user.team).then((item)=>{
+      setTeamStart(item.data[0].work_RULE_START)
+      setTeamEnd(item.data[0].work_RULE_END)
+    })
+  },[])
+
   useEffect(async () => {
     await SelectWorkCheck(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
+        console.log(item)
         if (item.data != 0) {
           if (item.data[0].attend_START != null) {
             setStartTime(item.data[0].attend_START);
@@ -48,6 +61,9 @@ export function TimeProgress() {
           }
           if (item.data[0].attend_BREAK != null) {
             setBreakTime(item.data[0].attend_BREAK);
+          }
+          if (item.data[0].attend_TOTAL != null) {
+            setTodayTotal(item.data[0].attend_TOTAL);
           }
         }
       }
@@ -92,7 +108,7 @@ export function TimeProgress() {
 
   //return()=>setooooo    <- useEffect의 cleanup
   useEffect(() => {
-    if (startTime != null) {
+    if (startTime != null&&todayTotal==null) {
       var str = startTime.split(":");
       const currentMinute = date.getHours() * 60 + date.getMinutes();
       const startMinute = parseInt(str[0]) * 60 + parseInt(str[1]);
@@ -103,7 +119,14 @@ export function TimeProgress() {
         minutes: calculMinute % 60,
       });
     }
-  }, [startTime]);
+    else if (startTime != null&&todayTotal!=null){
+      
+      setDateTime({
+        hours: todayTotal / 60,
+        minutes: todayTotal % 60,
+      });
+    }
+  }, [startTime,todayTotal]);
 
   const date = new Date();
   const [dateTime, setDateTime] = useState({
@@ -164,7 +187,7 @@ export function TimeProgress() {
   const showTodayWork = () => {
     return (
       <div>
-        오늘의 근무시간 {Math.floor(dateTime.hours) - 1}시간 {dateTime.minutes}
+        오늘의 근무시간 {Math.floor(dateTime.hours)}시간 {dateTime.minutes}
         분
       </div>
     );
@@ -203,6 +226,10 @@ export function TimeProgress() {
         }
       />
 
+      <CRow style={{color:"gray", paddingBottom:"15px"}}>
+        <CCol sm="3">정규 출근시간 : {teamStart}</CCol>
+        <CCol sm="3">정규 퇴근시간 : {teamEnd}</CCol>
+      </CRow>
       <CRow>
         <CCol sm="3">{startTime != null ? showStart() : null}</CCol>
         <CCol sm="3">{endTime != null ? showEnd() : null}</CCol>

@@ -178,6 +178,7 @@ export function InformChange() {
             </CCol>
             <CCol xs="12" md="9">
               <CInput
+                disabled
                 id="name"
                 name="name"
                 placeholder={emp_data[0].name}

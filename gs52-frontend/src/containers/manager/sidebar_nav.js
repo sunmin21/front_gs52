@@ -18,6 +18,12 @@ const _nav = [
   },
   {
     _tag: "CSidebarNavItem",
+    name: "연차/출장관리",
+    to: "/manager/VacationManage",
+    icon: "cil-Notes",
+  },
+  {
+    _tag: "CSidebarNavItem",
     name: "계정 등록",
     to: "/manager/addAccount",
     icon: "cil-Notes",
@@ -26,12 +32,6 @@ const _nav = [
     _tag: "CSidebarNavItem",
     name: "항목추가",
     to: "/manager/addOptions",
-    icon: "cil-Notes",
-  },
-  {
-    _tag: "CSidebarNavItem",
-    name: "연차/출장관리",
-    to: "/manager/VacationManage",
     icon: "cil-Notes",
   },
   {

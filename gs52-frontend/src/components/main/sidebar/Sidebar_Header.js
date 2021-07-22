@@ -3,9 +3,8 @@ import WorkTime from "../worktime/WorkTime";
 import moment from "moment";
 import { useEffect, useState } from "react";
 
-import { SelectEmpImg } from "src/lib/api/main/SideBar";
+import { SelectEmpImg,SelectWorkRule } from "src/lib/api/main/SideBar";
 import WiseSaying from "./WiseSaying";
-import { CImg } from "@coreui/react";
 import { userList } from "src/lib/api/auth/auth";
 
 import { useSelector } from "react-redux";
@@ -22,6 +21,8 @@ function Sidebar_Header({ nav }) {
 
 
   useEffect(async () => {
+    console.log("user")
+    console.log(user)
     SelectEmpImg(user.index).then((res) => {
       if (res.data[0] != null) {
         setImg(res.data[0].emp_IMG_PATH);
