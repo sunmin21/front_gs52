@@ -46,7 +46,7 @@ const ManagerRoute = [
     path: "/manager/",
     name: "관리자페이지",
     exact: true,
-    component: addAccount,
+    component: vacationManage,
   },
   {
     path: "/manager/ProjectManage",
