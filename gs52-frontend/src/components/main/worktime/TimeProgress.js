@@ -21,16 +21,16 @@ import { useDispatch, useSelector } from "react-redux";
 export function TimeProgress() {
   const user = getCurrentUser();
   const dispatch = useDispatch();
-  const [user_52, setUser_52] = useState(0);
-  const [work_regular, setWork_regular] = useState(40);
+  const [user_52, setUser_52] = useState(0);              //유저 이번주 근무시간
+  const [work_regular, setWork_regular] = useState(40);   //그냥 기본 40시간
 
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
-  const [breakTime, setBreakTime] = useState(null);
-  const [todayTotal, setTodayTotal] =useState(null)
+  const [startTime, setStartTime] = useState(null);       //오늘 출근
+  const [endTime, setEndTime] = useState(null);           //오늘 퇴근
+  const [breakTime, setBreakTime] = useState(null);       //휴게시간
+  const [todayTotal, setTodayTotal] =useState(null)       //오늘토탈
 
-  const [teamStart, setTeamStart] = useState(null);
-  const [teamEnd, setTeamEnd] = useState(null);
+  const [teamStart, setTeamStart] = useState(null);       //팀 출근
+  const [teamEnd, setTeamEnd] = useState(null);           //팀퇴근
 
   // 7:연차, 8:오전반차, 9:오후반차
   // const [dayoff, setDayoff] = useState(0)
@@ -74,10 +74,12 @@ export function TimeProgress() {
     // })
     await SelectWeekTotal(user.index, moment().format("YYYY-MM-DD")).then(
       (item) => {
+        console.log(item)
         let a = 0;
         for (let i = 0; i < item.data.length; i++) {
           a = a + item.data[i].attend_TOTAL;
           setUser_52(a);
+          console.log(a)
         }
       }
     );
@@ -88,16 +90,16 @@ export function TimeProgress() {
       (item) => {
         for (let i = 0; i < item.data.length; i++) {
           if ("7" == item.data[i].attend_ATTEND_TYPE_INDEX) {
-            setWork_regular(work_regular - item.data[i].attend_TYPE_COUNT * 8);
+            setWork_regular(work_regular - (item.data[i].attend_TYPE_COUNT * 8));
             //setDayoff(item.data[i].attend_TYPE_COUNT)
           } else if ("8" == item.data[i].attend_ATTEND_TYPE_INDEX) {
             setWork_regular(
-              work_regular - item.data[i].attend_TYPE_COUNT * 3.5
+              work_regular - (item.data[i].attend_TYPE_COUNT * 3.5)
             );
             //setHalfday_AM(item.data[i].attend_TYPE_COUNT)
           } else if ("9" == item.data[i].attend_ATTEND_TYPE_INDEX) {
             setWork_regular(
-              work_regular - item.data[i].attend_TYPE_COUNT * 4.5
+              work_regular - (item.data[i].attend_TYPE_COUNT * 4.5)
             );
             //setHalfday_PM(item.data[i].attend_TYPE_COUNT)
           }
@@ -106,12 +108,19 @@ export function TimeProgress() {
     );
   }, []);
 
+  const date = new Date();
+  const [dateTime, setDateTime] = useState({
+    hours: null,
+    minutes: null,
+  });
   //return()=>setooooo    <- useEffect의 cleanup
-  useEffect(() => {
+  useLayoutEffect(() => {
+    console.log("useeffecttttttttttttt")
     if (startTime != null&&todayTotal==null) {
+      console.log("startTime111")
       var str = startTime.split(":");
-      const currentMinute = date.getHours() * 60 + date.getMinutes();
-      const startMinute = parseInt(str[0]) * 60 + parseInt(str[1]);
+      const currentMinute = (date.getHours() * 60) + date.getMinutes();
+      const startMinute = (parseInt(str[0]) * 60) + parseInt(str[1]);
       const calculMinute = currentMinute - startMinute;
 
       setDateTime({
@@ -119,8 +128,8 @@ export function TimeProgress() {
         minutes: calculMinute % 60,
       });
     }
-    else if (startTime != null&&todayTotal!=null){
-      
+    else if (startTime == null&&todayTotal!=null){
+      console.log("startTime222")
       setDateTime({
         hours: todayTotal / 60,
         minutes: todayTotal % 60,
@@ -128,19 +137,14 @@ export function TimeProgress() {
     }
   }, [startTime,todayTotal]);
 
-  const date = new Date();
-  const [dateTime, setDateTime] = useState({
-    hours: date.getHours(),
-    minutes: date.getMinutes(),
-    seconds: date.getSeconds(),
-  });
 
   const showStart = () => {
     var str = startTime.split(":");
+    console.log("showStart")
     setInterval(() => {
       const date = new Date();
-      const currentMinute = date.getHours() * 60 + date.getMinutes();
-      const startMinute = parseInt(str[0]) * 60 + parseInt(str[1]);
+      const currentMinute = (date.getHours() * 60) + date.getMinutes();
+      const startMinute = (parseInt(str[0]) * 60) + parseInt(str[1]);
       const calculMinute = currentMinute - startMinute;
 
       setDateTime({
@@ -206,20 +210,26 @@ export function TimeProgress() {
       <h4>{startTime != null ? showTodayWork() : null}</h4>
       <CProgress
         value={
-          ((user_52 + Math.floor(dateTime.hours) * 60 + dateTime.minutes - 60) /
-            (work_regular * 60)) *
-          100
+          ((user_52 + (Math.floor(dateTime.hours) * 60) + dateTime.minutes) /
+            (work_regular * 60)) * 100
         }
         showPercentage
         className="mb-3"
         style={{ marginTop: "20px" }}
       />
 
+
+        {console.log("user_52")}
+        {console.log(user_52)}
+        {console.log("(Math.floor(dateTime.hours)")}
+        {console.log(Math.floor(dateTime.hours))}
+        {console.log("dateTime.minutes")}
+        {console.log(dateTime.minutes)}
       <CProgress
         color="danger"
         showPercentage
         value={
-          ((user_52 + Math.floor(dateTime.hours) * 60 + dateTime.minutes) /
+          ((user_52 + (Math.floor(dateTime.hours) * 60) + dateTime.minutes) /
             //((user_52 + Math.floor(dateTime.hours) * 60 + dateTime.minutes-60) /
             (work_regular * 60)) %
           100
