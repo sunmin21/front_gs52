@@ -32,6 +32,7 @@ export function InformChange() {
   const [filename, setFileName] = useState("");
   const [email_message, setEmail_message]=useState("");
   const [check, setCheck]=useState(true);
+  const render = useSelector((state) => state.main.render);
 
   var regex_email = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
  
@@ -134,6 +135,8 @@ export function InformChange() {
     }
     else{
       const ad = addr + address;
+      console.log(ad)
+      
       
       if (file[0] != null) {
         await updateEmpImg(formData);
@@ -143,7 +146,7 @@ export function InformChange() {
         alert("변경된 것이 없습니다.");
       } 
       else {
-        await UpdateInform(user.index, name, email, tel, ad).then(
+        await UpdateInform(user.index, name, email, tel, ad==0?null:ad).then(
           (response) => {
             alert("수정되었습니다.");
             dispatch(progressRender());
