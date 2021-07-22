@@ -190,7 +190,7 @@ const ProjectContent = () => {
     )[0].리더;
   }
   if (projectNo === 0) {
-    return <Redirect to="/schedule/project" />;
+    return <Redirect to="/task/project" />;
   }
   return (
     <>

@@ -51,7 +51,7 @@ function Completed({ dispatch, proceeding }) {
         pagination
         onRowClick={(item) => {
           history.push({
-            pathname: `/schedule/project/detail`,
+            pathname: `/task/project/detail`,
           });
           dispatch(projectNoChange({ index: item.인덱스 }));
         }}

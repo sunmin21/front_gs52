@@ -40,7 +40,7 @@ const Project = () => {
           size="lg"
           className="m-2"
           onClick={() => {
-            history.push("/schedule/project/create");
+            history.push("/task/project/create");
           }}
         >
           프로젝트 생성

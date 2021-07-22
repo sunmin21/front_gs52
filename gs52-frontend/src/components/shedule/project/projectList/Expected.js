@@ -28,7 +28,7 @@ function Expected({ dispatch, proceeding }) {
       담당자: item.emp_NAME,
       인덱스: item.project_INDEX,
     }));
-  
+
   return (
     <CCardBody>
       <CDataTable
@@ -51,7 +51,7 @@ function Expected({ dispatch, proceeding }) {
         pagination
         onRowClick={(item) => {
           history.push({
-            pathname: `/schedule/project/detail`,
+            pathname: `/task/project/detail`,
           });
           dispatch(projectNoChange({ index: item.인덱스 }));
         }}
