@@ -114,7 +114,7 @@ export function TimeProgress() {
       var str = startTime.split(":");
       const currentMinute = (date.getHours() * 60) + date.getMinutes();
       const startMinute = (parseInt(str[0]) * 60) + parseInt(str[1]);
-      const calculMinute = currentMinute - startMinute;
+      const calculMinute = currentMinute - startMinute- breakTime;
 
       setDateTime({
         hours: calculMinute / 60,
@@ -131,22 +131,26 @@ export function TimeProgress() {
     const min = parseInt(user_52) + Math.floor(dateTime.hours)*60 + dateTime.minutes;
     setWeekHour(Math.floor(min/60))
     setWeekMin(min%60)
-  }, [startTime,todayTotal,user_52]);
+  }, [startTime,todayTotal,user_52,breakTime]);
 
 
   const showStart = () => {
     var str = startTime.split(":");
+    
+    if(localStorage.getItem("breakIndex")==null){
     setInterval(() => {
       const date = new Date();
       const currentMinute = (date.getHours() * 60) + date.getMinutes();
       const startMinute = (parseInt(str[0]) * 60) + parseInt(str[1]);
-      const calculMinute = currentMinute - startMinute;
-
-      setDateTime({
-        hours: calculMinute / 60,
-        minutes: calculMinute % 60,
-      });
+      const calculMinute = currentMinute - startMinute-breakTime;
+          
+    console.log("showStart")
+        setDateTime({
+          hours: calculMinute / 60,
+          minutes: calculMinute % 60,
+        });
     }, 1000 * 60);
+  }
     return (
       <div style={{ width: "100px", textAlign: "center" }}>
         금일 출근시간{" "}
