@@ -44,11 +44,14 @@ const projectManage = handleActions(
       ...state,
       okayError: error,
     }),
-    [ALL_SUCCESS]: (state, { payload: all }) => ({
-      ...state,
-      allError: null,
-      all,
-    }),
+    [ALL_SUCCESS]: (state, { payload: all }) => {
+      console.log(all);
+      return {
+        ...state,
+        allError: null,
+        all,
+      };
+    },
 
     [ALL_FAILURE]: (state, { payload: error }) => ({
       ...state,

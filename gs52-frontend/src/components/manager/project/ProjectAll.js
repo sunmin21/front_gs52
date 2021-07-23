@@ -13,9 +13,25 @@ import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { projectNoChange } from "src/modules/schedule/project/project";
 import { AllAxios, okayAxios } from "src/modules/manager/Project";
 import { UpdateOKay } from "src/lib/api/manager/project/ProjectAPI";
-import { Button } from "antd";
+import { Badge, Button } from "antd";
 import "antd/dist/antd.css";
-
+const getBadge = (status) => {
+  switch (status) {
+    case "대기":
+      return "warning";
+    case "승인":
+      return "success";
+    case "반려":
+      return "error";
+    default:
+      return "primary";
+  }
+};
+const Done = {
+  0: "대기",
+  1: "승인",
+  2: "반려",
+};
 function ProjectAll() {
   const user = getCurrentUser();
   let [emp] = useState(user.index);
@@ -25,12 +41,12 @@ function ProjectAll() {
   const history = useHistory();
   const { all } = useSelector((state) => {
     return {
-      all: state.projectOkay.okay,
+      all: state.projectOkay.all,
     };
   });
 
   useEffect(() => {
-    dispatch(AllAxios());
+    dispatch(AllAxios(user.roles[0]));
   }, [dispatch]);
 
   const data = all.map((item, key) => {
@@ -62,8 +78,7 @@ function ProjectAll() {
               "시작",
               "종료",
               { key: "담당자", _style: { width: "10%" } },
-              "수락",
-              "반려",
+              "상태",
             ]}
             columnFilter
             tableFilter
@@ -89,31 +104,12 @@ function ProjectAll() {
                   </td>
                 );
               },
-              수락: (item) => (
-                <td className="py-2">
-                  <Button
-                    type="primary"
-                    onClick={async (e) => {
-                      await UpdateOKay(item.pindex, 1);
-                      await dispatch(okayAxios());
-                    }}
-                  >
-                    수락
-                  </Button>
-                </td>
-              ),
-              반려: (item) => (
-                <td className="py-2">
-                  <Button
-                    type="primary"
-                    danger
-                    onClick={async (e) => {
-                      await UpdateOKay(item.pindex, 2);
-                      await dispatch(okayAxios());
-                    }}
-                  >
-                    반려
-                  </Button>
+              상태: (item) => (
+                <td>
+                  <Badge
+                    status={getBadge(Done[item.상태])}
+                    text={Done[item.상태]}
+                  ></Badge>
                 </td>
               ),
             }}

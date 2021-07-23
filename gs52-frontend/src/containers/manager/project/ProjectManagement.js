@@ -13,8 +13,9 @@ import {
 } from "@coreui/react";
 import ProjectManage from "src/components/manager/project/ProjectManage";
 import ProjectAll from "src/components/manager/project/ProjectAll";
-
+import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 const ProjectManagement = () => {
+  const user = getCurrentUser();
   const contentStyle = {
     backgroundColor: "#3e4b54",
     width: "400px",
@@ -24,6 +25,8 @@ const ProjectManagement = () => {
     borderRadius: "50px",
     marginBottom: "10px",
   };
+  console.log(user.roles[0]);
+  console.log(user.index);
   return (
     <>
       <CCol xs="12" md="12" className="mb-4">
@@ -40,17 +43,21 @@ const ProjectManagement = () => {
                 <CNavItem>
                   <CNavLink>프로젝트 승인</CNavLink>
                 </CNavItem>
-                <CNavItem>
-                  <CNavLink>프로젝트 전체 목록</CNavLink>
-                </CNavItem>
+                {user.roles[0] === "ROLE_ADMIN" && (
+                  <CNavItem>
+                    <CNavLink>프로젝트 전체 목록</CNavLink>
+                  </CNavItem>
+                )}
               </CNav>
               <CTabContent>
                 <CTabPane>
-                  <ProjectManage />
+                  <ProjectManage roles={user.roles[0]} index={user.index} />
                 </CTabPane>
-                <CTabPane>
-                  <ProjectAll />
-                </CTabPane>
+                {user.roles[0] === "ROLE_ADMIN" && (
+                  <CTabPane>
+                    <ProjectAll roles={user.roles[0]} />
+                  </CTabPane>
+                )}
               </CTabContent>
             </CTabs>
           </CCardBody>

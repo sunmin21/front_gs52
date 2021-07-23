@@ -1,10 +1,7 @@
 import client from "../../client";
-import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 
 // const API_URL = "http://http://localhost:8081";
 const API_URL = "http://192.168.20.17:8081";
-
-const user = getCurrentUser();
 
 if (localStorage.getItem("accessToken") != null) {
   client.defaults.headers.common.Authorization = `Bearer ${localStorage
@@ -19,27 +16,33 @@ if (localStorage.getItem("accessToken") != null) {
 //   return okay;
 // };
 
-export const SelectOkay = async (index) => {
-  if (user.roles == "ROLE_ADMIN") {
+export const SelectOkay = async (param) => {
+  if (param.roles == "ROLE_ADMIN") {
     const okay = await client.post(API_URL + "/manager/project/selectOkay", {
-      project_INDEX: index,
+      project_INDEX: param.index,
     });
 
-    console.log(okay);
     return okay;
-  } else if (user.roles == "ROLE_TEAMLEADER") {
+  } else if (param.roles == "ROLE_TEAMLEADER") {
+    console.log("@#!@$");
+
+    const okay = await client.post(
+      API_URL + "/manager/project/selectOkay_teamLeader",
+      {
+        project_WITH_LEADER: param.index,
+      }
+    );
+    return okay;
   }
 };
 
-export const SelectAll = async (index) => {
-  if (user.roles == "ROLE_ADMIN") {
+export const SelectAll = async (roles, index) => {
+  if (roles == "ROLE_ADMIN") {
     const okay = await client.post(API_URL + "/manager/project/selectAll", {
       project_INDEX: index,
     });
 
-    console.log(okay);
     return okay;
-  } else if (user.roles == "ROLE_TEAMLEADER") {
   }
 };
 

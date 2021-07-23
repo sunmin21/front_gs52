@@ -11,12 +11,12 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "src/lib/api/jwt/LoginAPI";
 import { projectNoChange } from "src/modules/schedule/project/project";
-import { okayAxios } from "src/modules/manager/Project";
+import { AllAxios, okayAxios } from "src/modules/manager/Project";
 import { UpdateOKay } from "src/lib/api/manager/project/ProjectAPI";
 import { Button } from "antd";
 import "antd/dist/antd.css";
 
-function ProjectManage() {
+function ProjectManage({ roles, index }) {
   const user = getCurrentUser();
   let [emp] = useState(user.index);
 
@@ -30,7 +30,8 @@ function ProjectManage() {
   });
 
   useEffect(() => {
-    dispatch(okayAxios());
+    console.log(index);
+    dispatch(okayAxios({ roles, index }));
   }, [dispatch]);
 
   const data = okay.map((item, key) => {
@@ -43,9 +44,11 @@ function ProjectManage() {
       담당자: item.emp_NAME,
       상태: item.project_OKAY,
       인덱스: item.project_INDEX,
+      리더: item.project_WITH_LEADER,
     };
   });
-
+  console.log(index);
+  console.log(okay);
   return (
     <CRow>
       <CCol>
@@ -95,7 +98,8 @@ function ProjectManage() {
                     type="primary"
                     onClick={async (e) => {
                       await UpdateOKay(item.pindex, 1);
-                      await dispatch(okayAxios());
+                      await dispatch(okayAxios({ roles, index: item.리더 }));
+                      await dispatch(AllAxios(roles));
                     }}
                   >
                     수락
@@ -109,7 +113,8 @@ function ProjectManage() {
                     danger
                     onClick={async (e) => {
                       await UpdateOKay(item.pindex, 2);
-                      await dispatch(okayAxios());
+                      await dispatch(okayAxios({ roles, index: item.리더 }));
+                      await dispatch(AllAxios(roles));
                     }}
                   >
                     반려
